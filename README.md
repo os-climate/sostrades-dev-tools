@@ -17,15 +17,30 @@ Follow the diagram below to know what you need to install :
 The objective is to have all folders properly organized on your local computer. Admin rights on your computer are mandatory to ensure a smooth installation process.  
 
 
-### 2.1 WSL and conda install
+### 2.1 WSL and/or Ubuntu install + Conda
 
-1. Disconnect from any VPN (if connected)
-2. Install WSL with
+1. Install WSL2 if using Windows
 ```
 wsl --install --web-download
 ```
 
-3. Check conda installation with 
+2. Install Ubuntu 22.04 LTS 
+
+On Windows with WSL2
+```
+wsl --install -d Ubuntu-22.04
+```
+
+As an alternative
+You may use directly Ubuntu 22.04 LTS or an equivalent, in this case you may have to make some changes on you own.
+
+4. Launch Ubuntu
+
+![](doc_images/ubuntu_installed.png) 
+
+
+5. Conda installation
+Check conda installation with 
 `conda info`, if not installed do 
 ```
 pip install conda
@@ -38,32 +53,27 @@ chmod +x Anaconda3-2023.09-0-Linux-x86_64.sh
 # => Accept licence and follow instructions
 # Restart terminal for env variables update
 ```
-4. Start and Install Ubuntu
 
+6. Install jq
+```
+$ sudo apt  install jq           #For Debian/Ubuntu
+$ sudo yum install jq            #For Fedora/CentOS/RHEL
+$ sudo pacman -Syu jq            #For Arch
+```
 
-![](doc_images/ubuntu_installed.png) 
-
-
-### 2.2 Configure github account
-
-It is recommended to add a personall access token with SSO access to your Github account. 
-1. Go to account token management https://github.com/settings/tokens
-2. Create a new token with needed rights
-3. Configure SSO
-4. Use it as password when doing git clone
 
 ### 2.3 Clone code and tools
 
-All development environments are built from a dedicated repository. This repository will be used as root and will contains all the others necessary repositories from OS-Climate. This root repository contains VSCode tasks and launch docker-compose files. This allows to launch SoStrades in docker containers and to debug webapi servers directly from thus container in VS Code . From the repository a script is available to clone all the repositories to prepare the development environment.
+All development environments are built from a dedicated directory initiated with this repository. This directory will be used as root and will contains all the others necessary repositories from OS-Climate. This root directory contains VSCode tasks and launch docker-compose files. This allows to launch SoStrades in docker containers and to debug webapi servers directly from thus container in VS Code. From the repository a script is available to clone all the repositories to prepare the development environment.
 
-1. Clone the root repository
+1. Clone this repository in root directory
 ```
 git clone https://github.com/os-climate/sostrades-dev-tools
 (For SSH : git clone git@github.com:os-climate/sostrades-dev-tools.git)
  
 cd sostrades-dev-tools
 ```
-2. Configure model repositories : Edit the model_repositories.json and platform_repositories.json according to what repositories you want.
+2. If needed configure model repositories : Edit the model_repositories.json and platform_repositories.json according to what repositories you want.
 
 ```
 [
@@ -91,22 +101,37 @@ You are a developer and need a local working platform.
 
 Follow common setup paragraph :
 
-- WSL2 + Ubuntu 22.04 LTS
-- VSCode installed on Windows
+- WSL2 + Ubuntu 22.04 LTS or directly an Ubuntu equivalent
 
-### 3.2 Docker installation in WSL
+You will need also:
 
-1. Follow steps https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-, install using APT repository section should work.
-2. Add your user to docker group 
+- Docker 24.0.4 installed and running with your account (on Ubuntu)
+- Docker compose 2.17.2 installed (on Ubuntu)
+
+
+1. Try running  "docker" and  "docker compose" to see if command is recognized
 ```
-sudo usermod -aG docker ${USER}
+docker --version
+docker compose --version 
 
+docker ps 
 ```
-3. Restart ubuntu to refresh rights
-4. Try running "docker compose" to see if command is recognized
+ 
+ If this commands are not working fix docker and docker-compose installation before to continue 
 
-![](doc_images/ubuntu_installed.png) 
+### 3.2 Visual Studio Code (VSCode) installation 
+VSCode settings have been written in dedicated files during execution of PrepareDevEnv.sh (in a previous step).
+
+The following command can be run to install VSCode :
+```
+sudo snap install --classic code
+```
+
+In order to benefit from VSCode settings, type the following command in the "sostrades-dev-tools" directory, at the same level than the "./vscode" (hidden) folder (or models/ and platform/ visible directories) :
+```
+code . &
+```
+
 
 ### 3.3 Prepare development environment with docker
 
@@ -151,7 +176,7 @@ docker compose down
 ```
 docker compose -f docker-compose.debug.yml up
 ```
-In VSCode you have 4 debug profiles : 
+If using VSCode you will find  4 debug profiles : 
 
 - Remote attach main
 - Remote attach message
@@ -175,7 +200,7 @@ The objective is to have a working local dev environment based on a conda venv, 
 
 Follow 2. common setup paragraph :
 
-- WSL2 + Ubuntu 22.04 LTS
+- WSL2 + Ubuntu 22.04 LTS or directly an Ubuntu equivalent
 - Conda installed
 
 ### 4.2 Prepare Conda environment
@@ -207,4 +232,4 @@ Select "Python 3.9.x ("SOSTradesEnv")
 
 ![](doc_images/select_python.png) 
 
-Now you can launch any SoSTrades code from VSCode using the WSL install. 
+Now you can launch any SoSTrades code from VSCode.
