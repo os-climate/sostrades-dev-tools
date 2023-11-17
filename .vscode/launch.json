@@ -1,0 +1,64 @@
+{
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+        },
+        {
+            "name": "Python: Remote Attach main",
+            "type": "python",
+            "request": "attach",
+            "port": 5678,
+            "host": "localhost",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/usr/local/sostrades/sources/"
+                }
+            ]
+        },
+        {
+            "name": "Python: Remote Attach data",
+            "type": "python",
+            "request": "attach",
+            "port": 5679,
+            "host": "localhost",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/usr/local/sostrades/sources/"
+                }
+            ]
+        },
+        {
+            "name": "Python: Remote Attach post processing",
+            "type": "python",
+            "request": "attach",
+            "port": 5681,
+            "host": "localhost",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/usr/local/sostrades/sources/"
+                }
+            ]
+        },
+        {
+            "name": "Python: Remote Attach message",
+            "type": "python",
+            "request": "attach",
+            "port": 5680,
+            "host": "localhost",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/usr/local/sostrades/sources/"
+                }
+            ]
+        }
+    ],
+}

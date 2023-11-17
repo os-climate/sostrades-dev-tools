@@ -1,0 +1,9 @@
+echo "CREATE DATABASE \`sostrades-data\`;"
+echo "CREATE DATABASE \`sostrades-log\`;"
+
+echo "CREATE USER '$SQL_ACCOUNT'@'api.sostrades.local' IDENTIFIED BY '$SQL_PASSWORD';"
+echo "CREATE USER '$LOG_USER'@'api.sostrades.local' IDENTIFIED BY '$LOG_PASSWORD';"
+echo "GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, REFERENCES, SELECT, UPDATE ON \`sostrades-data\`.* TO '$SQL_ACCOUNT'@'api.sostrades.local';"
+echo "GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, REFERENCES, SELECT, UPDATE ON \`sostrades-log\`.* TO '$LOG_USER'@'api.sostrades.local';"
+echo "FLUSH PRIVILEGES;"
+

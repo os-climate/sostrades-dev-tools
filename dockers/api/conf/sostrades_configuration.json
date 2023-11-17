@@ -1,0 +1,61 @@
+{
+  "ENVIRONMENT": "PRODUCTION",
+
+  "SQL_ALCHEMY_DATABASE": {
+    "HOST" : "database.sostrades.local",
+    "PORT" : 3306,
+    "USER_ENV_VAR": "SQL_ACCOUNT",
+    "PASSWORD_ENV_VAR": "SQL_PASSWORD",
+    "DATABASE_NAME": "sostrades-data",
+    "SSL": false
+  },
+
+  "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+
+
+  "LOGGING_DATABASE": {
+    "HOST" : "database.sostrades.local",
+    "PORT" : 3306,
+    "USER_ENV_VAR": "LOG_USER",
+    "PASSWORD_ENV_VAR": "LOG_PASSWORD",
+    "DATABASE_NAME": "sostrades-log",
+    "SSL": false
+  },
+
+  "SECRET_KEY_ENV_VAR": "SECRET_KEY",
+
+  "JWT_TOKEN_LOCATION": "headers",
+  "JWT_ACCESS_TOKEN_EXPIRES": 18000,
+  "JWT_REFRESH_TOKEN_EXPIRES": 36000,
+ 
+  "DEFAULT_GROUP_MANAGER_ACCOUNT": "All users",
+
+  "CREATE_STANDARD_USER_ACCOUNT": false,
+ 
+  "LDAP_SERVER" : "",
+  "LDAP_BASE_DN" : "",
+  "LDAP_FILTER" : "",
+  "LDAP_USERNAME" : "",
+
+  "SMTP_SERVER" : "",
+  "SMTP_SOS_TRADES_ADDR" : "",
+
+  "SOS_TRADES_ENVIRONMENT" : "Local",
+  "SOS_TRADES_K8S_DNS": "",
+  "SOS_TRADES_FRONT_END_DNS": "",
+
+  "SOS_TRADES_ONTOLOGY_ENDPOINT": "http://ontology.sostrades.local:5555/api/ontology",
+
+  "SOS_TRADES_PROCESS_REPOSITORY": [],
+
+  "INTERNAL_SSL_CERTIFICATE": "",
+
+  "SOS_TRADES_REFERENCES": "/usr/local/sostrades/data/reference",
+  "SOS_TRADES_DATA": "/usr/local/sostrades/data",
+  "SOS_TRADES_SOURCES": "/usr/local/sostrades/sources",
+  "EEB_PATH": "",
+  "SOS_TRADES_EXECUTION_STRATEGY": "subprocess",
+  "SOS_TRADES_RSA": "/usr/local/sostrades/conf/mock_rsa/",
+  "SOS_TRADES_SERVER_MODE": "mono"
+
+}

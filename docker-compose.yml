@@ -1,0 +1,77 @@
+version: '3.4'
+
+services:
+  database:
+    image: sostrades/mysqlv4:latest
+    build:
+      context: ./dockers/
+      dockerfile: ./mysql/Dockerfile
+    container_name: database
+    restart: always
+    expose:
+      - 3306
+    env_file:
+      - ./dockers/env/mysql-root-credentials.env
+    volumes:
+      - ./dockers/app-data/mysql/data/.:/var/lib/mysql
+
+  webserver:
+    image: sostrades/nginxv4:latest
+    build:
+      context: .
+      dockerfile: ./dockers/frontend/Dockerfile
+    container_name: webserver
+    restart: always
+    ports:
+      - '1080:80'
+    expose:
+      - 1080
+    links:
+      - webapi
+    depends_on:
+      - webapi
+  ontology:
+    image: sostrades/ontologyv4:latest
+    build:
+      context: .
+      dockerfile: ./dockers/ontology/Dockerfile
+    container_name: ontology
+    restart: always
+    ports:
+      - '5555:5555'
+    expose:
+      - 5555
+  webapi:
+    image: sostrades/apiv4:latest
+    build:
+      context: .
+      dockerfile: ./dockers/api/Dockerfile
+    command: ["/bin/bash", "/startup/commands.sh"]
+
+    container_name: api
+    restart: always
+    expose:
+      - 8000
+      - 8001
+      - 8002
+      - 8003
+    env_file:
+      - ./dockers/env/sostrades-database-credentials.env
+      - ./dockers/env/sostrades-initial-account.env
+      - ./dockers/env/sostrades-platform.env
+    links:
+      - database
+      - ontology
+    depends_on:
+      - database
+      - ontology
+    volumes:
+      - ./dockers/resources/.:/resources/
+      - ./dockers/app-data/api/data/.:/usr/local/sostrades/data/
+      - ./platform/gemseo:/usr/local/sostrades/sources/platform/gemseo
+      - ./platform/sostrades-core:/usr/local/sostrades/sources/platform/sostrades-core
+      - ./platform/sostrades-webapi:/usr/local/sostrades/sources/platform/sostrades-webapi
+      - ./models:/usr/local/sostrades/sources/models
+networks:
+  default:
+    name: sostrades.local
