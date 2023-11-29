@@ -6,7 +6,7 @@ This repository contains files for local platform deployment, and local for virt
 
 Depending on your needs, two different environment installations are proposed. A common setup is mandatory whatever the installation you need to perform.
 
-Follow the diagram below to know what you need to install : 
+Follow the diagram below to know what you need to install: 
 
 
 ![](doc_images/choose_your_env.png) 
