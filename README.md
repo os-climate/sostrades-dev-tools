@@ -1,6 +1,6 @@
 # sostrades-dev-tools : Setup SoStrades platform
 
-This repository contains files for local platform deployment, and local for virtual environment venv creation. It also contains default vscode workspace configuration files
+This repository contains files for local platform deployment, and local for virtual environment venv creation. It also contains default vscode workspace configuration files.
 
 ## 1. Choose your environment
 
