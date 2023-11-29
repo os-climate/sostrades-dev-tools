@@ -132,7 +132,6 @@ In order to benefit from VSCode settings, type the following command in the "sos
 code . &
 ```
 
-
 ### 3.3 Prepare development environment with docker
 
 All the commands below need to be done from the root directory. 
@@ -220,7 +219,6 @@ In order to benefit from VSCode settings, type the following command in the "sos
 ```
 code . &
 ```
-
 
 ### 4.4 Use conda env in VS code
 
