@@ -42,29 +42,14 @@ RUN mkdir -p /usr/local/sostrades/sources /usr/local/sostrades/conf/ /startup
 WORKDIR /usr/local/sostrades/sources
 
 # Copy Python requirements and install them
-COPY ./../platform/sostrades-webapi/api.requirements.txt api.requirements.txt
+COPY ./platform/sostrades-webapi/api.requirements.txt api.requirements.txt
 RUN sed -i '/petsc\|numpy/d' api.requirements.txt && \
     pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy
 
-# Set all needed environment variables
-ENV FLASK_APP=sos_trades_api/server/base_server.py
-ENV FLASK_ENV=production
-ENV SOS_TRADES_SERVER_CONFIGURATION='/usr/local/sostrades/conf/sostrades_configuration.json'
-
-# Copy configuration files for sostrades 
-ADD ./../dockers/api/conf /usr/local/sostrades/conf
-
-# Copy startup files for sostrades 
-ADD ./../dockers/api/scripts /startup
-
-# Copy utility scripts
-#COPY ./../dockers/api/scripts/for_all.sh /usr/local/sostrades
-#RUN chmod +x /usr/local/sostrades/for_all.sh
-
 # Copy models and platform repos for standalone image if needed
-COPY ./../platform/sostrades-webapi ./platform/sostrades-webapi
-COPY ./../platform/sostrades-core ./platform/sostrades-core
-COPY ./../platform/gemseo ./platform/gemseo
-COPY ./../models ./models
+COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
+COPY ./platform/sostrades-core ./platform/sostrades-core
+COPY ./platform/gemseo ./platform/gemseo
+COPY ./models ./models
 
-#ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]
+ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]

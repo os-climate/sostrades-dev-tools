@@ -44,6 +44,8 @@ services:
       - webapi
     depends_on:
       - webapi
+    volumes:
+      - ./dockers/frontend/conf.d/.:/etc/nginx/conf.d/
   ontology:
     image: sostrades/ontologyv4:latest
     build:
@@ -85,6 +87,8 @@ services:
       - ontology
     volumes:
       - ./dockers/resources/.:/resources/
+      - ./dockers/api/scripts/.:/startup/
+      - ./dockers/api/conf/.:/usr/local/sostrades/conf/
       - ./dockers/app-data/api/data/.:/usr/local/sostrades/data/
       - ./platform/gemseo:/usr/local/sostrades/sources/platform/gemseo
       - ./platform/sostrades-core:/usr/local/sostrades/sources/platform/sostrades-core

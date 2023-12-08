@@ -30,27 +30,28 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 # Copy platform repos for standalone image if needed
 
-COPY ./../platform /usr/local/platform
-
-RUN sed -i '/petsc\|numpy/d'   /usr/local/platform/sostrades-webapi/api.requirements.txt && \
-    pip install -r  /usr/local/platform/sostrades-webapi/api.requirements.txt debugpy
-
 # Install ontology requirements
-WORKDIR /usr/local/platform/sostrades-ontology
-RUN pip install -r ontology.requirements.txt
+COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
 
-COPY ./../models /usr/local/models
+RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
+    pip install --no-cache-dir -r dev.requirements.txt debugpy
 
+COPY ./platform/gemseo ./platform/gemseo
+COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
+COPY ./platform/sostrades-core ./platform/sostrades-core
+COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
+COPY ./models ./models
 
 ## SET PYTHONPATH
-RUN ls -d /usr/local/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
-ls -d /usr/local/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \
-sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt
+RUN ls -d platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
+    ls -d models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \
+    sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
+    truncate -s-1 /tmp/pythonpath.txt
 
 # export pythonpath with all repo and launch script to generate .owl
 RUN export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
     echo $PYTHONPATH && \
-    python sos_ontology/core/script/createSoSOntologyFromCode.py
+    python platform/sostrades-ontology/sos_ontology/core/script/createSoSOntologyFromCode.py
 
 #------------------------------------------------------------------------------
 
@@ -65,14 +66,15 @@ RUN mkdir -p /usr/local/sostrades/sources
 RUN mkdir /startup
 
 # Install ontology requirements
-COPY ./../platform/sostrades-ontology /usr/local/sostrades/sources/sostrades-ontology
+COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
+RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn
+
 WORKDIR /usr/local/sostrades/sources/sostrades-ontology
-RUN pip install -r ontology.requirements.txt gunicorn
+COPY ./platform/sostrades-ontology .
 
 # Copy startup files for ontology 
-ADD ./../dockers/ontology/scripts /startup
+ADD ./dockers/ontology/scripts /startup
 
-COPY --from=builder /usr/local/platform/sostrades-ontology/sos_ontology/data/ /usr/local/sostrades/sources/sostrades-ontology/sos_ontology/
-COPY --from=builder /usr/local/platform/sostrades-ontology/sos_ontology/data/ /usr/local/sostrades/sources/sostrades-ontology/sos_ontology/data/
+COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/sostrades-ontology/sos_ontology/data/
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]

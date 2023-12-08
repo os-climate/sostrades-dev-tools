@@ -14,7 +14,6 @@ services:
       - ./dockers/env/mysql-root-credentials.env
     volumes:
       - ./dockers/app-data/mysql/data/.:/var/lib/mysql
-
   webserver:
     image: sostrades/nginxv4:latest
     build:
@@ -22,6 +21,8 @@ services:
       dockerfile: ./dockers/frontend/Dockerfile
     container_name: webserver
     restart: always
+    volumes:
+      - ./dockers/frontend/conf.d/.:/etc/nginx/conf.d/
     ports:
       - '1080:80'
     expose:
@@ -47,7 +48,6 @@ services:
       context: .
       dockerfile: ./dockers/api/Dockerfile
     command: ["/bin/bash", "/startup/commands.sh"]
-
     container_name: api
     restart: always
     expose:
@@ -67,6 +67,8 @@ services:
       - ontology
     volumes:
       - ./dockers/resources/.:/resources/
+      - ./dockers/api/scripts/.:/startup/
+      - ./dockers/api/conf/.:/usr/local/sostrades/conf/
       - ./dockers/app-data/api/data/.:/usr/local/sostrades/data/
       - ./platform/gemseo:/usr/local/sostrades/sources/platform/gemseo
       - ./platform/sostrades-core:/usr/local/sostrades/sources/platform/sostrades-core
