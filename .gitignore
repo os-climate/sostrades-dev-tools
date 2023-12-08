@@ -3,3 +3,10 @@ platform/
 dockers/app-data
 .vscode/settings.json
 Anaconda3-2023.09-0-Linux-x86_64.sh
+orbitdb/
+appsmith/
+arangodb/
+ipfs/
+dockers/api/conf/mock_rsa/private_key.pem
+dockers/api/conf/mock_rsa/public_key.pem
+

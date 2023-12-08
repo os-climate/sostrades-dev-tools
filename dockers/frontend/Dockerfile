@@ -17,7 +17,7 @@ FROM node:12.16.1 as front_build
 
 #------------------------------------------------------------------------------
 # Extract source code 'sostrades-webgui'
-COPY  ./../platform/sostrades-webgui /tmp/node_build/sostrades-webgui/
+COPY  ./platform/sostrades-webgui /tmp/node_build/sostrades-webgui/
 #------------------------------------------------------------------------------
 # Remove question about analytics
 RUN export NG_CLI_ANALYTICS=off
@@ -40,6 +40,4 @@ COPY --from=front_build /tmp/node_build/sostrades-webgui/dist/sos-trades-gui /us
 #------------------------------------------------------------------------------
 # Transfer nginx configuration
 COPY ./../dockers/frontend/conf/nginx.conf /etc/nginx/nginx.conf
-RUN rm /etc/nginx/conf.d/default.conf
-ADD ./../dockers/frontend/conf.d /etc/nginx/conf.d
 
