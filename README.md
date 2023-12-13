@@ -231,3 +231,4 @@ Select "Python 3.9.x ("SOSTradesEnv")
 ![](doc_images/select_python.png) 
 
 Now you can launch any SoSTrades code from VSCode.
+
