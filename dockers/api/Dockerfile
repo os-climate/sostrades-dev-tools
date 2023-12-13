@@ -21,7 +21,7 @@ RUN apt-get update && \
     libxmlsec1-dev pkg-config default-libmysqlclient-dev \
     build-essential libsasl2-dev python3-dev libldap2-dev \
     libssl-dev procps mpi mpich unixodbc-dev unixodbc \
-    coinor-libcbc-dev && apt clean
+    coinor-libcbc-dev cron && apt clean
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
@@ -47,9 +47,10 @@ RUN sed -i '/petsc\|numpy/d' api.requirements.txt && \
     pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy
 
 # Copy models and platform repos for standalone image if needed
-COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
-COPY ./platform/sostrades-core ./platform/sostrades-core
 COPY ./platform/gemseo ./platform/gemseo
+COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
+RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
+COPY ./platform/sostrades-core ./platform/sostrades-core
 COPY ./models ./models
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]

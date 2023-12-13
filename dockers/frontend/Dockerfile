@@ -39,5 +39,4 @@ COPY --from=front_build /tmp/node_build/sostrades-webgui/dist/sos-trades-gui /us
 
 #------------------------------------------------------------------------------
 # Transfer nginx configuration
-COPY ./../dockers/frontend/conf/nginx.conf /etc/nginx/nginx.conf
-
+COPY ./dockers/frontend/conf/nginx.conf /etc/nginx/nginx.conf

@@ -59,10 +59,10 @@ FROM python:3.9
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-# Install path for sostrades 
+# Install path for sostrades
 RUN mkdir -p /usr/local/sostrades/sources
 
-# startup path for ontology 
+# startup path for ontology
 RUN mkdir /startup
 
 # Install ontology requirements
@@ -72,7 +72,7 @@ RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn
 WORKDIR /usr/local/sostrades/sources/sostrades-ontology
 COPY ./platform/sostrades-ontology .
 
-# Copy startup files for ontology 
+# Copy startup files for ontology
 ADD ./dockers/ontology/scripts /startup
 
 COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/sostrades-ontology/sos_ontology/data/
