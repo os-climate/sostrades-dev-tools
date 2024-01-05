@@ -1,6 +1,15 @@
 version: '3.4'
 
 services:
+  arangodb:
+    image : arangodb
+    container_name: arangodb-instance
+    ports:
+      - '8529:8529'
+    expose:
+      - 8529
+    environment:
+      - ARANGO_ROOT_PASSWORD=ArangoDB_BfPM
   database:
     image: sostrades/mysqlv4:latest
     build:
@@ -62,9 +71,11 @@ services:
     links:
       - database
       - ontology
+      - arangodb
     depends_on:
       - database
       - ontology
+      - arangodb
     volumes:
       - ./dockers/resources/.:/resources/
       - ./dockers/api/scripts/.:/startup/
