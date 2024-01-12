@@ -34,7 +34,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
-    pip install --no-cache-dir -r dev.requirements.txt debugpy pylint pytest==7.4.3 pytest-cov==4.1.0 pytest-xdist==3.4.0 pytest-durations==1.2.0 
+    pip install --no-cache-dir -r dev.requirements.txt debugpy
 
 COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
@@ -67,7 +67,7 @@ RUN mkdir /startup
 
 # Install ontology requirements
 COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
-RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn
+RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn pylint pytest==7.4.3 pytest-cov==4.1.0 pytest-xdist==3.4.0 pytest-durations==1.2.0 
 
 WORKDIR /usr/local/sostrades/sources/sostrades-ontology
 COPY ./platform/sostrades-ontology .
