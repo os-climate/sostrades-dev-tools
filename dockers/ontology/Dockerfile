@@ -34,7 +34,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
-    pip install --no-cache-dir -r dev.requirements.txt debugpy
+    pip install --no-cache-dir -r dev.requirements.txt debugpy pylint pytest==7.4.3 pytest-cov==4.1.0 pytest-xdist==3.4.0 pytest-durations==1.2.0 
 
 COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
