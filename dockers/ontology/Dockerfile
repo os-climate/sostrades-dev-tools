@@ -67,7 +67,7 @@ RUN mkdir /startup
 
 # Install ontology requirements
 COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
-RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn pylint pytest==7.4.3 pytest-cov==4.1.0 pytest-xdist==3.4.0 pytest-durations==1.2.0 
+RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn
 
 WORKDIR /usr/local/sostrades/sources/sostrades-ontology
 COPY ./platform/sostrades-ontology .
