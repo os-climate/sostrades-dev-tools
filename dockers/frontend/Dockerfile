@@ -14,10 +14,6 @@
 #------------------------------------------------------------------------------
 # Stage 1 : Distribution building
 FROM node:12.16.1 as front_build
-
-#------------------------------------------------------------------------------
-# Extract source code 'sostrades-webgui'
-COPY  ./platform/sostrades-webgui /tmp/node_build/sostrades-webgui/
 #------------------------------------------------------------------------------
 # Remove question about analytics
 RUN export NG_CLI_ANALYTICS=off
@@ -26,7 +22,12 @@ WORKDIR /tmp/node_build/sostrades-webgui/
 
 #------------------------------------------------------------------------------
 # Install project package and build distribution
+ADD ./platform/sostrades-webgui/package.json ./
 RUN npm install
+
+#------------------------------------------------------------------------------
+# Extract source code 'sostrades-webgui'
+COPY  ./platform/sostrades-webgui ./
 RUN node_modules/@angular/cli/bin/ng build --prod
 
 #------------------------------------------------------------------------------

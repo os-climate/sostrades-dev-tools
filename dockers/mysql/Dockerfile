@@ -13,6 +13,8 @@
 # limitations under the License.
 FROM mysql:8.0.33
 
+RUN chmod 1777 /tmp
+
 ADD ./mysql/scripts/init_sostrades_databases.sql.template /tmp
 RUN chmod +x /tmp/init_sostrades_databases.sql.template
 

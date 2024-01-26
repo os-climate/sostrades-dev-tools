@@ -13,6 +13,8 @@
 # limitations under the License.
 FROM python:3.9
 
+RUN chmod 1777 /tmp
+
 # Installation de PETSc et de ses dépendances
 RUN apt-get update && \
     apt-get -y upgrade && \
