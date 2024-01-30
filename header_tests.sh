@@ -3,11 +3,6 @@
 # Define your function here
 launch_tests() {
    echo $1 testing...
-   #test-file-pattern = l1s_test_header.py
-   #test-file-pattern = l*_test*.py
-   #sed -i -E "s/^test-file-pattern = .{1,}py$/test-file-pattern = l1s_test_header.py/g" nose2.cfg
-   #nose2 
-
    pytest -v ./$2/tests/l1s_test_header.py::Testheader
 }
 
