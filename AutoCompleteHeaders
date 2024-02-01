@@ -1,0 +1,75 @@
+"""
+Copyright 2024 Capgemini
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+from sostrades_core.tools.check_headers import HeaderTools
+
+
+repo_dict = {
+    "platform/sostrades-core": ["11d7f9f", []],
+    "platform/sostrades-webapi": ["09b208",[
+                            "migrations/versions/6fde15c1f0d5_default_group_v3.py",
+                            "migrations/versions/5e995cf0ba49_add_information_about_deleting_a_column_.py",
+                            "migrations/versions/224990fccd32_default_group_v2.py",
+                            "migrations/versions/59ef3f9fbb52_add_no_execution_profile.py",
+                            "sos_trades_api/version.info"]],
+    "models/witness-core": ["fb7c7e2",[
+                            "climateeconomics/sos_processes/iam/witness/economics_sector_process/process.py",
+                            "climateeconomics/sos_processes/iam/witness_sect_wo_energy/process.py",
+                            "climateeconomics/sos_processes/iam/witness/witness_coarse_story_telling_optim_process/process.py",
+                            "default_process_rights.yaml"]],
+    "models/witness-energy": ["37fb4ae",["default_process_rights.yaml"]],
+    "platform/sostrades-ontology": ["9ce0e11f2dfcef0a8b6b5079932249b363ea3d5b",[]],
+}
+
+ignored_exts = [
+    "pkl",
+    "png",
+    "jpg",
+    "csv",
+    "md",
+    "markdown",
+    "avif",
+    "json",
+    "in",
+    "gitignore",
+    "cfg",
+    "puml",
+    "pdf",
+    "txt",
+    "ipynb",
+    "zip",
+    "rst",
+    "ini",
+    "yml",
+    "yaml",
+    "owl",
+    "xls",
+    "xlsx",
+    "xlsm",
+]
+
+def write_headers_if_needed_in_repos(ignored_exts, repo_dict):
+
+    ht = HeaderTools()
+    
+    for repo_dir, values in repo_dict.items():
+
+        sha = values[0]
+        ignored_files = values[1]
+
+        ht.write_headers_if_needed_in_repo(ignored_exts, ignored_files, sha, repo_dir)
+
+write_headers_if_needed_in_repos(ignored_exts, repo_dict)

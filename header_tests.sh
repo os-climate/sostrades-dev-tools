@@ -3,7 +3,7 @@
 # Define your function here
 launch_tests() {
    echo $1 testing...
-   pytest -v ./$2/tests/l1s_test_header.py::Testheader
+   pytest -v ./$2/tests/l0_test_header.py::Testheader
 }
 
 cd ./models/witness-core
