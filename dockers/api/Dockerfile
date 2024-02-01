@@ -25,19 +25,31 @@ RUN apt-get update && \
     libssl-dev procps mpi mpich unixodbc-dev unixodbc \
     coinor-libcbc-dev cron && apt clean
 
+ARG petsc_dir="/petsc-install"
+ENV PATH=${petsc_dir}/bin:${PATH}
+
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir numpy==1.24.3
 
+ENV PYTHONPATH=${petsc_dir}/lib
+RUN mkdir ${petsc_dir} 
+
 # Download and install PETSc
 RUN wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.19.4.tar.gz && \ 
     tar -xzf petsc-3.19.4.tar.gz && \
-    cd petsc-3.19.4 && \
-    ./configure --with-cc=gcc --with-petsc4py=1 --with-cxx=g++ --with-fc=gfortran --download-mpich --download-fblaslapack && \
-    make PETSC_DIR=/petsc-3.19.4 PETSC_ARCH=arch-linux-c-debug all check && \
-    cp -r arch-linux-c-debug/lib/* /usr/local/lib/python3.9/site-packages/ && \
+    cd /petsc-3.19.4 && \
+    export PETSC_ARCH=arch-linux-c-debug && \
+    export PETSC_DIR=/petsc-3.19.4 && \
+    ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${petsc_dir}&& \
+    make all && \
+    make install && \
+    make check && \
     cd ../ && \
-    rm -rf petsc-3.19.4.tar.gz petsc-3.19.4
+    rm -rf petsc-3.19.4.tar.gz
+
+ENV PYTHONPATH=${petsc_dir}/lib\
+    PETSC_DIR=${petsc_dir}
 
 # Install path for sostrades 
 RUN mkdir -p /usr/local/sostrades/sources /usr/local/sostrades/conf/ /startup
