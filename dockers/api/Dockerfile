@@ -26,6 +26,7 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 ARG petsc_dir="/petsc-install"
+ARG PETSC_VERSION="3.19.4"
 ENV PATH=${petsc_dir}/bin:${PATH}
 
 # Upgrade pip
@@ -36,17 +37,18 @@ ENV PYTHONPATH=${petsc_dir}/lib
 RUN mkdir ${petsc_dir} 
 
 # Download and install PETSc
-RUN wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.19.4.tar.gz && \ 
-    tar -xzf petsc-3.19.4.tar.gz && \
-    cd /petsc-3.19.4 && \
+RUN wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${PETSC_VERSION}.tar.gz && \ 
+    tar -xzf petsc-${PETSC_VERSION}.tar.gz && \
+    cd /petsc-${PETSC_VERSION} && \
     export PETSC_ARCH=arch-linux-c-debug && \
-    export PETSC_DIR=/petsc-3.19.4 && \
+    export PETSC_DIR=/petsc-${PETSC_VERSION} && \
     ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${petsc_dir}&& \
     make all && \
     make install && \
+    export PETSC_DIR=${petsc_dir}  && \
     make check && \
     cd ../ && \
-    rm -rf petsc-3.19.4.tar.gz
+    rm -rf petsc-${PETSC_VERSION}.tar.gz /petsc-${PETSC_VERSION}
 
 ENV PYTHONPATH=${petsc_dir}/lib\
     PETSC_DIR=${petsc_dir}
