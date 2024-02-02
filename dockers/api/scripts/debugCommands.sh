@@ -15,6 +15,7 @@
 # Build python path regarding all sub folder in sostrades source folder
 ls -d /usr/local/sostrades/sources/platform/*/ | tr '\n' ':' > /tmp/pythonpath.txt
 ls -d /usr/local/sostrades/sources/models/*/ | tr '\n' ':' >> /tmp/pythonpath.txt
+echo "/petsc-install/lib" >> /tmp/pythonpath.txt
 # Temporary special PYTHONPATH for gemseo
 echo '/usr/local/sostrades/sources/platform/gemseo/src' >> /tmp/pythonpath.txt
 cat /tmp/pythonpath.txt
