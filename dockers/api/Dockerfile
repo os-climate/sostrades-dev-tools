@@ -25,35 +25,38 @@ RUN apt-get update && \
     libssl-dev procps mpi mpich unixodbc-dev unixodbc \
     coinor-libcbc-dev cron && apt clean
 
-ARG petsc_dir="/petsc-install"
-ENV PATH=${petsc_dir}/bin:${PATH}
+# Numpy version
+ARG NUMPY_VERSION="1.24.3"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==1.24.3
+    pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
-ENV PYTHONPATH=${petsc_dir}/lib
-RUN mkdir ${petsc_dir} 
+# PETSC version and directory
+ARG PETSC_VERSION="3.19.6"
+ARG PETSC_BUILD_DIR="/petsc-build"
+ARG PETSC_INSTALL_DIR="/petsc-install"
 
 # Download and install PETSc
-RUN wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.19.4.tar.gz && \ 
-    tar -xzf petsc-3.19.4.tar.gz && \
-    cd /petsc-3.19.4 && \
+RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
+    cd ${PETSC_BUILD_DIR} &&\
     export PETSC_ARCH=arch-linux-c-debug && \
-    export PETSC_DIR=/petsc-3.19.4 && \
-    ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${petsc_dir}&& \
-    make all && \
-    make install && \
-    make check && \
+    export PETSC_DIR=${PETSC_BUILD_DIR} && \
+    mkdir ${PETSC_INSTALL_DIR} && \
+    ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${PETSC_INSTALL_DIR}&& \
+    make all install check && \
     cd ../ && \
-    rm -rf petsc-3.19.4.tar.gz /petsc-3.19.4
+    rm -rf ${PETSC_BUILD_DIR}
 
-ENV PYTHONPATH=${petsc_dir}/lib\
-    PETSC_DIR=${petsc_dir}
+# Update env with PETSC install
+ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
+ENV PYTHONPATH=${PETSC_INSTALL_DIR}/lib:${PYTHONPATH}
+ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 
-# Install path for sostrades 
-RUN mkdir -p /usr/local/sostrades/sources /usr/local/sostrades/conf/ /startup
-WORKDIR /usr/local/sostrades/sources
+# Install path for sostrades
+ARG SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
+RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
+WORKDIR ${SOS_TRADES_SOURCES}
 
 # Copy Python requirements and install them
 COPY ./platform/sostrades-webapi/api.requirements.txt api.requirements.txt
@@ -65,6 +68,10 @@ COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
 RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
 COPY ./platform/sostrades-core ./platform/sostrades-core
+
+# Update PYTHONPATH
+ENV PYTHONPATH=${SOS_TRADES_SOURCES}/sostrades-webapi:${SOS_TRADES_SOURCES}/gemseo/src:${SOS_TRADES_SOURCES}/sostrades-webapi:${PYTHONPATH}
+
 COPY ./models ./models
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]
