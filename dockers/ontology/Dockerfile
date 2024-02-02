@@ -13,7 +13,7 @@
 # limitations under the License.
 FROM python:3.9 AS builder
 
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+RUN chmod 1777 /tmp
 
 # Installation de PETSc et de ses dépendances
 RUN apt-get update && \
@@ -23,7 +23,7 @@ RUN apt-get update && \
     libxmlsec1-dev pkg-config default-libmysqlclient-dev \
     build-essential libsasl2-dev python3-dev libldap2-dev \
     libssl-dev procps mpi mpich unixodbc-dev unixodbc \
-    coinor-libcbc-dev && apt clean
+    coinor-libcbc-dev cron && apt clean
 
 # Numpy version
 ARG NUMPY_VERSION="1.24.3"
@@ -52,6 +52,8 @@ RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/pets
 ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
 ENV PYTHONPATH=${PETSC_INSTALL_DIR}/lib:${PYTHONPATH}
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # Install ontology requirements
 COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
