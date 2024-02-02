@@ -45,6 +45,7 @@ COPY ./models ./models
 ## SET PYTHONPATH
 RUN ls -d platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
     ls -d models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \
+    echo "/petsc-install/lib" >> /tmp/pythonpath.txt && \
     sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
     truncate -s-1 /tmp/pythonpath.txt
 
