@@ -15,6 +15,7 @@ FROM python:3.9 AS builder
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
+# Installation de PETSc et de ses dépendances
 RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y \
@@ -24,11 +25,33 @@ RUN apt-get update && \
     libssl-dev procps mpi mpich unixodbc-dev unixodbc \
     coinor-libcbc-dev && apt clean
 
+# Numpy version
+ARG NUMPY_VERSION="1.24.3"
+
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==1.24.3
+    pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
-# Copy platform repos for standalone image if needed
+# PETSC version and directory
+ARG PETSC_VERSION="3.19.6"
+ARG PETSC_BUILD_DIR="/petsc-build"
+ARG PETSC_INSTALL_DIR="/petsc-install"
+
+# Download and install PETSc
+RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
+    cd ${PETSC_BUILD_DIR} &&\
+    export PETSC_ARCH=arch-linux-c-debug && \
+    export PETSC_DIR=${PETSC_BUILD_DIR} && \
+    mkdir ${PETSC_INSTALL_DIR} && \
+    ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${PETSC_INSTALL_DIR}&& \
+    make all install check && \
+    cd ../ && \
+    rm -rf ${PETSC_BUILD_DIR}
+
+# Update env with PETSC install
+ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
+ENV PYTHONPATH=${PETSC_INSTALL_DIR}/lib:${PYTHONPATH}
+ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 
 # Install ontology requirements
 COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
