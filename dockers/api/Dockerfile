@@ -50,7 +50,7 @@ RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/pets
 
 # Update env with PETSC install
 ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
-ENV PYTHONPATH=${PETSC_INSTALL_DIR}/lib:${PYTHONPATH}
+ENV PYTHONPATH=${PETSC_INSTALL_DIR}/lib
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 
 # Install path for sostrades
@@ -69,9 +69,15 @@ COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
 RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
 COPY ./platform/sostrades-core ./platform/sostrades-core
 
-# Update PYTHONPATH
-ENV PYTHONPATH=${SOS_TRADES_SOURCES}/sostrades-webapi:${SOS_TRADES_SOURCES}/gemseo/src:${SOS_TRADES_SOURCES}/sostrades-webapi:${PYTHONPATH}
-
 COPY ./models ./models
+
+# Update PYTHONPATH
+RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
+    ls -d ${SOS_TRADES_SOURCES}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
+    sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
+    export TEMPPYTHONPATH=$(cat /tmp/pythonpath.txt) && \
+    echo "PYTHONPATH=$PYTHONPATH:$TEMPPYTHONPATH" >> /etc/environment 
+
+ENV PYTHONPATH=$PYTHONPATH
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]
