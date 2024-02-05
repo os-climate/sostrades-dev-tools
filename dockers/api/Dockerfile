@@ -70,7 +70,7 @@ RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then ech
 COPY ./platform/sostrades-core ./platform/sostrades-core
 
 # Update PYTHONPATH
-ENV PYTHONPATH=${SOS_TRADES_SOURCES}/sostrades-webapi:${SOS_TRADES_SOURCES}/gemseo/src:${SOS_TRADES_SOURCES}/sostrades-webapi:${PYTHONPATH}
+ENV PYTHONPATH=${SOS_TRADES_SOURCES}/sostrades-core:${SOS_TRADES_SOURCES}/sostrades-webapi:${SOS_TRADES_SOURCES}/gemseo/src:${PYTHONPATH}
 
 COPY ./models ./models
 
