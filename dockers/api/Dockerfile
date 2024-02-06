@@ -76,8 +76,9 @@ RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt &
     ls -d ${SOS_TRADES_SOURCES}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
     sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
     export TEMPPYTHONPATH=$(cat /tmp/pythonpath.txt) && \
-    echo "PYTHONPATH=$PYTHONPATH:$TEMPPYTHONPATH" >> /etc/environment 
+    echo "PYTHONPATH=$TEMPPYTHONPATH$PYTHONPATH" >> /etc/environment && \
+    echo '. /etc/environment' >> /etc/bash.bashrc
 
-ENV PYTHONPATH=$(cat /etc/environment)
+ENV ENV=/etc/environment
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]
