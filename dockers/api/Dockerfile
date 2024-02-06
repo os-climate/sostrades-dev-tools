@@ -78,6 +78,6 @@ RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt &
     export TEMPPYTHONPATH=$(cat /tmp/pythonpath.txt) && \
     echo "PYTHONPATH=$PYTHONPATH:$TEMPPYTHONPATH" >> /etc/environment 
 
-ENV PYTHONPATH=$PYTHONPATH
+ENV PYTHONPATH=$(cat /etc/environment)
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]
