@@ -12,15 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Build python path regarding all sub folder in sostrades source folder
-ls -d /usr/local/sostrades/sources/platform/*/ | tr '\n' ':' > /tmp/pythonpath.txt
-ls -d /usr/local/sostrades/sources/models/*/ | tr '\n' ':' >> /tmp/pythonpath.txt
-echo -n "/petsc-install/lib:" >> /tmp/pythonpath.txt
-# Temporary special PYTHONPATH for gemseo
-echo -n '/usr/local/sostrades/sources/platform/gemseo/src' >> /tmp/pythonpath.txt
-cat /tmp/pythonpath.txt
-export PYTHONPATH=$(cat /tmp/pythonpath.txt)
-
 pip install importlib-metadata==4.13.0
 
 python /startup/check_database_is_ready.py
@@ -35,5 +26,3 @@ python -m debugpy --wait-for-client --listen 0.0.0.0:5678 /usr/local/sostrades/s
 python -m debugpy --wait-for-client --listen 0.0.0.0:5681 /usr/local/sostrades/sources/platform/sostrades-webapi/server_scripts/split_mode/launch_server_post_processing.py & 
 python -m debugpy --wait-for-client --listen 0.0.0.0:5679 /usr/local/sostrades/sources/platform/sostrades-webapi/server_scripts/split_mode/launch_server_data.py & 
 python -m debugpy --wait-for-client --listen 0.0.0.0:5680 /usr/local/sostrades/sources/platform/sostrades-webapi/server_scripts/launch_server_message.py
-
-
