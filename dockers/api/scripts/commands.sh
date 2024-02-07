@@ -21,8 +21,6 @@ echo -n '/usr/local/sostrades/sources/platform/gemseo/src' >> /tmp/pythonpath.tx
 cat /tmp/pythonpath.txt
 export PYTHONPATH=$(cat /tmp/pythonpath.txt)
 
-pip install importlib-metadata==4.13.0
-
 python /startup/check_database_is_ready.py
 
 cd /usr/local/sostrades/sources/platform/sostrades-webapi
