@@ -14,7 +14,15 @@
 
 # Load env
 . /etc/environment
-echo "PYTHONPATH=$PYTHONPATH"
+echo "Image PYTHONPATH=$PYTHONPATH"
+
+# Update PYTHONPATH
+ls -d /usr/local/sostrades/sources/platform/* | tr '\n' ':' > /tmp/pythonpath.txt
+ls -d /usr/local/sostrades/sources/models/* | tr '\n' ':' >> /tmp/pythonpath.txt
+sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt
+sed -i '$ s/.$//' /tmp/pythonpath.txt
+export PYTHONPATH=$(cat /tmp/pythonpath.txt)
+echo "Computed PYTHONPATH=$PYTHONPATH"
 
 python /startup/check_database_is_ready.py
 
