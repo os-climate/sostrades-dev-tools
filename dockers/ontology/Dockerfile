@@ -36,6 +36,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 ARG PETSC_VERSION="3.19.6"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
+ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
 
 # Download and install PETSc
 RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
@@ -46,11 +47,11 @@ RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/pets
     ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${PETSC_INSTALL_DIR}&& \
     make all install check && \
     cd ../ && \
-    rm -rf ${PETSC_BUILD_DIR}
+    rm -rf ${PETSC_BUILD_DIR} && \
+    echo "${PETSC_INSTALL_DIR}/lib" > "${PYTHON_SITE_PACKAGE_DIR}/petsc4py.pth"
 
 # Update env with PETSC install
 ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
-ENV PYTHONPATH=${PETSC_INSTALL_DIR}/lib:${PYTHONPATH}
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -64,20 +65,16 @@ RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
 COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
 COPY ./platform/sostrades-core ./platform/sostrades-core
-COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
 COPY ./models ./models
 
-## SET PYTHONPATH
-RUN ls -d platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
-    ls -d models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \
-    echo "/petsc-install/lib" >> /tmp/pythonpath.txt && \
+# Update PYTHONPATH
+RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
+    ls -d ${pwd}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
     sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
-    truncate -s-1 /tmp/pythonpath.txt
-
-# export pythonpath with all repo and launch script to generate .owl
-RUN export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
-    echo $PYTHONPATH && \
-    python platform/sostrades-ontology/sos_ontology/core/script/createSoSOntologyFromCode.py
+    sed -i '$ s/.$//' /tmp/pythonpath.txt && \
+    export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
+    echo "PYTHONPATH=$PYTHONPATH" && \
+    python -u platform/sostrades-ontology/sos_ontology/core/script/createSoSOntologyFromCode.py
 
 #------------------------------------------------------------------------------
 
@@ -93,10 +90,13 @@ RUN mkdir /startup
 
 # Install ontology requirements
 COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
-RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn
+RUN pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy
 
 WORKDIR /usr/local/sostrades/sources/sostrades-ontology
 COPY ./platform/sostrades-ontology .
+
+# Update PYTHONPATH
+ENV PYTHONPATH="${PYTHONPATH}:/usr/local/sostrades/sources/sostrades-ontology"
 
 # Copy startup files for ontology
 ADD ./dockers/ontology/scripts /startup

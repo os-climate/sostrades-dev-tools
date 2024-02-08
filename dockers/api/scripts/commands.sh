@@ -12,14 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Build python path regarding all sub folder in sostrades source folder
-ls -d /usr/local/sostrades/sources/platform/*/ | tr '\n' ':' > /tmp/pythonpath.txt
-ls -d /usr/local/sostrades/sources/models/*/ | tr '\n' ':' >> /tmp/pythonpath.txt
-echo -n "/petsc-install/lib:" >> /tmp/pythonpath.txt
-# Temporary special PYTHONPATH for gemseo
-echo -n '/usr/local/sostrades/sources/platform/gemseo/src' >> /tmp/pythonpath.txt
-cat /tmp/pythonpath.txt
-export PYTHONPATH=$(cat /tmp/pythonpath.txt)
+# Load env
+. /etc/environment
+echo "PYTHONPATH=$PYTHONPATH"
 
 python /startup/check_database_is_ready.py
 
