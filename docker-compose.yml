@@ -56,7 +56,7 @@ services:
     build:
       context: .
       dockerfile: ./dockers/api/Dockerfile
-    command: ["/bin/bash", "/startup/commands.sh"]
+    entrypoint: ["/bin/bash", "/startup/commands.sh"]
     container_name: api
     restart: always
     expose:
