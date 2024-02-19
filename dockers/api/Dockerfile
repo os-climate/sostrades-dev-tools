@@ -53,7 +53,7 @@ RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/pets
 # Update env with PETSC install
 ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
-ENV USE_PETSC = "True"
+ENV USE_PETSC="True"
 
 # Install path for sostrades
 ARG SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
