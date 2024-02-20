@@ -34,9 +34,18 @@ python -m pip install --upgrade pip
 # Install packages from requirements file, excluding some problematic packages
 grep -vE 'petsc|mysqlclient|python-ldap|python3-saml|xmlsec' platform/sostrades-webapi/api.requirements.txt | python -m pip install -r /dev/stdin --no-cache-dir
 
-# Set up PYTHONPATH
-echo "Setting up PYTHONPATH"
+# Set up PYTHONPATH like
+echo "Setting up (PYTHONPATH) like by extending site package file for conda env : .../lib/python3.9/site-packages/conda.pth"
+
+#required to be outside the conda env for next command line.
 conda deactivate
+
+# Retrieve the path to the conda.pth file within a specific Conda environment.
+# This command first fetches information about all Conda environments using 'conda info --envs',
+# then filters the output based on the provided environment name using 'awk'.
+# It extracts the path corresponding to the environment name.
+# Finally, it constructs the full path to the conda.pth file within the specified environment,
+# which is typically used to specify additional directories for Python module search paths.
 conda_path="$(conda info --envs | awk -v env="$environment_name" '$0 ~ env {print $2}')/lib/python3.9/site-packages/conda.pth"
 
 # Find and add subfolders to PYTHONPATH
@@ -51,5 +60,7 @@ for path in "$PWD/models"/*; do
         echo "$path" >> "$conda_path"
     fi
 done
+
+echo $conda_path
 
 echo "Done"
