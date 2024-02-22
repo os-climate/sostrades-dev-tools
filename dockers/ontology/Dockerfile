@@ -90,7 +90,8 @@ RUN mkdir /startup
 
 # Install ontology requirements
 COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
-RUN pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy
 
 WORKDIR /usr/local/sostrades/sources/sostrades-ontology
 COPY ./platform/sostrades-ontology .
