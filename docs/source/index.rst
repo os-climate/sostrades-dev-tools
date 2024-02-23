@@ -20,3 +20,8 @@ README
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
 
+README
+======
+.. include:: READMETEST.md
+   :parser: myst_parser.sphinx_
+
