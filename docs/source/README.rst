@@ -1,3 +1,5 @@
+TEST
+=====
 <section id="sostrades-dev-tools-setup-sostrades-platform">
 <h1>sostrades-dev-tools : Setup SoStrades platform</h1>
 <p>This repository contains files for local platform deployment, and local for virtual environment venv creation. It also contains default vscode workspace configuration files.</p>
