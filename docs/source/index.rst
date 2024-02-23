@@ -15,10 +15,6 @@ Contents
 
    usage
 
-README
-======
-.. include:: ../../README.md
-   :parser: myst_parser.sphinx_
 
 README
 ======
