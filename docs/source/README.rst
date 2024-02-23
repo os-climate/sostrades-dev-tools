@@ -67,17 +67,7 @@ cd sostrades-dev-tools
 <ol class="arabic simple" start="2">
 <li><p>If needed configure model repositories : Edit the model_repositories.json and platform_repositories.json according to what repositories you want.</p></li>
 </ol>
-<pre class="code literal-block"><code>[
-    {
-        &quot;url&quot;: &quot;https://github.com/os-climate/witness-core.git&quot;,
-        &quot;branch&quot;: &quot;validation&quot;
-    },
-    {
-        &quot;url&quot;: &quot;https://github.com/os-climate/witness-energy.git&quot;,
-        &quot;branch&quot;: &quot;validation&quot;
-    }
-]
-</code></pre>
+
 <ol class="arabic simple" start="3">
 <li><p>Launch the PrepareDevEnv.sh</p></li>
 </ol>
