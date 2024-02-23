@@ -14,4 +14,7 @@ Contents
 .. toctree::
 
    usage
+
+README.md
+=========
 .. mdinclude:: ../../README.md
