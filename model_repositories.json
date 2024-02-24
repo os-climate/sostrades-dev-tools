@@ -1,7 +1,7 @@
 [
     {
         "url": "https://github.com/os-climate/witness-core.git",
-        "branch": "validation"
+        "branch": "covid-model"
     },
     {
         "url": "https://github.com/os-climate/witness-energy.git",
