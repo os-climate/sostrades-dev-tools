@@ -152,7 +152,7 @@ docker compose up
 
 Wait some minutes
 
-Go to [127.0.0.1:1080](127.0.0.1:1080 '127.0.0.1:1080') with your web browser and connect with the following credentials :
+Go to [http://localhost:1080](http://localhost:1080) with your web browser and connect with the following credentials :
 
 login : user
 
