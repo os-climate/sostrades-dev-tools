@@ -9,4 +9,4 @@ Contents
 --------
 
 .. toctree::
-   README
+   install-local-env
