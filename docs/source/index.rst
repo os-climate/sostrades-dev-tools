@@ -1,9 +1,6 @@
 Welcome to sostrades-dev-tools documentation!
 =============================================
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
-
 .. note::
 
    This project is under active development.
@@ -12,12 +9,4 @@ Contents
 --------
 
 .. toctree::
-
-   usage
-
-
-README
-======
-.. include:: READMETEST.md
-   :parser: myst_parser.sphinx_
-
+   README
