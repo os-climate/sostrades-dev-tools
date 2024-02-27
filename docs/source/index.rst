@@ -7,6 +7,12 @@ Welcome to sostrades-dev-tools documentation!
 
 Contents
 --------
+.. toctree::
+   :hidden:
+
+   HOME <self>
 
 .. toctree::
-   install-local-env
+
+   INSTALLATION <install-local-env>
+
