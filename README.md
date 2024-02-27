@@ -9,7 +9,7 @@ Depending on your needs, two different environment installations are proposed. A
 Follow the diagram below to know what you need to install: 
 
 
-![](doc_images/choose_your_env.png) 
+![](docs/source/images/choose_your_env.png) 
 
 
 ## 2. Common Setup
@@ -36,7 +36,7 @@ You may use directly Ubuntu 22.04 LTS or an equivalent, in this case you may hav
 
 4. Launch Ubuntu
 
-![](doc_images/ubuntu_installed.png) 
+![](docs/source/images/ubuntu_installed.png) 
 
 
 5. Conda installation
@@ -182,7 +182,7 @@ If using VSCode you will find  4 debug profiles :
 - Remote attach post processing
 - Remote attach data
 
-![](doc_images/vscode_debug_mode.png) 
+![](docs/source/images//vscode_debug_mode.png) 
 
 After having launched each debug profile your application should be available on 127.0.0.1:1080 and you will be able to debug it directly running in the container and from VSCode. All debug profiles must be started since flask api are waiting for debug connection to continue. Then without debug connections platform won't be responding.
 
@@ -224,12 +224,15 @@ code . &
 
 Use keys windows + shift + p to open command panel, search for "Python: Select Interpreter"
 
-![](doc_images/select_interpreter.png) 
+![](docs/source/images//select_interpreter.png) 
 
 Select "Python 3.9.x ("SOSTradesEnv")
 
-![](doc_images/select_python.png) 
+![](docs/source/images//select_python.png) 
 
 Now you can launch any SoSTrades code from VSCode.
 
+## Getting Help
+
+[Documentation](https://sostrades-dev-tools.readthedocs.io/en/latest/ 'readthedocs')
 
