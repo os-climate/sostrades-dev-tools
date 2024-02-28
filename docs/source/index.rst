@@ -10,9 +10,9 @@ Contents
 .. toctree::
    :hidden:
 
-   HOME <self>
+   Home <self>
 
 .. toctree::
 
-   INSTALLATION <install-local-env>
-
+   Installation <README.md>
+   Add personal repository <add-repository.md>
