@@ -75,7 +75,7 @@ git clone https://github.com/os-climate/sostrades-dev-tools
  
 cd sostrades-dev-tools
 ```
-2. If needed configure model repositories : Edit the model_repositories.json and platform_repositories.json according to what repositories you want.
+2. If needed configure model repositories : Edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want.
 
 ```
 [
@@ -89,7 +89,7 @@ cd sostrades-dev-tools
     }
 ]
 ```
-3. Launch the PrepareDevEnv.sh
+3. Launch the `PrepareDevEnv.sh`
 ```
 ./PrepareDevEnv.sh  (if necessary sudo chmod +x PrepareDevEnv.sh to allow execution rights)
 
@@ -122,14 +122,14 @@ docker ps
  If this commands are not working fix docker and docker-compose installation before to continue 
 
 ### 3.2 Visual Studio Code (VSCode) installation 
-VSCode settings have been written in dedicated files during execution of PrepareDevEnv.sh (in a previous step).
+VSCode settings have been written in dedicated files during execution of `PrepareDevEnv.sh` (in a previous step).
 
 The following command can be run to install VSCode :
 ```
 sudo snap install --classic code
 ```
 
-In order to benefit from VSCode settings, type the following command in the "sostrades-dev-tools" directory, at the same level than the "./vscode" (hidden) folder (or models/ and platform/ visible directories) :
+In order to benefit from VSCode settings, type the following command in the `sostrades-dev-tools` directory, at the same level than the `./vscode` (hidden) folder (or `models/` and `platform/` visible directories) :
 ```
 code . &
 ```
@@ -190,9 +190,9 @@ After having launched each debug profile your application should be available on
 
 ### 3.5 Useful links
 
-https://code.visualstudio.com/docs/containers/docker-compose
+[https://code.visualstudio.com/docs/containers/docker-compose](https://code.visualstudio.com/docs/containers/docker-compose)
 
-https://code.visualstudio.com/docs/containers/debug-common 
+[https://code.visualstudio.com/docs/containers/debug-common](https://code.visualstudio.com/docs/containers/debug-common)
 
 ## 4. Local Model Development Env Installation
 The objective is to have a working local dev environment based on a conda venv, with pre-configured VS-CODE workspace to be able to run code and debug. Other IDE may be used but should be configured properly.
@@ -210,14 +210,14 @@ Follow 2. common setup paragraph :
 ```
 
 ### 4.3 Visual Studio Code (VSCode) installation 
-VSCode settings have been written in dedicated files during execution of PrepareDevEnv.sh (in a previous step).
+VSCode settings have been written in dedicated files during execution of `PrepareDevEnv.sh` (in a previous step).
 
 The following command can be run to install VSCode :
 ```
 sudo snap install --classic code
 ```
 
-In order to benefit from VSCode settings, type the following command in the "sostrades-dev-tools" directory, at the same level than the "./vscode" (hidden) folder (or models/ and platform/ visible directories) :
+In order to benefit from VSCode settings, type the following command in the `sostrades-dev-tools` directory, at the same level than the `./vscode` (hidden) folder (or `models/` and `platform/` visible directories) :
 ```
 code . &
 ```
