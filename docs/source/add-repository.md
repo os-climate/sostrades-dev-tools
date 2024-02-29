@@ -1,6 +1,6 @@
 # Add personal repository
 
-To add a personal repository after already installed a sostrades local platform, you can follow the following steps.
+To add a personal repository after having already installed a sostrades local platform, you can follow the following steps.
 
 ## 1. Clone repository
 
@@ -8,7 +8,7 @@ Add your personal repository in the folder sostrades-dev-tools/models/<new repos
 
 ## 2. Update conda env
 
-Run the following command to update your conda environement from the folder sostrades-dev-tools/ by replacing <new repository> with your repository name in the command.
+Run the following command to update your conda environment from the folder sostrades-dev-tools/ by replacing <new repository> with your repository name in the command.
 ```
 echo "$PWD/models/<new repository>" >> $(conda info --envs | awk -v env="SOSTradesEnv" '$0 ~ env {print $2 "/lib/python3.9/site-packages/conda.pth"}') 
 ```
@@ -43,7 +43,7 @@ docker compose build ontology
 
 ## 5. Restart API and Ontology
 
-Your new repository will be implemented in the platform after restarting API and Ontology. The best way is to run the two commands
+Your new repository will be implemented in the platform after restarting API and Ontology. The best way is to run the two following commands
 ```
 docker compose down
 ```
