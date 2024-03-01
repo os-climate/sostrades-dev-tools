@@ -88,28 +88,23 @@ RUN mkdir -p /usr/local/sostrades/sources
 # startup path for ontology
 RUN mkdir /startup
 
-# Add repositories needed to run test on ontology image
-WORKDIR /usr/local/sostrades/sources/gemseo
-COPY ./platform/gemseo/src ./gemseo
-
-WORKDIR /usr/local/sostrades/sources/sostrades-core
-COPY ./platform/sostrades-core/sostrades_core ./sostrades_core
-
 # Install ontology requirements
 COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy
+COPY ./platform/sostrades-ontology /usr/local/sostrades/sources/platform/sostrades-ontology
 
-WORKDIR /usr/local/sostrades/sources/sostrades-ontology
-COPY ./platform/sostrades-ontology .
+# Add repositories needed to pass test on ontology image
+COPY ./platform/gemseo/src /usr/local/sostrades/sources/platform/gemseo
+COPY ./platform/sostrades-core/sostrades_core /usr/local/sostrades/sources/platform/sostrades-core/sostrades_core
 
 # Update PYTHONPATH
-ENV PYTHONPATH="${PYTHONPATH}:/usr/local/sostrades/sources/sostrades-ontology:/usr/local/sostrades/sources/sostrades-core:/usr/local/sostrades/sources/gemseo:/usr/local/sostrades/sources/sostrades-core:/usr/local/sostrades/sources/gemseo"
+ENV PYTHONPATH="${PYTHONPATH}:/usr/local/sostrades/sources/platform/sostrades-ontology:/usr/local/sostrades/sources/platform/sostrades-core:/usr/local/sostrades/sources/platform/gemseo"
 
 # Copy startup files for ontology
 ADD ./dockers/ontology/scripts /startup
 
-COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/sostrades-ontology/sos_ontology/data/
+COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data/
 
 # Change workdir to run test on ontology image
 WORKDIR /usr/local/sostrades/sources/
