@@ -1,10 +1,12 @@
-# sostrades-dev-tools : Setup SoStrades platform
+# sostrades-dev-tools : Setup SoSTrades platform
 
-This repository contains files for local platform deployment, and local for virtual environment venv creation. It also contains default vscode workspace configuration files.
+This repository contains files for local platform deployment, and local for virtual environment creation. It also contains default vscode workspace configuration files.
 
-> Every feedback is welcomed on these installs not fully tested 
+> Feedback is a gift : please note that this installation procedure is still in beta phase. You can contribute to this documentation, give feedbacks and raise an [issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
-## 1. Choose your environment
+Please note that supported operating systems are Linux-based systems, macOS systems, and Windows (through WSL).
+
+## 1. Choose your installation
 
 Depending on your needs, two different environment installations are proposed. A common setup is mandatory whatever the installation you need to perform.
 
@@ -18,8 +20,10 @@ Follow the diagram below to know what you need to install:
 
 The objective is to have all folders properly organized on your local computer. Admin rights on your computer are mandatory to ensure a smooth installation process.  
 
+> The installation procedure is provided for Linux based environments. 
+For Windows users, we recommend to use Ubuntu through Windows Subsystem for Linux (WSL) as described in dedicated [section](#21-optional--windows-users-only-wsl-andor-ubuntu-installation).
 
-### 2.1 WSL and/or Ubuntu install + Conda
+### 2.1 (Optional : Windows users only) WSL and/or Ubuntu installation
 
 1. Install WSL2 if using Windows
 ```
@@ -41,7 +45,9 @@ You may use directly Ubuntu 22.04 LTS or an equivalent, in this case you may hav
 ![](images/ubuntu_installed.png) 
 
 
-5. Conda installation
+### 2.2 Setup prerequisites
+
+1. Conda installation
 Check conda installation with 
 `conda info`, if not installed do 
 ```
@@ -56,11 +62,12 @@ chmod +x Anaconda3-2023.09-0-Linux-x86_64.sh
 # Restart terminal for env variables update
 ```
 
-6. Install jq
+2. Install jq
 ```
 $ sudo apt  install jq           #For Debian/Ubuntu
 $ sudo yum install jq            #For Fedora/CentOS/RHEL
 $ sudo pacman -Syu jq            #For Arch
+$ sudo brew install jq           #For macOS
 ```
 
 
@@ -75,7 +82,7 @@ git clone https://github.com/os-climate/sostrades-dev-tools
  
 cd sostrades-dev-tools
 ```
-2. If needed configure model repositories : Edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want.
+2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories :
 
 ```
 [
@@ -113,13 +120,13 @@ You will need also:
 
 1. Try running  "docker" and  "docker compose" to see if command is recognized
 ```
-docker --version
-docker compose --version 
+docker version
+docker compose version 
 
 docker ps 
 ```
  
- If this commands are not working fix docker and docker-compose installation before to continue 
+ If this commands are not working fix docker and docker-compose installation before to continue.
 
 ### 3.2 Visual Studio Code (VSCode) installation 
 VSCode settings have been written in dedicated files during execution of `PrepareDevEnv.sh` (in a previous step).
@@ -199,10 +206,10 @@ The objective is to have a working local dev environment based on a conda venv, 
 
 ### 4.1 Prerequisites
 
-Follow 2. common setup paragraph :
+Follow common setup [section](#2-common-setup) :
 
-- WSL2 + Ubuntu 22.04 LTS or directly an Ubuntu equivalent
-- Conda installed
+- WSL2 + Ubuntu 22.04 LTS or directly an Ubuntu equivalent,
+- Conda installed.
 
 ### 4.2 Prepare Conda environment
 ```
