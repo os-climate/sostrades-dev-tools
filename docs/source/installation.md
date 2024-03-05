@@ -2,7 +2,7 @@
 
 This repository contains files for local platform deployment, and local for virtual environment creation. It also contains default vscode workspace configuration files.
 
-> Feedback is a gift : please note that this installation procedure is still in beta phase. You can contribute to this documentation, give feedbacks and raise an [issue](https://github.com/os-climate/sostrades-dev-tools/issues).
+> Feedback is a gift : please note that this installation procedure is still in beta phase. You can contribute to this documentation, give feedbacks and raise an [ github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
 Please note that supported operating systems are Linux-based systems, macOS systems, and Windows (through WSL).
 

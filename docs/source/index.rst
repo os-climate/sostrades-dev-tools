@@ -1,5 +1,5 @@
-Welcome to sostrades-dev-tools documentation!
-=============================================
+#Welcome to sostrades-dev-tools documentation!
+================================================
 
 .. note::
 
@@ -14,5 +14,5 @@ Contents
 
 .. toctree::
 
-   Installation <README.md>
+   Installation <installation.md>
    Add personal repository <add-repository.md>
