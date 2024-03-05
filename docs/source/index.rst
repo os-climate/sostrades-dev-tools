@@ -1,4 +1,4 @@
-#Welcome to sostrades-dev-tools documentation!
+Welcome to sostrades-dev-tools documentation!
 ================================================
 
 .. note::
