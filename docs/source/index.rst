@@ -1,8 +1,5 @@
 Welcome to sostrades-dev-tools documentation!
-=============================================
-
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
+================================================
 
 .. note::
 
@@ -10,14 +7,12 @@ how to :ref:`installation` the project.
 
 Contents
 --------
+.. toctree::
+   :hidden:
+
+   Home <self>
 
 .. toctree::
 
-   usage
-
-
-README
-======
-.. include:: READMETEST.md
-   :parser: myst_parser.sphinx_
-
+   Installation <installation.md>
+   Add personal repository <add-repository.md>
