@@ -34,6 +34,12 @@ ADD ./platform/sostrades-webgui/karma.conf.js ./karma.conf.js
 RUN node_modules/@angular/cli/bin/ng build --prod
 
 #------------------------------------------------------------------------------
+# Get commit id of the current webgui repo
+ADD ./platform/sostrades-webgui/.git/HEAD .git/HEAD
+ADD ./platform/sostrades-webgui/.git/refs/heads/ .git/refs/heads/
+RUN cat .git/$(cat .git/HEAD | sed 's/^ref: //') > build-commit-id.txt
+
+#------------------------------------------------------------------------------
 # Stage 2 : Final image buiding with NGINX webserver
 FROM nginx:latest
 
@@ -44,3 +50,7 @@ COPY --from=front_build /tmp/node_build/sostrades-webgui/dist/sos-trades-gui /us
 #------------------------------------------------------------------------------
 # Transfer nginx configuration
 COPY ./dockers/frontend/conf/nginx.conf /etc/nginx/nginx.conf
+
+#------------------------------------------------------------------------------
+# Transfer build commit id 
+COPY --from=front_build /tmp/node_build/sostrades-webgui/build-commit-id.txt /tmp/build-commit-id.txt
