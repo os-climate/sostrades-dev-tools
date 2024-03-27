@@ -48,8 +48,7 @@ You may use directly Ubuntu 22.04 LTS or an equivalent, in this case you may hav
 ### 2.2 Setup prerequisites
 
 1. Conda installation
-Check conda installation with 
-`conda info`, if not installed do 
+Check conda installation with `conda info`, if not installed do 
 ```
 pip install conda
 ```
@@ -126,7 +125,7 @@ docker compose version
 docker ps 
 ```
  
- If this commands are not working fix docker and docker-compose installation before to continue.
+ If this commands are not working fix docker and docker-compose installation before continuing.
 
 ### 3.2 Visual Studio Code (VSCode) installation 
 VSCode settings have been written in dedicated files during execution of `PrepareDevEnv.sh` (in a previous step).
