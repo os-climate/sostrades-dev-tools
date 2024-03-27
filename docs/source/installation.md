@@ -155,7 +155,7 @@ A few useful commands :
 * `sudo usermod -aG docker ${USER}` to add user to docker group
 * `sudo service docker start` to start docker service
 * `sudo service docker status` to check docker status
-* Check ip tables
+* If docker sercice stops after a few seconds, check ip tables
 ```
 sudo update-alternatives --config iptables
  
