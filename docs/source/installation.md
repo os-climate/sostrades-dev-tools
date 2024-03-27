@@ -96,7 +96,26 @@ cd sostrades-dev-tools
 ]
 ```
 3. Launch the `PrepareDevEnv.sh`
+This script will prepare the local working directory as follow :
+
 ```
+├── sostrades-dev-tools
+   │   ├── dockers
+   │   │   └── docker related files
+   │   ├── models
+   │   │   ├── witness-core
+   │   │   ├── witness-energy
+   │   │   └── Other model repositories
+   │   ├── platform
+   │   │   ├── gemseo
+   │   │   ├── sostrades-core
+   │   │   ├── sostrades-webapi
+   │   │   ├── sostrades-webgui
+   │   │   └── sostrades-ontology
+   └── other files...
+```
+
+```bash
 ./PrepareDevEnv.sh  (if necessary sudo chmod +x PrepareDevEnv.sh to allow execution rights)
 
 ```
@@ -126,6 +145,24 @@ docker ps
 ```
  
  If this commands are not working fix docker and docker-compose installation before continuing.
+
+#### Docker installation tips
+Recipe for docker installation is https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
+Recipe for docker-compose installation is https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04
+
+A few useful commands :
+* `sudo usermod -aG docker ${USER}` to add user to docker group
+* `sudo service docker start` to start docker service
+* `sudo service docker status` to check docker status
+* Check ip tables
+```
+sudo update-alternatives --config iptables
+ 
+(choose 1 legacy uptables)
+ 
+sudo service docker stop
+sudo service docker start
+```
 
 ### 3.2 Visual Studio Code (VSCode) installation 
 VSCode settings have been written in dedicated files during execution of `PrepareDevEnv.sh` (in a previous step).
