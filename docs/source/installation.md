@@ -100,19 +100,19 @@ This script will prepare the local working directory as follow :
 
 ```
 ├── sostrades-dev-tools
-   │   ├── dockers
-   │   │   └── docker related files
-   │   ├── models
-   │   │   ├── witness-core
-   │   │   ├── witness-energy
-   │   │   └── Other model repositories
-   │   ├── platform
-   │   │   ├── gemseo
-   │   │   ├── sostrades-core
-   │   │   ├── sostrades-webapi
-   │   │   ├── sostrades-webgui
-   │   │   └── sostrades-ontology
-   └── other files...
+│   ├── dockers
+│   │   └── docker related files
+│   ├── models
+│   │   ├── witness-core
+│   │   ├── witness-energy
+│   │   └── Other model repositories
+│   ├── platform
+│   │   ├── gemseo
+│   │   ├── sostrades-core
+│   │   ├── sostrades-webapi
+│   │   ├── sostrades-webgui
+│   │   └── sostrades-ontology
+└── other files...
 ```
 
 ```bash
