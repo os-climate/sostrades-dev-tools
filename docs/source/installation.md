@@ -117,8 +117,9 @@ This script will prepare the local working directory as follow :
 
 ```bash
 ./PrepareDevEnv.sh  (if necessary sudo chmod +x PrepareDevEnv.sh to allow execution rights)
-
 ```
+
+The script PrepareDevEnv.sh should not be used again, as it will not be able to override repositories.
 
 ## 3. Local Docker Env Installation
 
