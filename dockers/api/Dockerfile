@@ -68,10 +68,10 @@ RUN sed -i '/petsc\|numpy/d' api.requirements.txt && \
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
-RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
 COPY ./platform/sostrades-core ./platform/sostrades-core
-
 COPY ./models ./models
+
+RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
 
 # Update PYTHONPATH
 RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
