@@ -26,14 +26,14 @@ For Windows users, we recommend to use Ubuntu through Windows Subsystem for Linu
 ### 2.1 (Optional : Windows users only) WSL and/or Ubuntu installation
 
 1. Install WSL2 if using Windows
-```
+```bash
 wsl --install --web-download
 ```
 
 2. Install Ubuntu 22.04 LTS 
 
 On Windows with WSL2
-```
+```bash
 wsl --install -d Ubuntu-22.04
 ```
 
@@ -49,11 +49,11 @@ You may use directly Ubuntu 22.04 LTS or an equivalent, in this case you may hav
 
 1. Conda installation
 Check conda installation with `conda info`, if not installed do 
-```
+```bash
 pip install conda
 ```
 or 
-```
+```bash
 wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
 chmod +x Anaconda3-2023.09-0-Linux-x86_64.sh
 ./Anaconda3-2023.09-0-Linux-x86_64.sh
@@ -62,11 +62,11 @@ chmod +x Anaconda3-2023.09-0-Linux-x86_64.sh
 ```
 
 2. Install jq
-```
-$ sudo apt  install jq           #For Debian/Ubuntu
-$ sudo yum install jq            #For Fedora/CentOS/RHEL
-$ sudo pacman -Syu jq            #For Arch
-$ sudo brew install jq           #For macOS
+```bash
+sudo apt  install jq           #For Debian/Ubuntu
+sudo yum install jq            #For Fedora/CentOS/RHEL
+sudo pacman -Syu jq            #For Arch
+sudo brew install jq           #For macOS
 ```
 
 
@@ -75,7 +75,7 @@ $ sudo brew install jq           #For macOS
 All development environments are built from a dedicated directory initiated with this repository. This directory will be used as root and will contains all the others necessary repositories from OS-Climate. This root directory contains VSCode tasks and launch docker-compose files. This allows to launch SoStrades in docker containers and to debug webapi servers directly from thus container in VS Code. From the repository a script is available to clone all the repositories to prepare the development environment.
 
 1. Clone this repository in root directory
-```
+```bash
 git clone https://github.com/os-climate/sostrades-dev-tools
 (For SSH : git clone git@github.com:os-climate/sostrades-dev-tools.git)
  
@@ -83,7 +83,7 @@ cd sostrades-dev-tools
 ```
 2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories :
 
-```
+```json
 [
     {
         "url": "https://github.com/os-climate/witness-core.git",
@@ -138,7 +138,7 @@ You will need also:
 
 
 1. Try running  "docker" and  "docker compose" to see if command is recognized
-```
+```bash
 docker version
 docker compose version 
 
@@ -148,15 +148,15 @@ docker ps
  If this commands are not working fix docker and docker-compose installation before continuing.
 
 #### Docker installation tips
-Recipe for docker installation is https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
-Recipe for docker-compose installation is https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04
+Recipe for docker installation is [https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04)
+Recipe for docker-compose installation is [https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)
 
 A few useful commands :
 * `sudo usermod -aG docker ${USER}` to add user to docker group
 * `sudo service docker start` to start docker service
 * `sudo service docker status` to check docker status
 * If docker sercice stops after a few seconds, check ip tables
-```
+```bash
 sudo update-alternatives --config iptables
  
 (choose 1 legacy uptables)
@@ -169,12 +169,12 @@ sudo service docker start
 VSCode settings have been written in dedicated files during execution of `PrepareDevEnv.sh` (in a previous step).
 
 The following command can be run to install VSCode :
-```
+```bash
 sudo snap install --classic code
 ```
 
 In order to benefit from VSCode settings, type the following command in the `sostrades-dev-tools` directory, at the same level than the `./vscode` (hidden) folder (or `models/` and `platform/` visible directories) :
-```
+```bash
 code . &
 ```
 
@@ -183,7 +183,7 @@ code . &
 All the commands below need to be done from the root directory. 
 
 1. Build all docker images
-```
+```bash
 docker compose build
 ```
 
@@ -192,7 +192,7 @@ docker compose build
 Here all commands needed to play with the image built are listed : 
 
 - First start of your local GUI instance 
-```
+```bash
 docker compose up
 ```
 
@@ -205,20 +205,20 @@ login : user
 password : mdp
 
 - Stop the instance 
-```
+```bash
 docker compose stop
 ```
 - Restart the instance 
-```
+```bash
 docker compose start
 ```
 - Clean the instance (if errors)
-```
+```bash
 docker compose down
 ```
 
 - Start the application with debug mode 
-```
+```bash
 docker compose -f docker-compose.debug.yml up
 ```
 If using VSCode you will find  4 debug profiles : 
@@ -249,7 +249,7 @@ Follow common setup [section](#2-common-setup) :
 - Conda installed.
 
 ### 4.2 Prepare Conda environment
-```
+```bash
 ./PrepareCondaEnv.sh  (if necessary sudo chmod +x PrepareCondaEnv.sh to allow execution rights)
 ```
 
@@ -257,12 +257,12 @@ Follow common setup [section](#2-common-setup) :
 VSCode settings have been written in dedicated files during execution of `PrepareDevEnv.sh` (in a previous step).
 
 The following command can be run to install VSCode :
-```
+```bash
 sudo snap install --classic code
 ```
 
 In order to benefit from VSCode settings, type the following command in the `sostrades-dev-tools` directory, at the same level than the `./vscode` (hidden) folder (or `models/` and `platform/` visible directories) :
-```
+```bash
 code . &
 ```
 
