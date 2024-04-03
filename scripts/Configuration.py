@@ -120,17 +120,14 @@ if confirmation == "yes":
 else:
     print("Do not forget to build the frontend later")
 
-# Ask mysql user and password credentials
-mysql_user, mysql_password = get_mysql_credentials()
-
 # Init platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json configuration file
 configuration={
     "ENVIRONMENT": "DEVELOPMENT", 
     "SQL_ALCHEMY_DATABASE": { 
         "HOST" : "127.0.0.1", 
         "PORT" : 3306, 
-        "USER_ENV_VAR":f"{mysql_user}", 
-        "PASSWORD_ENV_VAR":f"{mysql_password}", 
+        "USER_ENV_VAR":"SQL_ACCOUNT", 
+        "PASSWORD_ENV_VAR":"SQL_PASSWORD", 
         "DATABASE_NAME": "sostrades-data", 
         "SSL": False 
     }, 
@@ -138,8 +135,8 @@ configuration={
     "LOGGING_DATABASE": { 
         "HOST": "127.0.0.1", 
         "PORT": 3306, 
-        "USER_ENV_VAR":f"{mysql_user}", 
-        "PASSWORD_ENV_VAR":f"{mysql_password}", 
+        "USER_ENV_VAR":"LOG_USER", 
+        "PASSWORD_ENV_VAR":"LOG_PASSWORD",
         "DATABASE_NAME": "sostrades-log", 
         "SSL": False 
     }, 
@@ -181,6 +178,9 @@ if os.path.exists(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\s
         print (f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json already created")
 else:
     print (f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template not found")
+
+# Ask mysql user and password credentials
+mysql_user, mysql_password = get_mysql_credentials()
 
 # Define the values of .flaskenv 
 flask_env = {
