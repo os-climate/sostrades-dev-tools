@@ -28,9 +28,7 @@ RUN npm install
 #------------------------------------------------------------------------------
 # Extract source code 'sostrades-webgui'
 COPY  ./platform/sostrades-webgui/src ./src
-COPY ["./platform/sostrades-webgui/*.json", "./platform/sostrades-webgui/browserslistrc", "./platform/sostrades-webgui/karma.conf.js", "./"]
-ADD ./platform/sostrades-webgui/browserslistrc ./browserslistrc
-ADD ./platform/sostrades-webgui/karma.conf.js ./karma.conf.js
+COPY ["./platform/sostrades-webgui/*.json", "./platform/sostrades-webgui/browserslist", "./platform/sostrades-webgui/karma.conf.js", "./"]
 RUN node_modules/@angular/cli/bin/ng build --prod
 
 #------------------------------------------------------------------------------
