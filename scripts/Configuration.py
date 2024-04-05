@@ -16,7 +16,6 @@ limitations under the License.
 import json
 import subprocess
 import os
-import mysql.connector
 
 # Variable with the path of sostrade-dev-tools
 sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
@@ -25,100 +24,6 @@ print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
 # Paths
 platform_dir="platform"
 model_dir="models"
-
-# Run os.system command with interruption
-def run_command(cmd):
- if os.system(cmd) != 0:
-    raise Exception(f"Error to execute {cmd}")
-
-# Function to install NVS in the directory %LOCALAPPDATA%\nvs (Doc : https://github.com/jasongin/nvs/blob/master/doc/SETUP.md)
-def install_nvs():
-    nvs_home = os.environ.get('LOCALAPPDATA', '') + '\\nvs'
-    if not os.path.exists(nvs_home):
-        os.makedirs(nvs_home)
-        # Clone NVS repository
-        clone_command = f'git clone https://github.com/jasongin/nvs "{nvs_home}"'
-        run_command(clone_command)
-    
-    # Run nvs.cmd install
-    nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
-    install_command = f'"{nvs_cmd_path}" install'
-    run_command(install_command)
-
-    print("NVS has been installed successfully.")
-
-# Function to install and switch node version with nvs 
-def switch_node_version(node_version):
-    # Get path to nvs.cmd
-    nvs_home = os.environ.get('LOCALAPPDATA', '') + '\\nvs'
-    nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
-    
-    # Check if Node.js version is already installed
-    list_command = f'"{nvs_cmd_path}" list'
-    installed_versions = os.popen(list_command).read()
-    
-    if node_version not in installed_versions:
-        # If Node.js version is not installed, add it
-        add_command = f'"{nvs_cmd_path}" add {node_version}'
-        run_command(add_command)
-        print(f"Node.js version {node_version} has been added.")
-        run_command(f'"{nvs_cmd_path}" install')
-    else:
-        print(f"Node.js version {node_version} is already installed.")
-
-    # Command to switch version
-    switch_command = f'"{nvs_cmd_path}" use {node_version}'
-    print(f"{switch_command}")
-    run_command(switch_command)
-
-    print(f"Switched to Node.js version {node_version}.")
-
-# This function will ask user and password of mysql
-def get_mysql_credentials():
-    confirmed = False
-    while not confirmed:
-        mysql_user = input("Enter the user root of mysql: ")
-        mysql_password = input("Enter the user root password of mysql: ")
-        print(f"Mysql user root: {mysql_user}")
-        print(f"Mysql user root password: {mysql_password}")
-        confirm = input("Your credentials are correct ? (Yes/No): ").strip().lower()
-        
-        if confirm == "yes":
-            confirmed = True
-            print("Credentials confirmed.")
-    
-    return mysql_user,mysql_password
-
-# Ask if user want to install NVS 
-print("This script will install NVS on your system.")
-confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
-
-node_version="12.16.1"
-if confirmation == "yes":
-    # Install nvs
-    install_nvs()
-    # Install nodes.js v12.16.1
-    switch_node_version(node_version)
-else:
-    print(f"NVS installation canceled. Be careful you need node.js version {node_version} installed on your computer to run the frontend")
-
-
-# Ask if we build the frontend now 
-print("This script will install requirements and build the fronted")
-confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
-
-if confirmation == "yes":
-    nvs_home = os.environ.get('LOCALAPPDATA', '') + '\\nvs'
-    nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
-    # Change directory to sostrade-webgui
-    if  os.path.exists(f"{sostrades_dev_tools_path}\platform\sostrades-webgui"):
-        os.chdir(f"{sostrades_dev_tools_path}\platform\sostrades-webgui")
-        run_command(f"{nvs_cmd_path} use {node_version} && npm install -y")
-        os.chdir(sostrades_dev_tools_path)
-    else:
-        print(f"{sostrades_dev_tools_path}\platform\sostrades-webgui repository not found")
-else:
-    print("Do not forget to build the frontend later")
 
 # Init platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json configuration file
 configuration={
@@ -179,9 +84,6 @@ if os.path.exists(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\s
 else:
     print (f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template not found")
 
-# Ask mysql user and password credentials
-mysql_user, mysql_password = get_mysql_credentials()
-
 # Define the values of .flaskenv 
 flask_env = {
     "FLASK_APP":"sos_trades_api/server/base_server.py",
@@ -191,10 +93,10 @@ flask_env = {
     "SOS_TRADES_DATA":"C:\\Temp\\SoSTrades_persistance",
     "EEB_PATH":"C:\\Temp\\SoSTrades_persistance\\eeb.yaml",
     "SOS_TRADES_RSA":"C:\\Temp\\SoSTrades_persistance\\rsa",
-    "SQL_ACCOUNT":f"{mysql_user}",
-    "SQL_PASSWORD":f"{mysql_password}", 
-    "LOG_USER":f"{mysql_user}",
-    "LOG_PASSWORD":f"{mysql_password}", 
+    "SQL_ACCOUNT":"user",
+    "SQL_PASSWORD":"password",
+    "LOG_USER":"user",
+    "LOG_PASSWORD":"password", 
     "SECRET_KEY":"ABCDEFGH12 ",
     "SAML_V2_METADATA_FOLDER":"sos_trades_api\\configuration\\saml"
     }
@@ -242,29 +144,3 @@ if not os.path.exists(public_key_path):
     print(f"{public_key_path} have been created.")
 else:
     print(f"{public_key_path} already created.")
-
-
-
-def create_database(host, user, password, database_name):
-    # Connect to MySQL server
-    conn = mysql.connector.connect(
-        host=host,
-        user=user,
-        password=password
-    )
-
-    # Create a cursor to execute SQL queries
-    cursor = conn.cursor()
-
-    # Create the database
-    cursor.execute("CREATE DATABASE IF NOT EXISTS `{}`".format(database_name))
-
-    # Close the cursor and connection
-    cursor.close()
-    conn.close()
-
-print("Creating sostrades-data and sostrades-log databases if not exist ...")
-create_database("127.0.0.1", f"{mysql_user}", f"{mysql_password}", "sostrades-data" )
-create_database("127.0.0.1", f"{mysql_user}", f"{mysql_password}", "sostrades-log" )
-print("FINISH")
-
