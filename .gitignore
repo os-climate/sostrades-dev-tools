@@ -10,3 +10,4 @@ ipfs/
 dockers/api/conf/mock_rsa/private_key.pem
 dockers/api/conf/mock_rsa/public_key.pem
 docs/build/
+sostrades-venv/
