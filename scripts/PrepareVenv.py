@@ -13,8 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-import json
-import subprocess
 import os
 import sys
 
@@ -95,6 +93,7 @@ if not os.path.exists(venv_path) and check_python_version==True:
 else:
    print("Cannot create a virtual environment (venv) because you do not have a compatible version of Python")
 
+# Install platform and model requirements 
 venv_script_activate_path= f"{venv_path}\\Scripts\\activate"
 if os.path.exists(venv_script_activate_path) and check_python_version==True:
     run_command(f"{venv_script_activate_path} && pip list && \
@@ -110,6 +109,7 @@ if os.path.exists(venv_script_activate_path) and check_python_version==True:
 else:
    print("Virtual environment (venv) is not well installed so the requierements cannot be installed")
 
+#  Create sostrades.pth inside the sostrades-venv
 venv_lib_site_package_path= f"{venv_path}\\lib\\site-packages"
 sostrades_pth_path= f"{venv_lib_site_package_path}\\sostrades.pth"
 if os.path.exists(venv_lib_site_package_path) and check_python_version==True:
@@ -131,7 +131,3 @@ if os.path.exists(venv_lib_site_package_path) and check_python_version==True:
     write_array_to_file(platform_model_directory, sostrades_pth_path)
 else:
    print("Virtual environment (venv) is not well installed so the requierements cannot be installed")
-
-
-
-   
