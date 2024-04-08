@@ -91,7 +91,7 @@ if not os.path.exists(venv_path) and check_python_version==True:
     print(f"{venv_path} created")
 
 # Create a venv with the good python version inside sostrades-dev-tools\sostrades-venv
-if not os.path.exists(venv_path) and check_python_version==True: 
+if check_python_version==True: 
    create_venv_command=f"python -m venv {venv_path}"
    run_command(create_venv_command)
    print (f"Venv created in the folling path : {venv_path}")
