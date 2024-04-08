@@ -12,6 +12,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
+'''
+StartSOSTrades.py is a script that run api server, ontology server, and webgui server with venv and node
+'''
 import os
 
 # Variable with the path of sostrade-dev-tools

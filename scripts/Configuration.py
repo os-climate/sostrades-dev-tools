@@ -12,9 +12,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
-
+'''
+Configuration.py is a script that initialise files and folders needed for sostrades :
+- sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json
+- sostrades-dev-tools\platform\sostrades-webapi\.flaskenv
+- C:\TEMP\SOSTRADES\
+- C:\TEMP\SOSTRADES\REFERENCES\
+- C:\TEMP\SOSTRADES\RSA\
+- C:\TEMP\SOSTRADES\RSA\private_key.pem
+- C:\TEMP\SOSTRADES\RSA\public_key.pem
+'''
 import json
-import subprocess
 import os
 
 # Variable with the path of sostrade-dev-tools
@@ -23,7 +31,6 @@ print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
 
 # Paths
 platform_dir="platform"
-model_dir="models"
 
 # Init platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json configuration file
 configuration={

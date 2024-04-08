@@ -12,14 +12,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
-
-import json
-import subprocess
+'''
+NodeInstallation.py is a script that install NVS with a specific version of Node settable with the parameter {node_version}
+The path of the installation is set in the parameter {nvs_home}
+At the end of the script it also ask if you want to run the build of sostrades-webgui
+'''
 import os
 
 # Variable with the path of sostrade-dev-tools
 sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
 print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
+
+# Variable of node version to install or use
+node_version="12.16.1"
 
 # Paths
 platform_dir="platform"
@@ -73,17 +78,11 @@ def switch_node_version(node_version):
     print(f"Switched to Node.js version {node_version}.")
 
 # Ask if user want to install NVS 
-print("This script will install NVS on your system.")
-confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
-
-node_version="12.16.1"
-if confirmation == "yes":
-    # Install nvs
-    install_nvs()
-    # Install nodes.js v12.16.1
-    switch_node_version(node_version)
-else:
-    print(f"NVS installation canceled. Be careful you need node.js version {node_version} installed on your computer to run the frontend")
+print(f"Installing NVS with Node v{node_version} ...")
+# Install nvs
+install_nvs()
+# Install nodes.js
+switch_node_version(node_version)
 
 # Ask if we build the frontend now 
 print("This script will install requirements and build the fronted")
@@ -101,5 +100,3 @@ if confirmation == "yes":
         print(f"{sostrades_dev_tools_path}\platform\sostrades-webgui repository not found")
 else:
     print("Do not forget to build the frontend later")
-
-

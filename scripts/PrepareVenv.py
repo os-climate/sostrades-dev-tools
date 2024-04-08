@@ -12,7 +12,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
-
+'''
+PrepareVenv.py is a script that install venv in the path sostrades-dev-tools\sostrades-venv only if you have a python version in v3.9.
+After the environement is created it will install all requirements of platform, model, and in addition python_ldap. 
+At the end of the script, a file sostrades-dev-tools\sostrades-venv\lib\site-packages\sostrades.pth with is created with all path of the different repositories.
+Then is is possible to run the sostrades-venv with the commande sostrades-dev-tools\sostrades-venv\Scripts\activate
+'''
 import os
 import sys
 
