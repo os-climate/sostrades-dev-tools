@@ -24,7 +24,7 @@ sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
 print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
 
 # Variable of node version to install or use
-node_version="12.16.1"
+node_version="18.10.0"
 
 # Paths
 platform_dir="platform"

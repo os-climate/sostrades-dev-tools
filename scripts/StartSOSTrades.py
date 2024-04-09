@@ -63,7 +63,7 @@ else:
 
 
 # Start sostrade-webgui
-node_version="12.16.1"
+node_version="18.10.0"
 nvs_home = os.environ.get('LOCALAPPDATA', '') + '\\nvs'
 nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
 if os.path.exists(nvs_cmd_path):

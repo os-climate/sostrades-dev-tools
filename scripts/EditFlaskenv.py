@@ -80,5 +80,5 @@ with open(flaskenv_file_path, "w") as f:
     for element in file:
         f.write(str(element+ "\n"))
 
-print(".flaskenv modified.")
+print(f"{flaskenv_file_path} modified.")
 
