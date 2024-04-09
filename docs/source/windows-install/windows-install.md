@@ -40,7 +40,7 @@ a password is temporarely save in sostrades-dev-tools\platform\sostrades-webapi\
 SoSTrades need a database with 2 tables "sostrades-data" and "sostrades-log". No script is written to install MYSQL yet, so it has to be install manually. First download [mysql-installer-community](https://dev.mysql.com/get/archives/mysql-installer/mysql-installer-community-8.0.32.0.msi). Launch "mysql-installer-community-8.0.32.0.msi" from the previous file downloaded. If you have the following screen it means you already have some product of mysql, just cancel this first windows and confirm.
 ![](images/Mysql_Cancel.png) 
 You will get this screen. Click on Add button and select **MySQL Server 5.7.44 - x 64** you can also add MySQL WorkBench if wanted
-![](images/Mysql_Add.png) 
+![](images/Mysql_add.png) 
 ![](images/Mysql_5.7.png)
 Once the MySQL Server is selected click on Next then exectute on the next screen. Let everything by default until to get the screend asking you to enter the password. Enter you password twice and click next to complete all the installation of MySQL.
 ![](images/Mysql_credential.png)
