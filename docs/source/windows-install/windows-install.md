@@ -46,13 +46,13 @@ Once the MySQL Server is selected click on Next then exectute on the next screen
 ![](images/Mysql_credential.png)
 Keep the password of root user. It will be asking again later in the sostrades installation.
 
-## 3. Run scripts
+## 4. Run scripts
 
 Clone the repository sostrades-dev-tools to get the installation scripts
 ```
 git clone https://github.com/os-climate/sostrades-dev-tools.git
 ```
-Then run PrepareDevEnv.py from sostrades-dev-tools folder to clone all models and platform repository needed:
+Then run PrepareDevEnv.py from `sostrades-dev-tools` folder to clone all models and platform repository needed:
 ```
 python scripts\PrepareDevEnv.py
 ```
@@ -68,7 +68,7 @@ Then run NodeInstallation.py to install NVS with the good version of Node at the
 ```
 python scripts\NodeInstallation.py 
 ```
-Then run script is EditFlaskenv.py to modify the .flaskenv file with your SQL credentials:
+Then run script is EditFlaskenv.py to modify the .flaskenv file with your SQL credentials (user=root and the password is the same in the MySQL installation section):
 ```
 python scripts\EditFlaskenv.py
 ```
@@ -80,12 +80,13 @@ To create an user to access to SoSTrades platform run CreateUser.py:
 ```
 python scripts\CreateUser.py
 ```
-The next script is StartSOSTrades.py from sostrades-dev-tools folder :
+Finally run the script StartSOSTrades.py to launch SoSTrades :
 ```
 python scripts\CreatStartSOSTradeseUser.py
 ```
+When the last script is running you can go to [http://127.0.0.1:4200](http://127.0.0.1:4200) with your web browser and connect with your credentials just created before.
 
-## 4. Run venv
+## 5. Run venv
 
 To run sostrades-venv with all requierements installed run the following command from you `sostrade-dev-tools` folder:
 ```
