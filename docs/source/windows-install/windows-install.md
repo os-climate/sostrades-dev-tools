@@ -88,7 +88,7 @@ When the last script is running you can go to [http://127.0.0.1:4200](http://127
 
 ## 5. Run venv
 
-To run sostrades-venv with all requierements installed run the following command from you `sostrade-dev-tools` folder:
+To run sostrades-venv with all requierements installed, run the following command from your `sostrade-dev-tools` folder:
 ```
 sostrades-venv\Scripts\activate
 ```
