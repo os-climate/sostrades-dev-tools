@@ -3,8 +3,8 @@
 # -- Project information
 
 project = 'sostrades-dev-tools'
-copyright = '2024, Capgemini'
-author = 'Capgemini'
+copyright = '2024, Sostrades Developers'
+author = 'Sostrades Developers'
 
 #release = '0.1'
 #version = '0.1.0'
