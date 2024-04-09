@@ -13,7 +13,7 @@
 # limitations under the License.
 #------------------------------------------------------------------------------
 # Stage 1 : Distribution building
-FROM node:12.16.1 as front_build
+FROM node:18.10.0 as front_build
 #------------------------------------------------------------------------------
 # Remove question about analytics
 RUN export NG_CLI_ANALYTICS=off
@@ -28,8 +28,8 @@ RUN npm install
 #------------------------------------------------------------------------------
 # Extract source code 'sostrades-webgui'
 COPY  ./platform/sostrades-webgui/src ./src
-COPY ["./platform/sostrades-webgui/*.json", "./platform/sostrades-webgui/browserslist", "./platform/sostrades-webgui/karma.conf.js", "./"]
-RUN node_modules/@angular/cli/bin/ng build --prod
+COPY ["./platform/sostrades-webgui/*.json", "./platform/sostrades-webgui/browserslistrc", "./platform/sostrades-webgui/karma.conf.js", "./"]
+RUN npm run build -- --configuration production
 
 #------------------------------------------------------------------------------
 # Get commit id of the current webgui repo
