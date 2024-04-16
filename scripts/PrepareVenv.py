@@ -78,9 +78,6 @@ if (
 
 # Create .\venv directory
 venv_path = f"{sostrades_dev_tools_path}\\sostrades-venv"
-if not os.path.exists(venv_path):
-    os.makedirs(venv_path)
-    print(f"{venv_path} created")
 
 # Create a venv with the good python version inside sostrades-dev-tools\sostrades-venv
 create_venv_command = f"python -m venv {venv_path}"
