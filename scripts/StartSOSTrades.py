@@ -44,6 +44,9 @@ if os.path.exists(venv_script_activate_path):
         run_command(
             f"{venv_script_activate_path} && start cmd /K python server_scripts\\split_mode\\launch_server_data.py"
         )
+        run_command(
+            f"{venv_script_activate_path} && start cmd /K python server_scripts\\launch_server_message.py"
+        )
     else:
         print(f"{platform_path}\\sostrades-webapi repository not found")
 
