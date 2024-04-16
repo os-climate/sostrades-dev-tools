@@ -41,6 +41,8 @@ SoSTrades need a database with 2 tables "sostrades-data" and "sostrades-log". No
 ![](images/Mysql_Cancel.png) 
 You will get this screen. Click on Add button and select **MySQL Server 5.7.44 - x 64** you can also add MySQL WorkBench if wanted
 ![](images/Mysql_add.png) 
+If you can not find Mysql 5.7n click on "Edit" and change the filter of "Maturity" field to "Other Releases" 
+![](images/Mysql_filter.png)
 ![](images/Mysql_5.7.png)
 Once the MySQL Server is selected click on Next then exectute on the next screen. Let everything by default until to get the screend asking you to enter the password. Enter you password twice and click next to complete all the installation of MySQL.
 ![](images/Mysql_credential.png)
