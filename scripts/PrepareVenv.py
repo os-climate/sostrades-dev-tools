@@ -21,11 +21,8 @@ Then is is possible to run the sostrades-venv with the commande sostrades-dev-to
 import os
 import sys
 
-
-# Run os.system command with interruption
-def run_command(cmd):
-    if os.system(cmd) != 0:
-        raise Exception(f"Error to execute {cmd}")
+from constants import sostrades_dev_tools_path, platform_path, model_path
+from tooling import run_command
 
 
 # Function to get all directories within a directory
@@ -63,14 +60,6 @@ def write_array_to_file(array, file_path):
     print(f"Array written to {file_path} successfully.")
 
 
-# Path
-platform_dir = "platform"
-model_dir = "models"
-
-# Variable with the path of sostrade-dev-tools
-sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
-print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}")
-
 # Display Python version
 python_version = sys.version.split()[0]
 print(f"Python version : {python_version}")
@@ -79,8 +68,13 @@ print(f"Python version : {python_version}")
 accepted_python_major_version = 3
 accepted_python_minor_version = 9
 
-if sys.version_info.major != accepted_python_major_version or sys.version_info.minor != accepted_python_minor_version:
-    raise Exception(f"Python version : {python_version} but python v{accepted_python_major_version}.{accepted_python_minor_version} is required")
+if (
+    sys.version_info.major != accepted_python_major_version
+    or sys.version_info.minor != accepted_python_minor_version
+):
+    raise Exception(
+        f"Python version : {python_version} but python v{accepted_python_major_version}.{accepted_python_minor_version} is required"
+    )
 
 # Create .\venv directory
 venv_path = f"{sostrades_dev_tools_path}\\sostrades-venv"
@@ -100,12 +94,12 @@ if os.path.exists(venv_script_activate_path):
         f"{venv_script_activate_path} && pip list && \
                 python -m pip install --no-cache-dir \
                 https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl \
-                -r {sostrades_dev_tools_path}\\{platform_dir}\\gemseo\\requirements.txt \
-                -r {sostrades_dev_tools_path}\\{platform_dir}\\sostrades-core\\requirements.in \
-                -r {sostrades_dev_tools_path}\\{platform_dir}\\sostrades-ontology\\requirements.in \
-                -r {sostrades_dev_tools_path}\\{platform_dir}\\sostrades-webapi\\requirements.in \
-                -r {sostrades_dev_tools_path}\\{model_dir}\\\witness-energy\\requirements.in \
-                -r {sostrades_dev_tools_path}\\{model_dir}\\witness-core\\requirements.in \
+                -r {platform_path}\\gemseo\\requirements.txt \
+                -r {platform_path}\\sostrades-core\\requirements.in \
+                -r {platform_path}\\sostrades-ontology\\requirements.in \
+                -r {platform_path}\\sostrades-webapi\\requirements.in \
+                -r {model_path}\\\witness-energy\\requirements.in \
+                -r {model_path}\\witness-core\\requirements.in \
                 && pip list"
     )
 else:
@@ -117,22 +111,14 @@ else:
 venv_lib_site_package_path = f"{venv_path}\\lib\\site-packages"
 sostrades_pth_path = f"{venv_lib_site_package_path}\\sostrades.pth"
 if os.path.exists(venv_lib_site_package_path):
-    # Directory path to traverse
-    platform_path = f"{sostrades_dev_tools_path}\\{platform_dir}"
-    model_path = f"{sostrades_dev_tools_path}\\{model_dir}"
-
     # Call the function to get directory paths
     all_platform_directory = list_directory_paths(platform_path)
     all_model_directory = list_directory_paths(model_path)
-    platform_model_directory = all_platform_directory
-    platform_model_directory.extend(all_model_directory)
-
-    # Print the directory paths
-    for path in platform_model_directory:
-        print(path)
 
     # Create the sostrades.pth for the Python environment
-    write_array_to_file(platform_model_directory, sostrades_pth_path)
+    write_array_to_file(
+        all_platform_directory + all_model_directory, sostrades_pth_path
+    )
 else:
     print(
         "Virtual environment (venv) is not well installed so the requierements cannot be installed"

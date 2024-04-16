@@ -12,3 +12,4 @@ dockers/api/conf/mock_rsa/public_key.pem
 docs/build/
 sostrades-venv/
 .idea
+__pycache__

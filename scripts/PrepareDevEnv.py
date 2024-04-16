@@ -17,14 +17,12 @@ import json
 import subprocess
 import os
 
-# Variable with the path of sostrade-dev-tools
-sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
-print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
-
-# Paths
-platform_dir = "platform"
-model_dir = "models"
-vscode_dir = ".vscode"
+from constants import (
+    sostrades_dev_tools_path,
+    model_dir_name,
+    platform_dir_name,
+    vscode_dir,
+)
 
 
 # Function to read the JSON file
@@ -44,7 +42,7 @@ def git_clone(url, branch, directory):
     os.chdir(sostrades_dev_tools_path)
 
 
-def clone_all_repos_in_folder(items:list[dict[str:str]], directory:str):
+def clone_all_repos_in_folder(items: list[dict[str:str]], directory: str):
     for item in items:
         url = item.get("url")
         branch = item.get("branch")
@@ -54,6 +52,7 @@ def clone_all_repos_in_folder(items:list[dict[str:str]], directory:str):
             git_clone(url, branch, directory)
         else:
             print(f"{repo_name} already cloned")
+
 
 # Function to extract the name of the project from github url
 def extract_repo_name(git_url):
@@ -79,11 +78,11 @@ platform_data = read_json_file(platform_file_path)
 
 # Git clone for URLs in model_repositories.json
 print("Cloning repositories from model_repositories.json:")
-clone_all_repos_in_folder(model_data, model_dir)
+clone_all_repos_in_folder(model_data, model_dir_name)
 
 # Git clone for URLs in platform_repositories.json
 print("\nCloning repositories from platform_repositories.json:")
-clone_all_repos_in_folder(platform_data, platform_dir)
+clone_all_repos_in_folder(platform_data, platform_dir_name)
 
 # Generate Visual Studio Code Python extension configuration
 python_analysis_extraPaths = []
@@ -92,14 +91,14 @@ for repo_url in platform_data:
     url = repo_url.get("url")
     repo_name = extract_repo_name(url)
     if repo_name == "gemseo":
-        python_analysis_extraPaths += [platform_dir + "/" + "gemseo/src"]
+        python_analysis_extraPaths += [platform_dir_name + "/" + "gemseo/src"]
     else:
-        python_analysis_extraPaths += [platform_dir + "/" + repo_name]
+        python_analysis_extraPaths += [platform_dir_name + "/" + repo_name]
 # Add model repositories to the configuration
 for repo_url in model_data:
     url = repo_url.get("url")
     repo_name = extract_repo_name(url)
-    python_analysis_extraPaths += [platform_dir + "/" + repo_name]
+    python_analysis_extraPaths += [platform_dir_name + "/" + repo_name]
 
 print("\npython_analysis_extraPaths=", python_analysis_extraPaths)
 

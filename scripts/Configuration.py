@@ -25,91 +25,97 @@ Configuration.py is a script that initialise files and folders needed for sostra
 import json
 import os
 
-# Variable with the path of sostrade-dev-tools
-sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
-print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
+from constants import platform_path, flaskenv_file_path
 
-# Paths
-platform_dir="platform"
 
 # Init platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json configuration file
-configuration={
-    "ENVIRONMENT": "DEVELOPMENT", 
-    "SQL_ALCHEMY_DATABASE": { 
-        "HOST" : "127.0.0.1", 
-        "PORT" : 3306, 
-        "USER_ENV_VAR":"SQL_ACCOUNT", 
-        "PASSWORD_ENV_VAR":"SQL_PASSWORD", 
-        "DATABASE_NAME": "sostrades-data", 
-        "SSL": False 
-    }, 
-    "SQLALCHEMY_TRACK_MODIFICATIONS": False, 
-    "LOGGING_DATABASE": { 
-        "HOST": "127.0.0.1", 
-        "PORT": 3306, 
-        "USER_ENV_VAR":"LOG_USER", 
-        "PASSWORD_ENV_VAR":"LOG_PASSWORD",
-        "DATABASE_NAME": "sostrades-log", 
-        "SSL": False 
-    }, 
-    "SECRET_KEY_ENV_VAR": "SECRET_KEY", 
-    "JWT_TOKEN_LOCATION": "headers", 
-    "JWT_ACCESS_TOKEN_EXPIRES": 18000, 
-    "JWT_REFRESH_TOKEN_EXPIRES": 36000, 
-    "DEFAULT_GROUP_MANAGER_ACCOUNT": "All users", 
-    "CREATE_STANDARD_USER_ACCOUNT": False, 
-    "LDAP_SERVER" : "", 
-    "LDAP_BASE_DN" : "", 
-    "LDAP_FILTER" : "", 
-    "LDAP_USERNAME" : "", 
-    "SMTP_SERVER" : "", 
-    "SMTP_SOS_TRADES_ADDR" : "", 
-    "SOS_TRADES_ENVIRONMENT" : "Local", 
-    "SOS_TRADES_K8S_DNS": "", 
-    "SOS_TRADES_FRONT_END_DNS": "", 
-    "SOS_TRADES_ONTOLOGY_ENDPOINT": "http://127.0.0.1:5555/api/ontology", 
-    "SOS_TRADES_PROCESS_REPOSITORY": ["sostrades_core.sos_processes.test"], 
-    "INTERNAL_SSL_CERTIFICATE": "", 
-    "SOS_TRADES_EXECUTION_STRATEGY": "subprocess", 
-    "SOS_TRADES_SERVER_MODE": "mono", 
-    "SOS_TRADES_DATA": "C:\\TEMP\\SOSTRADES", 
-    "SOS_TRADES_REFERENCES": "C:\\TEMP\\SOSTRADES\\REFERENCES", 
-    "EEB_PATH": "", 
-    "SOS_TRADES_RSA": "C:\\TEMP\\SOSTRADES\\RSA", 
-    "SAML_V2_METADATA_FOLDER": "" 
+configuration = {
+    "ENVIRONMENT": "DEVELOPMENT",
+    "SQL_ALCHEMY_DATABASE": {
+        "HOST": "127.0.0.1",
+        "PORT": 3306,
+        "USER_ENV_VAR": "SQL_ACCOUNT",
+        "PASSWORD_ENV_VAR": "SQL_PASSWORD",
+        "DATABASE_NAME": "sostrades-data",
+        "SSL": False,
+    },
+    "SQLALCHEMY_TRACK_MODIFICATIONS": False,
+    "LOGGING_DATABASE": {
+        "HOST": "127.0.0.1",
+        "PORT": 3306,
+        "USER_ENV_VAR": "LOG_USER",
+        "PASSWORD_ENV_VAR": "LOG_PASSWORD",
+        "DATABASE_NAME": "sostrades-log",
+        "SSL": False,
+    },
+    "SECRET_KEY_ENV_VAR": "SECRET_KEY",
+    "JWT_TOKEN_LOCATION": "headers",
+    "JWT_ACCESS_TOKEN_EXPIRES": 18000,
+    "JWT_REFRESH_TOKEN_EXPIRES": 36000,
+    "DEFAULT_GROUP_MANAGER_ACCOUNT": "All users",
+    "CREATE_STANDARD_USER_ACCOUNT": False,
+    "LDAP_SERVER": "",
+    "LDAP_BASE_DN": "",
+    "LDAP_FILTER": "",
+    "LDAP_USERNAME": "",
+    "SMTP_SERVER": "",
+    "SMTP_SOS_TRADES_ADDR": "",
+    "SOS_TRADES_ENVIRONMENT": "Local",
+    "SOS_TRADES_K8S_DNS": "",
+    "SOS_TRADES_FRONT_END_DNS": "",
+    "SOS_TRADES_ONTOLOGY_ENDPOINT": "http://127.0.0.1:5555/api/ontology",
+    "SOS_TRADES_PROCESS_REPOSITORY": ["sostrades_core.sos_processes.test"],
+    "INTERNAL_SSL_CERTIFICATE": "",
+    "SOS_TRADES_EXECUTION_STRATEGY": "subprocess",
+    "SOS_TRADES_SERVER_MODE": "mono",
+    "SOS_TRADES_DATA": "C:\\TEMP\\SOSTRADES",
+    "SOS_TRADES_REFERENCES": "C:\\TEMP\\SOSTRADES\\REFERENCES",
+    "EEB_PATH": "",
+    "SOS_TRADES_RSA": "C:\\TEMP\\SOSTRADES\\RSA",
+    "SAML_V2_METADATA_FOLDER": "",
 }
 
 # Create configuration.json file for WebAPI
-if os.path.exists(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template"):
-    if not os.path.exists(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json"):
-        print ("Creating configuration.json ...")
-        with open(f"{sostrades_dev_tools_path}\{platform_dir}\\sostrades-webapi\sos_trades_api\configuration_template\configuration.json", "w") as f:
+if os.path.exists(
+    f"{platform_path}\sostrades-webapi\sos_trades_api\configuration_template"
+):
+    if not os.path.exists(
+        f"{platform_path}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json"
+    ):
+        print("Creating configuration.json ...")
+        with open(
+            f"{platform_path}\\sostrades-webapi\sos_trades_api\configuration_template\configuration.json",
+            "w",
+        ) as f:
             json.dump(configuration, f, indent=4)
-            print(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json created")
+            print(
+                f"{platform_path}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json created"
+            )
     else:
-        print (f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json already created")
+        print(
+            f"{platform_path}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json already created"
+        )
 else:
-    print (f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template not found")
+    print(
+        f"{platform_path}\sostrades-webapi\sos_trades_api\configuration_template not found"
+    )
 
-# Define the values of .flaskenv 
+# Define the values of .flaskenv
 flask_env = {
-    "FLASK_APP":"sos_trades_api/server/base_server.py",
-    "FLASK_ENV":"development",
-    "SOS_TRADES_SERVER_CONFIGURATION":f"{sostrades_dev_tools_path}\\platform\\sostrades-webapi\\sos_trades_api\\configuration_template\\configuration.json",
-    "SOS_TRADES_REFERENCES":"C:\\Temp\\SoSTrades_persistance\\reference",
-    "SOS_TRADES_DATA":"C:\\Temp\\SoSTrades_persistance",
-    "EEB_PATH":"C:\\Temp\\SoSTrades_persistance\\eeb.yaml",
-    "SOS_TRADES_RSA":"C:\\Temp\\SoSTrades_persistance\\rsa",
-    "SQL_ACCOUNT":"user",
-    "SQL_PASSWORD":"password",
-    "LOG_USER":"user",
-    "LOG_PASSWORD":"password", 
-    "SECRET_KEY":"ABCDEFGH12 ",
-    "SAML_V2_METADATA_FOLDER":"sos_trades_api\\configuration\\saml"
-    }
-
-# File path to create
-flaskenv_file_path = f"{sostrades_dev_tools_path}\platform\sostrades-webapi\.flaskenv"
+    "FLASK_APP": "sos_trades_api/server/base_server.py",
+    "FLASK_ENV": "development",
+    "SOS_TRADES_SERVER_CONFIGURATION": f"{platform_path}\\sostrades-webapi\\sos_trades_api\\configuration_template\\configuration.json",
+    "SOS_TRADES_REFERENCES": "C:\\Temp\\SoSTrades_persistance\\reference",
+    "SOS_TRADES_DATA": "C:\\Temp\\SoSTrades_persistance",
+    "EEB_PATH": "C:\\Temp\\SoSTrades_persistance\\eeb.yaml",
+    "SOS_TRADES_RSA": "C:\\Temp\\SoSTrades_persistance\\rsa",
+    "SQL_ACCOUNT": "user",
+    "SQL_PASSWORD": "password",
+    "LOG_USER": "user",
+    "LOG_PASSWORD": "password",
+    "SECRET_KEY": "ABCDEFGH12 ",
+    "SAML_V2_METADATA_FOLDER": "sos_trades_api\\configuration\\saml",
+}
 
 # Write the values to the file
 with open(flaskenv_file_path, "w") as f:
@@ -126,7 +132,7 @@ if not os.path.exists("C:\\TEMP\\SOSTRADES"):
 if not os.path.exists("C:\\TEMP\\SOSTRADES\\RSA"):
     os.makedirs("C:\\TEMP\\SOSTRADES\\RSA")
     print("C:\TEMP\SOSTRADES\RSA directory created.")
-    
+
 if not os.path.exists("C:\\TEMP\\SOSTRADES\\REFERENCES"):
     os.makedirs("C:\\TEMP\\SOSTRADES\\REFERENCES")
     print("C:\TEMP\SOSTRADES\REFERENCES directory created.")
