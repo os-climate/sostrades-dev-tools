@@ -44,4 +44,4 @@ Contents
 
    Installation <installation.md>
    Add personal repository <add-repository.md>
-   Windows Installation <windows-install/windows-install.md>
+   Advanced installation <advanced-install/advanced-install.md>
