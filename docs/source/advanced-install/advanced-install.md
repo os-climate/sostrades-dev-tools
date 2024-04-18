@@ -61,7 +61,7 @@ Finally run the script StartSOSTrades.py to launch SoSTrades :
 ```
 python scripts\StartSOSTrades.py
 ```
-When the last script is running you can go to [http://127.0.0.1:4200](http://127.0.0.1:4200) with your web browser and connect with your credentials just created before.
+When the last script is running you can go to [http://localhost:4200](http://localhost:4200) with your web browser and connect with your credentials just created before.
 
 ## 4. Run venv
 
