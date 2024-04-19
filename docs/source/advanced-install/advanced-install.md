@@ -57,7 +57,7 @@ To create an user to access to SoSTrades platform run CreateUser.py:
 ```
 python scripts\CreateUser.py
 ```
-If you want to update onology execute the script UpdateOntology.py. This script could take more than 15mn it depends on the number of repository you have.
+If you want to update Ontology execute the script UpdateOntology.py. This script could take more than 15mn it depends on the number of repository you have.
 ```
 python scripts\UpdateOntology.py
 ```
