@@ -57,6 +57,10 @@ To create an user to access to SoSTrades platform run CreateUser.py:
 ```
 python scripts\CreateUser.py
 ```
+If you want to update onology execute the script UpdateOntology.py. This script could take more than 15mn it depends on the number of repository you have.
+```
+python scripts\UpdateOntology.py
+```
 Finally run the script StartSOSTrades.py to launch SoSTrades :
 ```
 python scripts\StartSOSTrades.py
@@ -96,5 +100,7 @@ deactivate
 
 > - CreateUser.py : script that create an user in sostrades with the command "flask create_standard_user" when the user is created 
 a password is temporarely save in sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\* it has to be delete. After the user is created it gives some sostrade app rights to that user in de database.
+
+> - UpdateOntology.py script will execute with your sostrades-venv the command "python sos_ontology\core\script\createSoSOntologyFromCode.py" in sostrades-ontology folder to update Ontology with all your repositories
 
 > - StartSOSTrades.py : script that run api server, ontology server, and webgui server with venv and node
