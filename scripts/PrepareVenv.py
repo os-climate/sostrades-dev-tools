@@ -22,32 +22,7 @@ import os
 import sys
 
 from constants import sostrades_dev_tools_path, platform_path, model_path
-from tooling import run_command
-
-
-# Function to get all directories within a directory
-def list_directory_paths(directory):
-    # Check if the path is a directory
-    if not os.path.isdir(directory):
-        raise Exception(f"{directory} is not a directory.")
-
-    # Initialize an array to store directory paths
-    directory_paths = []
-
-    # Iterate through the directories in the given directory
-    for folder_name in os.listdir(directory):
-        # Construct the absolute path
-        absolute_path = os.path.join(directory, folder_name)
-        # Check if it's a directory
-        if os.path.isdir(absolute_path):
-            # Check if the directory is gemseo then add \src to the path
-            if os.path.basename(absolute_path) == "gemseo":
-                directory_paths.append(os.path.join(absolute_path, "src"))
-            # Add the absolute path to the array
-            else:
-                directory_paths.append(absolute_path)
-
-    return directory_paths
+from tooling import run_command, list_directory_paths
 
 
 # Function to write a file from array
