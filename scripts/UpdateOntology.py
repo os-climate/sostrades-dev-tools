@@ -19,6 +19,7 @@ import os
 
 from constants import (
     venv_script_activate_path,
+    venv_script_activate_command,
     sostrades_dev_tools_path,
     platform_path,
     model_path
@@ -37,17 +38,17 @@ for source in all_platform_directory:
 print(f'PYTHONPATH={python_path}')
 
 if os.path.exists(venv_script_activate_path):
-    if os.path.exists(f"{platform_path}\\sostrades-ontology"):
+    if os.path.exists(f"{platform_path}/sostrades-ontology"):
         print("Updating ontology ...")
         # Change directory to sostrades-dev-tools\platform\sostrades-ontology
-        os.chdir(f"{platform_path}\\sostrades-ontology")
+        os.chdir(f"{platform_path}/sostrades-ontology")
         # Start sostrades-ontology with sostrades-venv
         run_command(
-            f"{venv_script_activate_path} && set PYTHONPATH={python_path} && python sos_ontology\\core\\script\\createSoSOntologyFromCode.py"
+            f"{venv_script_activate_command} && set PYTHONPATH={python_path} && python sos_ontology/core/script/createSoSOntologyFromCode.py"
         )
         print("Finished")
     else:
-        print(f"{platform_path}\\sostrades-ontology repository not found")
+        print(f"{platform_path}/sostrades-ontology repository not found")
 
     os.chdir(sostrades_dev_tools_path)
 else:

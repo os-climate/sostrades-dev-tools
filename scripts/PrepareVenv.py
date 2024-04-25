@@ -21,7 +21,7 @@ Then is is possible to run the sostrades-venv with the commande sostrades-dev-to
 import os
 import sys
 
-from constants import sostrades_dev_tools_path, platform_path, model_path
+from constants import sostrades_dev_tools_path, platform_path, model_path, venv_script_activate_path, venv_script_activate_command
 from tooling import run_command, list_directory_paths
 
 
@@ -52,26 +52,25 @@ if (
     )
 
 # Create .\venv directory
-venv_path = f"{sostrades_dev_tools_path}\\sostrades-venv"
+venv_path = f"{sostrades_dev_tools_path}/sostrades-venv"
 
 # Create a venv with the good python version inside sostrades-dev-tools\sostrades-venv
-create_venv_command = f"python -m venv {venv_path}"
+create_venv_command = f"{sys.executable} -m venv {venv_path}"
 run_command(create_venv_command)
 print(f"Venv created in the folling path : {venv_path}")
 
 # Install platform and model requirements
-venv_script_activate_path = f"{venv_path}\\Scripts\\activate"
 if os.path.exists(venv_script_activate_path):
     run_command(
-        f"{venv_script_activate_path} && pip list && \
+        f"{venv_script_activate_command} && pip list && \
                 python -m pip install --no-cache-dir \
                 https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl \
-                -r {platform_path}\\gemseo\\requirements.txt \
-                -r {platform_path}\\sostrades-core\\requirements.in \
-                -r {platform_path}\\sostrades-ontology\\requirements.in \
-                -r {platform_path}\\sostrades-webapi\\requirements.in \
-                -r {model_path}\\\witness-energy\\requirements.in \
-                -r {model_path}\\witness-core\\requirements.in \
+                -r {platform_path}/gemseo/requirements.txt \
+                -r {platform_path}/sostrades-core/requirements.in \
+                -r {platform_path}/sostrades-ontology/requirements.in \
+                -r {platform_path}/sostrades-webapi/requirements.in \
+                -r {model_path}/witness-energy/requirements.in \
+                -r {model_path}/witness-core/requirements.in \
                 && pip list"
     )
 else:
@@ -80,8 +79,8 @@ else:
     )
 
 #  Create sostrades.pth inside the sostrades-venv
-venv_lib_site_package_path = f"{venv_path}\\lib\\site-packages"
-sostrades_pth_path = f"{venv_lib_site_package_path}\\sostrades.pth"
+venv_lib_site_package_path = f"{venv_path}/lib/site-packages"
+sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
 if os.path.exists(venv_lib_site_package_path):
     # Call the function to get directory paths
     all_platform_directory = list_directory_paths(platform_path)

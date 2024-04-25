@@ -25,7 +25,7 @@ from tooling import run_command
 
 # Function to install NVS in the directory %LOCALAPPDATA%\nvs (Doc : https://github.com/jasongin/nvs/blob/master/doc/SETUP.md)
 def install_nvs():
-    nvs_home = os.environ.get("LOCALAPPDATA", "") + "\\nvs"
+    nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
     if not os.path.exists(nvs_home):
         os.makedirs(nvs_home)
         # Clone NVS repository
@@ -43,7 +43,7 @@ def install_nvs():
 # Function to install and switch node version with nvs
 def switch_node_version(node_version):
     # Get path to nvs.cmd
-    nvs_home = os.environ.get("LOCALAPPDATA", "") + "\\nvs"
+    nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
     nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
 
     # Check if Node.js version is already installed
@@ -79,7 +79,7 @@ print("This script will install requirements and build the fronted")
 confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
 
 if confirmation == "yes":
-    nvs_home = os.environ.get("LOCALAPPDATA", "") + "\\nvs"
+    nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
     nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
     # Change directory to sostrade-webgui
     if os.path.exists(f"{platform_path}\sostrades-webgui"):

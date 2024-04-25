@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 import os
+import platform
 
 # Paths
 platform_dir_name="platform"
@@ -20,20 +21,27 @@ model_dir_name="models"
 
 # Variable with the path of sostrade-dev-tools
 sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
-platform_path = f"{sostrades_dev_tools_path}\\{platform_dir_name}"
-model_path = f"{sostrades_dev_tools_path}\\{model_dir_name}"
+platform_path = f"{sostrades_dev_tools_path}/{platform_dir_name}"
+model_path = f"{sostrades_dev_tools_path}/{model_dir_name}"
 
 # Variable with the path of sostrades-venv
-venv_path= f"{sostrades_dev_tools_path}\\sostrades-venv"
+venv_path= f"{sostrades_dev_tools_path}/sostrades-venv"
 
-# Variable with the path of venv activate script
-venv_script_activate_path= f"{venv_path}\\Scripts\\activate"
+# Check if the platform is Windows
+if platform.system() == 'Windows':
+    # Define the variable with a Windows-specific path
+    venv_script_activate_path= f"{venv_path}/Scripts/activate"
+    venv_script_activate_command= f"{venv_path}/Scripts/activate"
+else:
+    # Define the variable with a generic path for other platforms
+    venv_script_activate_path = f"{venv_path}/bin/activate"
+    venv_script_activate_command = f"/bin/bash && source {venv_path}/bin/activate"
 
 vscode_dir = ".vscode"
 
 # Start sostrade-webgui
 node_version="18.10.0"
-nvs_home = os.environ.get('LOCALAPPDATA', '') + '\\nvs'
+nvs_home = os.environ.get('LOCALAPPDATA', '') + '/nvs'
 nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
 
-flaskenv_file_path = f"{sostrades_dev_tools_path}\platform\sostrades-webapi\.flaskenv"
+flaskenv_file_path = f"{sostrades_dev_tools_path}/platform/sostrades-webapi/.flaskenv"

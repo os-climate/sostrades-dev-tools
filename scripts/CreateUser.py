@@ -25,6 +25,7 @@ from constants import (
     flaskenv_file_path,
     platform_path,
     venv_script_activate_path,
+    venv_script_activate_command,
     sostrades_dev_tools_path,
 )
 from tooling import run_command
@@ -58,9 +59,9 @@ def mysql_credentials_from_flaskenv_file(path):
 sql_account, sql_password = mysql_credentials_from_flaskenv_file(flaskenv_file_path)
 
 if os.path.exists(venv_script_activate_path):
-    if os.path.exists(f"{platform_path}\\sostrades-webapi"):
+    if os.path.exists(f"{platform_path}/sostrades-webapi"):
         # Change directory to sostrades-dev-tools\platform\sostrades-webapi
-        os.chdir(f"{platform_path}\\sostrades-webapi")
+        os.chdir(f"{platform_path}/sostrades-webapi")
         # Ask user informations to create
         print("Sign up for SOSTRADES:")
         username = input("Enter username :")
@@ -69,13 +70,13 @@ if os.path.exists(venv_script_activate_path):
         lastname = input("Enter lastname :")
         # Create user in the database with flask and save the password in sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\*
         print(f"Creating user {username} ...")
-        run_command(f"{venv_script_activate_path} && flask db upgrade")
-        run_command(f"{venv_script_activate_path} && flask init_process")
+        run_command(f"{venv_script_activate_command} && flask db upgrade")
+        run_command(f"{venv_script_activate_command} && flask init_process")
         run_command(
-            f"{venv_script_activate_path} && flask create_standard_user {username} {email} {firstname} {lastname} "
+            f"{venv_script_activate_command} && flask create_standard_user {username} {email} {firstname} {lastname} "
         )
     else:
-        print(f"{platform_path}\\sostrades-webapi repository not found")
+        print(f"{platform_path}/sostrades-webapi repository not found")
 
     os.chdir(sostrades_dev_tools_path)
 else:
