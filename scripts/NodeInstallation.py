@@ -75,7 +75,7 @@ install_nvs()
 switch_node_version(node_version)
 
 # Ask if we build the frontend now
-print("This script will install requirements and build the fronted")
+print("This script will install requirements and build the frontend")
 confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
 
 if confirmation == "yes":
