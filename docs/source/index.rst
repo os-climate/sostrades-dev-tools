@@ -44,4 +44,3 @@ Contents
 
    Installation <installation.md>
    Add personal repository <add-repository.md>
-   Advanced installation <advanced-install/advanced-install.md>
