@@ -106,7 +106,7 @@ You are a developer and need a local working platform on a Windows machine
 ### 3.1 Prerequisites
 
 > The installation procedure is provided for Linux based environments. 
-For Windows users, we recommend to use Ubuntu through Windows Subsystem for Linux (WSL) as described in dedicated [section](#21-optional--windows-users-only-wsl-andor-ubuntu-installation).
+For Windows users, we recommend to use Ubuntu through Windows Subsystem for Linux (WSL) as described below.
 
 ### 3.1.1 (Optional : Windows users only) WSL and/or Ubuntu installation
 
@@ -396,13 +396,13 @@ python scripts\PullRepositories.py
 
 Please note that install has been tested on personal Mac OS laptops, but could be different depending on the MacOS version used. Do not hesitate to contribute to this documentation, give feedbacks and raise an [ github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
-The install on Mac OS operating system should work if you are refering to the paragraph  `3. Local Docker Env Installation` as you were on WSL subsytem.
-
+The install on Mac OS operating system should work if you are refering to the paragraph [3. Local Docker Env Installation](#3-local--docker-env-installation) as you were on WSL subsytem.
+3.1.1 (Optional : Windows users only) WSL and/or Ubuntu installation
 ## 6. Linux Installation
 
 This installation is on beta phase. Do not hesitate to contribute to this documentation, give feedbacks and raise an [ github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
-The install on Linux operating system should work if you are refering to the paragraph  `3. Local Docker Env Installation` as you were on WSL subsytem.
+The install on Linux operating system should work if you are refering to the paragraph [3. Local Docker Env Installation](#3-local--docker-env-installation) as you were on WSL subsytem.
 
 ## 7. Local Model Development Env Installation
 The objective is to have a working local dev environment based on a conda venv, with pre-configured VS-CODE workspace to be able to run code and debug. Other IDE may be used but should be configured properly.
