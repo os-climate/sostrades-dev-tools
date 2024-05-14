@@ -15,6 +15,7 @@ limitations under the License.
 
 import subprocess
 from os.path import dirname, join
+import sys
 
 scripts_list = ['PrepareDevEnv', 'PrepareVEnv', 'Configuration', 'NodeInstallation', 'EditFlaskenv', 'CreateDatabases',
                 'CreateUser', 'UpdateOntology']
@@ -22,7 +23,7 @@ for script in scripts_list:
     print(f'---------------------------------------------')
     print(f'Starting {script} script')
     print(f'---------------------------------------------')
-    subprocess.run(["python", join(dirname(__file__), f"{script}.py")])
+    subprocess.run([sys.executable, join(dirname(__file__), f"{script}.py")])
     print(f'---------------------------------------------')
     print(f'End of {script} script')
     print(f'---------------------------------------------')
