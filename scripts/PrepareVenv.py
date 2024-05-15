@@ -63,6 +63,7 @@ print(f"Venv created in the folling path : {venv_path}")
 if os.path.exists(venv_script_activate_path):
     run_command(
         f"{venv_script_activate_command} && pip list && \
+                python -m pip install --no-cache-dir wheel && \
                 python -m pip install --no-cache-dir \
                 https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl \
                 -r {platform_path}/gemseo/requirements.txt \
