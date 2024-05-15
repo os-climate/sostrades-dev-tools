@@ -17,7 +17,7 @@ Please consult the diagram below to determine which paragraph you should read.
 
 ## 2. Common Setup
 
-The objective of this sections is to get the environment and all folders properly organized on your local computer to start the installation.
+The objective of this section is to get the environment and all folders properly organized on your local computer to start the installation.
 
 ### 2.2 Setup prerequisites
 
