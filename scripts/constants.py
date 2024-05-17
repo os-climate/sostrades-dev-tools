@@ -35,7 +35,7 @@ if platform.system() == 'Windows':
 else:
     # Define the variable with a generic path for other platforms
     venv_script_activate_path = f"{venv_path}/bin/activate"
-    venv_script_activate_command = f"/bin/bash && source {venv_path}/bin/activate"
+    venv_script_activate_command = f". {venv_path}/bin/activate"
 
 vscode_dir = ".vscode"
 
