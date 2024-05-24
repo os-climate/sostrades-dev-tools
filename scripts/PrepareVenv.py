@@ -65,7 +65,6 @@ if os.path.exists(venv_script_activate_path):
         f"{venv_script_activate_command} && pip list && \
                 python -m pip install --no-cache-dir wheel && \
                 python -m pip install --no-cache-dir \
-                https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl \
                 -r {platform_path}/gemseo/requirements.txt \
                 -r {platform_path}/sostrades-core/requirements.in \
                 -r {platform_path}/sostrades-ontology/requirements.in \
