@@ -24,8 +24,8 @@ sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
 platform_path = f"{sostrades_dev_tools_path}/{platform_dir_name}"
 model_path = f"{sostrades_dev_tools_path}/{model_dir_name}"
 
-# Variable with the path of sostrades-venv
-venv_path= f"{sostrades_dev_tools_path}/sostrades-venv"
+# Variable with the path of .venv
+venv_path= f"{sostrades_dev_tools_path}/.venv"
 
 # Check if the platform is Windows
 if platform.system() == 'Windows':

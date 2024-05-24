@@ -8,7 +8,7 @@ Add your personal repository in the folder `sostrades-dev-tools/models/<new repo
 
 ## 2. Update venv
 
-Edit the `./sostrades-dev-tools/sostrades-venv/Lib/site-packages/sostrades.pth` file.  
+Edit the `./sostrades-dev-tools/.venv/Lib/site-packages/sostrades.pth` file.  
 Add the path of your repository at the end of the `sostrades.pth` file.
 
 ## 3. Update vscode settings.json file
