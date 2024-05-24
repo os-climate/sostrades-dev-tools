@@ -12,7 +12,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "python scripts/PrepareDevEnv.py && python scripts/prepareVenv.py"
+	"postCreateCommand": "python scripts/PrepareDevEnv.py && python scripts/PrepareVenv.py"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
