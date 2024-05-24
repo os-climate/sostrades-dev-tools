@@ -12,10 +12,27 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get install -y default-libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev && python scripts/PrepareDevEnv.py && python scripts/PrepareVenv.py"
+	"postCreateCommand": "sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get install -y default-libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev && python scripts/PrepareDevEnv.py && python scripts/PrepareVenv.py",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.analysis.extraPaths": [
+					"platform/gemseo/src",
+					"platform/sostrades-core",
+					"platform/sostrades-ontology",
+					"platform/sostrades-webapi",
+					"platform/sostrades-webgui",
+					"platform/witness-core",
+					"platform/witness-energy"
+				],
+				"git.autoRepositoryDetection": "subFolders",
+				"git.repositoryScanMaxDepth": 2,
+				"python.defaultInterpreterPath": "./sostrades-venv/bin/python"
+			}
+		}
+	}
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
