@@ -33,7 +33,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.19.6"
+ARG PETSC_VERSION="3.21.2"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
