@@ -35,7 +35,13 @@ RUN npm run build -- --configuration production
 # Get commit id of the current webgui repo
 ADD ./platform/sostrades-webgui/.git/HEAD .git/HEAD
 ADD ./platform/sostrades-webgui/.git/refs/heads/ .git/refs/heads/
-RUN cat .git/$(cat .git/HEAD | sed 's/^ref: //') > build-commit-id.txt
+RUN if [[ $(cat .git/HEAD) =~ ^ref: ]]; then \
+        # That means you are working on refs/heads/<branch>
+        cat .git/$(cat .git/HEAD | sed 's/^ref: //') > build-commit-id.txt; \
+    else \
+        # That means you are in detached HEAD
+        cat .git/HEAD > build-commit-id.txt; \
+    fi
 
 #------------------------------------------------------------------------------
 # Stage 2 : Final image buiding with NGINX webserver
