@@ -80,7 +80,7 @@ if os.path.exists(venv_script_activate_path):
 
     os.chdir(sostrades_dev_tools_path)
 else:
-    print("Virtual environment (sostrades-venv) is not installed")
+    print("Virtual environment (.venv) is not installed")
 
 # Connect to the database
 db_connection = mysql.connector.connect(

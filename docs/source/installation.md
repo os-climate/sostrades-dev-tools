@@ -124,7 +124,7 @@ In VS Code, use keys windows + shift + p to open command panel, search for "Pyth
 
 ![](images/select_interpreter.png) 
 
-Select "Python 3.9.x ("sostrades-venv")
+Select "Python 3.9.x (".venv")
 
 ![](images/select_python.png) 
 
@@ -133,10 +133,10 @@ Now you can launch any SoSTrades code from VSCode.
 
 ### 3.5 Run venv
 
-To run sostrades-venv with all requirements installed, run the following command from your `sostrade-dev-tools` folder:
+To run .venv with all requirements installed, run the following command from your `sostrade-dev-tools` folder:
 
 ```
-sostrades-venv\Scripts\activate
+.venv\Scripts\activate
 ```
 
 To exit the venv just use this command
@@ -369,7 +369,7 @@ python scripts\PullRepositories.py
 ## 6. Scripts explanation
 > - PrepareDevEnv.py : script to download all model repositories from model_repositories.json and platform repositories from platform_repositories.json with git clone command. Repositories are cloned in sostrades-dev-tool\models and sostrades-dev-tool\platform. The script also creates a `sostrades-dev-tools\.vscode\setting.json` file with extraPaths according to the repository cloned,
 
-> - PrepareVenv.py: script to install a venv in the folder `sostrades-dev-tools\sostrades-venv\` with the python 3.9 and install all requirements of SoSTrades,
+> - PrepareVenv.py: script to install a venv in the folder `sostrades-dev-tools\.venv\` with the python 3.9 and install all requirements of SoSTrades,
 
 > - Configuration.py: script to create files and folders needed by SoSTrades
 >> - `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json`
@@ -388,7 +388,7 @@ python scripts\PullRepositories.py
 
 > - `CreateUser.py` : script that creates an user in SoSTrades with the command `flask create_standard_user`. When the user is created, a password is temporarily saved in `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\*`. Once stored, the password has to be deleted. Some SoSTrades app rights are granted in the database.
 
-> - `UpdateOntology.py` script will execute with your `sostrades-venv` the command `python sos_ontology\core\script\createSoSOntologyFromCode.py`in `sostrades-ontology` folder to update ontology with all your repositories
+> - `UpdateOntology.py` script will execute with your `.venv` the command `python sos_ontology\core\script\createSoSOntologyFromCode.py`in `sostrades-ontology` folder to update ontology with all your repositories
 
 > - `StartSOSTrades.py` : script that run api server, ontology server, and webgui server with venv and node
 

@@ -42,7 +42,7 @@ if os.path.exists(venv_script_activate_path):
         print("Updating ontology ...")
         # Change directory to sostrades-dev-tools\platform\sostrades-ontology
         os.chdir(f"{platform_path}/sostrades-ontology")
-        # Start sostrades-ontology with sostrades-venv
+        # Start sostrades-ontology with .venv
         run_command(
             f"{venv_script_activate_command} && set PYTHONPATH={python_path} && python sos_ontology/core/script/createSoSOntologyFromCode.py"
         )
@@ -52,5 +52,5 @@ if os.path.exists(venv_script_activate_path):
 
     os.chdir(sostrades_dev_tools_path)
 else:
-    print("Virtual environment (sostrades-venv) is not installed")
+    print("Virtual environment (.venv) is not installed")
 

@@ -13,10 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 '''
-PrepareVenv.py is a script that install venv in the path sostrades-dev-tools\sostrades-venv only if you have a python version in v3.9.
+PrepareVenv.py is a script that install venv in the path sostrades-dev-tools\.venv only if you have a python version in v3.9.
 After the environement is created it will install all requirements of platform, model, and in addition python_ldap. 
-At the end of the script, a file sostrades-dev-tools\sostrades-venv\lib\site-packages\sostrades.pth with is created with all path of the different repositories.
-Then is is possible to run the sostrades-venv with the commande sostrades-dev-tools\sostrades-venv\Scripts\activate
+At the end of the script, a file sostrades-dev-tools\.venv\lib\site-packages\sostrades.pth with is created with all path of the different repositories.
+Then is is possible to run the .venv with the commande sostrades-dev-tools\.venv\Scripts\activate
 '''
 import os
 import sys
@@ -52,9 +52,9 @@ if (
     )
 
 # Create .\venv directory
-venv_path = f"{sostrades_dev_tools_path}/sostrades-venv"
+venv_path = f"{sostrades_dev_tools_path}/.venv"
 
-# Create a venv with the good python version inside sostrades-dev-tools\sostrades-venv
+# Create a venv with the good python version inside sostrades-dev-tools\.venv
 create_venv_command = f"{sys.executable} -m venv {venv_path}"
 run_command(create_venv_command)
 print(f"Venv created in the folling path : {venv_path}")
@@ -65,7 +65,6 @@ if os.path.exists(venv_script_activate_path):
         f"{venv_script_activate_command} && pip list && \
                 python -m pip install --no-cache-dir wheel && \
                 python -m pip install --no-cache-dir \
-                https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl \
                 -r {platform_path}/gemseo/requirements.txt \
                 -r {platform_path}/sostrades-core/requirements.in \
                 -r {platform_path}/sostrades-ontology/requirements.in \
@@ -79,7 +78,7 @@ else:
         "Virtual environment (venv) is not well installed so the requierements cannot be installed"
     )
 
-#  Create sostrades.pth inside the sostrades-venv
+#  Create sostrades.pth inside the .venv
 venv_lib_site_package_path = f"{venv_path}/lib/site-packages"
 sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
 if os.path.exists(venv_lib_site_package_path):

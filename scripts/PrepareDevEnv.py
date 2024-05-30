@@ -121,6 +121,7 @@ settings["python.analysis.extraPaths"] = python_analysis_extraPaths
 settings["git.autoRepositoryDetection"] = "subFolders"
 settings["git.openRepositoryInParentFolders"] = "always"
 settings["git.repositoryScanMaxDepth"] = 2
+settings["python.defaultInterpreterPath"] = "./.venv/bin/python"
 
 # Generate .vscode/settings.json
 with open(settings_json_path, "w") as f:
