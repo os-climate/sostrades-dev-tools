@@ -23,7 +23,7 @@ from constants import node_version, platform_path, sostrades_dev_tools_path
 from tooling import run_command
 
 
-# Function to install NVS in the directory %LOCALAPPDATA%\nvs (Doc : https://github.com/jasongin/nvs/blob/master/doc/SETUP.md)
+# Function to install NVS in the directory %LOCALAPPDATA%/nvs (Doc : https://github.com/jasongin/nvs/blob/master/doc/SETUP.md)
 def install_nvs():
     nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
     if not os.path.exists(nvs_home):
@@ -82,11 +82,11 @@ if confirmation == "yes":
     nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
     nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
     # Change directory to sostrade-webgui
-    if os.path.exists(f"{platform_path}\sostrades-webgui"):
-        os.chdir(f"{platform_path}\sostrades-webgui")
+    if os.path.exists(f"{platform_path}/sostrades-webgui"):
+        os.chdir(f"{platform_path}/sostrades-webgui")
         run_command(f"{nvs_cmd_path} use {node_version} && npm install -y")
         os.chdir(sostrades_dev_tools_path)
     else:
-        print(f"{platform_path}\sostrades-webgui repository not found")
+        print(f"{platform_path}/sostrades-webgui repository not found")
 else:
     print("Do not forget to build the frontend later")

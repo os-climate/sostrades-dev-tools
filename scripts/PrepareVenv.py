@@ -13,15 +13,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 '''
-PrepareVenv.py is a script that install venv in the path sostrades-dev-tools\.venv only if you have a python version in v3.9.
+PrepareVenv.py is a script that install venv in the path sostrades-dev-tools/.venv only if you have a python version in v3.9.
 After the environement is created it will install all requirements of platform, model, and in addition python_ldap. 
-At the end of the script, a file sostrades-dev-tools\.venv\lib\site-packages\sostrades.pth with is created with all path of the different repositories.
-Then is is possible to run the .venv with the commande sostrades-dev-tools\.venv\Scripts\activate
+At the end of the script, a file sostrades-dev-tools/.venv/lib/site-packages/sostrades.pth with is created with all path of the different repositories.
+Then is is possible to run the .venv with the commande sostrades-dev-tools/.venv/Scripts/activate
 '''
 import os
 import sys
 
-from constants import sostrades_dev_tools_path, platform_path, model_path, venv_script_activate_path, venv_script_activate_command
+from constants import sostrades_dev_tools_path, platform_path, model_path, venv_script_activate_path, venv_script_activate_command, venv_path
 from tooling import run_command, list_directory_paths
 
 
@@ -51,10 +51,7 @@ if (
         f"Python version : {python_version} but python v{accepted_python_major_version}.{accepted_python_minor_version} is required"
     )
 
-# Create .\venv directory
-venv_path = f"{sostrades_dev_tools_path}/.venv"
-
-# Create a venv with the good python version inside sostrades-dev-tools\.venv
+# Create a venv with the good python version inside sostrades-dev-tools/.venv
 create_venv_command = f"{sys.executable} -m venv {venv_path}"
 run_command(create_venv_command)
 print(f"Venv created in the folling path : {venv_path}")

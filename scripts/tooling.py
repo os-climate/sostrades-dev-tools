@@ -36,7 +36,7 @@ def list_directory_paths(directory):
         absolute_path = os.path.join(directory, folder_name)
         # Check if it's a directory
         if os.path.isdir(absolute_path):
-            # Check if the directory is gemseo then add \src to the path
+            # Check if the directory is gemseo then add /src to the path
             if os.path.basename(absolute_path) == "gemseo":
                 directory_paths.append(os.path.join(absolute_path, "src"))
             # Add the absolute path to the array

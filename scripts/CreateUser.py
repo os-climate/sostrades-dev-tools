@@ -14,9 +14,9 @@ limitations under the License.
 '''
 '''
 CreateUser.py is a script that create an user in sostrades with the command "flask create_standard_user" when the user is created 
-a password is temporarely save in sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\* it has to be delete.
+a password is temporarely save in sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/secret/* it has to be delete.
 After the user is created it gives some sostrade app rights to that user in de database.
-The credential of your database have to be well set in sostrades-dev-tools\platform\sostrades-webapi\.flaskenv {SQL_ACCOUNT} and {SQL_PASSWORD}
+The credential of your database have to be well set in sostrades-dev-tools/platform/sostrades-webapi/.flaskenv {SQL_ACCOUNT} and {SQL_PASSWORD}
 '''
 import os
 import mysql.connector
@@ -60,7 +60,7 @@ sql_account, sql_password = mysql_credentials_from_flaskenv_file(flaskenv_file_p
 
 if os.path.exists(venv_script_activate_path):
     if os.path.exists(f"{platform_path}/sostrades-webapi"):
-        # Change directory to sostrades-dev-tools\platform\sostrades-webapi
+        # Change directory to sostrades-dev-tools/platform/sostrades-webapi
         os.chdir(f"{platform_path}/sostrades-webapi")
         # Ask user informations to create
         print("Sign up for SOSTRADES:")
@@ -68,7 +68,7 @@ if os.path.exists(venv_script_activate_path):
         email = input("Enter email :")
         firstname = input("Enter firstname :")
         lastname = input("Enter lastname :")
-        # Create user in the database with flask and save the password in sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\*
+        # Create user in the database with flask and save the password in sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/secret/*
         print(f"Creating user {username} ...")
         run_command(f"{venv_script_activate_command} && flask db upgrade")
         run_command(f"{venv_script_activate_command} && flask init_process")

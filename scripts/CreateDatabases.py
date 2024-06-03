@@ -15,7 +15,7 @@ limitations under the License.
 '''
 CreateDatabases.py is a script that create sostrades-data and sostrades-log tables in your own database.
 SQL_ACCOUNT and SQL_PASSWORD have to be defined with your own database credentials
-in the file sostrades-dev-tools\platform\sostrades-webapi\.flaskenv
+in the file sostrades-dev-tools/platform/sostrades-webapi/.flaskenv
 '''
 import os
 import mysql.connector

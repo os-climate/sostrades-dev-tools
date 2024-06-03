@@ -14,14 +14,14 @@ limitations under the License.
 '''
 '''
 EditFlaskenv.py is a script that ask the SQL_ACCOUNT and SQL_PASSWORD and modify it 
-in sostrades-dev-tools\platform\sostrades-webapi\.flaskenv
+in sostrades-dev-tools/platform/sostrades-webapi/.flaskenv
 '''
 import os
 
 from constants import sostrades_dev_tools_path
 
 # File path to edit
-flaskenv_file_path = f"{sostrades_dev_tools_path}\platform\sostrades-webapi\.flaskenv"
+flaskenv_file_path = f"{sostrades_dev_tools_path}/platform/sostrades-webapi/.flaskenv"
 
 
 def modify_flaskenv_file(flaskenv_file):

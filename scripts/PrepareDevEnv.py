@@ -22,6 +22,7 @@ from constants import (
     model_dir_name,
     platform_dir_name,
     vscode_dir,
+    venv_path,
 )
 
 
@@ -47,7 +48,7 @@ def clone_all_repos_in_folder(items: list[dict[str:str]], directory: str):
         url = item.get("url")
         branch = item.get("branch")
         repo_name = extract_repo_name(url)
-        if not os.path.exists(f"{directory}\{repo_name}"):
+        if not os.path.exists(f"{directory}/{repo_name}"):
             print(f"Cloning {url} (branch: {branch}) into directory {directory}...")
             git_clone(url, branch, directory)
         else:
@@ -121,7 +122,7 @@ settings["python.analysis.extraPaths"] = python_analysis_extraPaths
 settings["git.autoRepositoryDetection"] = "subFolders"
 settings["git.openRepositoryInParentFolders"] = "always"
 settings["git.repositoryScanMaxDepth"] = 2
-settings["python.defaultInterpreterPath"] = "./.venv/bin/python"
+settings["python.defaultInterpreterPath"] = f"{venv_path}/bin/python"
 
 # Generate .vscode/settings.json
 with open(settings_json_path, "w") as f:

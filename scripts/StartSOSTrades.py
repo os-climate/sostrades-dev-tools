@@ -31,7 +31,7 @@ from tooling import run_command
 if os.path.exists(venv_script_activate_path):
     if os.path.exists(f"{platform_path}/sostrades-webapi"):
         print("sostrades-webapi is starting ...")
-        # Change directory to sostrades-dev-tools\platform\sostrades-webapi
+        # Change directory to sostrades-dev-tools/platform/sostrades-webapi
         os.chdir(f"{platform_path}/sostrades-webapi")
         run_command(f"{venv_script_activate_command} && flask db upgrade")
         run_command(f"{venv_script_activate_command} && flask init_process")
@@ -53,7 +53,7 @@ if os.path.exists(venv_script_activate_path):
 
     if os.path.exists(f"{platform_path}/sostrades-ontology"):
         print("sostrades-ontology is starting ...")
-        # Change directory to sostrades-dev-tools\platform\sostrades-ontology
+        # Change directory to sostrades-dev-tools/platform/sostrades-ontology
         os.chdir(f"{platform_path}/sostrades-ontology")
         # Start sostrades-ontology with .venv
         run_command(

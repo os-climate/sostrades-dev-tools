@@ -14,13 +14,13 @@ limitations under the License.
 '''
 '''
 Configuration.py is a script that initialise files and folders needed for sostrades :
-- sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json
-- sostrades-dev-tools\platform\sostrades-webapi\.flaskenv
-- C:\TEMP\SOSTRADES\
-- C:\TEMP\SOSTRADES\REFERENCES\
-- C:\TEMP\SOSTRADES\RSA\
-- C:\TEMP\SOSTRADES\RSA\private_key.pem
-- C:\TEMP\SOSTRADES\RSA\public_key.pem
+- sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json
+- sostrades-dev-tools/platform/sostrades-webapi/.flaskenv
+- C:/TEMP/SOSTRADES/
+- C:/TEMP/SOSTRADES/REFERENCES/
+- C:/TEMP/SOSTRADES/RSA/
+- C:/TEMP/SOSTRADES/RSA/private_key.pem
+- C:/TEMP/SOSTRADES/RSA/public_key.pem
 '''
 import json
 import os
@@ -29,8 +29,8 @@ from constants import platform_path, flaskenv_file_path, model_path
 from tooling import list_directory_paths
 
 
-# Init platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json configuration file
-configuration_path = f"{platform_path}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json"
+# Init platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json configuration file
+configuration_path = f"{platform_path}/sostrades-webapi/sos_trades_api/configuration_template/configuration.json"
 local_configuration_template_path = os.path.join(os.path.dirname(__file__), "local_configuration_template.json")
 
 # Copy template file
@@ -84,17 +84,17 @@ with open(configuration_path, 'w') as config_file:
 flask_env = {
     "FLASK_APP": "sos_trades_api/server/base_server.py",
     "FLASK_ENV": "development",
-    "SOS_TRADES_SERVER_CONFIGURATION": f"{platform_path}\\sostrades-webapi\\sos_trades_api\\configuration_template\\configuration.json",
-    "SOS_TRADES_REFERENCES": "C:\\Temp\\SoSTrades_persistance\\reference",
-    "SOS_TRADES_DATA": "C:\\Temp\\SoSTrades_persistance",
-    "EEB_PATH": "C:\\Temp\\SoSTrades_persistance\\eeb.yaml",
-    "SOS_TRADES_RSA": "C:\\Temp\\SoSTrades_persistance\\rsa",
+    "SOS_TRADES_SERVER_CONFIGURATION": f"{platform_path}/sostrades-webapi/sos_trades_api/configuration_template/configuration.json",
+    "SOS_TRADES_REFERENCES": "C:/Temp/SoSTrades_persistance/reference",
+    "SOS_TRADES_DATA": "C:/Temp/SoSTrades_persistance",
+    "EEB_PATH": "C:/Temp/SoSTrades_persistance/eeb.yaml",
+    "SOS_TRADES_RSA": "C:/Temp/SoSTrades_persistance/rsa",
     "SQL_ACCOUNT": "user",
     "SQL_PASSWORD": "password",
     "LOG_USER": "user",
     "LOG_PASSWORD": "password",
     "SECRET_KEY": "ABCDEFGH12 ",
-    "SAML_V2_METADATA_FOLDER": "sos_trades_api\\configuration\\saml",
+    "SAML_V2_METADATA_FOLDER": "sos_trades_api/configuration/saml",
 }
 
 # Write the values to the file
@@ -104,25 +104,25 @@ with open(flaskenv_file_path, "w") as f:
 
 print(f"{flaskenv_file_path} has been successfully created.")
 
-# Create repository C:\TEMP\SOSTRADES,C:\TEMP\SOSTRADES\RSA, C:\TEMP\SOSTRADES\REFERENCE
-if not os.path.exists("C:\\TEMP\\SOSTRADES"):
-    os.makedirs("C:\\TEMP\\SOSTRADES")
-    print("C:\TEMP\SOSTRADES directory created.")
+# Create repository C:/TEMP/SOSTRADES,C:/TEMP/SOSTRADES/RSA, C:/TEMP/SOSTRADES/REFERENCE
+if not os.path.exists("C:/TEMP/SOSTRADES"):
+    os.makedirs("C:/TEMP/SOSTRADES")
+    print("C:/TEMP/SOSTRADES directory created.")
 
-if not os.path.exists("C:\\TEMP\\SOSTRADES\\RSA"):
-    os.makedirs("C:\\TEMP\\SOSTRADES\\RSA")
-    print("C:\TEMP\SOSTRADES\RSA directory created.")
+if not os.path.exists("C:/TEMP/SOSTRADES/RSA"):
+    os.makedirs("C:/TEMP/SOSTRADES/RSA")
+    print("C:/TEMP/SOSTRADES/RSA directory created.")
 
-if not os.path.exists("C:\\TEMP\\SOSTRADES\\REFERENCES"):
-    os.makedirs("C:\\TEMP\\SOSTRADES\\REFERENCES")
-    print("C:\TEMP\SOSTRADES\REFERENCES directory created.")
+if not os.path.exists("C:/TEMP/SOSTRADES/REFERENCES"):
+    os.makedirs("C:/TEMP/SOSTRADES/REFERENCES")
+    print("C:/TEMP/SOSTRADES/REFERENCES directory created.")
 
 # Define the directory path
-directory_path = "C:TEMP\SOSTRADES\RSA"
+directory_path = "C:TEMP/SOSTRADES/RSA"
 
 # Define the files path
-private_key_path = "C:\TEMP\SOSTRADES\RSA\private_key.pem"
-public_key_path = "C:\TEMP\SOSTRADES\RSA\public_key.pem"
+private_key_path = "C:/TEMP/SOSTRADES/RSA/private_key.pem"
+public_key_path = "C:/TEMP/SOSTRADES/RSA/public_key.pem"
 
 # Create empty files
 if not os.path.exists(private_key_path):

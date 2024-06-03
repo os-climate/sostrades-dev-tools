@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 '''
-UpdateOntology.py is a script that execute “python sos_ontology\core\script\createSoSOntologyFromCode.py” to update ontology
+UpdateOntology.py is a script that execute “python sos_ontology/core/script/createSoSOntologyFromCode.py” to update ontology
 '''
 import os
 
@@ -40,7 +40,7 @@ print(f'PYTHONPATH={python_path}')
 if os.path.exists(venv_script_activate_path):
     if os.path.exists(f"{platform_path}/sostrades-ontology"):
         print("Updating ontology ...")
-        # Change directory to sostrades-dev-tools\platform\sostrades-ontology
+        # Change directory to sostrades-dev-tools/platform/sostrades-ontology
         os.chdir(f"{platform_path}/sostrades-ontology")
         # Start sostrades-ontology with .venv
         run_command(
