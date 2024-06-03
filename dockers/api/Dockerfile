@@ -26,7 +26,7 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.3"
+ARG NUMPY_VERSION="1.24.4"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
