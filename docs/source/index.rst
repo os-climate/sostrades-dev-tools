@@ -44,3 +44,4 @@ Contents
 
    Installation <installation.md>
    Add personal repository <add-repository.md>
+   Release notes <release-notes.md>
