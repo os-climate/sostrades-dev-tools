@@ -4,28 +4,18 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 
 ## Release v4.0.1
 
-### FEATURES
-
-#### SoSTrades Core
+### Features
 
 * Add Petsc garbage clean-up after Petsc execution
 * Add option to deactivate postprocessing in MDODiscipline
 * Clear jacobians after each end of MDO scenarios to improve memory performances
 * New method get_datasets_database_mappings_folder_path to find the mapping folder path for a given repository name
 
-#### SoSTrades Web API
-
-Nothing to release
-
-#### SoSTrades Web GUI
-
-Nothing to release
-
-### BUG FIXES
+### Bug fixes
 
 * Add sparse matrices (lil_matrix) to initiate analytic gradients
 
-### LIBRARY VERSION UPGRADES
+### Library version upgrades
 
 * chaospy from 4.3.7 to 4.3.15
 * numpy from 1.23.3 to 1.24.4
@@ -33,7 +23,7 @@ Nothing to release
 * gitpython from 3.1.31 to 3.1.43
 * jsonpickle from 3.0.2 to 3.0.4
 
-### Repositories tagged with the release version :
+### Tagged Repositories
 
 * [https://github.com/os-climate/sostrades-core](https://github.com/os-climate/sostrades-core)
 * [https://github.com/os-climate/sostrades-webapi](https://github.com/os-climate/sostrades-webapi)
