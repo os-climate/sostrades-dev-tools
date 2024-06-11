@@ -61,7 +61,7 @@ RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
 WORKDIR ${SOS_TRADES_SOURCES}
 
 # Copy Python requirements and install them
-COPY ./platform/sostrades-webapi/api.requirements.txt api.requirements.txt
+COPY ./platform_requirements/api.requirements.txt api.requirements.txt
 RUN sed -i '/petsc\|numpy/d' api.requirements.txt && \
     pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy
 

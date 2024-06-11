@@ -57,7 +57,7 @@ ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # Install ontology requirements
-COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
+COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
     pip install --no-cache-dir -r dev.requirements.txt debugpy
@@ -89,7 +89,7 @@ RUN mkdir -p /usr/local/sostrades/sources
 RUN mkdir /startup
 
 # Install ontology requirements
-COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
+COPY ./platform_requirements/ontology.requirements.txt ontology.requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy
 COPY ./platform/sostrades-ontology /usr/local/sostrades/sources/platform/sostrades-ontology
