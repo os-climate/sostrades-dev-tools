@@ -58,6 +58,14 @@ print(f"Venv created in the folling path : {venv_path}")
 
 # Install platform and model requirements
 if os.path.exists(venv_script_activate_path):
+    requirements_models = []
+    for model_folder in os.listdir(model_path):
+        requirements_path = f"{model_path}/{model_folder}/requirements.in"
+        if os.path.exists(requirements_path):
+            requirements_models.append(
+                f"-r {model_path}/{model_folder}/requirements.in"
+            )
+    requirements_model_command = ' '.join(requirements_models)
     run_command(
         f"{venv_script_activate_command} && pip list && \
                 python -m pip install --no-cache-dir wheel && \
@@ -66,8 +74,7 @@ if os.path.exists(venv_script_activate_path):
                 -r {platform_path}/sostrades-core/requirements.in \
                 -r {platform_path}/sostrades-ontology/requirements.in \
                 -r {platform_path}/sostrades-webapi/requirements.in \
-                -r {model_path}/witness-energy/requirements.in \
-                -r {model_path}/witness-core/requirements.in \
+                {requirements_model_command}\
                 && pip list"
     )
 else:
