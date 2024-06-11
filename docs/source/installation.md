@@ -155,6 +155,13 @@ Follow [common setup section](#2-common-setup)
 > The installation procedure is provided for Linux based environments. 
 For Windows users, we recommend the use Ubuntu through Windows Subsystem for Linux (WSL) as described below.
 
+Compile the requirements
+```bash
+pip install --upgrade pip
+pip install pip-tools
+./platform_requirements/run_pip_compile.sh
+```
+
 #### 4.1.1 (Optional : Windows users only) WSL and/or Ubuntu installation
 
 1. Install WSL2 if using Windows
