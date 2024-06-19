@@ -2,6 +2,25 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v4.0.2
+
+### Features
+
+* Datasets import extended types from file system
+* Ruff linting
+
+### Bug fixes
+
+* Documentation and visualisation tabs display
+* Scrollbar on spreadsheet view
+* Treeview display with multi-instance driver
+* Avoid dump of empty cache
+* Directory removal and creation
+
+### Library version upgrades
+
+* kubernetes from 11.0.0 to 29.0.0
+
 ## Release v4.0.1
 
 ### Features
