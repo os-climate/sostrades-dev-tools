@@ -6,8 +6,8 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 
 ### Features
 
-* Datasets import extended types from file system
-* Ruff linting
+* Datasets extended types in file system (import only)
+* Ruff linting (not mandatory in DevOps yet)
 
 ### Bug fixes
 
@@ -19,7 +19,7 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 
 ### Library version upgrades
 
-* kubernetes from 11.0.0 to 29.0.0
+* kubernetes (python library) from 11.0.0 to 29.0.0
 
 ## Release v4.0.1
 
