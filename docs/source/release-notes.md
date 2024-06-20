@@ -6,6 +6,7 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 
 ### Features
 
+* Kubernetes watcher
 * Datasets extended types in file system (import only)
 * Ruff linting (not mandatory in DevOps yet)
 
