@@ -60,7 +60,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
-    pip install --no-cache-dir -r dev.requirements.txt debugpy setuptools>=70.2.0
+    pip install --no-cache-dir -r dev.requirements.txt debugpy numpy==${NUMPY_VERSION}
 
 COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
@@ -91,7 +91,7 @@ RUN mkdir /startup
 # Install ontology requirements
 COPY ./platform_requirements/ontology.requirements.txt ontology.requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy setuptools>=70.2.0
+    pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
 COPY ./platform/sostrades-ontology /usr/local/sostrades/sources/platform/sostrades-ontology
 
 # Add repositories needed to pass test on ontology image
