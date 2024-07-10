@@ -16,10 +16,12 @@ for dir in platform/*; do
     if [ -d "$dir" ]; then
         # Check if requirements.in exists in the directory
         if [ -f "$dir/requirements.in" ]; then
+            echo "####################"
             echo "./$dir/requirements.in"
             cat "./$dir/requirements.in"
         fi
         if [ -f "$dir/requirements.txt" ]; then
+            echo "####################"
             echo "./$dir/requirements.txt"
             cat "./$dir/requirements.txt"
         fi
@@ -31,6 +33,7 @@ for dir in models/*; do
     if [ -d "$dir" ]; then
         # Check if requirements.in exists in the directory
         if [ -f "$dir/requirements.in" ]; then
+            echo "####################"
             # Add the path to the requirements_files string
             requirements_files="'./$dir/requirements.in' $requirements_files"
             echo "./$dir/requirements.in"
