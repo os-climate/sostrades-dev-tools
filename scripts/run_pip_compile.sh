@@ -11,6 +11,21 @@ mkdir -p ./platform_requirements
 # Initialize an empty string to collect all requirements.in paths
 requirements_files=""
 
+# echo palatform requirements
+for dir in platform/*; do
+    if [ -d "$dir" ]; then
+        # Check if requirements.in exists in the directory
+        if [ -f "$dir/requirements.in" ]; then
+            echo "./$dir/requirements.in"
+            cat "./$dir/requirements.in"
+        fi
+        if [ -f "$dir/requirements.txt" ]; then
+            echo "./$dir/requirements.txt"
+            cat "./$dir/requirements.txt"
+        fi
+    fi
+done
+
 # Loop through each directory in the models folder
 for dir in models/*; do
     if [ -d "$dir" ]; then
