@@ -8,30 +8,13 @@ Welcome to sostrades-dev-tools documentation!
 Objective
 ---------
 
-The objective of this repository is to provide scripts to easily set up a working local environment.
-It contains script facilities to clone repositories, and create virtual environments (using conda) for sostrades project.
+The objective of this repository is to:
+- provide scripts to easily set up a working local environment
+- install your SoSTrades GUI platform on your local computer
+- host documentation manuals (user and developer) for SoSTrades. 
+- provide the different release notes of the SoSTrades package
 
-The scripts clone the repositories in the correct folder for the rest of the scripts to work properly, as explained in Installation section.
-The expected folder organisation is the following :
 
-::
-
-   ├── sostrades-dev-tools
-   │   ├── dockers
-   │   │   └── docker related files
-   │   ├── models
-   │   │   ├── witness-core
-   │   │   ├── witness-energy
-   │   │   └── Other model repositories
-   │   ├── platform
-   │   │   ├── gemseo
-   │   │   ├── sostrades-core
-   │   │   ├── sostrades-webapi
-   │   │   ├── sostrades-webgui
-   │   │   └── sostrades-ontology
-   └── other files...
-
-You are then free to change branches, pull changes, clone new model repositories and use scripts at your convenience.
 
 Contents
 --------
@@ -44,4 +27,6 @@ Contents
 
    Installation <installation.md>
    Add personal repository <add-repository.md>
+   User manual <user-manual.md>
+   Developer manual <developer-manual.md>
    Release notes <release-notes.md>

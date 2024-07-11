@@ -6,6 +6,30 @@ This section is dedicated to install locally either SoSTrades platform or SoSTra
 
 Please note that supported operating systems are standard Linux-based systems, macOS systems, and Windows.
 
+It contains script facilities to clone repositories, and create virtual environments (using conda) for sostrades project.
+
+The scripts clone the repositories in the correct folder for the rest of the scripts to work properly, as explained in Installation section.
+The expected folder organisation is the following :
+
+::
+
+   ├── sostrades-dev-tools
+   │   ├── dockers
+   │   │   └── docker related files
+   │   ├── models
+   │   │   ├── witness-core
+   │   │   ├── witness-energy
+   │   │   └── Other model repositories
+   │   ├── platform
+   │   │   ├── gemseo
+   │   │   ├── sostrades-core
+   │   │   ├── sostrades-webapi
+   │   │   ├── sostrades-webgui
+   │   │   └── sostrades-ontology
+   └── other files...
+
+You are then free to change branches, pull changes, clone new model repositories and use scripts at your convenience.
+
 ## 1. Choose your installation
 
 Depending on your needs, different environment installations are proposed. A common setup is mandatory whatever the installation you need to perform.
