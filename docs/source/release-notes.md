@@ -23,10 +23,6 @@ Date: 2024-07-15
 * Pre-commit and improved ruff checks (in DevOps)
 
 ### Library version upgrades
-* ecos from 2.0.13 to 2.0.14
-* qdldl from 0.1.7.post2 to 0.1.7.post3
-* scs from 3.2.4.post2 to 3.2.4.post3
-* tenacity from 8.3.0 to 8.4.1
 * tqdm from 4.61.0 to 4.66.4
 * matplotlib from 3.4.3 to 3.9.0
 * black from 22.12.0 to 24.4.2
