@@ -2,13 +2,16 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
-## Release v4.1.0
+## Release v4.1.0 
+Date: 2024-07-15
+
+### Compatibility notice
+* Separation of sostrades-optimization-plugins module from platform core: add repository https://github.com/os-climate/sostrades-optimization-plugins for WITNESS optimization processes to continue functioning
 
 ### Features
 * Datasets: wildcards generalized, parameter-level mapping, metadata
 * Datasets in Bigquery: import, export, column name compatibility
 * Post-processing sections
-* Separation of sostrades-optimization-plugins module from platform core
 * Test speed-up: partial testing of use cases to avoid duplicates
 
 ### Bug fixes
@@ -47,6 +50,7 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 * pycel (1.0b30)
 
 ## Release v4.0.2
+Date: 2024-06-17
 
 ### Features
 
@@ -67,6 +71,7 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 * kubernetes (python library) from 11.0.0 to 29.0.0
 
 ## Release v4.0.1
+Date: 2024-06-05
 
 ### Features
 
