@@ -2,6 +2,50 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v4.1.0
+
+### Features
+* Datasets: wildcards generalized, parameter-level mapping, metadata
+* Datasets in Bigquery: import, export, column name compatibility
+* Post-processing sections
+* Separation of sostrades-optimization-plugins module from platform core
+* Test speed-up: partial testing of use cases to avoid duplicates
+
+### Bug fixes
+* Pod execution metrics display on GUI (GB/GiB unit)
+* Output retrieval mechanism for nested multi-scenarios
+* Spurious double configuration of multi-instance disciplines
+
+### Other
+* Pre-commit and improved ruff checks (in DevOps)
+
+### Library version upgrades
+* ecos from 2.0.13 to 2.0.14
+* qdldl from 0.1.7.post2 to 0.1.7.post3
+* scs from 3.2.4.post2 to 3.2.4.post3
+* tenacity from 8.3.0 to 8.4.1
+* tqdm from 4.61.0 to 4.66.4
+* matplotlib from 3.4.3 to 3.9.0
+* black from 22.12.0 to 24.4.2
+* python-arango from 7.5.8 to 8.0.0
+* cvxpy from 1.1.18 to 1.5.2 
+* pycryptodome from 3.19.1 to 3.20.0
+* sympy from 1.4 to 1.9
+* requests from 2.31.0 to 2.32.3
+* urllib3 from 2.1.0 to 2.2.2
+* psutil from 5.9.5 to 6.0.0
+* python-dotenv from 0.12.0 to 1.0.1
+* python-keycloak from 4.0.0 to 4.2.0
+* pytz from 2023.3.post1 to 2024.1 
+* build-angular and angular cli from 15.2.10 to 15.2.11
+
+### Requirements added
+* ruff (0.5.10)
+* google-cloud-bigquery (3.25.0)
+* pyarrow (16.1.0)
+* db-types (1.2.0)
+* pycel (1.0b30)
+
 ## Release v4.0.2
 
 ### Features
