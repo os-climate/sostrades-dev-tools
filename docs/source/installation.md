@@ -63,6 +63,9 @@ cd sostrades-dev-tools
 ```json
 [
     {
+        "url": "https://github.com/os-climate/sostrades-optimization-plugins.git",
+        "branch": "validation"
+    },{
         "url": "https://github.com/os-climate/witness-core.git",
         "branch": "validation"
     },
@@ -82,6 +85,7 @@ This script will prepare the local working directory as follow :
 │   ├── docs
 │   ├── scripts
 │   ├── models
+│   │   ├── sostrades-optimization-plugins
 │   │   ├── witness-core
 │   │   ├── witness-energy
 │   │   └── Other model repositories
