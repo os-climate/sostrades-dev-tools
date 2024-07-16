@@ -20,6 +20,7 @@ The expected folder organisation is the following :
    │   ├── dockers
    │   │   └── docker related files
    │   ├── models
+   │   │   ├── sostrades-optimization-plugins
    │   │   ├── witness-core
    │   │   ├── witness-energy
    │   │   └── Other model repositories
