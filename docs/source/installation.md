@@ -58,7 +58,7 @@ git clone https://github.com/os-climate/sostrades-dev-tools
  
 cd sostrades-dev-tools
 ```
-2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories :
+2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories, as well as the optimization plugins repository required to run WITNESS optimizations :
 
 ```json
 [
