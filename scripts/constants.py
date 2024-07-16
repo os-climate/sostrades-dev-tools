@@ -45,4 +45,3 @@ nvs_home = os.environ.get('LOCALAPPDATA', '') + '/nvs'
 nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
 
 flaskenv_file_path = f"{sostrades_dev_tools_path}/platform/sostrades-webapi/.flaskenv"
-git_commits_info_file_path = f"{platform_path}/sostrades-webapi/sos_trades_api/git_commits_info.json"

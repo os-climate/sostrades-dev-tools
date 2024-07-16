@@ -18,42 +18,43 @@ limitations under the License.
 import json
 from os import listdir
 from os.path import(join, isdir, exists)
-from constants import (platform_path, model_path, git_commits_info_file_path)
-import git
 from datetime import datetime
+import subprocess
+
+git_commits_info_file_path = f"./platform/sostrades-webapi/sos_trades_api/git_commits_info.json"
+platform_path = "./platform"
+models_path = "./models"
+
 
 def get_git_info(repo_name:str, repo_git_path:str)-> dict:
     '''
     Get git info from folder
     '''
+
+    def run_git_command(command):
+        result = subprocess.run(command, cwd=repo_git_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if result.returncode != 0:
+            raise Exception(f"Git command failed: {result.stderr}")
+        return result.stdout.strip()
+
     try:
-        repo = git.Repo(repo_git_path)
+        # get last commit hash
+        last_commit_hash = run_git_command(['git', 'rev-parse', 'HEAD'])
 
-        # get last commit sha
-        last_commit = repo.head.commit
-        last_commit_hash = last_commit.hexsha
-
-        # get last commit date
-        last_commit_date = datetime.fromtimestamp(last_commit.committed_date).strftime('%Y-%m-%d %H:%M:%S')
-
-        # get last commit URL
-        last_commit_url = None
-        if repo.remotes:
-            remote_url = repo.remotes.origin.url
-            if remote_url.endswith('.git'):
-                remote_url = remote_url[:-4]  # Remove the .git suffix for the URL construction
-
-            # Construire l'URL du dernier commit
-            last_commit_url = f"{remote_url}/commit/{last_commit_hash}"
-
-        # get branch or tag
-        branch_or_tag = ""
-        if repo.head.is_detached:
-            tags = [tag.name for tag in repo.tags if tag.commit == last_commit and tag.name.startswith('v')]
+        # Récupérer la branche ou le tag courant
+        branch_or_tag = run_git_command(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+        if branch_or_tag == 'HEAD':
+            all_tags = run_git_command(['git', 'tag', '--contains', last_commit_hash])
+            tags = [tag for tag in all_tags.split('\n') if tag.startswith('v')]
             if len(tags)>0:
                 branch_or_tag = tags[0]
-        else:
-            branch_or_tag = repo.active_branch.name
+        
+        # get last commit date
+        last_commit_date = run_git_command(['git', 'log', '-1', '--format=%cd'])
+    
+
+        # get repo url
+        last_commit_url = run_git_command(['git', 'remote', 'get-url', 'origin'])
 
         return {
             'name':repo_name,
@@ -94,7 +95,7 @@ def save_to_json(data, json_path):
 
 # get repositories commits info in a dict 
 all_repo_info = build_commits_info_dict(platform_path)
-all_repo_info.extend(build_commits_info_dict(model_path))
+all_repo_info.extend(build_commits_info_dict(models_path))
 #write it in json file
 if len(all_repo_info) > 0:
     save_to_json(all_repo_info, git_commits_info_file_path)
