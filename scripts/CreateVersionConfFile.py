@@ -41,7 +41,7 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
         # get last commit hash
         last_commit_hash = run_git_command(['git', 'rev-parse', 'HEAD'])
 
-        # Récupérer la branche ou le tag courant
+        # get current branch or version tag
         branch_or_tag = run_git_command(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
         if branch_or_tag == 'HEAD':
             all_tags = run_git_command(['git', 'tag', '--contains', last_commit_hash])
@@ -78,6 +78,7 @@ def build_commits_info_dict(folder_path:str)-> dict:
             try:
                 # Check that the repository is a git folder
                 if exists(join(repo_path, '.git')):
+                    print(f"getting git info of {repo}")
                     repo_info.append(get_git_info(repo, repo_path))
             except Exception as e:
                 print(e)
