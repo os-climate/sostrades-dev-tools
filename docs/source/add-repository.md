@@ -21,6 +21,7 @@ Edit the `sostrades-dev-tools/.vscode/settings.json` file by adding your reposit
         "./platform/sostrades-ontology",
         "./platform/sostrades-webapi",
         "./platform/sostrades-webgui",
+        "./models/sostrades-optimization-plugins",
         "./models/witness-core",
         "./models/witness-energy",
         "./models/<new repository>"

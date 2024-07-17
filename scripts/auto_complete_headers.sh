@@ -7,8 +7,12 @@ launch_auto_complete() {
 
 cd ../
 
+cd ./models/sostrades-optimization-plugins
+launch_auto_complete sostrades-optimization-plugins
+
+cd -
 cd ./models/witness-core
-launch_auto_complete witness-core 
+launch_auto_complete witness-core
 
 cd -
 cd ./models/witness-energy

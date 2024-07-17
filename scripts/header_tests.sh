@@ -7,6 +7,9 @@ launch_tests() {
 
 cd ../
 
+cd ./models/sostrades-optimization-plugins
+launch_tests sostrades-optimization-plugins sostrades_optimization_plugins
+
 cd ./models/witness-core
 launch_tests witness-core climateeconomics
 
