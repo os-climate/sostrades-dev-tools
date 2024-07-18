@@ -83,7 +83,6 @@ with open(configuration_path, 'w') as config_file:
 # Define the values of .flaskenv
 flask_env = {
     "FLASK_APP": "sos_trades_api/server/base_server.py",
-    "FLASK_ENV": "development",
     "SOS_TRADES_SERVER_CONFIGURATION": f"{platform_path}/sostrades-webapi/sos_trades_api/configuration_template/configuration.json",
     "SOS_TRADES_REFERENCES": "C:/Temp/SoSTrades_persistance/reference",
     "SOS_TRADES_DATA": "C:/Temp/SoSTrades_persistance",
