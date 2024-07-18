@@ -25,7 +25,9 @@ If a prior install of SoSTrades relying on PYTHONPATH is present, it should be d
 #### 2.2.1 Common prerequisites
 
 python version 3.9.x 
+
 (with packages mysql, mysql-connector-python)
+
 git
 
 During this installation, you can change the `python` command and replace it by the full path to the correct python executable (3.9.x)
