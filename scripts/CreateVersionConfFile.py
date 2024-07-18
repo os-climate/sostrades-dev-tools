@@ -15,13 +15,13 @@ limitations under the License.
 '''
 
 # open models and platform repositories, read commits, write info in file
+import argparse
 import json
 from os import listdir
 from os.path import(join, isdir, exists)
 from datetime import datetime
 import subprocess
 
-git_commits_info_file_path = f"./platform/sostrades-webapi/sos_trades_api/git_commits_info.json"
 platform_path = "./platform"
 models_path = "./models"
 
@@ -51,7 +51,19 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
         
         # get last commit date
         last_commit_date = run_git_command(['git', 'log', '-1', '--format=%cd'])
-    
+        # change the format of the last committed date
+        try:
+            # the format in input is: Thu Jul 11 13:00:09 2024 +0000
+            input_format = '%a %b %d %H:%M:%S %Y %z'
+            # parse format into datetime
+            commit_date = datetime.strptime(last_commit_date, input_format)
+
+            # define output format: Thu Jul 11 2024 13:00
+            output_format = '%a %b %d %Y %H:%M'
+            # format output date in str
+            last_commit_date = commit_date.strftime(output_format)
+        except:
+            print(f"error while converting last commit date {last_commit_date} into datetime")
 
         # get repo url
         last_commit_url = run_git_command(['git', 'remote', 'get-url', 'origin'])
@@ -94,10 +106,29 @@ def save_to_json(data, json_path):
         print(f"Failed to write data to JSON file: {e}")
         
 
-# get repositories commits info in a dict 
-all_repo_info = build_commits_info_dict(platform_path)
-all_repo_info.extend(build_commits_info_dict(models_path))
-#write it in json file
-if len(all_repo_info) > 0:
-    save_to_json(all_repo_info, git_commits_info_file_path)
+
+# get the argument in input of the file: --output_dir
+parser = argparse.ArgumentParser(description='SoSTrades commands.')
+parser.add_argument(
+    '--output_dir',
+    nargs='?',
+    type=str,
+    help='path to the folder where to create or update the git_commits_info.json file',
+)
+
+args = vars(parser.parse_args())
+
+if args['output_dir'] is not None:
+    # get repositories commits info in a dict 
+    all_repo_info = build_commits_info_dict(platform_path)
+    all_repo_info.extend(build_commits_info_dict(models_path))
+
+    # save the file in the right place
+    folder_path = args['output_dir']
+    git_commits_info_file_path = join(folder_path, "git_commits_info.json")
+    #write it in json file
+    if len(all_repo_info) > 0:
+        save_to_json(all_repo_info, git_commits_info_file_path)
+else:
+    print("no folder path given in input to save the file")
     
