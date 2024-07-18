@@ -20,10 +20,12 @@ Please consult the diagram below to determine which paragraph you should read.
 The objective of this section is to get the environment and all folders properly organized on your local computer to start the installation.
 
 ### 2.2 Setup prerequisites
+If a prior install of SoSTrades relying on PYTHONPATH is present, it should be disabled during install and platform launch. Otherwise, the freshly-installed platform will try to load the old study references. 
 
 #### 2.2.1 Common prerequisites
 
-python version 3.9.x  
+python version 3.9.x 
+(with packages mysql, mysql-connector-python)
 git
 
 During this installation, you can change the `python` command and replace it by the full path to the correct python executable (3.9.x)
