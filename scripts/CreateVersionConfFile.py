@@ -21,15 +21,30 @@ from os.path import(join, isdir, exists)
 from datetime import datetime
 import subprocess
 
+
+
 git_commits_info_file_path = f"./platform/sostrades-webapi/sos_trades_api/git_commits_info.json"
+gitignore_file_path = f"./platform/sostrades-webapi/.gitignore"
 platform_path = "./platform"
 models_path = "./models"
-
-
 
 def get_git_info(repo_name:str, repo_git_path:str)-> dict:
     '''
     Get git info from folder
+    :param repo_name: name of the repo to check
+    :type repo_name: str
+    :param repo_git_path: path of the repo to check
+    :type repo_git_path: str
+    :return: dict with git last commit info with format:
+    [
+        {
+        'name':str,
+        'commit': str,
+        'url': str,
+        'committed_date': str,
+        'branch': str
+        }
+    ]
     '''
 
     def run_git_command(command):
@@ -80,9 +95,21 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
         raise Exception(f"Error while getting repository {repo_git_path} git info: {e}")
 
 
-def build_commits_info_dict(folder_path:str)-> dict:
+def build_commits_info_dict(folder_path:str)-> list[dict]:
     '''
     Loop on each repo in the folder, if it is a git repo, get the last commit name, branch and date
+    :param folder_path: folder to iterate through sub folder to get git info
+    :type folder_path: str
+    :return: list of dict with git last commits info with format:
+    [
+        {
+        'name':str,
+        'commit': str,
+        'url': str,
+        'committed_date': str,
+        'branch': str
+        }
+    ]
     '''
     repo_info = []
     for repo in listdir(folder_path):
@@ -99,6 +126,13 @@ def build_commits_info_dict(folder_path:str)-> dict:
 
 
 def save_to_json(data, json_path):
+    """
+    save json data into file in json_path (create file if not exists)
+    :param data: json data to save
+    :type data: dict
+    :param json_path: file path where to save
+    :type json_path: str
+    """
     try:
         with open(json_path, 'w+') as json_file:
             json.dump(data, json_file)
@@ -107,10 +141,28 @@ def save_to_json(data, json_path):
         print(f"Failed to write data to JSON file: {e}")
         
 
-# get repositories commits info in a dict 
-all_repo_info = build_commits_info_dict(platform_path)
-all_repo_info.extend(build_commits_info_dict(models_path))
-#write it in json file
-if len(all_repo_info) > 0:
-    save_to_json(all_repo_info, git_commits_info_file_path)
+def check_git_commit_file_in_git_ignore()->bool:
+    """
+    Check if the file name is in the sostrades_webapi .gitignore file 
+    so that there is no merge conflict on automerge
+
+    :return: if the file name "sos_trades_api/git_commits_info.json" is present in .gitignore file
+    """
+    is_ignored = False
+    if exists(gitignore_file_path):
+        with open(gitignore_file_path, 'r') as git_file:
+            content = git_file.readlines()
+            if "sos_trades_api/git_commits_info.json\n" in content:
+                is_ignored = True
+
+    return is_ignored
+
+#check that the file is ignored in git folder, else do not create it to avoid merging issues
+if check_git_commit_file_in_git_ignore():
+    # get repositories commits info in a dict 
+    all_repo_info = build_commits_info_dict(platform_path)
+    all_repo_info.extend(build_commits_info_dict(models_path))
+    #write it in json file
+    if len(all_repo_info) > 0:
+        save_to_json(all_repo_info, git_commits_info_file_path)
     
