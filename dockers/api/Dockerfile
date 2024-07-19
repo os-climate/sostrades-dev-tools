@@ -26,14 +26,14 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.3"
+ARG NUMPY_VERSION="1.24.4"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.19.6"
+ARG PETSC_VERSION="3.21.3"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
@@ -61,9 +61,9 @@ RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
 WORKDIR ${SOS_TRADES_SOURCES}
 
 # Copy Python requirements and install them
-COPY ./platform/sostrades-webapi/api.requirements.txt api.requirements.txt
-RUN sed -i '/petsc\|numpy/d' api.requirements.txt && \
-    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy
+COPY ./platform_requirements/api.requirements.txt api.requirements.txt
+RUN sed -i '/petsc\|numpy[[:blank:]]*=/d' api.requirements.txt && \
+    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
 
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/gemseo ./platform/gemseo

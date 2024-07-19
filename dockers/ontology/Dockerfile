@@ -26,14 +26,14 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.3"
+ARG NUMPY_VERSION="1.24.4"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.19.6"
+ARG PETSC_VERSION="3.21.3"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
@@ -57,10 +57,10 @@ ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # Install ontology requirements
-COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
+COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
-    pip install --no-cache-dir -r dev.requirements.txt debugpy
+    pip install --no-cache-dir -r dev.requirements.txt debugpy numpy==${NUMPY_VERSION}
 
 COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
@@ -89,9 +89,9 @@ RUN mkdir -p /usr/local/sostrades/sources
 RUN mkdir /startup
 
 # Install ontology requirements
-COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
+COPY ./platform_requirements/ontology.requirements.txt ontology.requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy
+    pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
 COPY ./platform/sostrades-ontology /usr/local/sostrades/sources/platform/sostrades-ontology
 
 # Add repositories needed to pass test on ontology image

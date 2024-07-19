@@ -6,17 +6,10 @@ To add a personal repository after having already installed a sostrades local pl
 
 Add your personal repository in the folder `sostrades-dev-tools/models/<new repository>`
 
-## 2. Update conda env
+## 2. Update venv
 
-Run the following command to update your conda environment from the folder `sostrades-dev-tools/` by replacing <new repository> with your repository name in the command.
-```
-echo "$PWD/models/<new repository>" >> $(conda info --envs | awk -v env="SOSTradesEnv" '$0 ~ env {print $2 "/lib/python3.9/site-packages/conda.pth"}') 
-```
-Or you can edit the `conda.pth` file by yourself. You can find where the file is located with this command
-```
-conda info --envs | awk -v env="SOSTradesEnv" '$0 ~ env {print $2 "/lib/python3.9/site-packages/conda.pth"}'
-```
-Add the path of your repository at the end of the `conda.pth` file.
+Edit the `./sostrades-dev-tools/.venv/Lib/site-packages/sostrades.pth` file.  
+Add the path of your repository at the end of the `sostrades.pth` file.
 
 ## 3. Update vscode settings.json file
 
@@ -28,6 +21,7 @@ Edit the `sostrades-dev-tools/.vscode/settings.json` file by adding your reposit
         "./platform/sostrades-ontology",
         "./platform/sostrades-webapi",
         "./platform/sostrades-webgui",
+        "./models/sostrades-optimization-plugins",
         "./models/witness-core",
         "./models/witness-energy",
         "./models/<new repository>"

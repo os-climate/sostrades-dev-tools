@@ -14,102 +14,88 @@ limitations under the License.
 '''
 '''
 Configuration.py is a script that initialise files and folders needed for sostrades :
-- sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json
-- sostrades-dev-tools\platform\sostrades-webapi\.flaskenv
-- C:\TEMP\SOSTRADES\
-- C:\TEMP\SOSTRADES\REFERENCES\
-- C:\TEMP\SOSTRADES\RSA\
-- C:\TEMP\SOSTRADES\RSA\private_key.pem
-- C:\TEMP\SOSTRADES\RSA\public_key.pem
+- sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json
+- sostrades-dev-tools/platform/sostrades-webapi/.flaskenv
+- C:/TEMP/SOSTRADES/
+- C:/TEMP/SOSTRADES/REFERENCES/
+- C:/TEMP/SOSTRADES/RSA/
+- C:/TEMP/SOSTRADES/RSA/private_key.pem
+- C:/TEMP/SOSTRADES/RSA/public_key.pem
 '''
 import json
 import os
 
-# Variable with the path of sostrade-dev-tools
-sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
-print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
+from constants import platform_path, flaskenv_file_path, model_path
+from tooling import list_directory_paths
 
-# Paths
-platform_dir="platform"
 
-# Init platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json configuration file
-configuration={
-    "ENVIRONMENT": "DEVELOPMENT", 
-    "SQL_ALCHEMY_DATABASE": { 
-        "HOST" : "127.0.0.1", 
-        "PORT" : 3306, 
-        "USER_ENV_VAR":"SQL_ACCOUNT", 
-        "PASSWORD_ENV_VAR":"SQL_PASSWORD", 
-        "DATABASE_NAME": "sostrades-data", 
-        "SSL": False 
-    }, 
-    "SQLALCHEMY_TRACK_MODIFICATIONS": False, 
-    "LOGGING_DATABASE": { 
-        "HOST": "127.0.0.1", 
-        "PORT": 3306, 
-        "USER_ENV_VAR":"LOG_USER", 
-        "PASSWORD_ENV_VAR":"LOG_PASSWORD",
-        "DATABASE_NAME": "sostrades-log", 
-        "SSL": False 
-    }, 
-    "SECRET_KEY_ENV_VAR": "SECRET_KEY", 
-    "JWT_TOKEN_LOCATION": "headers", 
-    "JWT_ACCESS_TOKEN_EXPIRES": 18000, 
-    "JWT_REFRESH_TOKEN_EXPIRES": 36000, 
-    "DEFAULT_GROUP_MANAGER_ACCOUNT": "All users", 
-    "CREATE_STANDARD_USER_ACCOUNT": False, 
-    "LDAP_SERVER" : "", 
-    "LDAP_BASE_DN" : "", 
-    "LDAP_FILTER" : "", 
-    "LDAP_USERNAME" : "", 
-    "SMTP_SERVER" : "", 
-    "SMTP_SOS_TRADES_ADDR" : "", 
-    "SOS_TRADES_ENVIRONMENT" : "Local", 
-    "SOS_TRADES_K8S_DNS": "", 
-    "SOS_TRADES_FRONT_END_DNS": "", 
-    "SOS_TRADES_ONTOLOGY_ENDPOINT": "http://127.0.0.1:5555/api/ontology", 
-    "SOS_TRADES_PROCESS_REPOSITORY": ["sostrades_core.sos_processes.test"], 
-    "INTERNAL_SSL_CERTIFICATE": "", 
-    "SOS_TRADES_EXECUTION_STRATEGY": "subprocess", 
-    "SOS_TRADES_SERVER_MODE": "mono", 
-    "SOS_TRADES_DATA": "C:\\TEMP\\SOSTRADES", 
-    "SOS_TRADES_REFERENCES": "C:\\TEMP\\SOSTRADES\\REFERENCES", 
-    "EEB_PATH": "", 
-    "SOS_TRADES_RSA": "C:\\TEMP\\SOSTRADES\\RSA", 
-    "SAML_V2_METADATA_FOLDER": "" 
-}
+# Init platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json configuration file
+configuration_path = f"{platform_path}/sostrades-webapi/sos_trades_api/configuration_template/configuration.json"
+local_configuration_template_path = os.path.join(os.path.dirname(__file__), "local_configuration_template.json")
 
-# Create configuration.json file for WebAPI
-if os.path.exists(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template"):
-    if not os.path.exists(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json"):
-        print ("Creating configuration.json ...")
-        with open(f"{sostrades_dev_tools_path}\{platform_dir}\\sostrades-webapi\sos_trades_api\configuration_template\configuration.json", "w") as f:
-            json.dump(configuration, f, indent=4)
-            print(f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json created")
-    else:
-        print (f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template\configuration.json already created")
-else:
-    print (f"{sostrades_dev_tools_path}\{platform_dir}\sostrades-webapi\sos_trades_api\configuration_template not found")
+# Copy template file
+if not os.path.exists(configuration_path):
+    print("Local config file not found, creating one from template")
+    with open(local_configuration_template_path, "r") as config_template_file:
+        with open(configuration_path, 'w') as config_file:
+            config_file.write(config_template_file.read())
 
-# Define the values of .flaskenv 
+
+# Updating sos_processes
+def find_module_name(folder_path):
+    module_name_parts = []
+    current_dir = folder_path
+
+    # Traverse upwards until we reach the root directory or encounter another '__init__.py'
+    while os.path.isfile(os.path.join(current_dir, '__init__.py')):
+        # Found '__init__.py', add the folder name to the module name parts
+        module_name_parts.append(os.path.basename(current_dir))
+        current_dir = os.path.dirname(current_dir)
+
+    # Reverse the list and join to construct the module name
+    return '.'.join(reversed(module_name_parts))
+
+def list_modules_with_init_and_sos_processes(root_dir):
+    result_folders = []
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        if '__init__.py' in filenames and 'sos_processes' in dirnames:
+            module_name = find_module_name(dirpath) + ".sos_processes"
+            result_folders.append(module_name)
+    return result_folders
+
+all_platform_directory = list_directory_paths(platform_path)
+all_model_directory = list_directory_paths(model_path)
+
+sos_processes_modules = []
+for folder in all_platform_directory + all_model_directory:
+    sos_processes_modules += list_modules_with_init_and_sos_processes(folder)
+
+print("Updating SOS_TRADES_PROCESS_REPOSITORY with local setup")
+# Edit SOS_TRADES_PROCESS_REPOSITORY
+with open(configuration_path, 'r') as config_file:
+    configuration_data = json.load(config_file)
+
+configuration_data["SOS_TRADES_PROCESS_REPOSITORY"] = sos_processes_modules
+
+with open(configuration_path, 'w') as config_file:
+    json.dump(configuration_data, config_file, indent=4)
+
+# Define the values of .flaskenv
 flask_env = {
-    "FLASK_APP":"sos_trades_api/server/base_server.py",
-    "FLASK_ENV":"development",
-    "SOS_TRADES_SERVER_CONFIGURATION":f"{sostrades_dev_tools_path}\\platform\\sostrades-webapi\\sos_trades_api\\configuration_template\\configuration.json",
-    "SOS_TRADES_REFERENCES":"C:\\Temp\\SoSTrades_persistance\\reference",
-    "SOS_TRADES_DATA":"C:\\Temp\\SoSTrades_persistance",
-    "EEB_PATH":"C:\\Temp\\SoSTrades_persistance\\eeb.yaml",
-    "SOS_TRADES_RSA":"C:\\Temp\\SoSTrades_persistance\\rsa",
-    "SQL_ACCOUNT":"user",
-    "SQL_PASSWORD":"password",
-    "LOG_USER":"user",
-    "LOG_PASSWORD":"password", 
-    "SECRET_KEY":"ABCDEFGH12 ",
-    "SAML_V2_METADATA_FOLDER":"sos_trades_api\\configuration\\saml"
-    }
-
-# File path to create
-flaskenv_file_path = f"{sostrades_dev_tools_path}\platform\sostrades-webapi\.flaskenv"
+    "FLASK_APP": "sos_trades_api/server/base_server.py",
+    "FLASK_ENV": "development",
+    "SOS_TRADES_SERVER_CONFIGURATION": f"{platform_path}/sostrades-webapi/sos_trades_api/configuration_template/configuration.json",
+    "SOS_TRADES_REFERENCES": "C:/Temp/SoSTrades_persistance/reference",
+    "SOS_TRADES_DATA": "C:/Temp/SoSTrades_persistance",
+    "EEB_PATH": "C:/Temp/SoSTrades_persistance/eeb.yaml",
+    "SOS_TRADES_RSA": "C:/Temp/SoSTrades_persistance/rsa",
+    "SQL_ACCOUNT": "user",
+    "SQL_PASSWORD": "password",
+    "LOG_USER": "user",
+    "LOG_PASSWORD": "password",
+    "SECRET_KEY": "ABCDEFGH12 ",
+    "SAML_V2_METADATA_FOLDER": "sos_trades_api/configuration/saml",
+}
 
 # Write the values to the file
 with open(flaskenv_file_path, "w") as f:
@@ -118,25 +104,25 @@ with open(flaskenv_file_path, "w") as f:
 
 print(f"{flaskenv_file_path} has been successfully created.")
 
-# Create repository C:\TEMP\SOSTRADES,C:\TEMP\SOSTRADES\RSA, C:\TEMP\SOSTRADES\REFERENCE
-if not os.path.exists("C:\\TEMP\\SOSTRADES"):
-    os.makedirs("C:\\TEMP\\SOSTRADES")
-    print("C:\TEMP\SOSTRADES directory created.")
+# Create repository C:/TEMP/SOSTRADES,C:/TEMP/SOSTRADES/RSA, C:/TEMP/SOSTRADES/REFERENCE
+if not os.path.exists("C:/TEMP/SOSTRADES"):
+    os.makedirs("C:/TEMP/SOSTRADES")
+    print("C:/TEMP/SOSTRADES directory created.")
 
-if not os.path.exists("C:\\TEMP\\SOSTRADES\\RSA"):
-    os.makedirs("C:\\TEMP\\SOSTRADES\\RSA")
-    print("C:\TEMP\SOSTRADES\RSA directory created.")
-    
-if not os.path.exists("C:\\TEMP\\SOSTRADES\\REFERENCES"):
-    os.makedirs("C:\\TEMP\\SOSTRADES\\REFERENCES")
-    print("C:\TEMP\SOSTRADES\REFERENCES directory created.")
+if not os.path.exists("C:/TEMP/SOSTRADES/RSA"):
+    os.makedirs("C:/TEMP/SOSTRADES/RSA")
+    print("C:/TEMP/SOSTRADES/RSA directory created.")
+
+if not os.path.exists("C:/TEMP/SOSTRADES/REFERENCES"):
+    os.makedirs("C:/TEMP/SOSTRADES/REFERENCES")
+    print("C:/TEMP/SOSTRADES/REFERENCES directory created.")
 
 # Define the directory path
-directory_path = "C:TEMP\SOSTRADES\RSA"
+directory_path = "C:TEMP/SOSTRADES/RSA"
 
 # Define the files path
-private_key_path = "C:\TEMP\SOSTRADES\RSA\private_key.pem"
-public_key_path = "C:\TEMP\SOSTRADES\RSA\public_key.pem"
+private_key_path = "C:/TEMP/SOSTRADES/RSA/private_key.pem"
+public_key_path = "C:/TEMP/SOSTRADES/RSA/public_key.pem"
 
 # Create empty files
 if not os.path.exists(private_key_path):

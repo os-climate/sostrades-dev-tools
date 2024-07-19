@@ -20,6 +20,7 @@ The expected folder organisation is the following :
    │   ├── dockers
    │   │   └── docker related files
    │   ├── models
+   │   │   ├── sostrades-optimization-plugins
    │   │   ├── witness-core
    │   │   ├── witness-energy
    │   │   └── Other model repositories
@@ -44,3 +45,11 @@ Contents
 
    Installation <installation.md>
    Add personal repository <add-repository.md>
+   Release notes <release-notes.md>
+
+.. _license:
+
+License
+=======
+
+The content of this documentation is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.

@@ -17,63 +17,63 @@ StartSOSTrades.py is a script that run api server, ontology server, and webgui s
 '''
 import os
 
-# Variable with the path of sostrade-dev-tools
-sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
-print(f"sostrades-dev-tools PATH : {sostrades_dev_tools_path}\n")
+from constants import (
+    venv_script_activate_path,
+    venv_script_activate_command,
+    sostrades_dev_tools_path,
+    platform_path,
+    nvs_cmd_path,
+    node_version,
+)
+from tooling import run_command
 
-# Variable with the path of sostrades-venv
-venv_path= f"{sostrades_dev_tools_path}\\sostrades-venv"
-# Variable with the path of venv activate script
-venv_script_activate_path= f"{venv_path}\\Scripts\\activate"
-
-# Paths
-platform_dir="platform"
-
-# Run os.system command with interruption
-def run_command(cmd):
- if os.system(cmd) != 0:
-    raise Exception(f"Error to execute {cmd}")
 
 if os.path.exists(venv_script_activate_path):
-    if os.path.exists(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-webapi"):
+    if os.path.exists(f"{platform_path}/sostrades-webapi"):
         print("sostrades-webapi is starting ...")
-        # Change directory to sostrades-dev-tools\platform\sostrades-webapi
-        os.chdir(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-webapi")
-        run_command(f"{venv_script_activate_path} && flask db upgrade")
-        run_command(f"{venv_script_activate_path} && flask init_process")
-        # Start sostrades-webapi servers with sostrades-venv
-        run_command(f"{venv_script_activate_path} && start cmd /K python server_scripts\\split_mode\\launch_server_post_processing.py")
-        run_command(f"{venv_script_activate_path} && start cmd /K python server_scripts\\split_mode\\launch_server_main.py")
-        run_command(f"{venv_script_activate_path} && start cmd /K python server_scripts\\split_mode\\launch_server_data.py")
+        # Change directory to sostrades-dev-tools/platform/sostrades-webapi
+        os.chdir(f"{platform_path}/sostrades-webapi")
+        run_command(f"{venv_script_activate_command} && flask db upgrade")
+        run_command(f"{venv_script_activate_command} && flask init_process")
+        # Start sostrades-webapi servers with .venv
+        run_command(
+            f"{venv_script_activate_command} && start cmd /K python server_scripts/split_mode/launch_server_post_processing.py"
+        )
+        run_command(
+            f"{venv_script_activate_command} && start cmd /K python server_scripts/split_mode/launch_server_main.py"
+        )
+        run_command(
+            f"{venv_script_activate_command} && start cmd /K python server_scripts/split_mode/launch_server_data.py"
+        )
+        run_command(
+            f"{venv_script_activate_command} && start cmd /K python server_scripts/launch_server_message.py"
+        )
     else:
-        print(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-webapi repository not found")
+        print(f"{platform_path}/sostrades-webapi repository not found")
 
-    if os.path.exists(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-ontology"):
+    if os.path.exists(f"{platform_path}/sostrades-ontology"):
         print("sostrades-ontology is starting ...")
-        # Change directory to sostrades-dev-tools\platform\sostrades-ontology
-        os.chdir(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-ontology")
-        # Start sostrades-ontology with sostrades-venv
-        run_command(f"{venv_script_activate_path} && start cmd /K python sos_ontology\\rest_api\\api.py")
+        # Change directory to sostrades-dev-tools/platform/sostrades-ontology
+        os.chdir(f"{platform_path}/sostrades-ontology")
+        # Start sostrades-ontology with .venv
+        run_command(
+            f"{venv_script_activate_command} && start cmd /K python sos_ontology/rest_api/api.py"
+        )
     else:
-        print(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-ontology repository not found")
+        print(f"{platform_path}/sostrades-ontology repository not found")
 
     os.chdir(sostrades_dev_tools_path)
 else:
-   print("Virtual environment (sostrades-venv) is not installed")
+    print("Virtual environment (.venv) is not installed")
 
-
-# Start sostrade-webgui
-node_version="12.16.1"
-nvs_home = os.environ.get('LOCALAPPDATA', '') + '\\nvs'
-nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
 if os.path.exists(nvs_cmd_path):
     print("sostrades-webgui is starting ...")
     # Change directory to sostrade-webgui
-    if  os.path.exists(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-webgui"):
-        os.chdir(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-webgui")
+    if os.path.exists(f"{platform_path}/sostrades-webgui"):
+        os.chdir(f"{platform_path}/sostrades-webgui")
         run_command(f"{nvs_cmd_path} use {node_version} &&  start cmd /K npm start")
         os.chdir(sostrades_dev_tools_path)
     else:
-        print(f"{sostrades_dev_tools_path}\\{platform_dir}\\sostrades-webgui repository not found")
+        print(f"{platform_path}/sostrades-webgui repository not found")
 else:
     print("NVS is not installed")
