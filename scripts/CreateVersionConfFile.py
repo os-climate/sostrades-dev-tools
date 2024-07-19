@@ -82,7 +82,7 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
             commit_date = datetime.strptime(last_commit_date, input_format)
 
             # define output format:  Thu Jul 11 2024 13:00
-            output_format = '%a %b %d %Y %H:%M'
+            output_format = '%Y-%m-%d %H:%M'
             # format output date in str
             last_commit_date = commit_date.strftime(output_format)
         except:
