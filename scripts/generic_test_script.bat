@@ -1,5 +1,6 @@
 REM This test scripts aims to be called in each repo. It tests everything to fit as much as possible whats in Tekton
 @echo off
+call cd ..
 setlocal enabledelayedexpansion
 for %%I in (.) do set "folder_name=%%~nxI"
 set mainfoldername=%1
