@@ -28,6 +28,7 @@ gitignore_file_path = f"./platform/sostrades-webapi/.gitignore"
 platform_path = "./platform"
 models_path = "./models"
 
+
 def get_git_info(repo_name:str, repo_git_path:str)-> dict:
     '''
     Get git info from folder
@@ -63,7 +64,13 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
             all_tags = run_git_command(['git', 'tag', '--contains', last_commit_hash])
             tags = [tag for tag in all_tags.split('\n') if tag.startswith('v')]
             if len(tags)>0:
-                branch_or_tag = tags[0]
+                def convert_version(version:str)->list[int]:
+                    return [int(part) for part in version.strip('v').split('.')]
+
+                # sort versions
+                sorted_tags = sorted(tags, key=convert_version)
+                
+                branch_or_tag = sorted_tags[-1]
         
         # get last commit date
         last_commit_date = run_git_command(['git', 'log', '-1', '--format=%cd'])
