@@ -104,6 +104,7 @@ echo [%CT_RUFF%] Ruff: %ruff_status%
 echo [%CT_L0%] Pytest L0: %pytest_l0_status%
 echo [%CT_L1%] Pytest L1: %pytest_l1_status%
 echo [%CT_UC%] Pytest Usecases: %pytest_usecases_status%
+echo Header test not checked : check on your own !
 echo.
 
 for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
