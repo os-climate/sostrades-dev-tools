@@ -108,17 +108,24 @@ def build_commits_info_dict(folder_path:str)-> list[dict]:
     :param folder_path: folder to iterate through sub folder to get git info
     :type folder_path: str
     :return: list of dict with git last commits info with format:
-    [
-        {
-        'name':str,
-        'commit': str,
-        'url': str,
-        'committed_date': str,
-        'branch': str
-        }
-    ]
+    {
+        repositories:[
+            {
+            'name':str,
+            'commit': str,
+            'url': str,
+            'committed_date': str,
+            'branch': str
+            }
+        ]
+        'version':str
+        'build_date':str
     '''
-    repo_info = []
+    repo_info = {
+        "repositories":[],
+        "version":"version",
+        "build_date":datetime.now().strftime("%d %b %Y")
+        }
     for repo in listdir(folder_path):
         repo_path = join(folder_path, repo)
         if isdir(repo_path):
@@ -126,7 +133,11 @@ def build_commits_info_dict(folder_path:str)-> list[dict]:
                 # Check that the repository is a git folder
                 if exists(join(repo_path, '.git')):
                     print(f"getting git info of {repo}")
-                    repo_info.append(get_git_info(repo, repo_path))
+                    git_repo_info = get_git_info(repo, repo_path)
+                    repo_info['repositories'].append(git_repo_info)
+                    # get the version of platform from sostrades-core branch or tag
+                    if repo.lower() == "sostrades-core":
+                        repo_info['version'] = git_repo_info['branch']
             except Exception as e:
                 print(e)
     return repo_info
@@ -173,3 +184,4 @@ if check_git_commit_file_in_git_ignore():
     if len(all_repo_info) > 0:
         save_to_json(all_repo_info, git_commits_info_file_path)
     
+
