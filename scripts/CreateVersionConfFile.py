@@ -28,10 +28,7 @@ gitignore_file_path = f"./platform/sostrades-webapi/.gitignore"
 platform_path = "./platform"
 models_path = "./models"
 
-git_commits_info_file_path = f"C:/Users/mgueylar/Desktop/projets/Business4Planet/sostrades-webapi/sos_trades_api/git_commits_info.json"
-gitignore_file_path = f"C:/Users/mgueylar/Desktop/projets/Business4Planet/sostrades-webapi/.gitignore"
-platform_path = "C:/Users/mgueylar/Desktop/projets/Business4Planet/test_repo"
-models_path = "C:/Users/mgueylar/Desktop/projets/Business4Planet"
+
 
 
 def get_git_info(repo_name:str, repo_git_path:str)-> dict:
