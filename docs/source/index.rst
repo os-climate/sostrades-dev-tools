@@ -28,5 +28,5 @@ Contents
    Installation <installation.md>
    Add personal repository <add-repository.md>
    User manual <user_manual.md>
-   Developer manual <developer_manual.md>
+   Developer manual <developer-manual.md>
    Release notes <release-notes.md>
