@@ -30,3 +30,9 @@ Contents
    User manual <user-manual.md>
    Developer manual <developer-manual.md>
    Release notes <release-notes.md>
+
+.. toctree::
+   :caption: Documentations
+
+   Developer manual <developer_manual.md>
+   User manual <user_manual.md>
