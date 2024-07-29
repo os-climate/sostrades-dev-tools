@@ -33,7 +33,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.21.2"
+ARG PETSC_VERSION="3.21.3"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
@@ -55,6 +55,9 @@ ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 ENV USE_PETSC="True"
 
+# Allow flask to work withtout .flaskenv file in git repository
+ENV FLASK_APP=sos_trades_api/server/base_server.py
+
 # Install path for sostrades
 ARG SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
 RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
@@ -63,7 +66,7 @@ WORKDIR ${SOS_TRADES_SOURCES}
 # Copy Python requirements and install them
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
 RUN sed -i '/petsc\|numpy[[:blank:]]*=/d' api.requirements.txt && \
-    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy
+    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
 
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/gemseo ./platform/gemseo

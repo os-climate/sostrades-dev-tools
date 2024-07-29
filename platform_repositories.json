@@ -9,7 +9,7 @@
     },
     {
         "url": "https://github.com/os-climate/sostrades-ontology.git",
-        "branch": "develop"
+        "branch": "validation"
     },
     {
         "url": "https://github.com/os-climate/sostrades-webapi.git",
