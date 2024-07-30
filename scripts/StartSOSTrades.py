@@ -29,6 +29,7 @@ from tooling import run_command
 
 
 if os.path.exists(venv_script_activate_path):
+    run_command(f"{venv_script_activate_command} && python ./scripts/CreateVersionConfFile.py")
     if os.path.exists(f"{platform_path}/sostrades-webapi"):
         print("sostrades-webapi is starting ...")
         # Change directory to sostrades-dev-tools/platform/sostrades-webapi
