@@ -21,15 +21,10 @@ from os.path import(join, isdir, exists)
 from datetime import datetime
 import subprocess
 
-
-
 git_commits_info_file_path = f"./platform/sostrades-webapi/sos_trades_api/git_commits_info.json"
 gitignore_file_path = f"./platform/sostrades-webapi/.gitignore"
 platform_path = "./platform"
 models_path = "./models"
-
-
-
 
 def get_git_info(repo_name:str, repo_git_path:str)-> dict:
     '''
@@ -92,6 +87,10 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
 
         # get repo url
         last_commit_url = run_git_command(['git', 'remote', 'get-url', 'origin'])
+        
+        # Post-process url to remove .git
+        if last_commit_url.endswith(".git"):
+            last_commit_url = last_commit_url[:-4]
 
         return {
             'name':repo_name,
@@ -185,5 +184,3 @@ if check_git_commit_file_in_git_ignore():
     #write it in json file
     if len(all_repo_info) > 0:
         save_to_json(platform_app_info, git_commits_info_file_path)
-    
-
