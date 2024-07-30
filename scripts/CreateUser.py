@@ -72,10 +72,8 @@ if os.path.exists(venv_script_activate_path):
         run_command(f"{venv_script_activate_command} && flask db upgrade")
         run_command(f"{venv_script_activate_command} && flask init_process")
         run_command(
-            f"{venv_script_activate_command} && flask create_standard_user {username} {email} {firstname} {lastname} "
-        )
-        run_command(
-            f"{venv_script_activate_command} && flask set_user_access_group {username} SoSTrades_Dev"
+            f"{venv_script_activate_command} && flask create_standard_user {username} {email} {firstname} {lastname} \
+            && flask set_user_access_group {username} SoSTrades_Dev"
         )
         print(f"User created successfully")
     else:
