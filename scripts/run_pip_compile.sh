@@ -71,4 +71,5 @@ if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/ge
     fi
 else
     echo "One or more required files do not exist."
+    exit 1
 fi
