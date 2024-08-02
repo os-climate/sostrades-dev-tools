@@ -54,20 +54,15 @@ if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/ge
         exit 1
     fi
 
-    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/ontology.requirements.txt './platform/sostrades-ontology/requirements.in' --upgrade"
+    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/ontology.requirements.txt './platform/sostrades-ontology/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
     if [ $? -eq 0 ]; then
         echo "Compile ontology requirements passed"
     else
         echo "Compile ontology requirements failed"
         exit 1
     fi
-else
-    echo "One or more required files do not exist."
-fi
-
-echo "Attempting to compile api requirements"
-if [ -f "./platform/gemseo/requirements.txt" ] && [ -f "./platform/sostrades-core/requirements.in" ] && [ -f "./platform/sostrades-webapi/requirements.in" ]; then
-    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files './platform/gemseo/requirements.txt' './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' --upgrade"
+    
+    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files './platform/gemseo/requirements.txt' './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
     if [ $? -eq 0 ]; then
         echo "Compile api requirements passed"
     else
