@@ -31,7 +31,41 @@ TBD
 
 ### Section 2.3: Reference management Visualisation
 ### Section 2.3: Group Management
-TBD
+Each user belongs to, at least, one group with rights. 
+- **Owner** : When a user create a group, he is the owner of the group. The owner cannot be changed and has the full rights on the group (edition, deletion, manage access rights).
+- **Manager** : an edit a group (name and description), manage access rights to the group (can add or remove user or group, but cannot change its own access right nor the owner), can create study into this group. A manager can't delete a group, only the owner can do it.
+- **Member** : A member of a group can only create studies into this group. 
+
+**These groups contain studies created by user and provide you an access right on it.**
+
+When a group is linked to a process, a study, or another group, the users and/or groups within the group inherit the associated access rights.  
+For example:  
+if a group is added as a manager in a process entity's rights, all users in the group (owner, manager, or member) will be managers of the process.  
+If a group is added as a restricted viewer in a study-case entity's rights, all users in the group (owner, manager, or member) will be restricted viewers of the study-case.  
+If a user in the restricted viewer group is also added as a manager in the same study-case entity's rights, they will have manager rights for this study-case.
+
+#### Subsection 2.3.1 Create group
+![](images/group-management/create_group.png)  
+To create a new group, you must fill in the name and description.  
+:warning: Note: If you select confidential, the data will be encrypted. Even developers will not have access to it, and there will be no possibility to directly download the results.
+
+#### Subsection 2.3.2 Select a default group
+![](images/group-management/default_group.png) 
+If you select a default group, it will be preselected during a study creation.
+
+#### Subsection 2.3.3 Share a group
+If user is manager of the group, he can also add in this group, an other or several users and/or groups, witch can contain several users, by clicking on the share icon ![](images/icon/icon_share.png)
+
+![](images/group-management/share_group.png)
+
+This user can also modify the access rights of a user or a group present in this group.
+![](images/group-management/edit_rights.png)
+
+#### Subsection 2.3.4 Delete a group
+
+![](images/icon/icon_delete.png)  
+**<span style="color: red;">Removing a group will delete all studies that belong to this group.</span>**
+
 ### Section 2.4: Ontology Menu
 TBD
 ## Chapter 3: Study Operations
