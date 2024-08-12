@@ -4,18 +4,22 @@ This documentation manual is designed for people seeking to deepen their underst
 
 SoSTrades is a web-based, multi-user, interactive publication-quality graph simulation platform. It allows users to drop new modules without additional coding, and provides embedded advanced numerical capabilities for simulation and multi-disciplinary optimization. It also has built-in collaborative capabilities to allow different experts to work together.
 
-It provides comprehensive guidance on navigating the GUI for easy interaction. Learn how to create, modify, run, and open your studies, as well as visualize existing ones.
+It provides comprehensive guidance on navigating the GUI for easy interaction. Learn how to create, modify, run, and open userr studies, as well as visualize existing ones.
 
 ## Chapter 1: SOSTrades GUI Connexion 
-This chapter offers all the necessary explanations for easily connecting the SoSTrades Graphical User Interface.
+This chapter offers all the necessary explanations for easily connecting the SoSTrades Graphical User Interface.  
+![](images/platform-GUI/login.png)
+
+If user has not a github account it can click on the link "Don't have a github account" to create one.  
+
 
 ### Section 1.1: First connexion on cloud landing page
 
-TBD
+
 
 ### Section 1.2: Connexion on local machine
 
-TBD
+The connexion with a developer account is only necessary when user use sostrades in a local environment
 
 ## Chapter 2: GUI Homepage and Menus
 TBD
@@ -36,7 +40,7 @@ Each user belongs to, at least, one group with rights.
 - **Manager** : an edit a group (name and description), manage access rights to the group (can add or remove user or group, but cannot change its own access right nor the owner), can create study into this group. A manager can't delete a group, only the owner can do it.
 - **Member** : A member of a group can only create studies into this group. 
 
-**These groups contain studies created by user and provide you an access right on it.**
+**These groups contain studies created by user and provide user an access right on it.**
 
 When a group is linked to a process, a study, or another group, the users and/or groups within the group inherit the associated access rights.  
 For example:  
@@ -45,25 +49,25 @@ If a group is added as a restricted viewer in a study-case entity's rights, all 
 If a user in the restricted viewer group is also added as a manager in the same study-case entity's rights, they will have manager rights for this study-case.
 
 #### Subsection 2.3.1 Create group
-![](images/group-management/create_group.png)  
-To create a new group, you must fill in the name and description.  
-:warning: Note: If you select confidential, the data will be encrypted. Even developers will not have access to it, and there will be no possibility to directly download the results.
+![](images/platform-GUI/group-management/create_group.png)  
+To create a new group, user must fill in the name and description.  
+:warning: Note: If user select confidential, the data will be encrypted. Even developers will not have access to it, and there will be no possibility to directly download the results.
 
 #### Subsection 2.3.2 Select a default group
-![](images/group-management/default_group.png) 
-If you select a default group, it will be preselected during a study creation.
+![](images/platform-GUI/group-management/default_group.png) 
+If user select a default group, it will be preselected during a study creation.
 
 #### Subsection 2.3.3 Share a group
-If user is manager of the group, he can also add in this group, an other or several users and/or groups, witch can contain several users, by clicking on the share icon ![](images/icon/icon_share.png)
+If user is manager of the group, he can also add in this group, an other or several users and/or groups, witch can contain several users, by clicking on the share icon ![](images/platform-GUI/icon/icon_share.png)
 
-![](images/group-management/share_group.png)
+![](images/platform-GUI/group-management/share_group.png)
 
 This user can also modify the access rights of a user or a group present in this group.
-![](images/group-management/edit_rights.png)
+![](images/platform-GUI/group-management/edit_rights.png)
 
 #### Subsection 2.3.4 Delete a group
 
-![](images/icon/icon_delete.png)  
+![](images/platform-GUI/icon/icon_delete.png)  
 **<span style="color: red;">Removing a group will delete all studies that belong to this group.</span>**
 
 ### Section 2.4: Ontology Menu
