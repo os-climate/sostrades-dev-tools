@@ -5,18 +5,18 @@
     },
     {
         "url": "https://github.com/os-climate/sostrades-core.git",
-        "branch": "validation"
+        "branch": "main"
     },
     {
         "url": "https://github.com/os-climate/sostrades-ontology.git",
-        "branch": "validation"
+        "branch": "main"
     },
     {
         "url": "https://github.com/os-climate/sostrades-webapi.git",
-        "branch": "validation"
+        "branch": "main"
     },
     {
         "url": "https://github.com/os-climate/sostrades-webgui.git",
-        "branch": "validation"
+        "branch": "main"
     }
 ]
