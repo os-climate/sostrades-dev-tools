@@ -167,7 +167,7 @@ Compile the requirements
 ```bash
 pip install --upgrade pip
 pip install pip-tools
-./platform_requirements/run_pip_compile.sh
+./scripts/run_pip_compile.sh
 ```
 
 #### 4.1.1 (Optional : Windows users only) WSL and/or Ubuntu installation
