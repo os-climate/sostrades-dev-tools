@@ -34,7 +34,9 @@ for source in all_model_directory:
     python_path+=source + os.pathsep
 for source in all_platform_directory:
     python_path+=source + os.pathsep
-   
+
+python_path=python_path.replace("/","\\")
+
 print(f'PYTHONPATH={python_path}')
 
 if os.path.exists(venv_script_activate_path):

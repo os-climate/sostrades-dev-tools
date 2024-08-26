@@ -55,6 +55,9 @@ ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 ENV USE_PETSC="True"
 
+# Allow flask to work withtout .flaskenv file in git repository
+ENV FLASK_APP=sos_trades_api/server/base_server.py
+
 # Install path for sostrades
 ARG SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
 RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
@@ -80,9 +83,6 @@ RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt &
     sed -i '$ s/.$//' /tmp/pythonpath.txt && \
     echo "export PYTHONPATH=$(cat /tmp/pythonpath.txt)" >> /etc/environment && \
     echo '. /etc/environment' >> /etc/bash.bashrc
-
-# Allow flask to work withtout .flaskenv file in git repository
-ENV FLASK_APP=sos_trades_api/server/base_server.py
 
 ENV ENV=/etc/environment
 

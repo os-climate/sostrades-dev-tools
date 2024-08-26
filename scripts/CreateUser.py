@@ -19,7 +19,6 @@ After the user is created it gives some sostrade app rights to that user in de d
 The credential of your database have to be well set in sostrades-dev-tools/platform/sostrades-webapi/.flaskenv {SQL_ACCOUNT} and {SQL_PASSWORD}
 '''
 import os
-import mysql.connector
 
 from constants import (
     flaskenv_file_path,
@@ -73,48 +72,13 @@ if os.path.exists(venv_script_activate_path):
         run_command(f"{venv_script_activate_command} && flask db upgrade")
         run_command(f"{venv_script_activate_command} && flask init_process")
         run_command(
-            f"{venv_script_activate_command} && flask create_standard_user {username} {email} {firstname} {lastname} "
+            f"{venv_script_activate_command} && flask create_standard_user {username} {email} {firstname} {lastname} \
+            && flask set_user_access_group {username} SoSTrades_Dev"
         )
+        print(f"User created successfully")
     else:
         print(f"{platform_path}/sostrades-webapi repository not found")
 
     os.chdir(sostrades_dev_tools_path)
 else:
     print("Virtual environment (.venv) is not installed")
-
-# Connect to the database
-db_connection = mysql.connector.connect(
-    host="localhost", user=sql_account, password=sql_password, database="sostrades-data"
-)
-
-if db_connection.is_connected():
-    # Create a cursor to execute SQL queries
-    cursor = db_connection.cursor()
-
-    # Define the SELECT query with parameters
-    query = f"SELECT id FROM `user` WHERE username = %s AND email = %s AND firstname = %s AND lastname = %s"
-
-    # Execute the query with user-provided parameters
-    cursor.execute(query, (username, email, firstname, lastname))
-
-    # Fetch the query results
-    result = cursor.fetchone()
-
-    # Check if there are any results
-    if result:
-        user_id = result[0]
-        insert_query = "INSERT INTO group_access_user (id, group_id, user_id, right_id) VALUES ( %s, %s, %s, %s)"
-
-        # Execute the INSERT query to add the user to the group_access_user table
-        cursor.execute(insert_query, (None, 2, user_id, 5))
-        db_connection.commit()
-
-        print(f"User created successfully")
-    else:
-        print("No matching user found.")
-
-    # Close the cursor and database connection
-    cursor.close()
-    db_connection.close()
-else:
-    print("Error connecting to the database.")

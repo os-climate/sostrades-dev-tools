@@ -20,7 +20,7 @@ Please consult the diagram below to determine which paragraph you should read.
 The objective of this section is to get the environment and all folders properly organized on your local computer to start the installation.
 
 ### 2.2 Setup prerequisites
-If a prior install of SoSTrades relying on PYTHONPATH is present, it should be disabled during install and platform launch. Otherwise, the freshly-installed platform will try to load the old study references. 
+If a prior install of SoSTrades relying on PYTHONPATH is present, it should be disabled during install and platform launch. Otherwise, the freshly-installed platform will try to load the old study references. To do so : Open windows control panel and go to environment variable to delete PYTHONPATH.
 
 #### 2.2.1 Common prerequisites
 
@@ -167,7 +167,7 @@ Compile the requirements
 ```bash
 pip install --upgrade pip
 pip install pip-tools
-./platform_requirements/run_pip_compile.sh
+./scripts/run_pip_compile.sh
 ```
 
 #### 4.1.1 (Optional : Windows users only) WSL and/or Ubuntu installation
@@ -344,7 +344,7 @@ Then run script is `EditFlaskenv.py` to modify the .flaskenv file with your SQL 
 python scripts\EditFlaskenv.py
 ```
 
-To create "sostrades-data" and "sostrades-log" tables run `CreateDatabases.py`:
+To create "sostrades-data" and "sostrades-log" tables run `CreateDatabases.py`. Do not forget that as specified in the requirements you need the package "mysql-connector-python". It is recommanded to install the module outside the .venv so you should use "deactivate" command before to execute "pip install mysql-connector-python". After this you can run this command :
 
 ```
 python scripts\CreateDatabases.py
@@ -401,7 +401,7 @@ python scripts\PullRepositories.py
 
 > - `CreateDatabases.py` : script that creates `sostrades-data` and `sostrades-log` tables in database needed for the API.
 
-> - `CreateUser.py` : script that creates an user in SoSTrades with the command `flask create_standard_user`. When the user is created, a password is temporarily saved in `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\*`. Once stored, the password has to be deleted. Some SoSTrades app rights are granted in the database.
+> - `CreateUser.py` : script that creates an user in SoSTrades with the command `flask create_standard_user`. When the user is created, a password is temporarily saved in `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\*`. Once stored, the password has to be deleted. Some SoSTrades app rights are granted in the database with flask command.
 
 > - `UpdateOntology.py` script will execute with your `.venv` the command `python sos_ontology\core\script\createSoSOntologyFromCode.py`in `sostrades-ontology` folder to update ontology with all your repositories
 

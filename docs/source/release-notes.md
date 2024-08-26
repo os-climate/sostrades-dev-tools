@@ -39,7 +39,7 @@ Date: 2024-07-15
 * build-angular and angular cli from 15.2.10 to 15.2.11
 
 ### Requirements added
-* ruff (0.5.10)
+* ruff (0.5.0)
 * google-cloud-bigquery (3.25.0)
 * pyarrow (16.1.0)
 * db-types (1.2.0)

@@ -21,13 +21,10 @@ from os.path import(join, isdir, exists)
 from datetime import datetime
 import subprocess
 
-
-
 git_commits_info_file_path = f"./platform/sostrades-webapi/sos_trades_api/git_commits_info.json"
 gitignore_file_path = f"./platform/sostrades-webapi/.gitignore"
 platform_path = "./platform"
 models_path = "./models"
-
 
 def get_git_info(repo_name:str, repo_git_path:str)-> dict:
     '''
@@ -90,6 +87,10 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
 
         # get repo url
         last_commit_url = run_git_command(['git', 'remote', 'get-url', 'origin'])
+        
+        # Post-process url to remove .git
+        if last_commit_url.endswith(".git"):
+            last_commit_url = last_commit_url[:-4]
 
         return {
             'name':repo_name,
@@ -126,7 +127,8 @@ def build_commits_info_dict(folder_path:str)-> list[dict]:
                 # Check that the repository is a git folder
                 if exists(join(repo_path, '.git')):
                     print(f"getting git info of {repo}")
-                    repo_info.append(get_git_info(repo, repo_path))
+                    git_repo_info = get_git_info(repo, repo_path)
+                    repo_info.append(git_repo_info)
             except Exception as e:
                 print(e)
     return repo_info
@@ -169,7 +171,16 @@ if check_git_commit_file_in_git_ignore():
     # get repositories commits info in a dict 
     all_repo_info = build_commits_info_dict(platform_path)
     all_repo_info.extend(build_commits_info_dict(models_path))
+    platform_app_info = {
+        "repositories":all_repo_info,
+        "version":"version",
+        "build_date":datetime.now().strftime("%d %b %Y")
+    }
+    # get the version of platform from sostrades-core branch or tag
+    for repo in all_repo_info:
+        if repo["name"].lower() == "sostrades-core":
+            platform_app_info['version'] = repo['branch']
+
     #write it in json file
     if len(all_repo_info) > 0:
-        save_to_json(all_repo_info, git_commits_info_file_path)
-    
+        save_to_json(platform_app_info, git_commits_info_file_path)
