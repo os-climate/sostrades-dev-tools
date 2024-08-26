@@ -16,25 +16,12 @@ echo venv (sostrades-venv) activated successfuly
 
 set "strategy_test_file=%CD%\..\..\platform\sostrades-core\sostrades_core\tests\strategy.py"
 
-set "pylint_status=Passed"
-set "ruff_status=Passed"
-set "pytest_l0_status=Passed"
-set "pytest_l1_status=Passed"
-set "pytest_usecases_status=Passed"
+set "ruff_status=OK"
+set "pylint_status=OK"
+set "pytest_l0_status=OK"
+set "pytest_l1_status=OK"
+set "pytest_usecases_status=OK"
 
-for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
-set CT_PYLINT=%current_time%
-echo.
-echo ****************************************************************************************************
-echo ****************************************************************************************************
-echo *********************************  [%current_time%]
-echo *********************************  Running pylint ...
-echo *********************************
-echo ****************************************************************************************************
-echo ****************************************************************************************************
-echo.
-call pylint --disable=E1101 --jobs=0 --errors-only %mainfoldername%
-if %errorlevel% neq 0 set "pylint_status=Failed"
 
 REM Execute "ruff check" in current directory
 for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
@@ -49,7 +36,10 @@ echo ***************************************************************************
 echo ****************************************************************************************************
 echo.
 ruff check .
-if %errorlevel% neq 0 set "ruff_status=Failed"
+if %errorlevel% neq 0 set "ruff_status=FAILED"
+
+
+
 for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
 set CT_L0=%current_time%
 REM Run all python tests with pytest for files starting with l0_*.py in mainfoldername\tests
@@ -63,7 +53,7 @@ echo ***************************************************************************
 echo ****************************************************************************************************
 echo.
 call python %strategy_test_file% %mainfoldername% l0
-if %errorlevel% neq 0 set "pytest_l0_status=Failed"
+if %errorlevel% neq 0 set "pytest_l0_status=FAILED"
 for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
 set CT_L1=%current_time%
 
@@ -77,7 +67,23 @@ echo ***************************************************************************
 echo ****************************************************************************************************
 echo.
 call python %strategy_test_file% %mainfoldername% l1
-if %errorlevel% neq 0 set "pytest_l1_status=Failed"
+if %errorlevel% neq 0 set "pytest_l1_status=FAILED"
+
+
+
+for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
+set CT_PYLINT=%current_time%
+echo.
+echo ****************************************************************************************************
+echo ****************************************************************************************************
+echo *********************************  [%current_time%]
+echo *********************************  Running pylint ...
+echo *********************************
+echo ****************************************************************************************************
+echo ****************************************************************************************************
+echo.
+call pylint --disable=E1101 --jobs=0 --errors-only %mainfoldername%
+if %errorlevel% neq 0 set "pylint_status=FAILED"
 
 for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
 set CT_UC=%current_time%
@@ -92,18 +98,18 @@ echo ***************************************************************************
 echo ****************************************************************************************************
 echo.
 call python %strategy_test_file% %mainfoldername% uc
-if %errorlevel% neq 0 set "pytest_usecases_status=Failed"
+if %errorlevel% neq 0 set "pytest_usecases_status=FAILED"
 
 echo.
 echo Script execution completed.
 echo.
 echo Summary:
 echo --------
-echo [%CT_PYLINT%] Pylint: %pylint_status%
 echo [%CT_RUFF%] Ruff: %ruff_status%
-echo [%CT_L0%] Pytest L0: %pytest_l0_status%
-echo [%CT_L1%] Pytest L1: %pytest_l1_status%
-echo [%CT_UC%] Pytest Usecases: %pytest_usecases_status%
+echo [%CT_PYLINT%] Pylint: %pylint_status%
+echo [%CT_L0%] L0: %pytest_l0_status%
+echo [%CT_L1%] L1: %pytest_l1_status%
+echo [%CT_UC%] Usecases: %pytest_usecases_status%
 echo Header test not checked : check on your own !
 echo.
 
