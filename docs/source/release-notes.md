@@ -2,6 +2,55 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v4.1.1 
+Date: 2024-08-27
+
+
+### Features
+* Post-processings: add search bar in filters
+* Post-processings section: save user section opened
+* Datasets in Bigquery: add index sorting to keep dataframes order
+* GUI header: display github repositories info with commits and tags
+* GUI data management: limit the display of data size over 2Mo and limit data upload to 50Mo.
+* API: Study API has the same image than the main Data API.
+* Ontology: Added profiling and upgraded performances of ontology computation
+
+### Bug fixes
+* Fix Post-processings update when several disciplines at one node.
+* Fix display icon for metrics in execution Logs
+
+### Other
+* Files reformatted with ruff checks
+
+### Library version upgrades
+* matplotlib from 3.9.0 to 3.9.2
+* openturns from 1.18 to 1.23
+* plotly from 5.3.0 to 5.22.0
+* sympy from 1.9 to 1.13.0
+* pytest from 7.4.3 to 8.1.2
+* pytest-cov from 4.1.0 to 5.0.0
+* pytest-xdist from 3.4.0 to 3.6.1
+* flask from 1.1.1 to 2.3.3
+* flask-jwt-extended from 3.24.1 to 4.6.0
+* flask-migrate from 2.5.2 to 4.0.7
+* flask-SQLAlchemy from 2.4.1 to 2.5.1
+* SQLAlchemy from 1.3.13 to 1.4.52
+* graphviz from 0.16 to 0.20.3
+* jinja2 from 3.0.1 to 3.1.4
+* PyJWT from 1.7.1 to 2.8.0
+* werkzeug from 2.0.3 to 2.3.8
+
+### GUI Library version upgrades
+* Plotly to 2.23
+* Change markdown library from markdown-it to ngx-markdown
+* katex from 0.13 to 0.16
+* remove karma library
+
+### Requirements added
+* ngx-markdown (15.1.2) (GUI)
+* google-cloud-bigquery-storage (2.25.0)
+* eventlet: 0.36.1
+
 ## Release v4.1.0 
 Date: 2024-07-15
 
