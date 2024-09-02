@@ -5,7 +5,6 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 ## Release v4.1.1 
 Date: 2024-08-27
 
-
 ### Features
 * Post-processings: add search bar in filters
 * Post-processings section: save user section opened
@@ -42,9 +41,9 @@ Date: 2024-08-27
 
 ### GUI Library version upgrades
 * Plotly to 2.23
-* Change markdown library from markdown-it to ngx-markdown
-* katex from 0.13 to 0.16
-* remove karma library
+* Changed markdown library from markdown-it to ngx-markdown
+* Katex from 0.13 to 0.16
+* Removed karma library
 
 ### Requirements added
 * ngx-markdown (15.1.2) (GUI)
@@ -55,7 +54,7 @@ Date: 2024-08-27
 Date: 2024-07-15
 
 ### Compatibility notice
-* Separation of sostrades-optimization-plugins module from platform core: add repository https://github.com/os-climate/sostrades-optimization-plugins for WITNESS optimization processes to continue functioning
+* Separation of sostrades-optimization-plugins module from platform core: add repository [https://github.com/os-climate/sostrades-optimization-plugins](https://github.com/os-climate/sostrades-optimization-plugins) for WITNESS optimization processes to continue functioning
 
 ### Features
 * Datasets: wildcards generalized, parameter-level mapping, metadata
@@ -101,7 +100,7 @@ Date: 2024-06-17
 
 * Kubernetes watcher
 * Datasets extended types in file system (import only)
-* Ruff linting (not mandatory in DevOps yet)
+* Ruff linting
 
 ### Bug fixes
 
@@ -137,7 +136,10 @@ Date: 2024-06-05
 * gitpython from 3.1.31 to 3.1.43
 * jsonpickle from 3.0.2 to 3.0.4
 
-### Tagged Repositories
+## Release v4.0.0
+Initial release
+
+## Tagged Repositories
 
 * [https://github.com/os-climate/sostrades-core](https://github.com/os-climate/sostrades-core)
 * [https://github.com/os-climate/sostrades-webapi](https://github.com/os-climate/sostrades-webapi)
