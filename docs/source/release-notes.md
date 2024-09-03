@@ -2,6 +2,19 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v4.1.2
+Date: 2024-09-05
+
+### Features
+* GUI: Add a button on dataset import/export notification changes to export a CSV with data changes information (including path to dataset data)
+This comes with the following changes:
+- Database: new database migration (need to do a "flask db upgrade" command) to add 2 new columns to the StudyParameterChange table
+- Datasets: Add function build_path_to_data that return the path/link/uri to retrieve the data in the dataset
+* GUI: Hide dashboard page
+* Sostrades-core: improve test gradient strategy
+* Flavors configuration: sort flavors list by memory request and limit.
+* Remove all coedition users at pod start (after the clean of all study pod allocation)
+
 ## Release v4.1.1 
 Date: 2024-08-27
 
