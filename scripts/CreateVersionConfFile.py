@@ -20,6 +20,7 @@ from os import listdir
 from os.path import(join, isdir, exists)
 from datetime import datetime
 import subprocess
+import re
 
 git_commits_info_file_path = f"./platform/sostrades-webapi/sos_trades_api/git_commits_info.json"
 gitignore_file_path = f"./platform/sostrades-webapi/.gitignore"
@@ -86,7 +87,10 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
             print(f"error while converting last commit date {last_commit_date} into datetime")
 
         # get repo url
+        INFO_REGEXP = ':\/\/.*@'
+        INFO_REPLACE = '://'
         last_commit_url = run_git_command(['git', 'remote', 'get-url', 'origin'])
+        last_commit_url = re.sub(INFO_REGEXP, INFO_REPLACE, last_commit_url)
         
         # Post-process url to remove .git
         if last_commit_url.endswith(".git"):
