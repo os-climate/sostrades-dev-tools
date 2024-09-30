@@ -43,8 +43,10 @@ for dir in models/*; do
 done
 
 # Compile the 3 requirement files
-echo "Attempting to compile all and ontology requirements"
+echo "Attempting to compile all requirements"
 if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/sostrades-core/requirements.in" ] && [ -f "./platform/sostrades-webapi/requirements.in" ] && [ -f "./platform/sostrades-core/requirements-with-gemseo-petsc-plugin.in" ]; then
+    export PIP_OPTIONS="--global-option=build_ext --global-option=--download-f2cblaslapack=1"
+    
     eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/dev.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-core/requirements-with-gemseo-petsc-plugin.in' './platform/sostrades-webapi/requirements.in' './platform/sostrades-ontology/requirements.in' --upgrade"
     
     if [ $? -eq 0 ]; then
