@@ -34,7 +34,7 @@ ARG GEMSEO_PETSC_VERSION="3.0.1"
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir numpy==${NUMPY_VERSION} && \
-    pip install gemseo-petsc==${GEMSEO_PETSC_VERSION} --no-cache-dir --no-deps
+    pip install --no-cache-dir --no-deps gemseo-petsc==${GEMSEO_PETSC_VERSION}
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.6"
