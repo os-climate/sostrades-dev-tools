@@ -28,9 +28,13 @@ RUN apt-get update && \
 # Numpy version
 ARG NUMPY_VERSION="1.24.4"
 
+#Gemseo version
+ARG GEMSEO_PETSC_VERSION="3.0.1"
+
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==${NUMPY_VERSION}
+    pip install --no-cache-dir numpy==${NUMPY_VERSION} && \
+    pip install gemseo-petsc==${GEMSEO_PETSC_VERSION} --no-cache-dir --no-deps
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.6"
