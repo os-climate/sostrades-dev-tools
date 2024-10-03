@@ -60,7 +60,8 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
-    pip install --no-cache-dir -r dev.requirements.txt debugpy numpy==${NUMPY_VERSION}
+    pip install --no-cache-dir -r dev.requirements.txt debugpy numpy==${NUMPY_VERSION} && \
+    pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@develop
 
 COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
