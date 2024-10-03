@@ -67,7 +67,7 @@ WORKDIR ${SOS_TRADES_SOURCES}
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
 RUN sed -i '/petsc\|numpy[[:blank:]]*=/d' api.requirements.txt && \
     pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} && \
-    pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@develop
+    pip install --no-cache-dir --no-deps gemseo[all] @ git+https://gitlab.com/gemseo/dev/gemseo-petsc@develop
 
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
