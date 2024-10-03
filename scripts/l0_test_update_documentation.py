@@ -1,0 +1,96 @@
+'''
+Copyright 2024 Capgemini
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+'''
+import unittest
+import os
+from scripts.UpdateDocumentation import DocGenerator
+
+
+class A:
+    """This is the docstring for class A"""
+    DESC_IN = {'var_in1':{'unit':'G$','type':'float','description':'input var1'},
+               'var_in2': {'unit': 'G$', 'type': 'float', 'description': 'input var2'},
+               }
+    DESC_OUT = {'var_out1':{'unit':'G$','type':'float','description':'output var1'},
+               'var_out2': {'unit': 'G$', 'type': 'float', 'description': 'output var2'},
+               }
+    def method1(self):
+        """This is the docstring for method1"""
+        pass
+    def method2(self, x:[float]) -> [float]:
+        """this is the docstring for method2"""
+        y = x**2 + 1.
+        return y
+class UpdatedDocumentation(unittest.TestCase):
+
+    MARKDOWN_REF = "# Model Data\n ## Static inputs\n- var_in1, unit=G$, type=float, description=input var1\n- var_in2, unit=G$, type=float, description=input var2\n ## Static outputs\n- var_out1, unit=G$, type=float, description=output var1\n- var_out2, unit=G$, type=float, description=output var2"
+    def test_get_discipline_class(self):
+        doc = DocGenerator()
+        # no class_name defined
+        doc.get_discipline_class()
+        self.assertEqual(doc.discipline_class, None)
+        # with class defined but no python file
+        doc.class_name = "MacroeconomicsDiscipline"
+        doc.get_discipline_class()
+        self.assertEqual(doc.discipline_class, None)
+        # with pythonfile defined
+        doc.pythonfile = 'climateeconomics\sos_wrapping\sos_wrapping_witness\macroeconomics\macroeconomics_discipline.py'
+        doc.get_discipline_class()
+        self.assertEqual(doc.discipline_class.__name__, doc.class_name)
+
+    def test_convert_discipline_desc_to_markdown(self):
+        doc = DocGenerator()
+        doc.discipline_class = A
+        markdown_str = doc.convert_discipline_desc_to_markdown()
+        self.assertEqual(markdown_str, self.MARKDOWN_REF)
+
+    def test_convert_class_method_docstring_to_markdown(self):
+        doc = DocGenerator()
+        doc.discipline_class = A
+        markdown_str = doc.convert_class_method_docstring_to_markdown("method1")
+        self.assertEqual(markdown_str, "<p>This is the docstring for method1</p>\n")
+
+    def test_update_markdown_section(self):
+        doc = DocGenerator()
+        doc.discipline_class = A
+        section_to_replace = "# Model Data"
+        new_content = self.MARKDOWN_REF + "\n- var_out3, unit=G$, type=float, description=output var3"
+        next_section = "\n#Model description \nThis model does this and that"
+        initial_markdown_str = self.MARKDOWN_REF + next_section
+        updated_markdown_content = doc.update_markdown_section(initial_markdown_str,
+                                                               section_to_replace,
+                                                               new_content)
+        assert(new_content in updated_markdown_content and next_section in updated_markdown_content)
+
+    def test_generate_markdown_of_model(self):
+        doc = DocGenerator()
+        doc.discipline_class = A
+        markdown_str = doc.generate_markdown_of_model()
+        self.assertEqual(markdown_str, "# A\n\nThis is the docstring for class A\n\n## method1\n\nThis is the docstring for method1\n\n## method2\n\nthis is the docstring for method2\n\n")
+    def test_write_markdown_file(self):
+        doc = DocGenerator()
+        doc.discipline_class = A
+        doc.markdown_file = "test_write_markdown.md"
+        doc.write_markdown_file(self.MARKDOWN_REF)
+        with open(doc.markdown_file , "r") as f:
+            markdown_read = f.read()
+        self.assertEqual(markdown_read, self.MARKDOWN_REF)
+        os.remove(doc.markdown_file)
+
+    def test_generate_docstring(self):
+        doc = DocGenerator()
+        doc.discipline_class = A
+        api_key = "E2QSy0VXlI7MaalEcc6z98hCyUT7UOmn1IfxXI1o"
+        docstring = doc.generate_docstring("method2", api_key)
+        print()
