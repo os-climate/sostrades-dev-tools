@@ -14,9 +14,12 @@ limitations under the License.
 '''
 import unittest
 import os
+import importlib
+import inspect
+import textwrap
 from scripts.UpdateDocumentation import DocGenerator
 
-
+# example of class to be used for the tests
 class A:
     """This is the docstring for class A"""
     DESC_IN = {'var_in1':{'unit':'G$','type':'float','description':'input var1'},
@@ -32,6 +35,21 @@ class A:
         """this is the docstring for method2"""
         y = x**2 + 1.
         return y
+
+
+# Function to write the class to a file
+def write_class_to_file(cls, filename):
+    # Get the source code of the class
+    source = inspect.getsource(cls)
+
+    # Remove any leading indentation
+    source = textwrap.dedent(source)
+
+    with open(filename, 'w') as file:
+        file.write(source)
+        # make sure the content is fully written before going to the next step
+        file.flush()
+        os.fsync(file.fileno())
 class UpdatedDocumentation(unittest.TestCase):
 
     MARKDOWN_REF = "# Model Data\n ## Static inputs\n- var_in1, unit=G$, type=float, description=input var1\n- var_in2, unit=G$, type=float, description=input var2\n ## Static outputs\n- var_out1, unit=G$, type=float, description=output var1\n- var_out2, unit=G$, type=float, description=output var2"
@@ -94,3 +112,22 @@ class UpdatedDocumentation(unittest.TestCase):
         api_key = "E2QSy0VXlI7MaalEcc6z98hCyUT7UOmn1IfxXI1o"
         docstring = doc.generate_docstring("method2", api_key)
         print()
+
+    def test_update_code_docstring(self):
+        method_name = "method1"
+        doc = DocGenerator()
+        doc.pythonfile = r"temp_class_A.py"
+        # write initial code of class A to file
+        write_class_to_file(A, doc.pythonfile)
+        doc.class_name = "A"
+        doc.get_discipline_class()
+        # modify class A code
+        new_docstring = "This is the new docstring for method1"
+        doc.update_code_docstring(method_name, new_docstring)
+        #reload module and discipline as the code and file have changed.
+        module = importlib.import_module(os.path.splitext(doc.pythonfile)[0].replace(os.sep, '.'))
+        importlib.reload(module)
+        doc.get_discipline_class()
+        method = getattr(doc.discipline_class, method_name)
+        self.assertEqual(method.__doc__, new_docstring)
+        os.remove(doc.pythonfile)

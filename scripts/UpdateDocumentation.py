@@ -14,11 +14,14 @@ limitations under the License.
 '''
 
 import importlib
+import importlib.util
 import os
 import logging
 import mistune
 import re
 import inspect
+import ast
+import astor
 from sostrades_core.tools.gen_ai.gen_engine_services import GenerativeEngineService
 
 
@@ -34,7 +37,8 @@ class DocGenerator():
 
     def get_discipline_class(self):
         """
-        get the discipline class to access its attributes
+        get the discipline class defined by self.class_name in the self.pythonfile
+        to access its attributes
         """
         if self.class_name is None:
             logging.info('No discipline class defined')
@@ -143,7 +147,6 @@ class DocGenerator():
         writes a markdown file
         Args:
             markdown_str: content of the markdown file
-            filepath: path to the markdown file
         """
         with open(self.markdown_file, "w") as f:
             f.write(markdown_str)
@@ -208,7 +211,7 @@ class DocGenerator():
                          r"Remember, your output should be exclusively the generated Google-style docstring for that method."
         prompt = generic_prompt.replace("$PYTHON_CODE", method_code)
         answ = genai.run(prompt, "azure", "openai.gpt-4")
-        # genai can add other comments => excract the docstring only
+        # genai can add other comments => extract the docstring only
         content_str = answ.data.content
         pattern = r'"""([\s\S]*?)"""'
         matches = re.findall(pattern, content_str)
@@ -240,22 +243,24 @@ class DocGenerator():
         """
         updates (or adds if does not exist) the docstring of a method or class
         Args:
-            method: name of the method to update
+            method_name: name of the method to update
             docstring: new docstring value
         Returns
         """
+        with open(self.pythonfile, 'r') as file:
+            tree = ast.parse(file.read())
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef) and node.name == self.class_name:
+                for sub_node in node.body:
+                    if isinstance(sub_node, ast.FunctionDef) and sub_node.name == method_name:
+                        sub_node.body[0] = ast.Expr(ast.Str(docstring))
+                        break
+                break
 
-        #pattern = r'"""([\s\S]*?)"""'
-        """
-        match = re.search(section_pattern, initial_markdown_str, re.DOTALL)
-        if match:
-            updated_markdown_content = re.sub(section_pattern, f"{section_to_replace}\n{new_content}\n#", initial_markdown_str, flags=re.DOTALL)
+        modified_code = astor.to_source(tree)
 
-        else:
-            updated_markdown_content = section_to_replace + "\n" + new_content + "\n" + initial_markdown_str
-
-
-        method = getattr(self.discipline_class, method_name)
-        method.__doc__ = docstring
-        """
-
+        with open(self.pythonfile, 'w') as file:
+            file.write(modified_code)
+            # make sure that the content of the file is fully written before it is read again
+            file.flush()
+            os.fsync(file.fileno())
