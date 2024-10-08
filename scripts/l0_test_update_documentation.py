@@ -47,9 +47,6 @@ def write_class_to_file(cls, filename):
 
     with open(filename, 'w') as file:
         file.write(source)
-        # make sure the content is fully written before going to the next step
-        file.flush()
-        os.fsync(file.fileno())
 class UpdatedDocumentation(unittest.TestCase):
 
     MARKDOWN_REF = "# Model Data\n ## Static inputs\n- var_in1, unit=G$, type=float, description=input var1\n- var_in2, unit=G$, type=float, description=input var2\n ## Static outputs\n- var_out1, unit=G$, type=float, description=output var1\n- var_out2, unit=G$, type=float, description=output var2"
@@ -131,3 +128,31 @@ class UpdatedDocumentation(unittest.TestCase):
         method = getattr(doc.discipline_class, method_name)
         self.assertEqual(method.__doc__, new_docstring)
         os.remove(doc.pythonfile)
+
+    def test_run(self):
+        doc = DocGenerator()
+        discipline_py_file_path = r"temp_class_A.py"
+        discipline_class_name = "A"
+        model_py_file_path = discipline_py_file_path
+        model_class_name = discipline_class_name
+        markdown_file_path = "temp_disc.md"
+        api_key = "E2QSy0VXlI7MaalEcc6z98hCyUT7UOmn1IfxXI1o"
+
+        # markdown and temp_class do not exist => create them
+        write_class_to_file(A, discipline_py_file_path)
+        with open(markdown_file_path, "w") as f:
+            f.write(r"#Test documentation \n")
+
+        doc.run(discipline_py_file_path,
+            discipline_class_name,
+            model_py_file_path,
+            model_class_name,
+            markdown_file_path,
+            api_key)
+        for file in [discipline_py_file_path,
+                     markdown_file_path,
+                     markdown_file_path.replace('_disc', '_model'),
+            ]:
+            # since docstrings are not generated in a deterministic manner, they can't be crosschecked with a reference
+            self.assertTrue(os.path.exists(file))
+            os.remove(file)
