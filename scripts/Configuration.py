@@ -85,16 +85,11 @@ flask_env = {
     "FLASK_APP": "sos_trades_api/server/base_server.py",
     "FLASK_ENV": "development",
     "SOS_TRADES_SERVER_CONFIGURATION": f"{platform_path}/sostrades-webapi/sos_trades_api/configuration_template/configuration.json",
-    "SOS_TRADES_REFERENCES": "C:/Temp/SoSTrades_persistance/reference",
-    "SOS_TRADES_DATA": "C:/Temp/SoSTrades_persistance",
-    "EEB_PATH": "C:/Temp/SoSTrades_persistance/eeb.yaml",
-    "SOS_TRADES_RSA": "C:/Temp/SoSTrades_persistance/rsa",
     "SQL_ACCOUNT": "user",
     "SQL_PASSWORD": "password",
     "LOG_USER": "user",
     "LOG_PASSWORD": "password",
-    "SECRET_KEY": "ABCDEFGH12 ",
-    "SAML_V2_METADATA_FOLDER": "sos_trades_api/configuration/saml",
+    "SECRET_KEY": "ABCDEFGH12 "
 }
 
 # Write the values to the file
