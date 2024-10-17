@@ -42,7 +42,7 @@ else:
 vscode_dir = ".vscode"
 
 # Start sostrade-webgui
-node_version="18.10.0"
+node_version="18.19.0"
 nvs_home = os.environ.get('LOCALAPPDATA', '') + '/nvs'
 nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
 
