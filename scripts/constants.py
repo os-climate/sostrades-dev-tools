@@ -24,7 +24,7 @@ data_dir_name="data"
 sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
 platform_path = f"{sostrades_dev_tools_path}/{platform_dir_name}"
 model_path = f"{sostrades_dev_tools_path}/{model_dir_name}"
-data_path = f"{sostrades_dev_tools_path}/{data_dir_name}"
+data_path = f"{sostrades_dev_tools_path}/{data_dir_name}".replace("\\", "/")
 
 # Variable with the path of .venv
 venv_path= f"{sostrades_dev_tools_path}/.venv"

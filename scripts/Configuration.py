@@ -77,7 +77,7 @@ with open(configuration_path, 'r') as config_file:
     configuration_data = json.load(config_file)
 
 configuration_data["SOS_TRADES_PROCESS_REPOSITORY"] = sos_processes_modules
-configuration_data["LOGGING_DATABASE"]["URI"] = f"sqlite:///{data_path}/sostrades-data.db"
+configuration_data["SQL_ALCHEMY_DATABASE"]["URI"] = f"sqlite:///{data_path}/sostrades-data.db"
 configuration_data["LOGGING_DATABASE"]["URI"] = f"sqlite:///{data_path}/sostrades-logs.db"
 configuration_data["SOS_TRADES_DATA"] = data_path
 configuration_data["SOS_TRADES_REFERENCES"] = reference_path
