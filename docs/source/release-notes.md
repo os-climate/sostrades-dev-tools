@@ -2,6 +2,48 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v4.1.3
+Date: 2024-10-24
+
+### Features
+
+#### Graphical User Interface (GUI)
+- Added functionality to download documentation as PDF
+- Implemented new loading page when opening a study
+- Enabled study creation from the reference management page
+- Unified common page for flavor editing across pages study_management, reference_management, and study_workspace
+- Added study ID tooltip on hover over study name
+- Consolidated dataset information into a single "Dataset_id" column on the dataset notification page
+- Added possibility to retrieve documentation directly from files instead of ontology
+- Renamed tabs in the study_workspace page
+
+#### Core
+- Introduced new versioning system for datasets:
+  - V0: Legacy dataset mapping
+  - V1: Added group handling for datasets
+- Enhanced error handling for datasets
+
+#### API
+- Updated watcher for pod allocation
+- Implemented study activity status verification
+
+#### Bug Fixes
+- Fixed error display during visualization-coupling-graph loading
+- Implemented Git info reload after each click
+- Resolved duplicate post-processing issue
+- Added "stop study execution" notification for co-editing
+- Implemented duplicate study name check before pod loading during creation
+- Implemented waiting for "Ready" status from Kubernetes to ensure pod creation before opening a study
+- Fixed "show legend" option on plots for charts
+
+#### Testing
+- Unit tests (L0 core)
+  - Implemented tests for datasets with groups
+
+- End-to-end tests (E2E)
+  - Added tests for study creation from references
+  - Implemented tests for flavor editing
+
 ## Release v4.1.2
 Date: 2024-09-05
 
