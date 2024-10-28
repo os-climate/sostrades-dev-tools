@@ -2,7 +2,7 @@
 
 This section is dedicated to install locally either SoSTrades platform or SoSTrades as a library. 
 
-> Feedback is a gift: please note that these installation procedures are still in beta phase. You can contribute to this documentation, give feedbacks and raise an [ github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
+> Feedback is a gift: please note that these installation procedures are still in beta phase. You can contribute to this documentation, give feedbacks and raise a [github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
 Please note that supported operating systems are standard Linux-based systems, macOS systems, and Windows.
 
@@ -24,9 +24,7 @@ If a prior install of SoSTrades relying on PYTHONPATH is present, it should be d
 
 #### 2.2.1 Common prerequisites
 
-python version 3.9.x 
-
-(with packages mysql, mysql-connector-python)
+python version 3.9.x
 
 git
 
@@ -294,31 +292,6 @@ It is possible to run SoSTrades on Windows without installing docker by running 
 The repository sostrades-dev-tools and all scripts need the following prerequisites:
 > - Follow [common setup section](#2-common-setup)
 > - Follow [local model development env installation section](#3-local-model-development-env-installation)
-> - Python module "mysql.connector" : `pip install mysql-connector-python`
-> - Mysql v5.7 : follow the part ## 2. Install MySQL
-
-#### 5.1.1 Install MySQL
-
-The SoSTrades Graphical User Interface needs a dedicated database with two tables "sostrades-data" and "sostrades-log".
-First download [mysql-installer-community](https://dev.mysql.com/get/archives/mysql-installer/mysql-installer-community-8.0.32.0.msi).
-Launch "mysql-installer-community-8.0.32.0.msi" from the previous file downloaded. If you have the following screen it means you already have some product of MySQL, check if your MySQL Server can be upgraded to the version **MySQL Server 5.7.44**.
-
-![](images/Mysql_Cancel.png)
-
-If you never installed any MySQL products you will get this screen. Click on Add button and select **MySQL Server 5.7.44 - x 64** you can also add MySQL WorkBench if you need to visualise the future database.
-
-![](images/Mysql_add.png)
-
-If you can not find MySQL 5.7, click on "Edit" and change the filter of "Maturity" field to "Other Releases".
-
-![](images/Mysql_filter.png)
-![](images/Mysql_5.7.png)
-
-Once the MySQL Server is selected click on Next then execute on the next screen. Let everything by default until to get the screen asking you to enter the password. Enter you password twice and click next to complete all the installation of MySQL.
-
-![](images/Mysql_credential.png)
-
-Store wisely the password of root user. It will be asked later for the SoSTrades install.
 
 ### 5.2 Run install scripts
 
@@ -336,18 +309,6 @@ Then run `NodeInstallation.py` to install NVS with the good version of Node at t
 
 ```
 python scripts\NodeInstallation.py 
-```
-
-Then run script is `EditFlaskenv.py` to modify the .flaskenv file with your SQL credentials (user=root and the password is the same in the MySQL installation section):
-
-```
-python scripts\EditFlaskenv.py
-```
-
-To create "sostrades-data" and "sostrades-log" tables run `CreateDatabases.py`. Do not forget that as specified in the requirements you need the package "mysql-connector-python". It is recommanded to install the module outside the .venv so you should use "deactivate" command before to execute "pip install mysql-connector-python". After this you can run this command :
-
-```
-python scripts\CreateDatabases.py
 ```
 
 To create an user to access to SoSTrades platform run `CreateUser.py`:
@@ -389,17 +350,11 @@ python scripts\PullRepositories.py
 > - Configuration.py: script to create files and folders needed by SoSTrades
 >> - `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json`
 >> - `sostrades-dev-tools\platform\sostrades-webapi\.flaskenv`
->> - `C:\TEMP\SOSTRADES\`
->> - `C:\TEMP\SOSTRADES\REFERENCES\`
->> - `C:\TEMP\SOSTRADES\RSA\`
->> - `C:\TEMP\SOSTRADES\RSA\private_key.pem`
->> - `C:\TEMP\SOSTRADES\RSA\public_key.pem`
+>> - `sostrades-dev-tools\data\REFERENCES\`
+>> - `sostrades-dev-tools\data\RSA\private_key.pem`
+>> - `sostrades-dev-tools\data\RSA\public_key.pem`
 
 > - `NodeInstallation.py`: script to install a NVS (Node Version Switcher) and also install a version of Node with NVS. In addition it is possible to build sostrades-webgui
-
-> - `EditFlaskenv.py`: script to modify the values `SQL_ACCOUNT`, `SQL_PASSWORD`, `LOG_USER`, `LOG_PASSWORD` in the file `sostrades-dev-tools\platform\sostrades-webapi\.flaskenv`
-
-> - `CreateDatabases.py` : script that creates `sostrades-data` and `sostrades-log` tables in database needed for the API.
 
 > - `CreateUser.py` : script that creates an user in SoSTrades with the command `flask create_standard_user`. When the user is created, a password is temporarily saved in `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\*`. Once stored, the password has to be deleted. Some SoSTrades app rights are granted in the database with flask command.
 

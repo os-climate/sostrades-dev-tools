@@ -18,11 +18,13 @@ import platform
 # Paths
 platform_dir_name="platform"
 model_dir_name="models"
+data_dir_name="data"
 
 # Variable with the path of sostrade-dev-tools
 sostrades_dev_tools_path = os.path.dirname(os.path.dirname(__file__))
 platform_path = f"{sostrades_dev_tools_path}/{platform_dir_name}"
 model_path = f"{sostrades_dev_tools_path}/{model_dir_name}"
+data_path = f"{sostrades_dev_tools_path}/{data_dir_name}".replace("\\", "/")
 
 # Variable with the path of .venv
 venv_path= f"{sostrades_dev_tools_path}/.venv"
@@ -40,7 +42,7 @@ else:
 vscode_dir = ".vscode"
 
 # Start sostrade-webgui
-node_version="18.10.0"
+node_version="18.19.0"
 nvs_home = os.environ.get('LOCALAPPDATA', '') + '/nvs'
 nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
 

@@ -104,7 +104,7 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
             'branch': branch_or_tag
         }
     except Exception as e:
-        raise Exception(f"Error while getting repository {repo_git_path} git info: {e}")
+        raise Exception(f"Error while getting repository {repo_git_path} git info: {e}") from e
 
 
 def build_commits_info_dict(folder_path:str)-> list[dict]:
