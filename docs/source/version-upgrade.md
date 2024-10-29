@@ -8,7 +8,6 @@ To connect to your previous mysql database, the changes needed are :
 
 ### Old format (pre 4.1.4)
 ```json
-...
   "SQL_ALCHEMY_DATABASE": {
     "HOST" : "127.0.0.1",
     "PORT" : 3306,
@@ -26,12 +25,10 @@ To connect to your previous mysql database, the changes needed are :
     "DATABASE_NAME": "sostrades-log",
     "SSL": false
   },
-...
 ```
 
 ### New format (post 4.1.4)
 ```json
-...
   "SQL_ALCHEMY_DATABASE": {
       "CONNECT_ARGS": {
           "ssl": false,
@@ -55,5 +52,4 @@ To connect to your previous mysql database, the changes needed are :
           "PASSWORD": "LOG_PASSWORD"
       }
   },
-...
 ```
