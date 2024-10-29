@@ -53,12 +53,14 @@ Also, please install the prerequisites listed in Linux installation (libmysqlcli
 
 All development environments are built from a dedicated directory initiated with this repository. This directory will be used as root and will contains all the others necessary repositories from OS-Climate. This root directory contains VSCode tasks and launch docker-compose files. This allows to launch SoStrades in docker containers and to debug webapi servers directly from thus container in VS Code. From the repository a script is available to clone all the repositories to prepare the development environment.
 
-1. Clone this repository in root directory
+1. Clone this repository in root directory and position to last version
 ```bash
 git clone https://github.com/os-climate/sostrades-dev-tools
 (For SSH : git clone git@github.com:os-climate/sostrades-dev-tools.git)
  
 cd sostrades-dev-tools
+# Position to latest tag (ex if v4.1.3 is the latest version)
+git checkout v4.1.3
 ```
 2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories, as well as the optimization plugins repository required to run WITNESS optimizations :
 
