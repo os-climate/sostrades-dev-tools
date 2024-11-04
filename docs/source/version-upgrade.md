@@ -30,6 +30,10 @@ To connect to your previous mysql database, the changes needed are :
 ### New format (post 4.1.4)
 ```json
   "SQL_ALCHEMY_DATABASE": {
+      "ENGINE_OPTIONS": {
+          "pool_size":10,
+          "pool_recycle":7200
+      },
       "CONNECT_ARGS": {
           "ssl": false,
           "charset": "utf8mb4"
@@ -42,6 +46,10 @@ To connect to your previous mysql database, the changes needed are :
   },
   "SQLALCHEMY_TRACK_MODIFICATIONS": false,
   "LOGGING_DATABASE": {
+      "ENGINE_OPTIONS": {
+          "pool_size":10,
+          "pool_recycle":7200
+      },
       "CONNECT_ARGS": {
           "ssl": false,
           "charset": "utf8mb4"
