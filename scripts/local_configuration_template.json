@@ -1,12 +1,14 @@
 {
     "ENVIRONMENT": "DEVELOPMENT",
     "SQL_ALCHEMY_DATABASE": {
+        "ENGINE_OPTIONS": {},
         "CONNECT_ARGS": {},
         "URI": "sqlite:///%%WILL_BE_REPLACED%%/sostrades-data.db",
         "URI_ENV_VARS" : {}
     },
     "SQLALCHEMY_TRACK_MODIFICATIONS": false,
     "LOGGING_DATABASE": {
+        "ENGINE_OPTIONS": {},
         "CONNECT_ARGS": {},
         "URI": "sqlite:///%%WILL_BE_REPLACED%%/sostrades-logs.db",
         "URI_ENV_VARS" : {}
