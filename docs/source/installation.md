@@ -30,7 +30,7 @@ python version 3.9.x
 
 git
 
-Note: if you have a more recent version of python installed, the `python` command is probably bound to it, resulting in a version issue with the installation scripts. If you installed python 3.9 on top, then you need to use the command `python3.9` hereafter.
+*Note:* if you have a more recent version of python installed, the `python` command is probably bound to it, resulting in a version issue with the installation scripts. If you installed python 3.9 on top, then you need to use the command `python3.9` hereafter.
 Make sure the requirements are properly installed with `python3.9 -m pip install mysql mysql-connector-python`. If the issue persists, you can replace the `python3.9` command by the full path to the correct python executable (3.9.x) in your filesystem.
 
 #### 2.2.2 Linux Installation
@@ -64,7 +64,7 @@ git clone https://github.com/os-climate/sostrades-dev-tools
 cd sostrades-dev-tools
 ```
 
-Important: the root directory name should not contain spaces, and it should be stored in a location where the scripts can write new files (beware of installation in remote filesystems). 
+*Important:* the root directory name should not contain spaces, and it should be stored in a location where the scripts can write new files (beware of installation in remote filesystems). 
 If these conditions are not met, the `PrepareVenv` script might fail and a custom installation of the SoSTrades requirements might be necessary. Try installing in a local filesystem location without spaces.
 
 2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories, as well as the optimization plugins repository required to run WITNESS optimizations :
