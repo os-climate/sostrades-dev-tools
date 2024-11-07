@@ -26,12 +26,12 @@ If a prior install of SoSTrades relying on PYTHONPATH is present, it should be d
 
 python version 3.9.x 
 
-(with packages mysql, mysql-connector-python)
+(with packages mysql, mysql-connector-python==8.3.0)
 
 git
 
-*Note:* if you have a more recent version of python installed, the `python` command is probably bound to it, resulting in a version issue with the installation scripts. If you installed python 3.9 on top, then you need to use the command `python3.9` hereafter.
-Make sure the requirements are properly installed with `python3.9 -m pip install mysql mysql-connector-python`. If the issue persists, you can replace the `python3.9` command by the full path to the correct python executable (3.9.x) in your filesystem.
+*Note1:* if you have a more recent version of python installed, the `python` command is probably bound to it, resulting in a version issue with the installation scripts. If you installed python 3.9 on top, then you need to use the command `python3.9` hereafter.
+Make sure the requirements are properly installed with `python3.9 -m pip install mysql mysql-connector-python==8.3.0`. If the issue persists, you can replace the `python3.9` command by the full path to the correct python executable (3.9.x) in your filesystem.
 
 #### 2.2.2 Linux Installation
 
