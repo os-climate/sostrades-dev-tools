@@ -96,12 +96,12 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
         if last_commit_url.endswith(".git"):
             last_commit_url = last_commit_url[:-4]
             # Verify if we are dealing with ssh remote repository and replace by https://
-            SSH_REGEX =  r'^[a-zA-Z]+@[a-zA-Z0-9.-]+:'
-            SSH_REGEX_TO_REPLACE = r'^.*@'
-            SSH_REGEX_REPLACE = 'https://'
-            if bool(re.match(SSH_REGEX, last_commit_url)):
-                last_commit_url = last_commit_url.replace(":", "/")
-                last_commit_url = re.sub(SSH_REGEX_TO_REPLACE, SSH_REGEX_REPLACE, last_commit_url)
+        SSH_REGEX =  r'^[a-zA-Z]+@[a-zA-Z0-9.-]+:'
+        SSH_REGEX_TO_REPLACE = r'^.*@'
+        SSH_REGEX_REPLACE = 'https://'
+        if bool(re.match(SSH_REGEX, last_commit_url)):
+            last_commit_url = last_commit_url.replace(":", "/")
+            last_commit_url = re.sub(SSH_REGEX_TO_REPLACE, SSH_REGEX_REPLACE, last_commit_url)
 
         return {
             'name':repo_name,
