@@ -80,6 +80,9 @@ RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
 
 FROM python:3.9
 
+# Numpy version
+ARG NUMPY_VERSION="1.24.4"
+
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # Install path for sostrades
