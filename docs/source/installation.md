@@ -28,7 +28,8 @@ python version 3.9.x
 
 git
 
-During this installation, you can change the `python` command and replace it by the full path to the correct python executable (3.9.x)
+*Note1:* if you have a more recent version of python installed, the `python` command is probably bound to it, resulting in a version issue with the installation scripts. If you installed python 3.9 on top, then you need to use the command `python3.9` hereafter.
+Make sure the requirements are properly installed with `python3.9 -m pip install mysql mysql-connector-python==8.3.0`. If the issue persists, you can replace the `python3.9` command by the full path to the correct python executable (3.9.x) in your filesystem.
 
 #### 2.2.2 Linux Installation
 
@@ -62,6 +63,10 @@ cd sostrades-dev-tools
 # Position to latest tag (ex if v4.1.3 is the latest version)
 git checkout v4.1.3
 ```
+
+*Important:* the root directory name should not contain spaces, and it should be stored in a location where the scripts can write new files (beware of installation in remote filesystems). 
+If these conditions are not met, the `PrepareVenv` script might fail and a custom installation of the SoSTrades requirements might be necessary. Try installing in a local filesystem location without spaces.
+
 2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories, as well as the optimization plugins repository required to run WITNESS optimizations :
 
 ```json
@@ -318,6 +323,7 @@ To create an user to access to SoSTrades platform run `CreateUser.py`:
 ```
 python scripts\CreateUser.py
 ```
+Important: the `CreateUser.py` script will ask you to input some information (user, name, last name and e-mail). Leaving any of these fields empty will result in the script crashing, at least a character is required. 
 
 If you want to update Ontology execute the script `UpdateOntology.py`. This script could take more than 15mn it depends on the number of repository you have.
 
