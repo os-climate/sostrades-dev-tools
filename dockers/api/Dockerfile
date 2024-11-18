@@ -27,10 +27,12 @@ RUN apt-get update && \
 
 # Numpy version
 ARG NUMPY_VERSION="1.24.4"
+ARG KUBERNETES_VERSION="29.0.0"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir numpy==${NUMPY_VERSION}
+    pip install --no-cache-dir kubernetes==${KUBERNETES_VERSION}
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.3"
