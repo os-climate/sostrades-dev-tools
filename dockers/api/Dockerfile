@@ -31,7 +31,7 @@ ARG KUBERNETES_VERSION="29.0.0"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==${NUMPY_VERSION}
+    pip install --no-cache-dir numpy==${NUMPY_VERSION} && \
     pip install --no-cache-dir kubernetes==${KUBERNETES_VERSION}
 
 # PETSC version and directory
