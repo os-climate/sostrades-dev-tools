@@ -2,6 +2,29 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v4.2.0
+Date: 2024-11-21
+
+### Features
+
+#### Graphical User Interface (GUI)
+- Added search bar functionality to export/import dataset notifications
+
+#### Core
+- Implemented the ability to specify custom colors for bar plots
+
+#### API
+- Migrated to SQLite for more efficient database management
+- Integrated Keycloak provider to handle user authentication
+
+#### Bug Fixes
+- Resolved an error that occurred during ontology installation on local Windows setups
+
+#### Testing
+
+- End-to-end tests (E2E)
+  - Added new test cases for authentication with Keycloak
+
 ## Release v4.1.3
 Date: 2024-10-24
 
