@@ -14,8 +14,68 @@ Date: 2024-11-21
 - Implemented the ability to specify custom colors for bar plots
 
 #### API
-- Migrated to SQLite for more efficient database management
 - Integrated Keycloak provider to handle user authentication
+- Migrated to SQLite for more efficient database management
+    ### Important Upgrade Information for v4.2.0
+    - To upgrade to version 4.2.0, you must update your database configuration in the sostrades-webapi `configuration.json` file. 
+    - If you wish to maintain connectivity with your existing MySQL database, follow these steps:
+    1. Locate the `SQL_ALCHEMY_DATABASE` and `LOGGING_DATABASE` sections in your configuration file.
+    2. Update these sections according to the new format shown below.
+        #### Old format (pre v4.2.0)
+        ```json
+          "SQL_ALCHEMY_DATABASE": {
+            "HOST" : "127.0.0.1",
+            "PORT" : 3306,
+            "USER_ENV_VAR": "SQL_ACCOUNT",
+            "PASSWORD_ENV_VAR": "SQL_PASSWORD",
+            "DATABASE_NAME": "sostrades-data",
+              "SSL": false
+          },
+          "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+          "LOGGING_DATABASE": {
+            "HOST" : "127.0.0.1",
+            "PORT" : 3306,
+            "USER_ENV_VAR": "LOG_USER",
+            "PASSWORD_ENV_VAR": "LOG_PASSWORD",
+            "DATABASE_NAME": "sostrades-log",
+            "SSL": false
+          },
+        ```
+          
+        ### v4.2.0 Format
+        ```json
+            "SQL_ALCHEMY_DATABASE": {
+                "ENGINE_OPTIONS": {
+                    "pool_size":10,
+                    "pool_recycle":7200
+                },
+                "CONNECT_ARGS": {
+                    "ssl": false,
+                    "charset": "utf8mb4"
+                },
+                "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-data",
+                "URI_ENV_VARS": {
+                    "USER": "SQL_ACCOUNT",
+                    "PASSWORD": "SQL_PASSWORD"
+                }
+            },
+            "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+            "LOGGING_DATABASE": {
+                "ENGINE_OPTIONS": {
+                    "pool_size":10,
+                    "pool_recycle":7200
+                },
+                "CONNECT_ARGS": {
+                    "ssl": false,
+                    "charset": "utf8mb4"
+                },
+                "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-log",
+                "URI_ENV_VARS": {
+                    "USER": "LOG_USER",
+                    "PASSWORD": "LOG_PASSWORD"
+                }
+            },
+        ```
 
 #### Bug Fixes
 - Resolved an error that occurred during ontology installation on local Windows setups
