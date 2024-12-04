@@ -27,13 +27,13 @@ model_path = f"{sostrades_dev_tools_path}/{model_dir_name}"
 data_path = f"{sostrades_dev_tools_path}/{data_dir_name}".replace("\\", "/")
 
 # Variable with the path of .venv
-venv_path= f"{sostrades_dev_tools_path}/.venv"
+venv_path = f"{sostrades_dev_tools_path}/.venv"
 
 # Check if the platform is Windows
 if platform.system() == 'Windows':
     # Define the variable with a Windows-specific path
-    venv_script_activate_path= f"{venv_path}/Scripts/activate"
-    venv_script_activate_command= f"{venv_path}/Scripts/activate"
+    venv_script_activate_path = f"{venv_path}/Scripts/activate"
+    venv_script_activate_command = f"{venv_path}/Scripts/activate"
     venv_lib_site_package_path = f"{venv_path}/lib/site-packages"
 else:
     # Define the variable with a generic path for other platforms
@@ -44,7 +44,7 @@ else:
 vscode_dir = ".vscode"
 
 # Start sostrade-webgui
-node_version="18.19.0"
+node_version = "18.10.0"
 nvs_home = os.environ.get('LOCALAPPDATA', '') + '/nvs'
 nvs_cmd_path = os.path.join(nvs_home, 'nvs.cmd')
 
