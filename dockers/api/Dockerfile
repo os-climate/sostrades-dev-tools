@@ -71,7 +71,6 @@ RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
     pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION}
 
 # Copy models and platform repos for standalone image if needed
-COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
 COPY ./platform/sostrades-core ./platform/sostrades-core
 COPY ./models ./models
@@ -81,7 +80,6 @@ RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then ech
 # Update PYTHONPATH
 RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
     ls -d ${SOS_TRADES_SOURCES}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
-    sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
     sed -i '$ s/.$//' /tmp/pythonpath.txt && \
     echo "export PYTHONPATH=$(cat /tmp/pythonpath.txt)" >> /etc/environment && \
     echo '. /etc/environment' >> /etc/bash.bashrc
