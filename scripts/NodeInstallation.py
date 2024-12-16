@@ -18,73 +18,87 @@ The path of the installation is set in the parameter {nvs_home}
 At the end of the script it also ask if you want to run the build of sostrades-webgui
 '''
 import os
+import platform
+import subprocess
 
 from constants import node_version, platform_path, sostrades_dev_tools_path
 from tooling import run_command
 
+# Function to get the NVS path depending on the operating system
+def get_nvs_home():
+    if platform.system() == "Windows":
+        return os.environ.get("LOCALAPPDATA", "") + "/nvs"
+    else:  # For Linux
+        return os.path.expanduser("~/.nvs")
 
-# Function to install NVS in the directory %LOCALAPPDATA%/nvs (Doc : https://github.com/jasongin/nvs/blob/master/doc/SETUP.md)
+# Function to install NVS only on Windows
 def install_nvs():
-    nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
-    if not os.path.exists(nvs_home):
-        os.makedirs(nvs_home)
-        # Clone NVS repository
-        clone_command = f'git clone https://github.com/jasongin/nvs "{nvs_home}"'
-        run_command(clone_command)
+    if platform.system() == "Windows":
+        nvs_home = get_nvs_home()
+        if not os.path.exists(nvs_home):
+            os.makedirs(nvs_home)
+            # Clone the NVS repository
+            clone_command = f"git clone https://github.com/jasongin/nvs {nvs_home}"
+            run_command(clone_command)
+            print("NVS has been installed successfully.")
+        else:
+            print("NVS is already installed.")
+    else:
+        print("NVS installation is skipped on Linux. Checking for installation...")
 
-    # Run nvs.cmd install
-    nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
-    install_command = f'"{nvs_cmd_path}" install'
-    run_command(install_command)
-
-    print("NVS has been installed successfully.")
-
-
-# Function to install and switch node version with nvs
+# Function to install and switch the Node version using NVS
 def switch_node_version(node_version):
-    # Get path to nvs.cmd
-    nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
-    nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
+    if platform.system() == "Windows":
+        nvs_home = get_nvs_home()
+        nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
+        nvs_use_command = f'"{nvs_cmd_path}" use {node_version}'
+        nvs_add_command = f'"{nvs_cmd_path}" add {node_version}'
+        list_command = f'"{nvs_cmd_path}" list'
+    else:  # For Linux
+        nvs_home = get_nvs_home()
+        nvs_script_path = os.path.join(nvs_home, "nvs.sh")
+        nvs_use_command = f". {nvs_script_path} && nvs use {node_version}"
+        nvs_add_command = f". {nvs_script_path} && nvs add {node_version}"
+        list_command = f". {nvs_script_path} && nvs list"
 
-    # Check if Node.js version is already installed
-    list_command = f'"{nvs_cmd_path}" list'
-    installed_versions = os.popen(list_command).read()
+    # Check if the Node.js version is already installed
+    print(f"Checking installed versions of Node.js...")
+    installed_versions = subprocess.getoutput(list_command)
 
     if node_version not in installed_versions:
-        # If Node.js version is not installed, add it
-        add_command = f'"{nvs_cmd_path}" add {node_version}'
-        run_command(add_command)
+        # If the Node.js version is not installed, add it
+        run_command(nvs_add_command)
         print(f"Node.js version {node_version} has been added.")
-        run_command(f'"{nvs_cmd_path}" install')
-    else:
-        print(f"Node.js version {node_version} is already installed.")
-
-    # Command to switch version
-    switch_command = f'"{nvs_cmd_path}" use {node_version}'
-    print(f"{switch_command}")
-    run_command(switch_command)
-
+    
+    # Command to switch the Node.js version
+    print(f"Switching Node.js version to {node_version}...")
+    run_command(nvs_use_command)
     print(f"Switched to Node.js version {node_version}.")
 
-
-# Ask if user want to install NVS
+# Install NVS on Windows or check for its existence on Linux
 print(f"Installing NVS with Node v{node_version} ...")
-# Install nvs
 install_nvs()
-# Install nodes.js
+
+# Install Node.js and switch to the required version
 switch_node_version(node_version)
 
-# Ask if we build the frontend now
+# Prompt the user to confirm building the frontend
 print("This script will install requirements and build the frontend")
 confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
 
 if confirmation == "yes":
-    nvs_home = os.environ.get("LOCALAPPDATA", "") + "/nvs"
-    nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
     # Change directory to sostrade-webgui
     if os.path.exists(f"{platform_path}/sostrades-webgui"):
         os.chdir(f"{platform_path}/sostrades-webgui")
-        run_command(f"{nvs_cmd_path} use {node_version} && npm install -y")
+        if platform.system() == "Windows":
+            nvs_home = get_nvs_home()
+            nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
+            run_command(f'"{nvs_cmd_path}" use {node_version} && npm install -y')
+        else:  # For Linux
+            nvs_home = get_nvs_home()
+            nvs_script_path = os.path.join(nvs_home, "nvs.sh")
+            run_command(f". {nvs_script_path} && nvs use {node_version} && npm install")
+        
         os.chdir(sostrades_dev_tools_path)
     else:
         print(f"{platform_path}/sostrades-webgui repository not found")
