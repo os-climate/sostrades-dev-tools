@@ -27,10 +27,12 @@ RUN apt-get update && \
 
 # Numpy version
 ARG NUMPY_VERSION="1.24.4"
+ARG KUBERNETES_VERSION="29.0.0"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==${NUMPY_VERSION}
+    pip install --no-cache-dir numpy==${NUMPY_VERSION} && \
+    pip install --no-cache-dir kubernetes==${KUBERNETES_VERSION}
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.3"
@@ -65,8 +67,8 @@ WORKDIR ${SOS_TRADES_SOURCES}
 
 # Copy Python requirements and install them
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
-RUN sed -i '/petsc\|numpy[[:blank:]]*=/d' api.requirements.txt && \
-    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
+RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
+    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION}
 
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/gemseo ./platform/gemseo

@@ -2,6 +2,131 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v4.2.0
+Date: 2024-11-21
+
+### Features
+
+#### Graphical User Interface (GUI)
+- Added search bar functionality to export/import dataset notifications
+
+#### Core
+- Implemented the ability to specify custom colors for bar plots
+
+#### API
+- Integrated Keycloak provider to handle user authentication
+- Migrated to SQLite for more efficient database management
+    ### Important Upgrade Information for v4.2.0
+    - To upgrade to version 4.2.0, you must update your database configuration in the sostrades-webapi `configuration.json` file. 
+    - If you wish to maintain connectivity with your existing MySQL database, follow these steps:
+    1. Locate the `SQL_ALCHEMY_DATABASE` and `LOGGING_DATABASE` sections in your configuration file.
+    2. Update these sections according to the new format shown below.
+        #### Old format (pre v4.2.0)
+        ```json
+          "SQL_ALCHEMY_DATABASE": {
+            "HOST" : "127.0.0.1",
+            "PORT" : 3306,
+            "USER_ENV_VAR": "SQL_ACCOUNT",
+            "PASSWORD_ENV_VAR": "SQL_PASSWORD",
+            "DATABASE_NAME": "sostrades-data",
+              "SSL": false
+          },
+          "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+          "LOGGING_DATABASE": {
+            "HOST" : "127.0.0.1",
+            "PORT" : 3306,
+            "USER_ENV_VAR": "LOG_USER",
+            "PASSWORD_ENV_VAR": "LOG_PASSWORD",
+            "DATABASE_NAME": "sostrades-log",
+            "SSL": false
+          },
+        ```
+          
+        ### v4.2.0 Format
+        ```json
+            "SQL_ALCHEMY_DATABASE": {
+                "ENGINE_OPTIONS": {
+                    "pool_size":10,
+                    "pool_recycle":7200
+                },
+                "CONNECT_ARGS": {
+                    "ssl": false,
+                    "charset": "utf8mb4"
+                },
+                "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-data",
+                "URI_ENV_VARS": {
+                    "USER": "SQL_ACCOUNT",
+                    "PASSWORD": "SQL_PASSWORD"
+                }
+            },
+            "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+            "LOGGING_DATABASE": {
+                "ENGINE_OPTIONS": {
+                    "pool_size":10,
+                    "pool_recycle":7200
+                },
+                "CONNECT_ARGS": {
+                    "ssl": false,
+                    "charset": "utf8mb4"
+                },
+                "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-log",
+                "URI_ENV_VARS": {
+                    "USER": "LOG_USER",
+                    "PASSWORD": "LOG_PASSWORD"
+                }
+            },
+        ```
+
+#### Bug Fixes
+- Resolved an error that occurred during ontology installation on local Windows setups
+
+#### Testing
+
+- End-to-end tests (E2E)
+  - Added new test cases for authentication with Keycloak
+
+## Release v4.1.3
+Date: 2024-10-24
+
+### Features
+
+#### Graphical User Interface (GUI)
+- Added functionality to download documentation as PDF
+- Implemented new loading page when opening a study
+- Enabled study creation from the reference management page
+- Unified common page for flavor editing across pages study_management, reference_management, and study_workspace
+- Added study ID tooltip on hover over study name
+- Consolidated dataset information into a single "Dataset_id" column on the dataset notification page
+- Added possibility to retrieve documentation directly from files instead of ontology
+- Renamed tabs in the study_workspace page
+
+#### Core
+- Introduced new versioning system for datasets:
+  - V0: Legacy dataset mapping
+  - V1: Added group handling for datasets
+- Enhanced error handling for datasets
+
+#### API
+- Updated watcher for pod allocation
+- Implemented study activity status verification
+
+#### Bug Fixes
+- Fixed error display during visualization-coupling-graph loading
+- Implemented Git info reload after each click
+- Resolved duplicate post-processing issue
+- Added "stop study execution" notification for co-editing
+- Implemented duplicate study name check before pod loading during creation
+- Implemented waiting for "Ready" status from Kubernetes to ensure pod creation before opening a study
+- Fixed "show legend" option on plots for charts
+
+#### Testing
+- Unit tests (L0 core)
+  - Implemented tests for datasets with groups
+
+- End-to-end tests (E2E)
+  - Added tests for study creation from references
+  - Implemented tests for flavor editing
+
 ## Release v4.1.2
 Date: 2024-09-05
 

@@ -17,8 +17,7 @@ import subprocess
 from os.path import dirname, join
 import sys
 
-scripts_list = ['PrepareDevEnv', 'PrepareVEnv', 'Configuration', 'NodeInstallation', 'EditFlaskenv', 'CreateDatabases',
-                'CreateUser', 'UpdateOntology']
+scripts_list = ['PrepareDevEnv', 'PrepareVEnv', 'Configuration', 'NodeInstallation', 'CreateUser', 'UpdateOntology']
 for script in scripts_list:
     print(f'---------------------------------------------')
     print(f'Starting {script} script')
