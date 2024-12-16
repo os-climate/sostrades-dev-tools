@@ -22,19 +22,6 @@ set "pytest_l0_status=Passed"
 set "pytest_l1_status=Passed"
 set "pytest_usecases_status=Passed"
 
-for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
-set CT_PYLINT=%current_time%
-echo.
-echo ****************************************************************************************************
-echo ****************************************************************************************************
-echo *********************************  [%current_time%]
-echo *********************************  Running pylint ...
-echo *********************************
-echo ****************************************************************************************************
-echo ****************************************************************************************************
-echo.
-call pylint --disable=E1101 --jobs=0 --errors-only %mainfoldername%
-if %errorlevel% neq 0 set "pylint_status=Failed"
 
 REM Execute "ruff check" in current directory
 for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
@@ -120,6 +107,19 @@ set "ps_command=%ps_command% '{0}:{1:D2}' -f $minutes, $seconds"
 
 for /f "delims=" %%a in ('powershell -Command "%ps_command%"') do set "duration=%%a"
 
+for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do set "current_time=%%a"
+set CT_PYLINT=%current_time%
+echo.
+echo ****************************************************************************************************
+echo ****************************************************************************************************
+echo *********************************  [%current_time%]
+echo *********************************  Running pylint ...
+echo *********************************
+echo ****************************************************************************************************
+echo ****************************************************************************************************
+echo.
+call pylint --disable=E1101 --jobs=0 --errors-only %mainfoldername%
+if %errorlevel% neq 0 set "pylint_status=Failed"
 
 echo ===================================================== [%current_time%] End of tests (duration %duration%) =======================================================
 
