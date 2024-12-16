@@ -2,7 +2,7 @@
 
 This section is dedicated to install locally either SoSTrades platform or SoSTrades as a library. 
 
-> Feedback is a gift: please note that these installation procedures are still in beta phase. You can contribute to this documentation, give feedbacks and raise an [ github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
+> Feedback is a gift: please note that these installation procedures are still in beta phase. You can contribute to this documentation, give feedbacks and raise a [github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
 Please note that supported operating systems are standard Linux-based systems, macOS systems, and Windows.
 
@@ -48,13 +48,12 @@ If a prior install of SoSTrades relying on PYTHONPATH is present, it should be d
 
 #### 2.2.1 Common prerequisites
 
-python version 3.9.x 
-
-(with packages mysql, mysql-connector-python)
+python version 3.9.x
 
 git
 
-During this installation, you can change the `python` command and replace it by the full path to the correct python executable (3.9.x)
+*Note1:* if you have a more recent version of python installed, the `python` command is probably bound to it, resulting in a version issue with the installation scripts. If you installed python 3.9 on top, then you need to use the command `python3.9` hereafter.
+Make sure the requirements are properly installed with `python3.9 -m pip install mysql mysql-connector-python==8.3.0`. If the issue persists, you can replace the `python3.9` command by the full path to the correct python executable (3.9.x) in your filesystem.
 
 #### 2.2.2 Linux Installation
 
@@ -79,13 +78,19 @@ Also, please install the prerequisites listed in Linux installation (libmysqlcli
 
 All development environments are built from a dedicated directory initiated with this repository. This directory will be used as root and will contains all the others necessary repositories from OS-Climate. This root directory contains VSCode tasks and launch docker-compose files. This allows to launch SoStrades in docker containers and to debug webapi servers directly from thus container in VS Code. From the repository a script is available to clone all the repositories to prepare the development environment.
 
-1. Clone this repository in root directory
+1. Clone this repository in root directory and position to last version
 ```bash
 git clone https://github.com/os-climate/sostrades-dev-tools
 (For SSH : git clone git@github.com:os-climate/sostrades-dev-tools.git)
  
 cd sostrades-dev-tools
+# Position to latest tag (ex if v4.1.3 is the latest version)
+git checkout v4.1.3
 ```
+
+*Important:* the root directory name should not contain spaces, and it should be stored in a location where the scripts can write new files (beware of installation in remote filesystems). 
+If these conditions are not met, the `PrepareVenv` script might fail and a custom installation of the SoSTrades requirements might be necessary. Try installing in a local filesystem location without spaces.
+
 2. If needed configure model repositories : edit the `model_repositories.json` and `platform_repositories.json` according to what repositories you want. The provided `model_repositories.json` file includes the WITNESS model repositories, as well as the optimization plugins repository required to run WITNESS optimizations :
 
 ```json
@@ -191,7 +196,7 @@ Compile the requirements
 ```bash
 pip install --upgrade pip
 pip install pip-tools
-./platform_requirements/run_pip_compile.sh
+./scripts/run_pip_compile.sh
 ```
 
 #### 4.1.1 (Optional : Windows users only) WSL and/or Ubuntu installation
@@ -318,31 +323,6 @@ It is possible to run SoSTrades on Windows without installing docker by running 
 The repository sostrades-dev-tools and all scripts need the following prerequisites:
 > - Follow [common setup section](#2-common-setup)
 > - Follow [local model development env installation section](#3-local-model-development-env-installation)
-> - Python module "mysql.connector" : `pip install mysql-connector-python`
-> - Mysql v5.7 : follow the part ## 2. Install MySQL
-
-#### 5.1.1 Install MySQL
-
-The SoSTrades Graphical User Interface needs a dedicated database with two tables "sostrades-data" and "sostrades-log".
-First download [mysql-installer-community](https://dev.mysql.com/get/archives/mysql-installer/mysql-installer-community-8.0.32.0.msi).
-Launch "mysql-installer-community-8.0.32.0.msi" from the previous file downloaded. If you have the following screen it means you already have some product of MySQL, check if your MySQL Server can be upgraded to the version **MySQL Server 5.7.44**.
-
-![](images/Mysql_Cancel.png)
-
-If you never installed any MySQL products you will get this screen. Click on Add button and select **MySQL Server 5.7.44 - x 64** you can also add MySQL WorkBench if you need to visualise the future database.
-
-![](images/Mysql_add.png)
-
-If you can not find MySQL 5.7, click on "Edit" and change the filter of "Maturity" field to "Other Releases".
-
-![](images/Mysql_filter.png)
-![](images/Mysql_5.7.png)
-
-Once the MySQL Server is selected click on Next then execute on the next screen. Let everything by default until to get the screen asking you to enter the password. Enter you password twice and click next to complete all the installation of MySQL.
-
-![](images/Mysql_credential.png)
-
-Store wisely the password of root user. It will be asked later for the SoSTrades install.
 
 ### 5.2 Run install scripts
 
@@ -362,23 +342,12 @@ Then run `NodeInstallation.py` to install NVS with the good version of Node at t
 python scripts\NodeInstallation.py 
 ```
 
-Then run script is `EditFlaskenv.py` to modify the .flaskenv file with your SQL credentials (user=root and the password is the same in the MySQL installation section):
-
-```
-python scripts\EditFlaskenv.py
-```
-
-To create "sostrades-data" and "sostrades-log" tables run `CreateDatabases.py`. Do not forget that as specified in the requirements you need the package "mysql-connector-python". It is recommanded to install the module outside the .venv so you should use "deactivate" command before to execute "pip install mysql-connector-python". After this you can run this command :
-
-```
-python scripts\CreateDatabases.py
-```
-
 To create an user to access to SoSTrades platform run `CreateUser.py`:
 
 ```
 python scripts\CreateUser.py
 ```
+Important: the `CreateUser.py` script will ask you to input some information (user, name, last name and e-mail). Leaving any of these fields empty will result in the script crashing, at least a character is required. 
 
 If you want to update Ontology execute the script `UpdateOntology.py`. This script could take more than 15mn it depends on the number of repository you have.
 
@@ -413,17 +382,11 @@ python scripts\PullRepositories.py
 > - Configuration.py: script to create files and folders needed by SoSTrades
 >> - `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\configuration_template\configuration.json`
 >> - `sostrades-dev-tools\platform\sostrades-webapi\.flaskenv`
->> - `C:\TEMP\SOSTRADES\`
->> - `C:\TEMP\SOSTRADES\REFERENCES\`
->> - `C:\TEMP\SOSTRADES\RSA\`
->> - `C:\TEMP\SOSTRADES\RSA\private_key.pem`
->> - `C:\TEMP\SOSTRADES\RSA\public_key.pem`
+>> - `sostrades-dev-tools\data\REFERENCES\`
+>> - `sostrades-dev-tools\data\RSA\private_key.pem`
+>> - `sostrades-dev-tools\data\RSA\public_key.pem`
 
 > - `NodeInstallation.py`: script to install a NVS (Node Version Switcher) and also install a version of Node with NVS. In addition it is possible to build sostrades-webgui
-
-> - `EditFlaskenv.py`: script to modify the values `SQL_ACCOUNT`, `SQL_PASSWORD`, `LOG_USER`, `LOG_PASSWORD` in the file `sostrades-dev-tools\platform\sostrades-webapi\.flaskenv`
-
-> - `CreateDatabases.py` : script that creates `sostrades-data` and `sostrades-log` tables in database needed for the API.
 
 > - `CreateUser.py` : script that creates an user in SoSTrades with the command `flask create_standard_user`. When the user is created, a password is temporarily saved in `sostrades-dev-tools\platform\sostrades-webapi\sos_trades_api\secret\*`. Once stored, the password has to be deleted. Some SoSTrades app rights are granted in the database with flask command.
 

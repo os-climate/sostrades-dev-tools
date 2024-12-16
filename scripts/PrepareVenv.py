@@ -21,7 +21,7 @@ Then is is possible to run the .venv with the commande sostrades-dev-tools/.venv
 import os
 import sys
 
-from constants import sostrades_dev_tools_path, platform_path, model_path, venv_script_activate_path, venv_script_activate_command, venv_path
+from constants import sostrades_dev_tools_path, platform_path, model_path, venv_script_activate_path, venv_script_activate_command, venv_path, venv_lib_site_package_path
 from tooling import run_command, list_directory_paths
 
 
@@ -70,7 +70,6 @@ if os.path.exists(venv_script_activate_path):
         f"{venv_script_activate_command} && pip list && \
                 python -m pip install --no-cache-dir wheel && \
                 python -m pip install --no-cache-dir \
-                -r {platform_path}/gemseo/requirements.txt \
                 -r {platform_path}/sostrades-core/requirements.in \
                 -r {platform_path}/sostrades-ontology/requirements.in \
                 -r {platform_path}/sostrades-webapi/requirements.in \
@@ -83,7 +82,6 @@ else:
     )
 
 #  Create sostrades.pth inside the .venv
-venv_lib_site_package_path = f"{venv_path}/lib/site-packages"
 sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
 if os.path.exists(venv_lib_site_package_path):
     # Call the function to get directory paths

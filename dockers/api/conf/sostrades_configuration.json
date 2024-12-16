@@ -2,24 +2,35 @@
   "ENVIRONMENT": "PRODUCTION",
 
   "SQL_ALCHEMY_DATABASE": {
-    "HOST" : "database.sostrades.local",
-    "PORT" : 3306,
-    "USER_ENV_VAR": "SQL_ACCOUNT",
-    "PASSWORD_ENV_VAR": "SQL_PASSWORD",
-    "DATABASE_NAME": "sostrades-data",
-    "SSL": false
+    "ENGINE_OPTIONS": {
+      "pool_size":10,
+      "pool_recycle":7200
+    },
+    "CONNECT_ARGS": {
+      "ssl": false,
+      "charset": "utf8mb4"
+    },
+    "URI":"mysql+mysqldb://{USER}:{PASSWORD}@database.sostrades.local:3306/sostrades-data",
+    "URI_ENV_VARS": {
+      "USER": "SQL_ACCOUNT",
+      "PASSWORD": "SQL_PASSWORD"
+    }
   },
-
   "SQLALCHEMY_TRACK_MODIFICATIONS": false,
-
-
   "LOGGING_DATABASE": {
-    "HOST" : "database.sostrades.local",
-    "PORT" : 3306,
-    "USER_ENV_VAR": "LOG_USER",
-    "PASSWORD_ENV_VAR": "LOG_PASSWORD",
-    "DATABASE_NAME": "sostrades-log",
-    "SSL": false
+    "ENGINE_OPTIONS": {
+      "pool_size":10,
+      "pool_recycle":7200
+    },
+    "CONNECT_ARGS": {
+      "ssl": false,
+      "charset": "utf8mb4"
+    },
+    "URI":"mysql+mysqldb://{USER}:{PASSWORD}@database.sostrades.local:3306/sostrades-log",
+    "URI_ENV_VARS": {
+      "USER": "LOG_USER",
+      "PASSWORD": "LOG_PASSWORD"
+    }
   },
 
   "SECRET_KEY_ENV_VAR": "SECRET_KEY",
