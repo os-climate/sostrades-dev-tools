@@ -64,7 +64,7 @@ To install python and git you can run this following commands :
 
 1. Update the package list: 
     ```bash
-    sudo apt update
+    apt update
     ```
     
 2. Install Python 3.9 and essential tools:  
@@ -77,14 +77,14 @@ To install python and git you can run this following commands :
     ``` 
 3. Install git:
     ```bash
-    apt install git
+    apt install -y git
     ```
 
 #### 2.2.2 Linux packages Installation
 
 Some specific pre-requisites are needed:
 ```bash
-apt install -y libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
+apt install -y libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev vim curl tmux
 apt install -y pkg-config libmysqlclient-dev
 ```
 
@@ -155,7 +155,7 @@ python3.9 scripts/PrepareDevEnv.py
 
 ## 3. Local Model Development Env Installation
 
-The objective is to have a working local dev environment based on a venv, with pre-configured VS-CODE workspace to be able to run code and debug. Other IDE may be used but should be configured properly.
+The objective is to have a working local dev environment based on a venv.
 
 ### 3.1 Prerequisites
 
@@ -194,7 +194,15 @@ First you need to run `Configuration.py` to create folder and files needed to ru
 python3.9 scripts/Configuration.py
 ```
 
-Then run `NodeInstallation.py` to install NVS with the good version of Node at the end of the script it will ask you if you want to build the webgui:
+Before run `NodeInstallation.py`, you need to install NVS witch allow to manage Node and its versions
+```bash
+git clone https://github.com/jasongin/nvs ~/.nvs
+echo 'export NVS_HOME="$HOME/.nvs"' >> ~/.bashrc
+echo '[ -s "$NVS_HOME/nvs.sh" ] && . "$NVS_HOME/nvs.sh"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Then run `NodeInstallation.py` to install the good version of Node and at the end of the script it will ask you if you want to build the webgui:
 
 ```bash
 python3.9 scripts/NodeInstallation.py
