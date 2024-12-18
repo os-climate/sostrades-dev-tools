@@ -228,7 +228,7 @@ python3.9 scripts/UpdateOntology.py
 Finally run the script `Linux-StartSOSTrades.py` to launch SoSTrades :
 
 ```bash
-python3.9 scripts/Linux-StartSOSTrades.py
+bash scripts/Linux-StartSOSTrades.py
 ```
 
 When the last script is running you can go to [http://localhost:4200](http://localhost:4200) with your web browser and connect with your credentials just created before.
