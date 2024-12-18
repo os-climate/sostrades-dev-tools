@@ -1,7 +1,5 @@
 # SoSTrades platform installation
 
-- [Linux Installation](linux-installation.md)
-
 This section is dedicated to install locally either SoSTrades platform or SoSTrades as a library. 
 
 > Feedback is a gift: please note that these installation procedures are still in beta phase. You can contribute to this documentation, give feedbacks and raise a [github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
