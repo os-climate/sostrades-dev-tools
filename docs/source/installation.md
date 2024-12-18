@@ -13,22 +13,22 @@ It contains script facilities to clone repositories, and create virtual environm
 The scripts clone the repositories in the correct folder for the rest of the scripts to work properly, as explained in Installation section.
 The expected folder organisation is the following :
 
-::
-
-   ├── sostrades-dev-tools
-   │   ├── dockers
-   │   │   └── docker related files
-   │   ├── models
-   │   │   ├── witness-core
-   │   │   ├── witness-energy
-   │   │   └── Other model repositories
-   │   ├── platform
-   │   │   ├── gemseo
-   │   │   ├── sostrades-core
-   │   │   ├── sostrades-webapi
-   │   │   ├── sostrades-webgui
-   │   │   └── sostrades-ontology
-   └── other files...
+```
+├── sostrades-dev-tools
+│   ├── dockers
+│   │   └── docker related files
+│   ├── models
+│   │   ├── sostrades-optimization-plugins
+│   │   ├── witness-core
+│   │   ├── witness-energy
+│   │   └── Other model repositories
+│   ├── platform
+│   │   ├── sostrades-core
+│   │   ├── sostrades-webapi
+│   │   ├── sostrades-webgui
+│   │   └── sostrades-ontology
+└── other files...
+```
 
 You are then free to change branches, pull changes, clone new model repositories and use scripts at your convenience.
 
