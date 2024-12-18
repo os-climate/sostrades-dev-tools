@@ -41,6 +41,8 @@ Contents
    Home <self>
 
 .. toctree::
+   :maxdepth: 1 
+
 
    Installation <installation.md>
    Linux Installation <linux-installation.md>

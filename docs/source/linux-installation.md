@@ -82,8 +82,6 @@ To install python and git you can run this following commands :
 
 #### 2.2.2 Linux packages Installation
 
-The install on Linux operating system should work if you are following sections [3. Local Model Development Env Installation](#3-local-model-development-env-installation) and [4. Local Docker Env Installation](#4-local-docker-env-installation).
-
 Some specific pre-requisites are needed:
 ```bash
 apt install -y libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
@@ -94,11 +92,9 @@ apt install -y pkg-config libmysqlclient-dev
 
 Please note that install has not been tested on personal Mac OS laptops, but could be different depending on the MacOS version used. Do not hesitate to contribute to this documentation, give feedbacks and raise an [ github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
-The install on Mac OS operating system should work if you are following sections [3. Local Model Development Env Installation](#3-local-model-development-env-installation) and [4. Local Docker Env Installation](#4-local-docker-env-installation).
+If you want to be sure of having a working installation without OS version problems, use docker 
 
 ### 2.3 Clone code and tools
-
-All development environments are built from a dedicated directory initiated with this repository. This directory will be used as root and will contains all the others necessary repositories from OS-Climate. This root directory contains VSCode tasks and launch docker-compose files. This allows to launch SoStrades in docker containers and to debug webapi servers directly from thus container in VS Code. From the repository a script is available to clone all the repositories to prepare the development environment.
 
 1. Clone this repository in root directory and position to last version
 ```bash
