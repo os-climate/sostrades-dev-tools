@@ -2,6 +2,29 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+
+## Release v5.0.0
+Date: 2024-12-19
+
+### Features
+
+#### Core
+  #### Major Upgrade GEMSEO v6:
+    - Update installation of gemseo as a library.
+    - Native GEMSEO handling of former SoSTrades capabilities (Automatic MDA pre-run).
+    - Rename variables on SoSTrades in coherence with GEMSEO.
+    - Extensive bug-fixing.
+    - More robust handling of data (types, exceptions) and algorithm options (pydantic models).
+    - Refer to https://gemseo.readthedocs.io/en/stable/software/upgrading.html
+    - Small memory increase due to GEMSEO known issue.
+
+#### Bug Fixes
+- Fixed error display in markdown documentation on GUI
+
+#### Local Installation
+- Improvment of Linux local installation
+
+
 ## Release v4.2.0
 Date: 2024-11-21
 
