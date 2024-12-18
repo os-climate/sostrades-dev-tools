@@ -18,7 +18,7 @@ tmux send-keys -t $SESSION_NAME "source /sostrades-dev-tools/.venv/bin/activate 
 
 # Créer un autre panneau horizontalement et lancer une commande
 tmux split-window -h -t $SESSION_NAME
-tmux send-keys -t $SESSION_NAME "source /sostrades-dev-tools/.venv/bin/activate && cd platform/sostrades-webapi && python3.9 server_scripts/split_mode/launch_server_message.py" C-m
+tmux send-keys -t $SESSION_NAME "source /sostrades-dev-tools/.venv/bin/activate && cd platform/sostrades-webapi && python3.9 server_scripts/launch_server_message.py" C-m
 
 # Créer un autre panneau horizontalement et lancer une commande
 tmux split-window -h -t $SESSION_NAME

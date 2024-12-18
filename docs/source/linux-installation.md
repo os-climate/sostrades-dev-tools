@@ -217,18 +217,18 @@ python3.9 scripts/CreateUser.py
 ```
 Important: the `CreateUser.py` script will ask you to input some information (user, name, last name and e-mail). Leaving any of these fields empty will result in the script crashing, at least a character is required. 
 
-<!-- If you want to update Ontology execute the script `UpdateOntology.py`. This script could take more than 15mn it depends on the number of repository you have.
+If you want to update Ontology execute the script `UpdateOntology.py`. This script could take more than 15mn it depends on the number of repository you have.
 
 ```bash
 python3.9 scripts/UpdateOntology.py
-``` -->
+```
 
 ### 5.3 Start SoSTrades platform 
 
-Finally run the script `Linux-StartSOSTrades.py` to launch SoSTrades :
+Finally run the script `Linux-StartSOSTrades.sh` to launch SoSTrades :
 
 ```bash
-bash scripts/Linux-StartSOSTrades.py
+bash scripts/Linux-StartSOSTrades.sh
 ```
 
 When the last script is running you can go to [http://localhost:4200](http://localhost:4200) with your web browser and connect with your credentials just created before.
