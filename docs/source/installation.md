@@ -1,10 +1,36 @@
 # SoSTrades platform installation
 
+- [Linux Installation](linux-installation.md)
+
 This section is dedicated to install locally either SoSTrades platform or SoSTrades as a library. 
 
 > Feedback is a gift: please note that these installation procedures are still in beta phase. You can contribute to this documentation, give feedbacks and raise a [github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
 Please note that supported operating systems are standard Linux-based systems, macOS systems, and Windows.
+
+It contains script facilities to clone repositories, and create virtual environments (using conda) for sostrades project.
+
+The scripts clone the repositories in the correct folder for the rest of the scripts to work properly, as explained in Installation section.
+The expected folder organisation is the following :
+
+```
+├── sostrades-dev-tools
+│   ├── dockers
+│   │   └── docker related files
+│   ├── models
+│   │   ├── sostrades-optimization-plugins
+│   │   ├── witness-core
+│   │   ├── witness-energy
+│   │   └── Other model repositories
+│   ├── platform
+│   │   ├── sostrades-core
+│   │   ├── sostrades-webapi
+│   │   ├── sostrades-webgui
+│   │   └── sostrades-ontology
+└── other files...
+```
+
+You are then free to change branches, pull changes, clone new model repositories and use scripts at your convenience.
 
 ## 1. Choose your installation
 

@@ -25,7 +25,6 @@ The expected folder organisation is the following :
    │   │   ├── witness-energy
    │   │   └── Other model repositories
    │   ├── platform
-   │   │   ├── gemseo
    │   │   ├── sostrades-core
    │   │   ├── sostrades-webapi
    │   │   ├── sostrades-webgui
@@ -42,9 +41,14 @@ Contents
    Home <self>
 
 .. toctree::
+   :maxdepth: 1 
+
 
    Installation <installation.md>
+   Linux Installation <linux-installation.md>
    Add personal repository <add-repository.md>
+   User manual <user_manual.md>
+   Developer manual <developer_manual.md>
    Release notes <release-notes.md>
 
 .. _license:

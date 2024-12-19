@@ -59,7 +59,7 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
         # get current branch or version tag
         branch_or_tag = run_git_command(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
         if branch_or_tag == 'HEAD':
-            all_tags = run_git_command(['git', 'tag', '--contains', last_commit_hash])
+            all_tags = run_git_command(['git', 'tag', '--points-at', last_commit_hash])
             tags = [tag for tag in all_tags.split('\n') if tag.startswith('v')]
             if len(tags)>0:
                 def convert_version(version:str)->list[int]:

@@ -62,7 +62,6 @@ COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
     pip install --no-cache-dir -r dev.requirements.txt debugpy numpy==${NUMPY_VERSION}
 
-COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
 COPY ./platform/sostrades-core ./platform/sostrades-core
 COPY ./models ./models
@@ -70,7 +69,6 @@ COPY ./models ./models
 # Update PYTHONPATH
 RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
     ls -d ${pwd}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
-    sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
     sed -i '$ s/.$//' /tmp/pythonpath.txt && \
     export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
     echo "PYTHONPATH=$PYTHONPATH" && \
@@ -98,11 +96,10 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY ./platform/sostrades-ontology /usr/local/sostrades/sources/platform/sostrades-ontology
 
 # Add repositories needed to pass test on ontology image
-COPY ./platform/gemseo/src /usr/local/sostrades/sources/platform/gemseo
 COPY ./platform/sostrades-core/sostrades_core /usr/local/sostrades/sources/platform/sostrades-core/sostrades_core
 
 # Update PYTHONPATH
-ENV PYTHONPATH="${PYTHONPATH}:/usr/local/sostrades/sources/platform/sostrades-ontology:/usr/local/sostrades/sources/platform/sostrades-core:/usr/local/sostrades/sources/platform/gemseo"
+ENV PYTHONPATH="${PYTHONPATH}:/usr/local/sostrades/sources/platform/sostrades-ontology:/usr/local/sostrades/sources/platform/sostrades-core:"
 
 # Copy startup files for ontology
 ADD ./dockers/ontology/scripts /startup

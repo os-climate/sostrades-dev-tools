@@ -1,9 +1,5 @@
 [
     {
-        "url": "https://gitlab.com/sostrades/gemseo.git",
-        "branch": "sos_develop"
-    },
-    {
         "url": "https://github.com/os-climate/sostrades-core.git",
         "branch": "main"
     },

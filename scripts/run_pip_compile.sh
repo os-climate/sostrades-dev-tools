@@ -44,8 +44,8 @@ done
 
 # Compile the 3 requirement files
 echo "Attempting to compile all and ontology requirements"
-if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/gemseo/requirements.txt" ] && [ -f "./platform/sostrades-core/requirements.in" ] && [ -f "./platform/sostrades-webapi/requirements.in" ]; then
-    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/dev.requirements.txt $requirements_files './platform/gemseo/requirements.txt' './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' './platform/sostrades-ontology/requirements.in' --upgrade"
+if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/sostrades-core/requirements.in" ] && [ -f "./platform/sostrades-webapi/requirements.in" ]; then
+    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/dev.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' './platform/sostrades-ontology/requirements.in' --upgrade"
     
     if [ $? -eq 0 ]; then
         echo "Compile all requirements passed"
@@ -62,7 +62,7 @@ if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/ge
         exit 1
     fi
     
-    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files './platform/gemseo/requirements.txt' './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
+    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
     if [ $? -eq 0 ]; then
         echo "Compile api requirements passed"
     else

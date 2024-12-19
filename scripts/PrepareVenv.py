@@ -70,7 +70,6 @@ if os.path.exists(venv_script_activate_path):
         f"{venv_script_activate_command} && pip list && \
                 python -m pip install --no-cache-dir wheel && \
                 python -m pip install --no-cache-dir \
-                -r {platform_path}/gemseo/requirements.txt \
                 -r {platform_path}/sostrades-core/requirements.in \
                 -r {platform_path}/sostrades-ontology/requirements.in \
                 -r {platform_path}/sostrades-webapi/requirements.in \
