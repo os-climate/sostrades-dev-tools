@@ -40,22 +40,8 @@ ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
 
-# Download and install PETSc
-RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
-    cd ${PETSC_BUILD_DIR} &&\
-    export PETSC_ARCH=arch-linux-c-debug && \
-    export PETSC_DIR=${PETSC_BUILD_DIR} && \
-    mkdir ${PETSC_INSTALL_DIR} && \
-    ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${PETSC_INSTALL_DIR}&& \
-    make all install check && \
-    cd ../ && \
-    rm -rf ${PETSC_BUILD_DIR} && \
-    echo "${PETSC_INSTALL_DIR}/lib" > "${PYTHON_SITE_PACKAGE_DIR}/petsc4py.pth"
 
-# Update env with PETSC install
-ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
-ENV PETSC_DIR=${PETSC_INSTALL_DIR}
-ENV USE_PETSC="True"
+ENV USE_PETSC="False"
 
 # Allow flask to work withtout .flaskenv file in git repository
 ENV FLASK_APP=sos_trades_api/server/base_server.py
@@ -67,9 +53,7 @@ WORKDIR ${SOS_TRADES_SOURCES}
 
 # Copy Python requirements and install them
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
-RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
-    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
-    pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
+RUN pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
 
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
