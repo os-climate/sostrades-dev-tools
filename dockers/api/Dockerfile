@@ -53,7 +53,7 @@ WORKDIR ${SOS_TRADES_SOURCES}
 
 # Copy Python requirements and install them
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
-RUN pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
+RUN pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION}
 
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
