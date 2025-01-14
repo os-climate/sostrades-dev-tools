@@ -11,8 +11,8 @@ for /f "delims=" %%a in ('powershell -Command "Get-Date -Format 'HH:mm:ss'"') do
 set CT_PYLINT=%current_time%
 echo ===================================================== [%current_time%] Starting tests for %folder_name% =======================================================
 
-call "%CD%\..\..\sostrades-venv\Scripts\activate"
-echo venv (sostrades-venv) activated successfuly
+call "%CD%\..\..\.venv\Scripts\activate"
+echo venv (.venv) activated successfuly
 
 set "strategy_test_file=%CD%\..\..\platform\sostrades-core\sostrades_core\tests\strategy.py"
 
