@@ -34,8 +34,11 @@ Please follow [add a new repository](add-repository.md) page to add new reposito
 ## 1. Choose your installation
 
 Two installation are available. This page documents the "standard" way of installation.
-If needed, you may install a docker running platform, by following [common setup section](#2-common-setup) and then [Docker installation](docker_installation.md).
+* [common setup](#2-common-setup) Covers prerequisites for installation
+* [Local Model Development Environment Installation](#3-local-model-development-environment-installation) covers installation of SoSTrades as a library enabling model development
+* [Local Platform Installation](#4-local-platform) covers local platform installation to have a working local platform for GUI interaction and visualization
 
+If needed, you may install a docker running platform, by following [common setup section](#2-common-setup) and then [Docker installation](docker_installation.md).
 
 ## 2. Common Setup
 
@@ -51,6 +54,7 @@ If a prior SoSTrades installation relying on `PYTHONPATH` exists, it must be dis
 > - 10 GB of disk space.
 > - Python version 3.9.x (latest pre-built [here](https://www.python.org/downloads/release/python-3913/)).
 > - Git.
+> - NVS on Linux
 
 *Note:* If a different Python version is installed, the `python` command is probably bound to it, resulting in a version conflict. Use the full path to the Python 3.9 executable (3.9.x) in your filesystem to call the various scripts.
 
@@ -163,7 +167,7 @@ Follow the [Common Setup section](#2-common-setup).
 
 Some usage tips for Visual Studio code and venv are available in [visual studio code and venv tips](vs_code_venv_tips.md) and are recommended if you plan to develop models.
 
-## 4. Local Platform Without Docker
+## 4. Local Platform
 
 SoSTrades can run without Docker by following these steps. Every script is stored in the folder `sostrades-dev-tools/scripts/`
 
