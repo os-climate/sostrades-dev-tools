@@ -142,30 +142,10 @@ Edit `model_repositories.json` and `platform_repositories.json` to specify repos
 ```
 
 3. Launch `PrepareDevEnv`:
+This scripts clones the repositories and creates configuration files for VS Code.
 
 ```bash
 <path_to_python_3.9_executable> scripts/PrepareDevEnv.py
-```
-
-This script organizes the directory as follows:
-
-```
-├── sostrades-dev-tools
-│   ├── dockers
-│   │   └── docker-related files
-│   ├── docs
-│   ├── scripts
-│   ├── models
-│   │   ├── sostrades-optimization-plugins
-│   │   ├── witness-core
-│   │   ├── witness-energy
-│   │   └── other model repositories
-│   ├── platform
-│   │   ├── sostrades-core
-│   │   ├── sostrades-webapi
-│   │   ├── sostrades-webgui
-│   │   └── sostrades-ontology
-└── other files...
 ```
 
 ## 3. Local Model Development Environment Installation
@@ -234,7 +214,7 @@ Instructions for user:
 - Detach from the session without closing it: `Ctrl-b d`.
 - Close the entire session: `Ctrl-b :` and type `kill-session`.
 
-#### Coonnecting
+#### Connecting
 When the last script is running you can go to [http://localhost:4200](http://localhost:4200) with your web browser and connect with your credentials just created before. Make sure opened terminals show no obvious errors.
 
 The user is the one entered previously and the password is temporarily saved in `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/secret/*`.
