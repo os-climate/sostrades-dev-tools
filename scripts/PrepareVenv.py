@@ -21,7 +21,14 @@ Then is is possible to run the .venv with the commande sostrades-dev-tools/.venv
 import os
 import sys
 
-from constants import sostrades_dev_tools_path, platform_path, model_path, venv_script_activate_path, venv_script_activate_command, venv_path, venv_lib_site_package_path
+from constants import (
+    platform_path,
+    model_path,
+    venv_script_activate_path,
+    venv_script_activate_command,
+    venv_path,
+    venv_lib_site_package_path,
+)
 from tooling import run_command, list_directory_paths
 
 
@@ -57,42 +64,38 @@ run_command(create_venv_command)
 print(f"Venv created in the folling path : {venv_path}")
 
 # Install platform and model requirements
-if os.path.exists(venv_script_activate_path):
-    requirements_models = []
-    for model_folder in os.listdir(model_path):
-        requirements_path = f"{model_path}/{model_folder}/requirements.in"
-        if os.path.exists(requirements_path):
-            requirements_models.append(
-                f"-r {model_path}/{model_folder}/requirements.in"
-            )
-    requirements_model_command = ' '.join(requirements_models)
-    run_command(
-        f"{venv_script_activate_command} && pip list && \
-                python -m pip install --no-cache-dir wheel && \
-                python -m pip install --no-cache-dir \
-                -r {platform_path}/sostrades-core/requirements.in \
-                -r {platform_path}/sostrades-ontology/requirements.in \
-                -r {platform_path}/sostrades-webapi/requirements.in \
-                {requirements_model_command}\
-                && pip list"
-    )
-else:
-    print(
+if not os.path.exists(venv_script_activate_path):
+    raise Exception(
         "Virtual environment (venv) is not well installed so the requierements cannot be installed"
     )
+
+requirements_models = []
+for model_folder in os.listdir(model_path):
+    requirements_path = f"{model_path}/{model_folder}/requirements.in"
+    if os.path.exists(requirements_path):
+        requirements_models.append(f"-r {model_path}/{model_folder}/requirements.in")
+requirements_model_command = " ".join(requirements_models)
+run_command(
+    f"{venv_script_activate_command} && pip list && \
+            python -m pip install --no-cache-dir wheel && \
+            python -m pip install --no-cache-dir \
+            -r {platform_path}/sostrades-core/requirements.in \
+            -r {platform_path}/sostrades-ontology/requirements.in \
+            -r {platform_path}/sostrades-webapi/requirements.in \
+            {requirements_model_command}\
+            && pip list"
+)
 
 #  Create sostrades.pth inside the .venv
 sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
-if os.path.exists(venv_lib_site_package_path):
-    # Call the function to get directory paths
-    all_platform_directory = list_directory_paths(platform_path)
-    all_model_directory = list_directory_paths(model_path)
-
-    # Create the sostrades.pth for the Python environment
-    write_array_to_file(
-        all_platform_directory + all_model_directory, sostrades_pth_path
-    )
-else:
-    print(
+if not os.path.exists(venv_lib_site_package_path):
+    raise Exception(
         "Virtual environment (venv) is not well installed so the requierements cannot be installed"
     )
+
+# Call the function to get directory paths
+all_platform_directory = list_directory_paths(platform_path)
+all_model_directory = list_directory_paths(model_path)
+
+# Create the sostrades.pth for the Python environment
+write_array_to_file(all_platform_directory + all_model_directory, sostrades_pth_path)

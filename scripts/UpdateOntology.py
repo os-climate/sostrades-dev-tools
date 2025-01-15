@@ -19,25 +19,23 @@ if platform.system() == "Windows":
 
 print(f'PYTHONPATH={python_path}')
 
-if os.path.exists(venv_script_activate_path):
-    if os.path.exists(f"{platform_path}/sostrades-ontology"):
-        print("Updating ontology ...")
-        # Change directory to sostrades-dev-tools/platform/sostrades-ontology
-        os.chdir(f"{platform_path}/sostrades-ontology")
-        # Start sostrades-ontology with .venv
-        if platform.system() == "Windows":
-            run_command(
-                f"{venv_script_activate_command} && set PYTHONPATH={python_path} && python sos_ontology/core/script/createSoSOntologyFromCode.py"
-            )
-        else:  # For Linux
-            run_command(
-                f"{venv_script_activate_command} && export PYTHONPATH={python_path} && python sos_ontology/core/script/createSoSOntologyFromCode.py"
-            )
-        print("Finished")
-    else:
-        print(f"{platform_path}/sostrades-ontology repository not found")
+if not os.path.exists(venv_script_activate_path):
+    raise Exception("Virtual environment (.venv) is not installed")
+if not os.path.exists(f"{platform_path}/sostrades-ontology"):
+    raise Exception(f"{platform_path}/sostrades-ontology repository not found")
 
-    os.chdir(sostrades_dev_tools_path)
-else:
-    print("Virtual environment (.venv) is not installed")
+print("Updating ontology ...")
+# Change directory to sostrades-dev-tools/platform/sostrades-ontology
+os.chdir(f"{platform_path}/sostrades-ontology")
+# Start sostrades-ontology with .venv
+if platform.system() == "Windows":
+    run_command(
+        f"{venv_script_activate_command} && set PYTHONPATH={python_path} && python sos_ontology/core/script/createSoSOntologyFromCode.py"
+    )
+else:  # For Linux
+    run_command(
+        f"{venv_script_activate_command} && export PYTHONPATH={python_path} && python sos_ontology/core/script/createSoSOntologyFromCode.py"
+    )
+print("Finished")
 
+os.chdir(sostrades_dev_tools_path)

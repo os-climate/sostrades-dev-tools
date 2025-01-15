@@ -15,17 +15,15 @@ limitations under the License.
 
 import os
 import subprocess
-from constants import (sostrades_dev_tools_path,
-                       model_dir_name,
-                       platform_dir_name)
+from constants import sostrades_dev_tools_path, model_dir_name, platform_dir_name
 
 
 def pull_repositories(folder_path):
     # Navigate through the specified folder
     for root, dirs, files in os.walk(folder_path):
         # Check if it's a git repository
-        if '.git' in dirs:
-            print(f'Pull repository {root}')
+        if ".git" in dirs:
+            print(f"Pull repository {root}")
             os.chdir(root)
             command = ["git", "pull"]
             subprocess.run(command)

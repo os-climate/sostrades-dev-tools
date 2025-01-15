@@ -9,7 +9,7 @@ Objective
 ---------
 
 The objective of this repository is to provide scripts to easily set up a working local environment.
-It contains script facilities to clone repositories, and create virtual environments (using conda) for sostrades project.
+It contains script facilities to clone repositories, and create virtual environment for sostrades project.
 
 The scripts clone the repositories in the correct folder for the rest of the scripts to work properly, as explained in Installation section.
 The expected folder organisation is the following :
@@ -45,7 +45,8 @@ Contents
 
 
    Installation <installation.md>
-   Linux Installation <linux-installation.md>
+   VS Code and Venv tips <vs_code_venv_tips.md>
+   Docker Installation <docker_installation.md>
    Add personal repository <add-repository.md>
    User manual <user_manual.md>
    Developer manual <developer_manual.md>
