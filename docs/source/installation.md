@@ -91,7 +91,7 @@ Install Python and Git with:
 
 Install additional prerequisites. Use your package manager to install them (example with apt):
 ```bash
-sudo apt install -y libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev tmux
+sudo apt install -y pkg-config libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
 ```
 
 Install Node Version Switcher (NVS):
