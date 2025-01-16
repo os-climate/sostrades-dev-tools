@@ -31,8 +31,7 @@ ARG KUBERNETES_VERSION="29.0.0"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==${NUMPY_VERSION} && \
-    pip install --no-cache-dir kubernetes==${KUBERNETES_VERSION}
+    pip install --no-cache-dir uv numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION}
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.6"
@@ -68,8 +67,8 @@ WORKDIR ${SOS_TRADES_SOURCES}
 # Copy Python requirements and install them
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
 RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
-    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
-    pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
+    python -m uv pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
+    python -m uv pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
 
 # Copy models and platform repos for standalone image if needed
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
