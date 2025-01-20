@@ -57,6 +57,7 @@ If a prior SoSTrades installation relying on `PYTHONPATH` exists, it must be dis
 > - NVS on Linux
 
 *Note:* If a different Python version is installed, the `python` command is probably bound to it, resulting in a version conflict. Use the full path to the Python 3.9 executable (3.9.x) in your filesystem to call the various scripts.
+On Windows installation, python is typically installed in `C:/Users/<User>/AppData/Local/Programs/Python/Python39/python.exe`
 
 
 Verify versions:
