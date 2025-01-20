@@ -27,7 +27,27 @@ sostrades-dev-tools/models/<your-new-repository>
 
 ---
 
-## Step 3: Update VS Code Configuration
+## Step 3: Update the Platform Configuration
+
+1. Locate and open the file:
+   ```
+   ./sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json
+   ```
+
+2. Add your repository **module name** (e.g. the name you woudl use in python import) to the `SOS_TRADES_PROCESS_REPOSITORY` section:
+   ```json
+    "SOS_TRADES_PROCESS_REPOSITORY": [
+        "sostrades_core.sos_processes",
+        "sostrades_optimization_plugins.sos_processes",
+        "climateeconomics.sos_processes",
+        "energy_models.sos_processes",
+        "<your-new-repository-module-name>.sos_processes"
+    ],
+   ```
+
+---
+
+## Step 4: Update VS Code Configuration
 
 1. Open the file:
    ```
@@ -50,7 +70,7 @@ sostrades-dev-tools/models/<your-new-repository>
 
 ---
 
-## Step 4: Rebuild the Ontology (Optional)
+## Step 5: Rebuild the Ontology (Optional)
 
 If you want your new code to be reflected in the ontology, rebuild it using one of these methods:
 
