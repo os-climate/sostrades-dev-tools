@@ -37,7 +37,7 @@ The repository must be a git repository, and have the following structure :
    ./sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json
    ```
 
-2. Add your repository **module name** (e.g. the name you woudl use in python import) to the `SOS_TRADES_PROCESS_REPOSITORY` section:
+2. Add your repository **module name** (e.g. the name you would use in python import) to the `SOS_TRADES_PROCESS_REPOSITORY` section:
    ```json
     "SOS_TRADES_PROCESS_REPOSITORY": [
         "sostrades_core.sos_processes",
