@@ -99,7 +99,7 @@ for repo_url in platform_data:
 for repo_url in model_data:
     url = repo_url.get("url")
     repo_name = extract_repo_name(url)
-    python_analysis_extraPaths += [platform_dir_name + "/" + repo_name]
+    python_analysis_extraPaths += [model_dir_name + "/" + repo_name]
 
 print("\npython_analysis_extraPaths=", python_analysis_extraPaths)
 
