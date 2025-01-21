@@ -28,6 +28,7 @@ Date: 2025-01-21
 
 ### Bug fixes
 - Local Installation script issues fixes
+- SQLite driver foreign key handling activated
 - Minor fixes on GEMSEO compatibility
 
 ### Library version upgrades
