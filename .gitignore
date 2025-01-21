@@ -13,4 +13,4 @@ docs/build/
 .venv/
 .idea
 __pycache__
-sostrades-venv/
+data/
