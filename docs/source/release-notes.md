@@ -7,22 +7,31 @@ The proper versioning and release of SoSTrades has started with the version 4.0.
 Date: 2025-01-21
 
 ### Features
+
+#### Local installation
 - Local installation improvements
     - Added script to start local platform with a small GUI
 - Installation documentation improvements
     - Separated Docker installation procedure
     - Improved wording and organisation of installation pages
     - Improved documentation of new repository addition
-    
+
+#### Core
+- Run gemseo script (MDO & MDA) into SoStrades
+
+#### Graphical User Interface (GUI)
+- Fix Download study data button and move it into the opened study treeview
+- Add button to enlarge plot in charts section
+
+#### Other
+- Add pre-commit hook
 
 ### Bug fixes
 - Local Installation script issues fixes
-
-### Other
+- Minor fixes on GEMSEO compatibility
 
 ### Library version upgrades
-
-### Requirements added
+* python-keycloak from 4.2.0 to 5.1.1
 
 ## Release v5.0.0
 Date: 2024-12-19
