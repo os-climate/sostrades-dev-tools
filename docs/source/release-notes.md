@@ -3,6 +3,27 @@
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
 
+## Release v5.0.1
+Date: 2025-01-21
+
+### Features
+- Local installation improvements
+    - Added script to start local platform with a small GUI
+- Installation documentation improvements
+    - Separated Docker installation procedure
+    - Improved wording and organisation of installation pages
+    - Improved documentation of new repository addition
+    
+
+### Bug fixes
+- Local Installation script issues fixes
+
+### Other
+
+### Library version upgrades
+
+### Requirements added
+
 ## Release v5.0.0
 Date: 2024-12-19
 
