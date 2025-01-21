@@ -14,6 +14,8 @@ sostrades-dev-tools/models/<your-new-repository>
 The repository must be a git repository, and have the following structure :
 ![Repository structure](images/repository_structure.png)
 
+<span style="color: red;">Do not forget __init__.py files in python</span>
+
 ---
 
 ## Step 2: Update the Virtual Environment
@@ -114,4 +116,3 @@ docker compose up
 ---
 
 Your personal repository is now successfully added and operational within the SoSTrades platform.
-
