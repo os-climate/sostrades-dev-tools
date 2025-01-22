@@ -3,26 +3,56 @@
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
 
+## Release v5.0.1
+Date: 2025-01-21
+
+### Features
+
+#### Local installation
+- Local installation improvements
+    - Added script to start local platform with a small GUI
+- Installation documentation improvements
+    - Separated Docker installation procedure
+    - Improved wording and organisation of installation pages
+    - Improved documentation of new repository addition
+
+#### Core
+- Run gemseo script (MDO & MDA) into SoStrades
+
+#### Graphical User Interface (GUI)
+- Fix Download study data button and move it into the opened study treeview
+- Add button to enlarge plot in charts section
+
+#### Other
+- Add pre-commit hook
+
+### Bug fixes
+- Local Installation script issues fixes
+- SQLite driver foreign key handling activated
+- Minor fixes on GEMSEO compatibility
+
+### Library version upgrades
+* python-keycloak from 4.2.0 to 5.1.1
+
 ## Release v5.0.0
 Date: 2024-12-19
 
 ### Features
 
-#### Core
-  #### Major Upgrade GEMSEO v6:
-    - Update installation of gemseo as a library.
-    - Native GEMSEO handling of former SoSTrades capabilities (Automatic MDA pre-run).
-    - Rename variables on SoSTrades in coherence with GEMSEO.
-    - Extensive bug-fixing.
-    - More robust handling of data (types, exceptions) and algorithm options (pydantic models).
-    - Refer to https://gemseo.readthedocs.io/en/stable/software/upgrading.html
-    - Small memory increase due to GEMSEO known issue.
+#### Major Upgrade to GEMSEO v6.0.0
+  - Update installation of GEMSEO as a library.
+  - Native GEMSEO handling of former SoSTrades capabilities (Automatic MDA pre-run).
+  - Rename variables on SoSTrades in coherence with GEMSEO.
+  - Extensive bug-fixing.
+  - More robust handling of data (types, exceptions) and algorithm options (pydantic models).
+  - Refer to https://gemseo.readthedocs.io/en/stable/software/upgrading.html
+  - Small memory increase due to GEMSEO known issue.
 
 #### Bug Fixes
 - Fixed error display in markdown documentation on GUI
 
 #### Local Installation
-- Improvment of Linux local installation
+- Improvement of Linux local installation
 
 
 ## Release v4.2.0
