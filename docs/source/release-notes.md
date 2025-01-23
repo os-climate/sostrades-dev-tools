@@ -21,7 +21,6 @@ Date: 2025-01-21
 
 #### Graphical User Interface (GUI)
 - Fix Download study data button and move it into the opened study treeview
-- Add button to enlarge plot in charts section
 
 #### Other
 - Add pre-commit hook
