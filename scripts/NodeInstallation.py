@@ -57,9 +57,9 @@ def switch_node_version(node_version):
     else:  # For Linux
         nvs_home = get_nvs_home()
         nvs_script_path = os.path.join(nvs_home, "nvs.sh")
-        nvs_use_command = f". {nvs_script_path} && nvs use {node_version}"
-        nvs_add_command = f". {nvs_script_path} && nvs add {node_version}"
-        list_command = f". {nvs_script_path} && nvs list"
+        nvs_use_command = f". '{nvs_script_path}' && nvs use {node_version}"
+        nvs_add_command = f". '{nvs_script_path}' && nvs add {node_version}"
+        list_command = f". '{nvs_script_path}' && nvs list"
 
     # Check if the Node.js version is already installed
     print(f"Checking installed versions of Node.js...")
@@ -97,7 +97,7 @@ if confirmation == "yes":
         else:  # For Linux
             nvs_home = get_nvs_home()
             nvs_script_path = os.path.join(nvs_home, "nvs.sh")
-            run_command(f". {nvs_script_path} && nvs use {node_version} && npm install")
+            run_command(f". '{nvs_script_path}' && nvs use {node_version} && npm install")
         
         os.chdir(sostrades_dev_tools_path)
     else:
