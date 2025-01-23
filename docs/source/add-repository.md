@@ -11,7 +11,7 @@ Add your personal repository by cloning it into the following directory:
 sostrades-dev-tools/models/<your-new-repository>
 ```
 
-The repository must be a git repository, and have the following structure :
+The repository must be a git repository, and have the following structure:
 ![Repository structure](images/repository_structure.png)
 
 <span style="color: red;">Do not forget `__init__.py` files in python</span>
@@ -93,12 +93,12 @@ docker compose build ontology
 
 ---
 
-## Step 5: Restart the API and Ontology
+## Step 6: Restart the API and Ontology
 
 Restarting ensures your new repository is fully integrated into the platform.
 
 ### Local Installation
-1. Close all open platformd terminals.
+1. Close all open platform terminals.
 2. Restart the platform using the script:
    ```
    scripts/StartSoSTrades.py
