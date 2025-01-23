@@ -38,8 +38,54 @@ TBD
 ### Section 3.3 Test and validate your study 
 TBD
 ## Chapter 4 : How to create your own repository ? 
-TBD
+1. **Create Repository**
+   - Create a new repository on GitHub
+   - Follow SoSTrades naming conventions for consistency
+
+2. **Configure Access Management**
+   Add the following groups with admin role:
+   - Business For Planet Modeling - Devops
+   - Business For Planet Modeling - Core developer
+   - Business For Planet Modeling - Repository admin
+
+3. **Branch Structure**
+   Your repository must include these mandatory branches:
+   - `develop`: Main development branch
+   - `integration`: Testing branch for deployed integration platform
+   - `post_integration`: Pre-validation branch, this platform is used for tests pipeline before merge into validation
+   - `validation`:  For validation platform where all tests are validated
+   - `main`: Release branch
+
+4. **Development Workflow**
+   - Development starts on `develop` branch
+   - Then merge the develop into integration
+   - Automatic pipeline handles merges through branches
+   - Flow: integration → post_integration → validation → main
 ### Section 4.1: Repository structure
-TBD
+New_repo_name
+
+    new_repo_name
+        datasets_database
+            datasets
+            mappings
+        models
+            __init__.py
+        sos_process
+            __init__.py
+        tests
+            __init__.py
+        __init__.py
+    .coveragerc
+    .gitignore
+    LICENSE
+    platform_version_required.txt
+    pytest
+    README.md
+    requirements.in
+
+ 
 ### Section 4.2: Connect your repository to your GUI
-TBD
+- If you use the local installation with sostrades-dev-tools:
+  1. Locate `sostrades-dev-tools\model_repositories.json`
+  2. Add your GitHub repository URL inside this file
+
