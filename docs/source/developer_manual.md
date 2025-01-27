@@ -39,7 +39,7 @@ Any SoSTrades study is based on a single process (several studies can rely on th
 
 When a process is created, all its models’ inputs and outputs are assigned full names permitting their unique identification. This allows GEMSEO to infer the execution sequence required for their sensical evaluation.
 
-### Section 3.1 Notion of namespaces
+### Section 3.1 : Notion of namespaces
 A namespace represents the location where a set of variables is stored within a process. 
 Inputs and outputs as declared in the model wrapper define variables’ short names. When an instance of the model is added to a process, namespaces allow to uniquely identify variables as:
 
@@ -51,15 +51,18 @@ Namespaces are also used to organize the data location on the SoSTrades GUI (tre
 #### Local vs. Shared visibility
 By default, a variable declared in a model wrapper is considered to have Local visibility. When an instance of this model is used in a process, the variable will be stored in its own local namespace.
 
-**Example:** local variable “initial_population” is an input of “population” model. When used in a process by the model instance “MyStudy.France.population”, it will be assigned the full name “MyStudy.France.population.initial_population”.
+**Example:**
+local variable “initial_population” is an input of “population” model. When used in a process by the model instance “MyStudy.France.population”, it will be assigned the full name “MyStudy.France.population.initial_population”.
 
 If a variable is defined as having Shared visibility so that different models can use it, then it is necessary to assign a namespace field to its declaration in the model wrapper. This is the name of its namespace. 
 
-**Example:** variable “GDP” (gross domestic product) is an input of both the “population” and “economics” models. In both wrappers it is declared with Shared visibility in namespace “ns_country”.
+**Example:** 
+variable “GDP” (gross domestic product) is an input of both the “population” and “economics” models. In both wrappers it is declared with Shared visibility in namespace “ns_country”.
 
 When the model is instantiated in a process, a value is assigned (implicitly or explicitly) to every namespace involved, defining variable full names.  
 
-**Example:** by assigning “ns_country” to the value “MyStudy.France” upon model instantiation, both model instances “MyStudy.France.population” and “MyStudy.France.economics” will use the shared input “MyStudy.France.GDP”.
+**Example:** 
+by assigning “ns_country” to the value “MyStudy.France” upon model instantiation, both model instances “MyStudy.France.population” and “MyStudy.France.economics” will use the shared input “MyStudy.France.GDP”.
 
 #### Basic usage
 To couple two models, one will usually define the same shared namespace for the same variable in both wrappers. For example, to couple Disc1 and Disc2 via variables “y”, “z”:
@@ -80,13 +83,13 @@ An analogous strategy is used to share inputs between models.
 Every namespace has a name and a value. During the creation of a process (instantiation of the models), the value assigned to a certain name can change.
 This duality allows the user to control which variables are coupled and which are not, especially in a process containing several instances of the same generic model.
 
-•	Namespace name: defined in the I/O descriptor of the model wrapper for variables with Shared visibility (e.g. “ns_country”). 
-•	Namespace value: generally defined at process creation (e.g. “MyStudy.France”).
+-	Namespace name: defined in the I/O descriptor of the model wrapper for variables with Shared visibility (e.g. “ns_country”). 
+-	Namespace value: generally defined at process creation (e.g. “MyStudy.France”).
 
 Note that namespace names only provide a layer of abstraction for process creation. For a given SoSTrades study, namespace values alone will define the coupling structure and data organization (names are irrelevant). In this manner it is possible to:
 
-•	Set two namespaces with different names to have the same value. Any variables with the same full name will be matched (even if Local visibility was declared).
-•	Set a namespace name to take different values for different model instances, thus avoiding unwanted variable matches.
+-	Set two namespaces with different names to have the same value. Any variables with the same full name will be matched (even if Local visibility was declared).
+-	Set a namespace name to take different values for different model instances, thus avoiding unwanted variable matches.
 
 **Example:** model instances “MyStudy.France.population” and “MyStudy.France.economics” use input “MyStudy.France.GDP”. During process creation, the value of “ns_country” is updated from “MyStudy.France” to “MyStudy.Germany”, so that “MyStudy.Germany.population” and “MyStudy.Germany.economics” use input “MyStudy.Germany.GDP”. The data treeview of the study is organized as:
 
@@ -100,7 +103,7 @@ MyStudy
     |_ economics
 ```
 
-### Section 3.2 Notion of MDA to solve complex interactions
+### Section 3.2 : Notion of MDA to solve complex interactions
 #### Execution sequence
 
 The existence an input/output dependency between two models generates a coupling between them. This will alter the model execution sequence required for the sensical evaluation of the process: the model that computes an output needs to be executed before the model that is to take the value as input. 
@@ -142,10 +145,10 @@ This case requires distinguishing between NS_Public (same value for all models) 
 
 ![fleet aeroelasticity model](images/fleet_model_namespaces.png)
 
-**key points to remember**
+**Key Points to Remember**
 ![namespaces](images/namespaces.png)
 
-### Section 3.3 Create a process 
+### Section 3.3 : Create a process 
 
 ![how to create a process](images/process_creation.png)
 
@@ -160,20 +163,20 @@ This case requires distinguishing between NS_Public (same value for all models) 
 self.create_builder_list(mods_dict, ns_dict)
 ```
 
-•	mods_dict: dictionary {model instance name : model wrapper module and class}. The model wrapper class is a SoSWrapp subclass (cf. [Section 2](## Chapter 2: How to wrap your model in SoSTrades ?)).
-•	ns_dict: dictionary {namespace name : namespace value}, for all the shared namespaces to be used by the model instances.
+-	mods_dict: dictionary {model instance name : model wrapper module and class}. The model wrapper class is a SoSWrapp subclass (cf. [Section 2](#chapter-2-how-to-wrap-your-model-in-sostrades-)).
+-	ns_dict: dictionary {namespace name : namespace value}, for all the shared namespaces to be used by the model instances.
 
-An empty study can now be created on GUI, based on this process (cf. [Section 4](## Chapter 4 : How to create a Study in SoSTrades)).
+An empty study can now be created on GUI, based on this process (cf. [Section 4](#chapter-4--how-to-create-a-study-in-sostrades)).
 
 #### Advanced process creation
 **Example:** multi-scenario study using multi-instance driver.
 
 ![code multiscenario](images/code_ms.png)
 
-•	Allows to replicate a subprocess N times, scenarios can be defined on GUI.
-•	`self.ee.factory.get_builder_from_process` to obtain the subprocess builder from another process module.
-•	Build map new_map is used to specify the namespaces that will not be replicated (but shared among the different instances of the subprocess). 
-•	`self.ee.post_processing_manager.add_post_processing_module_to_namespace` to include post-processings in the study, other than the graphs and tables implemented in the model wrappers.
+-	Allows to replicate a subprocess N times, scenarios can be defined on GUI.
+-	`self.ee.factory.get_builder_from_process` to obtain the subprocess builder from another process module.
+-	Build map new_map is used to specify the namespaces that will not be replicated (but shared among the different instances of the subprocess). 
+-	`self.ee.post_processing_manager.add_post_processing_module_to_namespace` to include post-processings in the study, other than the graphs and tables implemented in the model wrappers.
 
 
 ## Chapter 4 : How to create a Study in SoSTrades
@@ -185,10 +188,11 @@ A SoSTrades Study represents the application of concrete input data to a process
 After implementing the process, it is possible to create an empty Study from it directly on the platform. In this case the user needs to input all necessary data manually before executing the Study. 
 
 A SoSTrades usecase is a script that pre-configures a Study with a given process plus a set of input data. All SoSTrades usecases are tested in the DevOps l1 step. Thus, usecases allow to:
-•	Reduce the amount of manual input required for the execution of a Study.
-•	Test the validity of a process before its execution on a web platform.
 
-### Section 4.1 Create a usecase 
+-	Reduce the amount of manual input required for the execution of a Study.
+-	Test the validity of a process before its execution on a web platform.
+
+### Section 4.1 : Create a usecase 
 
 A usecase implements a process with a set of input data to run on this process. 
 Here is a step-by-step on how to create a usecase:
@@ -199,7 +203,7 @@ To create a usecase for a specific process you need to add a new python file nam
 To create several usecases of the same usecase you can create different usecase python files, but you need to name them starting with *usecase*.
 Here is an example of a process directory content:
 ```
--	my_process_folder
+my_process_folder
     __init__.py
 	process.py
 	usecase_with_data1.py
@@ -213,6 +217,7 @@ This method returns a dictionary or list of dictionaries with the usecase inputs
 The keys of the dictionary are the namespace followed by the name of the data and separated by points.
 
 **Example:**
+
 ![sellar usecase](images/usecase_sellar.png)
 
 ### Section 4.2 : Test and validate your study
@@ -244,20 +249,29 @@ The `show` method will open a window in your preferred web browser for each post
 #### Method 2: Using the Graphical Interface
 
 1.	Ensure the usecase is correctly created. If so, it will appear in the list of references on the site.
+
 ![references management](images/UI_ref_management.png)
 
+
 2.	Generate the reference from the site. The reference will load the data of the usecase and it will run it (unless it is declared to not do so).
-![generate reference](images/UI8generate_ref.png)
+
+![generate reference](images/UI_generate_ref.png)
+
 
 3.	Create an instance of the usecase via the interface.
+
 ![create study](images/UI_create_study.png)
+
 ![create new study](images/UI_create_new_study.png)
  
+
 4.	After the creation, the study is opened. In the Data tab, you will find the inputs and outputs of the study. The study has already run so it is in read only mode.
+
 ![opened study](images/UI_study_opened.png)
 
+
 5.	You can switch in edition mode and modify the inputs if needed or execute the study directly from the graphical interface.
-Method 3: Create empty study in the graphical interface
+
 
 #### Method 3: Create empty study in the graphical interface
 1.	On the Study Management page of the Sostrades website, click on the “Create study”, select the desired process and let the reference to “Empty Study”.
