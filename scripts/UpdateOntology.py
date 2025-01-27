@@ -9,12 +9,15 @@ all_model_directory = list_directory_paths(model_path)
 
 python_path=""
 for source in all_model_directory:
-    python_path+= "'" + source + "'" + os.pathsep
+    if platform.system() == "Windows":
+       python_path+= source+ os.pathsep
+    else:
+       python_path+= "'" +source + "'" + os.pathsep 
 for source in all_platform_directory:
-    python_path+= "'" + source + "'" + os.pathsep
-
-if platform.system() == "Windows":
-    python_path=python_path.replace("/","\\")
+    if platform.system() == "Windows":
+        python_path+= source + os.pathsep
+    else:
+        python_path+= "'" +source + "'" + os.pathsep
 
 
 print(f'PYTHONPATH={python_path}')

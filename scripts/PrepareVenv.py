@@ -59,9 +59,9 @@ if (
     )
 
 # Create a venv with the good python version inside sostrades-dev-tools/.venv
-create_venv_command = f"{sys.executable} -m venv '{venv_path}'"
+create_venv_command = f'{sys.executable} -m venv "{venv_path}"'
 run_command(create_venv_command)
-print(f"Venv created in the folling path : '{venv_path}'")
+print(f'Venv created in the folling path : "{venv_path}"')
 
 # Install platform and model requirements
 if not os.path.exists(venv_script_activate_path):
@@ -73,17 +73,17 @@ requirements_models = []
 for model_folder in os.listdir(model_path):
     requirements_path = f"{model_path}/{model_folder}/requirements.in"
     if os.path.exists(requirements_path):
-        requirements_models.append(f"-r '{model_path}/{model_folder}/requirements.in'")
+        requirements_models.append(f'-r "{model_path}/{model_folder}/requirements.in"')
 requirements_model_command = " ".join(requirements_models)
 run_command(
-    f"{venv_script_activate_command} && python -m pip list && \
+    f'"{venv_script_activate_command} && python -m pip list && \
             python -m pip install --no-cache-dir wheel && \
             python -m pip install --no-cache-dir \
-            -r '{platform_path}/sostrades-core/requirements.in' \
-            -r '{platform_path}/sostrades-ontology/requirements.in' \
-            -r '{platform_path}/sostrades-webapi/requirements.in' \
+            -r "{platform_path}/sostrades-core/requirements.in" \
+            -r "{platform_path}/sostrades-ontology/requirements.in" \
+            -r "{platform_path}/sostrades-webapi/requirements.in" \
             {requirements_model_command}\
-            && python -m pip list"
+            && python -m pip list"'
 )
 
 #  Create sostrades.pth inside the .venv

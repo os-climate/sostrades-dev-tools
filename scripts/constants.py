@@ -33,7 +33,7 @@ venv_path = f"{sostrades_dev_tools_path}/.venv"
 if platform.system() == 'Windows':
     # Define the variable with a Windows-specific path
     venv_script_activate_path = f"{venv_path}/Scripts/activate"
-    venv_script_activate_command = f"{venv_path}/Scripts/activate"
+    venv_script_activate_command = f'"{venv_path}/Scripts/activate"'
     venv_lib_site_package_path = f"{venv_path}/lib/site-packages"
 else:
     # Define the variable with a generic path for other platforms
