@@ -80,7 +80,7 @@ On the other hand, if we want Disc1 and Disc2 to be independent (no coupling var
 An analogous strategy is used to share inputs between models.
 
 #### Namespace names and values
-Every namespace has a name and a value. During the creation of a process (instantiation of the models), the value assigned to a certain name can change.
+In practice, every namespace has a name and a value. During the creation of a process (instantiation of the models), the value assigned to a certain name can change.
 This duality allows the user to control which variables are coupled and which are not, especially in a process containing several instances of the same generic model.
 
 -	Namespace name: defined in the I/O descriptor of the model wrapper for variables with Shared visibility (e.g. “ns_country”). 
@@ -213,6 +213,7 @@ my_process_folder
 ```
 
 2. Completing the usecase
+
 The new usecase.py will define a Study class that inherits from StudyManager class.
 You can implement the `setup_usecase()` method to define the data associated with the usecase. 
 This method returns a dictionary or list of dictionaries with the usecase inputs you want to define. 
@@ -225,7 +226,7 @@ The keys of the dictionary are the namespace followed by the name of the data an
 ### Section 4.2 : Test and validate your study
 
 Once the usecase is created, you can create a study to check that it is correctly defined.
-A study is an instance of a usecase. A study can also be empty, it will represent the process with no inputs. An empty study can be created and then edited directly on the Sostrades website.
+A study is an instance of a usecase. A study can also be empty, it will represent the process with no inputs. An empty study can be created and then edited directly on the Sostrades platform.
 To create a study from a usecase, you can use one of the two methods below:
 
 #### Method 1: Using a Script
@@ -292,9 +293,12 @@ By following these methods, you can efficiently create and execute studies based
 ![create usecase keypoints](images/create_usecase_keypoints.png)
 
 
-## Chapter 5 : How to create your own repository ? 
+## Chapter 5 : How to plug your own repository to the platform
 
-### section 5.1 : Repository structure
+This section explains the procedure to include a repository of choice in the SoSTrades platform.
+This is the procedure to follow when adding a new models repository, for instance.
+
+### Section 5.1 : Repository structure
 
 The repository must be a git repository, and have the following structure:
 
@@ -304,12 +308,12 @@ The repository must be a git repository, and have the following structure:
 
 The repository must contain a main folder for the repository main python module.
 This folder MUST contain an `__init__.py` file.
-And more generally, <span style="color: red;">each folder in your repository must contain an `__init__.py` file.</span>
+More generally, <span style="color: red;">each python module must contain an `__init__.py` file.</span>
 
 
-2. The processes folder
+2. The processes module
 
-The processes and usecases needs to be in a folder named `sos_processes`.
+The processes and usecases need to be in a module named `sos_processes`.
 Each process needs to have its folder named with the name of the process. 
 
 A process name should be :
@@ -320,19 +324,21 @@ A process name should be :
 The folder of a process contains :
 - an `__init__.py` file.
 - a `process.py` file that contains the ProcessBuilder class of the process.
-- one or several usecases files named with the usecase name but that must start with 'usecase_'.
+- any number of usecase files named starting with 'usecase_'.
 - if the process has a specific documentation, the documentation markdown is in a folder named `documentation` and the markdown file must be named `process.md`.
 
 **An example of a `sos_processes` folder:**
 
 ![sos_processes folder](images/repo_step2.png)
 
-3. The disciplines folder
+3. The model wrapper module
 
-The disciplines are in a folder named `sos_wrapping`.
-There is no such strict rules as for the processes folder. 
+Model wrappers are in a folder named `sos_wrapping`.
+There are no such strict rules as for the process folder. 
 The only rule is that the documentation of a discipline must be a markdown file in a `documentation` folder named with the same name as the discipline file name.
 And that each folder must contain an `__init__.py` file.
+For complex models, it is recommended to separate the wrapper from the model, even if coding it 
+
 
 **An example of a `sos_wrapping` folder:**
 
@@ -348,8 +354,21 @@ If you want to use the repository datasets you can create a `datasets_database` 
 ![datasets foler](images/repo_step4.png)
 
 
-### section 5.2 : Connect your repo to your local GUI or to OSC-TSA GUI
-Please follow the [add a new repository](add-repository.md) page to add a new repository.
+### Section 5.2 : Connect your repo to the SoSTrades platform
+In order to use the models and processes from your repository on the SoSTrades GUI, it is necessary to connect the repository to the platform.
 
+#### Local platform
 
+To add a new repository to an already deployed local platform, please follow the [add a new repository](add-repository.md).
 
+The procedure is simplified if the platform is being deployed from scratch. In this case, it suffices to add your repository and 
+the relevant branch to the file 
+
+````
+./sostrades-dev-tools/model_repositories.json
+````
+
+![model_repositories_json](images/model_repositories_json.png)
+
+#### Web platform / OSC-TSA
+Contact the SoSTrades development team.
