@@ -354,10 +354,8 @@ If you want to use the repository datasets you can create a `datasets_database` 
 ![datasets foler](images/repo_step4.png)
 
 
-### Section 5.2 : Connect your repo to the SoSTrades platform
+### Section 5.2 : Connect your repo to the SoSTrades local platform
 In order to use the models and processes from your repository on the SoSTrades GUI, it is necessary to connect the repository to the platform.
-
-#### Local platform
 
 To add a new repository to an already deployed local platform, please follow the [add a new repository](add-repository.md).
 
@@ -370,5 +368,3 @@ the relevant branch to the file
 
 ![model_repositories_json](images/model_repositories_json.png)
 
-#### Web platform / OSC-TSA
-Contact the SoSTrades development team.
