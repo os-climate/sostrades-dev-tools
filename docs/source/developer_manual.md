@@ -145,7 +145,8 @@ This case requires distinguishing between NS_Public (same value for all models) 
 
 ![fleet aeroelasticity model](images/fleet_model_namespaces.png)
 
-**Key Points to Remember**
+### **Key Points to Remember**
+
 ![namespaces](images/namespaces.png)
 
 ### Section 3.3 : Create a process 
@@ -285,64 +286,69 @@ The `show` method will open a window in your preferred web browser for each post
 
 By following these methods, you can efficiently create and execute studies based on your usecases.
 
-**Key Points to Remember:**
+### **Key Points to Remember:**
+
 ![create usecase keypoints](images/create_usecase_keypoints.png)
 
 
 ## Chapter 5 : How to create your own repository ? 
-Please follow the [add a new repository](add-repository.md) page to add new repositories.
 
-1. Create a new repository
-   - Create a new repository on GitHub
-   - Follow SoSTrades naming conventions for consistency
+### section 5.1 : Repository structure
 
-2. Configure the Acess Management
-Add the following groups with admin role:
-- Business For Planet Modeling - Devops
-- Business For Planet Modeling - Core developer
-- Business For Planet Modeling - Repository admin
+The repository must be a git repository, and have the following structure:
 
-3. Branch Structure
-Your repository must include these mandatory branches:
-- `develop`: Main development branch
-- `integration`: Testing branch for deployed integration platform
-- `post_integration`: Pre-validation branch, this platform is used for tests pipeline before merge into validation
-- `validation`:  For validation platform where all tests are validated
-- `main`: Release branch
+![Repository structure](images/repo_step1_.png)
 
-4. Development Workflow
-- Development starts on `develop` branch
-- Then merge the develop into integration
-- Automatic pipeline handles merges through branches
-- Flow: integration → post_integration → validation → main
+1. The main module folder
 
-### Section 5.1: Repository structure
+The repository must contain a main folder for the repository main python module.
+This folder MUST contain an `__init__.py` file.
+And more generally, <span style="color: red;">each folder in your repository must contain an `__init__.py` file.</span>
 
-```
-New_repo_name
 
-    new_repo_name
-        datasets_database
-            datasets
-            mappings
-        models
-            __init__.py
-        sos_process
-            __init__.py
-        tests
-            __init__.py
-        __init__.py
-    .coveragerc
-    .gitignore
-    LICENSE
-    platform_version_required.txt
-    pytest
-    README.md
-    requirements.in
-```
- 
-### Section 5.2: Connect your repository to your GUI
-- If you use the local installation with sostrades-dev-tools:
-  1. Locate `sostrades-dev-tools\model_repositories.json`
-  2. Add your GitHub repository URL inside this file
+2. The processes folder
+
+The processes and usecases needs to be in a folder named `sos_processes`.
+Each process needs to have its folder named with the name of the process. 
+
+A process name should be :
+- without space
+- without special caracters
+- words separated by underscores '_'
+
+The folder of a process contains :
+- an `__init__.py` file.
+- a `process.py` file that contains the ProcessBuilder class of the process.
+- one or several usecases files named with the usecase name but that must start with 'usecase_'.
+- if the process has a specific documentation, the documentation markdown is in a folder named `documentation` and the markdown file must be named `process.md`.
+
+**An example of a `sos_processes` folder:**
+
+![sos_processes folder](images/repo_step2.png)
+
+3. The disciplines folder
+
+The disciplines are in a folder named `sos_wrapping`.
+There is no such strict rules as for the processes folder. 
+The only rule is that the documentation of a discipline must be a markdown file in a `documentation` folder named with the same name as the discipline file name.
+And that each folder must contain an `__init__.py` file.
+
+**An example of a `sos_wrapping` folder:**
+
+![sos_wrapping folder](images/repo_step3.png)
+
+
+4. the datasets folder
+
+If you want to use the repository datasets you can create a `datasets_database` folder that will contain:
+- a `datasets` folder that contains datasets data
+- a `mappings` folder that contains the mapping files.
+
+![datasets foler](images/repo_step4.png)
+
+
+### section 5.2 : Connect your repo to your local GUI or to OSC-TSA GUI
+Please follow the [add a new repository](add-repository.md) page to add a new repository.
+
+
 
