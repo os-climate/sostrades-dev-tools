@@ -30,5 +30,6 @@ os.chdir(f"{platform_path}/sostrades-ontology")
 run_command(
     f'{venv_script_activate_command} && python sos_ontology/core/script/createSoSOntologyFromCode.py'
 )
+print("Finished")
 
 os.chdir(sostrades_dev_tools_path)
