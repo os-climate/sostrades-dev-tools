@@ -67,7 +67,7 @@ Date: 2024-11-21
 
 #### API
 - Integrated Keycloak provider to handle user authentication
-- Migrated to SQLite for more efficient database management
+- Support of SQLite for local installation
     ### Important Upgrade Information for v4.2.0
     - To upgrade to version 4.2.0, you must update your database configuration in the sostrades-webapi `configuration.json` file. 
     - If you wish to maintain connectivity with your existing MySQL database, follow these steps:
