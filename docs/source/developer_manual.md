@@ -104,6 +104,7 @@ MyStudy
 ```
 
 ### Section 3.2 : Notion of MDA to solve complex interactions
+
 #### Execution sequence
 
 The existence an input/output dependency between two models generates a coupling between them. This will alter the model execution sequence required for the sensical evaluation of the process: the model that computes an output needs to be executed before the model that is to take the value as input. 
@@ -182,7 +183,7 @@ An empty study can now be created on GUI, based on this process (cf. [Section 4]
 
 ## Chapter 4 : How to create a Study in SoSTrades
 
-#### Study vs. usecase
+### Study vs. usecase
 
 A SoSTrades Study represents the application of concrete input data to a process. Studies can be created, configured (modification of inputs) and run (computation of outputs) on the SoSTrades platform. 
 
@@ -297,7 +298,7 @@ By following these methods, you can efficiently create and execute studies based
 
 The repository must be a git repository, and have the following structure:
 
-![Repository structure](images/repo_step1_.png)
+![Repository structure](images/repo_step1.png)
 
 1. The main module folder
 
