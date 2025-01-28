@@ -20,7 +20,7 @@ Then is is possible to run the .venv with the commande sostrades-dev-tools/.venv
 '''
 import os
 import sys
-import platform
+
 from constants import (
     platform_path,
     model_path,
@@ -75,28 +75,17 @@ for model_folder in os.listdir(model_path):
     if os.path.exists(requirements_path):
         requirements_models.append(f'-r "{model_path}/{model_folder}/requirements.in"')
 requirements_model_command = " ".join(requirements_models)
-if platform.system() == "Windows":
-    run_command(
-        f'"{venv_script_activate_command} && python -m pip list && \
-        python -m pip install --no-cache-dir wheel && \
-        python -m pip install --no-cache-dir \
-        -r "{platform_path}/sostrades-core/requirements.in" \
-        -r "{platform_path}/sostrades-ontology/requirements.in" \
-        -r "{platform_path}/sostrades-webapi/requirements.in" \
-        {requirements_model_command}\
-        && python -m pip list"'
-    )
-else:
-    run_command(
-        f'{venv_script_activate_command} && python -m pip list && \
-        python -m pip install --no-cache-dir wheel && \
-        python -m pip install --no-cache-dir \
-        -r "{platform_path}/sostrades-core/requirements.in" \
-        -r "{platform_path}/sostrades-ontology/requirements.in" \
-        -r "{platform_path}/sostrades-webapi/requirements.in" \
-        {requirements_model_command}\
-        && python -m pip list'
-    )
+
+run_command(
+    f'{venv_script_activate_command} && python -m pip list && \
+    python -m pip install --no-cache-dir wheel && \
+    python -m pip install --no-cache-dir \
+    -r "{platform_path}/sostrades-core/requirements.in" \
+    -r "{platform_path}/sostrades-ontology/requirements.in" \
+    -r "{platform_path}/sostrades-webapi/requirements.in" \
+    {requirements_model_command}\
+    && python -m pip list'
+)
 
 #  Create sostrades.pth inside the .venv
 sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
