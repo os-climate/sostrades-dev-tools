@@ -1,10 +1,14 @@
 #!/bin/sh
 
-# Define your function here
 launch_tests() {
    echo $1 testing...
    pytest -v ./$2/tests/l0_test_header.py::Testheader
 }
+
+cd ../
+
+cd ./models/sostrades-optimization-plugins
+launch_tests sostrades-optimization-plugins sostrades_optimization_plugins
 
 cd ./models/witness-core
 launch_tests witness-core climateeconomics
@@ -24,7 +28,3 @@ launch_tests sostrades-ontology sos_ontology
 cd -
 cd ./platform/sostrades-webapi 
 launch_tests sostrades-webapi sos_trades_api
-
-
-
-

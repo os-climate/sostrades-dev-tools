@@ -26,16 +26,18 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.3"
+ARG NUMPY_VERSION="1.24.4"
 
-# Upgrade pip
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==${NUMPY_VERSION}
+# Upgrade pip and install uv
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir uv && \
+    python -m uv pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.19.6"
+ARG PETSC_VERSION="3.21.6"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
+ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
 
 # Download and install PETSc
 RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
@@ -46,42 +48,42 @@ RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/pets
     ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${PETSC_INSTALL_DIR}&& \
     make all install check && \
     cd ../ && \
-    rm -rf ${PETSC_BUILD_DIR}
+    rm -rf ${PETSC_BUILD_DIR} && \
+    echo "${PETSC_INSTALL_DIR}/lib" > "${PYTHON_SITE_PACKAGE_DIR}/petsc4py.pth"
 
 # Update env with PETSC install
 ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
-ENV PYTHONPATH=${PETSC_INSTALL_DIR}/lib:${PYTHONPATH}
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
+ARG KUBERNETES_VERSION="29.0.0"
+
 # Install ontology requirements
-COPY ./platform/sostrades-core/dev.requirements.txt dev.requirements.txt
+COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 
-RUN sed -i '/petsc\|numpy/d' dev.requirements.txt && \
-    pip install --no-cache-dir -r dev.requirements.txt debugpy
+RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' dev.requirements.txt && \
+    python -m uv pip install --no-cache-dir -r dev.requirements.txt debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
+    python -m uv pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
 
-COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
 COPY ./platform/sostrades-core ./platform/sostrades-core
-COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
 COPY ./models ./models
 
-## SET PYTHONPATH
-RUN ls -d platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
-    ls -d models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \
-    echo "/petsc-install/lib" >> /tmp/pythonpath.txt && \
-    sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
-    truncate -s-1 /tmp/pythonpath.txt
-
-# export pythonpath with all repo and launch script to generate .owl
-RUN export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
-    echo $PYTHONPATH && \
-    python platform/sostrades-ontology/sos_ontology/core/script/createSoSOntologyFromCode.py
+# Update PYTHONPATH
+RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
+    ls -d ${pwd}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
+    sed -i '$ s/.$//' /tmp/pythonpath.txt && \
+    export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
+    echo "PYTHONPATH=$PYTHONPATH" && \
+    python -u platform/sostrades-ontology/sos_ontology/core/script/createSoSOntologyFromCode.py
 
 #------------------------------------------------------------------------------
 
 FROM python:3.9
+
+# Numpy version
+ARG NUMPY_VERSION="1.24.4"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
@@ -92,15 +94,24 @@ RUN mkdir -p /usr/local/sostrades/sources
 RUN mkdir /startup
 
 # Install ontology requirements
-COPY ./platform/sostrades-ontology/ontology.requirements.txt ontology.requirements.txt
-RUN pip install --no-cache-dir -r ontology.requirements.txt gunicorn
+COPY ./platform_requirements/ontology.requirements.txt ontology.requirements.txt
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir uv && \
+    python -m uv pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
+COPY ./platform/sostrades-ontology /usr/local/sostrades/sources/platform/sostrades-ontology
 
-WORKDIR /usr/local/sostrades/sources/sostrades-ontology
-COPY ./platform/sostrades-ontology .
+# Add repositories needed to pass test on ontology image
+COPY ./platform/sostrades-core/sostrades_core /usr/local/sostrades/sources/platform/sostrades-core/sostrades_core
+
+# Update PYTHONPATH
+ENV PYTHONPATH="${PYTHONPATH}:/usr/local/sostrades/sources/platform/sostrades-ontology:/usr/local/sostrades/sources/platform/sostrades-core"
 
 # Copy startup files for ontology
 ADD ./dockers/ontology/scripts /startup
 
-COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/sostrades-ontology/sos_ontology/data/
+COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data/
+
+# Change workdir to run test on ontology image
+WORKDIR /usr/local/sostrades/sources/
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]

@@ -26,14 +26,15 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.3"
+ARG NUMPY_VERSION="1.24.4"
 
-# Upgrade pip
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==${NUMPY_VERSION}
+# Upgrade pip and install uv
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir uv && \
+    python -m uv pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.19.6"
+ARG PETSC_VERSION="3.21.6"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
@@ -53,29 +54,34 @@ RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/pets
 # Update env with PETSC install
 ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
 ENV PETSC_DIR=${PETSC_INSTALL_DIR}
+ENV USE_PETSC="True"
+
+# Allow flask to work withtout .flaskenv file in git repository
+ENV FLASK_APP=sos_trades_api/server/base_server.py
 
 # Install path for sostrades
 ARG SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
 RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
 WORKDIR ${SOS_TRADES_SOURCES}
 
+ARG KUBERNETES_VERSION="29.0.0"
+
 # Copy Python requirements and install them
-COPY ./platform/sostrades-webapi/api.requirements.txt api.requirements.txt
-RUN sed -i '/petsc\|numpy/d' api.requirements.txt && \
-    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy
+COPY ./platform_requirements/api.requirements.txt api.requirements.txt
+RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
+    python -m uv pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
+    python -m uv pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
 
 # Copy models and platform repos for standalone image if needed
-COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
-RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
 COPY ./platform/sostrades-core ./platform/sostrades-core
-
 COPY ./models ./models
+
+RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
 
 # Update PYTHONPATH
 RUN ls -d ${SOS_TRADES_SOURCES}/platform/* > "${PYTHON_SITE_PACKAGE_DIR}/sostrades.pth" && \ 
-    ls -d ${SOS_TRADES_SOURCES}/models/* >> "${PYTHON_SITE_PACKAGE_DIR}/sostrades.pth" && \ 
-    sed -i "s|gemseo|gemseo/src|g" "${PYTHON_SITE_PACKAGE_DIR}/sostrades.pth"
+    ls -d ${SOS_TRADES_SOURCES}/models/* >> "${PYTHON_SITE_PACKAGE_DIR}/sostrades.pth"
 
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]

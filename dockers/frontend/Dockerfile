@@ -13,7 +13,7 @@
 # limitations under the License.
 #------------------------------------------------------------------------------
 # Stage 1 : Distribution building
-FROM node:12.16.1 as front_build
+FROM node:18.10.0 as front_build
 #------------------------------------------------------------------------------
 # Remove question about analytics
 RUN export NG_CLI_ANALYTICS=off
@@ -27,8 +27,21 @@ RUN npm install
 
 #------------------------------------------------------------------------------
 # Extract source code 'sostrades-webgui'
-COPY  ./platform/sostrades-webgui ./
-RUN node_modules/@angular/cli/bin/ng build --prod
+COPY  ./platform/sostrades-webgui/src ./src
+COPY ["./platform/sostrades-webgui/*.json", "./platform/sostrades-webgui/.browserslistrc", "./"]
+RUN npm run build -- --configuration production
+
+#------------------------------------------------------------------------------
+# Get commit id of the current webgui repo
+ADD ./platform/sostrades-webgui/.git/HEAD .git/HEAD
+ADD ./platform/sostrades-webgui/.git/refs/heads/ .git/refs/heads/
+RUN if cat .git/HEAD | grep -q '^ref:'; then \
+        # That means you are working on refs/heads/<branch>
+        cat .git/$(cat .git/HEAD | sed 's/^ref: //') > build-commit-id.txt; \
+    else \
+     # That means you are in detached HEAD
+        cat .git/HEAD > build-commit-id.txt; \
+    fi
 
 #------------------------------------------------------------------------------
 # Stage 2 : Final image buiding with NGINX webserver
@@ -41,3 +54,7 @@ COPY --from=front_build /tmp/node_build/sostrades-webgui/dist/sos-trades-gui /us
 #------------------------------------------------------------------------------
 # Transfer nginx configuration
 COPY ./dockers/frontend/conf/nginx.conf /etc/nginx/nginx.conf
+
+#------------------------------------------------------------------------------
+# Transfer build commit id 
+COPY --from=front_build /tmp/node_build/sostrades-webgui/build-commit-id.txt /tmp/build-commit-id.txt

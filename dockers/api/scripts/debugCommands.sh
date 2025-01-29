@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-pip install importlib-metadata==4.13.0
 
 python /startup/check_database_is_ready.py
 

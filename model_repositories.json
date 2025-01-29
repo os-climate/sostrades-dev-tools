@@ -1,5 +1,9 @@
 [
     {
+        "url": "https://github.com/os-climate/sostrades-optimization-plugins.git",
+        "branch": "validation"
+    },
+    {
         "url": "https://github.com/os-climate/witness-core.git",
         "branch": "validation"
     },
