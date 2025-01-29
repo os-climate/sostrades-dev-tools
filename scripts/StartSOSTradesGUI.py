@@ -1,3 +1,21 @@
+"""
+Copyright 2024 Capgemini
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+"""
+StartSOSTrades.py is a script that run api server, ontology server, and webgui server with venv and node
+"""
 import os
 import queue
 import subprocess
@@ -34,6 +52,7 @@ class CommandWindow:
         self.terminated = False
         self.completed = False
         self.memory_usage = "N/A"
+        self.auto_scroll = tk.BooleanVar(value=True)  # Default to True
 
     def launch(self, command_windows):
         if self.status != "Running" and not self.completed:
@@ -238,6 +257,13 @@ class Application(tk.Tk):
                 text="Debug Mode",
                 variable=cmd_window.debug_mode,
             ).pack(side="left", padx=5)
+        
+        # Add auto-scroll checkbox
+        ttk.Checkbutton(
+            control_frame,
+            text="Auto-scroll",
+            variable=cmd_window.auto_scroll,
+        ).pack(side="left", padx=5)
 
         # Modify the status label to include memory usage
         status_label = ttk.Label(control_frame, text="Status: Idle | Memory: N/A")
@@ -271,7 +297,8 @@ class Application(tk.Tk):
             while not cmd_window.output_queue.empty():
                 line = cmd_window.output_queue.get()
                 output_text.insert(tk.END, line)
-                output_text.see(tk.END)
+                if cmd_window.auto_scroll.get():  # Only auto-scroll if checkbox is checked
+                    output_text.see(tk.END)
             status_label.config(text=f"Status: {cmd_window.status} | Memory: {cmd_window.memory_usage}")
 
             # Update status light
@@ -290,9 +317,13 @@ class Application(tk.Tk):
         self.update_memory_usage(cmd_window, status_label)
 
     def update_memory_usage(self, cmd_window, status_label):
-        status_label.config(text=f"Status: {cmd_window.status} | Memory: {cmd_window.memory_usage}")
-        self.after(self.update_interval, lambda: self.update_memory_usage(cmd_window, status_label))
-
+        status_label.config(
+            text=f"Status: {cmd_window.status} | Memory: {cmd_window.memory_usage}"
+        )
+        self.after(
+            self.update_interval,
+            lambda: self.update_memory_usage(cmd_window, status_label),
+        )
 
     def launch_command(self, cmd_window):
         cmd_window.launch(self.command_windows)
