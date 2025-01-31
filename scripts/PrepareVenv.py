@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 '''
-PrepareVenv.py is a script that install venv in the path sostrades-dev-tools/.venv only if you have a python version in v3.9.
+PrepareVenv.py is a script that install venv in the path sostrades-dev-tools/.venv only if you have a python with any version and pip module installed.
 After the environement is created it will install all requirements of platform, model, and in addition python_ldap. 
 At the end of the script, a file sostrades-dev-tools/.venv/lib/site-packages/sostrades.pth with is created with all path of the different repositories.
 Then is is possible to run the .venv with the commande sostrades-dev-tools/.venv/Scripts/activate
@@ -28,6 +28,7 @@ from constants import (
     venv_script_activate_command,
     venv_path,
     venv_lib_site_package_path,
+    python_version_to_install,
 )
 from tooling import run_command, list_directory_paths
 
@@ -41,27 +42,24 @@ def write_array_to_file(array, file_path):
             f.write(f"{item}\n")
     print(f"Array written to {file_path} successfully.")
 
-
-# Display Python version
-python_version = sys.version.split()[0]
-print(f"Python version : {python_version}")
-
-# Check Python version
-accepted_python_major_version = 3
-accepted_python_minor_version = 9
-
-if (
-    sys.version_info.major != accepted_python_major_version
-    or sys.version_info.minor != accepted_python_minor_version
-):
+# Check pip module is installed
+check_pip_command = f"{sys.executable} -m pip --version"    
+if os.system(check_pip_command) != 0:
     raise Exception(
-        f"Python version : {python_version} but python v{accepted_python_major_version}.{accepted_python_minor_version} is required"
+        f"Pip module is required to run this script. Please install it before running this script."
     )
 
-# Create a venv with the good python version inside sostrades-dev-tools/.venv
-create_venv_command = f'{sys.executable} -m venv "{venv_path}"'
-run_command(create_venv_command)
-print(f'Venv created in the folling path : "{venv_path}"')
+# Install uv module
+install_uv_command = f"{sys.executable} -m pip install uv"
+run_command(install_uv_command)
+
+# Create a venv with the good python version inside sostrades-dev-tools/.venv if it doesn't exist
+create_venv_command = f'{sys.executable} -m uv venv "{venv_path}" --python={python_version_to_install}'
+if not os.path.exists(venv_script_activate_path):
+    run_command(create_venv_command)
+    print(f'Venv created in the folling path : "{venv_path}"')
+else:
+    print(f'Venv already exists in the following path : "{venv_path}"')
 
 # Install platform and model requirements
 if not os.path.exists(venv_script_activate_path):
@@ -77,14 +75,13 @@ for model_folder in os.listdir(model_path):
 requirements_model_command = " ".join(requirements_models)
 
 run_command(
-    f'{venv_script_activate_command} && python -m pip list && \
-    python -m pip install --no-cache-dir wheel && \
-    python -m pip install --no-cache-dir \
+    f'{venv_script_activate_command} && uv pip list && \
+    uv pip install --no-cache-dir \
     -r "{platform_path}/sostrades-core/requirements.in" \
     -r "{platform_path}/sostrades-ontology/requirements.in" \
     -r "{platform_path}/sostrades-webapi/requirements.in" \
-    {requirements_model_command}\
-    && python -m pip list'
+    {requirements_model_command} && \
+    uv pip list'
 )
 
 #  Create sostrades.pth inside the .venv

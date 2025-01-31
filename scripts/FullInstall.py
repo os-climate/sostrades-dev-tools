@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-import subprocess
+from tooling import run_command
 from os.path import dirname, join
 import sys
 
@@ -22,7 +22,7 @@ for script in scripts_list:
     print(f'---------------------------------------------')
     print(f'Starting {script} script')
     print(f'---------------------------------------------')
-    subprocess.run([sys.executable, join(dirname(__file__), f"{script}.py")])
+    run_command(f'{sys.executable} {join(dirname(__file__), script+".py")}')
     print(f'---------------------------------------------')
     print(f'End of {script} script')
     print(f'---------------------------------------------')
