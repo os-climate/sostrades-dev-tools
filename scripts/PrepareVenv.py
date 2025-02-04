@@ -31,6 +31,7 @@ from constants import (
     python_version_to_install,
 )
 from tooling import run_command, list_directory_paths
+import platform
 
 
 # Function to write a file from array
@@ -83,6 +84,11 @@ run_command(
     {requirements_model_command} && \
     uv pip list'
 )
+
+# Install python-ldap package with pip because it does not work with uv on windows environement
+if platform.system() == 'Windows':
+    run_command(f"{venv_script_activate_command} && uv pip install pip")
+    run_command(f'{venv_script_activate_command} && pip install https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl')
 
 #  Create sostrades.pth inside the .venv
 sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
