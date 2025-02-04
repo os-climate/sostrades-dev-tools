@@ -55,7 +55,7 @@ install_uv_command = f"{sys.executable} -m pip install uv"
 run_command(install_uv_command)
 
 # Create a venv with the good python version inside sostrades-dev-tools/.venv if it doesn't exist
-create_venv_command = f'{sys.executable} -m uv venv "{venv_path}" --python={python_version_to_install}'
+create_venv_command = f'uv venv "{venv_path}" --python={python_version_to_install}'
 if not os.path.exists(venv_script_activate_path):
     run_command(create_venv_command)
     print(f'Venv created in the folling path : "{venv_path}"')
