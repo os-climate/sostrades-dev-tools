@@ -51,17 +51,16 @@ If a prior SoSTrades installation relying on `PYTHONPATH` exists, it must be dis
 #### 2.1.1 Common Prerequisites
 
 > - 10 GB of disk space.
-> - Python version 3.9.x (latest pre-built [here](https://www.python.org/downloads/release/python-3913/)).
+> - Any version of Python installed
+> - pip module
 > - Git.
 > - NVS on Linux
 
-*Note:* If a different Python version is installed, the `python` command is probably bound to it, resulting in a version conflict. Use the full path to the Python 3.9 executable (3.9.x) in your filesystem to call the various scripts.
-On Windows installation, python is typically installed in `C:/Users/<User>/AppData/Local/Programs/Python/Python39/python.exe`
-
-Verify versions:
+Verify prerequisites:
 
 ```bash
-<path_to_python_3.9_executable> --version
+python --version
+python -m pip --version
 git --version
 ```
 
@@ -148,7 +147,7 @@ Edit `model_repositories.json` and `platform_repositories.json` to specify repos
 This script clones the repositories and creates configuration files for VS Code.
 
 ```bash
-<path_to_python_3.9_executable> scripts/PrepareDevEnv.py
+python scripts/PrepareDevEnv.py
 ```
 
 ## 3. Local Model Development Environment Installation
@@ -161,7 +160,7 @@ Follow the [Common Setup section](#2-common-setup).
 
 ### 3.2 Prepare Virtual Environment
 ```bash
-<path_to_python_3.9_executable> scripts/PrepareVenv.py
+python scripts/PrepareVenv.py
 ```
 
 Some usage tips for Visual Studio Code and venv are available in [Visual Studio Code and Venv Tips](vs_code_venv_tips.md) and are recommended if you plan to develop models.
@@ -180,30 +179,30 @@ Follow:
 
 1. Run `Configuration.py`:
     ```bash
-    <path_to_python_3.9_executable> scripts/Configuration.py
+    python scripts/Configuration.py
     ```
 
 2. Run `NodeInstallation.py` to install NVS and Node. At the end of the script, it will ask you if you want to build the webgui:
     ```bash
-    <path_to_python_3.9_executable> scripts/NodeInstallation.py
+    python scripts/NodeInstallation.py
     ```
 
 3. Create a user with `CreateUser.py`:
     ```bash
-    <path_to_python_3.9_executable> scripts/CreateUser.py
+    python scripts/CreateUser.py
     ```
 Important: the `CreateUser.py` script will ask you to input some information (user, name, last name, and e-mail). Leaving any of these fields empty will result in the script crashing; at least a character is required. 
 
 4. (optional) Update Ontology. This script could take more than 15 minutes; it depends on the number of repositories you have:
     ```bash
-    <path_to_python_3.9_executable> scripts/UpdateOntology.py
+    python scripts/UpdateOntology.py
     ```
 
 ### 4.3 Start SoSTrades Platform
 
 #### Windows
 ```bash
-<path_to_python_3.9_executable> scripts/StartSOSTrades.py
+python scripts/StartSOSTrades.py
 ```
 
 #### Linux
@@ -227,7 +226,7 @@ The user is the one entered previously, and the password is temporarily saved in
 If you need to pull all your repositories (both platform and models), you can execute the script `PullRepositories.py`: 
 
 ```bash
-<path_to_python_3.9_executable> scripts/PullRepositories.py
+python scripts/PullRepositories.py
 ```
 
 ## 5. Troubleshooting
