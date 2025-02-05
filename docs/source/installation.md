@@ -66,31 +66,22 @@ git --version
 
 #### 2.1.2 Linux Packages Installation
 
-Install Python and Git with:
+Install Git and additional prerequisites:
 
 1. Update the package list:
     ```bash
     apt update
     ```
 
-2. Install Python 3.9 and essential tools:
-    ```bash
-    apt install -y software-properties-common
-    add-apt-repository -y ppa:deadsnakes/ppa
-    apt update
-    apt install -y python3.9 python3.9-venv python3.9-distutils python3-pip python3.9-dev
-    python3.9 --version
-    ```
-
-3. Install Git:
+2. Install Git:
     ```bash
     apt install -y git
     ```
 
-Install additional prerequisites. Use your package manager to install them (example with apt):
-```bash
-sudo apt install -y pkg-config libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
-```
+3. Install additional prerequisites. Use your package manager to install them (example with apt):
+    ```bash
+    sudo apt install -y pkg-config libmysqlclient-dev libsqlite3-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
+    ```
 
 Install Node Version Switcher (NVS):
 ```bash
