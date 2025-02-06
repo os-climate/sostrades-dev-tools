@@ -77,7 +77,8 @@ requirements_model_command = " ".join(requirements_models)
 
 run_command(
     f'{venv_script_activate_command} && uv pip list && \
-    uv pip install --no-cache-dir \
+    uv pip install wheel setuptools && \
+    uv pip install \
     -r "{platform_path}/sostrades-core/requirements.in" \
     -r "{platform_path}/sostrades-ontology/requirements.in" \
     -r "{platform_path}/sostrades-webapi/requirements.in" \
@@ -87,8 +88,7 @@ run_command(
 
 # Install python-ldap package with pip because it does not work with uv on windows environement
 if platform.system() == 'Windows':
-    run_command(f"{venv_script_activate_command} && uv pip install pip")
-    run_command(f'{venv_script_activate_command} && pip install https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl')
+    run_command(f'{venv_script_activate_command} && uv pip install pip && python -m pip install https://download.lfd.uci.edu/pythonlibs/archived/python_ldap-3.4.0-cp39-cp39-win_amd64.whl')
 
 #  Create sostrades.pth inside the .venv
 sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
