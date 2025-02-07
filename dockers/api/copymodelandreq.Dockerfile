@@ -21,9 +21,7 @@ RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then ech
 
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
 RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
-    python -m uv pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
-    python -m uv pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
-
+    python -m uv pip install --no-cache-dir -r api.requirements.txt
 
 # Update PYTHONPATH
 RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
