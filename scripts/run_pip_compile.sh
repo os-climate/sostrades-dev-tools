@@ -45,7 +45,7 @@ done
 # Compile the 3 requirement files
 echo "Attempting to compile all and ontology requirements"
 if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/sostrades-core/requirements.in" ] && [ -f "./platform/sostrades-webapi/requirements.in" ]; then
-    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/dev.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' './platform/sostrades-ontology/requirements.in' --upgrade"
+    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/dev.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' './platform/sostrades-ontology/requirements.in' --upgrade"
     
     if [ $? -eq 0 ]; then
         echo "Compile all requirements passed"
@@ -54,7 +54,7 @@ if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/so
         exit 1
     fi
 
-    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/ontology.requirements.txt './platform/sostrades-ontology/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
+    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/ontology.requirements.txt './platform/sostrades-ontology/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
     if [ $? -eq 0 ]; then
         echo "Compile ontology requirements passed"
     else
@@ -62,7 +62,7 @@ if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/so
         exit 1
     fi
     
-    eval "pip-compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
+    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
     if [ $? -eq 0 ]; then
         echo "Compile api requirements passed"
     else
