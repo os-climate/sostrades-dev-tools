@@ -254,10 +254,10 @@ class Application(tk.Tk):
         if cmd_window.debug_option:
             ttk.Checkbutton(
                 control_frame,
-                text="Debug Mode",
+                text="Auto relaunch",
                 variable=cmd_window.debug_mode,
             ).pack(side="left", padx=5)
-        
+
         # Add auto-scroll checkbox
         ttk.Checkbutton(
             control_frame,
@@ -297,9 +297,13 @@ class Application(tk.Tk):
             while not cmd_window.output_queue.empty():
                 line = cmd_window.output_queue.get()
                 output_text.insert(tk.END, line)
-                if cmd_window.auto_scroll.get():  # Only auto-scroll if checkbox is checked
+                if (
+                    cmd_window.auto_scroll.get()
+                ):  # Only auto-scroll if checkbox is checked
                     output_text.see(tk.END)
-            status_label.config(text=f"Status: {cmd_window.status} | Memory: {cmd_window.memory_usage}")
+            status_label.config(
+                text=f"Status: {cmd_window.status} | Memory: {cmd_window.memory_usage}"
+            )
 
             # Update status light
             if cmd_window.status == "Running":
