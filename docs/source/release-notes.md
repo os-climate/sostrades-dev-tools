@@ -2,6 +2,35 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v5.0.2
+Date: 2025-02-13
+
+### Features
+
+#### API
+* Keycloak authorization:
+  - Platform authorization access is conditioned to the permissions to access the 'Default resource' (configured permission in keycloak)
+* Add study loading at pod start
+
+#### Graphical User Interface (GUI)
+* Passed to Angular 16
+* Fix error/warning lint
+* Charts:
+  - Have a new chart section 'Key charts'
+  - Charts are no more ordered by alphabetical order.
+* Treeview: show the path to the discipline in error
+
+#### Local installation
+* Local installation improvements
+    - use uv instead of pip
+* Fix bugs with windows/linux installation
+
+#### Core
+* Datasets:
+  - Have local repository connector available in V1
+
+### Bug fixes
+* Fixed the double execution of MDA + driver + MDA
 
 ## Release v5.0.1
 Date: 2025-01-21
