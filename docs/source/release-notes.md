@@ -3,7 +3,7 @@
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
 ## Release v5.0.2
-Date: 2025-02-13
+Date: 2025-02-14
 
 ### Features
 
@@ -23,13 +23,11 @@ Date: 2025-02-13
 #### Local installation
 * Local installation improvements
     - use uv instead of pip
-* Fix bugs with windows/linux installation
+* Fix windows/linux installation
 
 #### Core
 * Datasets:
   - Have local repository connector available in V1
-
-### Bug fixes
 * Fixed the double execution of MDA + driver + MDA
 
 ## Release v5.0.1
