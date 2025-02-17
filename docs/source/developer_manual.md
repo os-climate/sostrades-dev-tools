@@ -8,27 +8,493 @@ Learn how to create a wrapper for one of your Python model, define your I/O vari
 
 
 ## Chapter 1: Overall Introduction
-TBD
+
 ### Section 1.1: What is SoSTrades ? 
-explain gemseo 
-explain that it comes with a GUI, refers to the user manual
-explain all benefits to use sostrades (instead of gemseo)
+
+SoSTrades is a generic simulation platform which main purpose is to load, connect and execute different kinds of Python models, thus allowing to conduct studies based on these models (by adding concrete input data).
+
+As a collaborative web and cloud-based platform, it particularly facilitates the inter-disciplinary simulation process by permitting cooperative scenario creation, with high security, scalability and data traceability standards. In other words, once the models are loaded and interconnected, several experts in a team can simultaneously edit the data in a study and/or analyze its results without having to worry about backups, logs or secure data sharing. Hence SoSTrades can also be seen as a concurrent design framework.
+
+From an engineering perspective, SoSTrades is a multi-disciplinary optimization platform. As such, it is based on the open-source library GEMSEO. 
+This scientific library provides advanced mathematical machinery to solve the numerical problems that arise when computing complex interactions between interdependent models. SoSTrades provides a user-friendly interface to most GEMSEO capabilities. 
+A key feature of GEMSEO is its semantic layer, which automatically detects how the models are connected from their input/output declarations, on a variable name basis. When these interdependencies are not straightforward, a sequential execution of the ensemble of models is not possible. An arbitrary set of model inputs could be non-sensical system-wise, representing contradictions between the different models. In these cases, an iterative resolution is necessary to find an “equilibrium point” of the system, even for a simple simulation. GEMSEO provides multi-disciplinary analysis algorithms that allow to conduct such simulations, an additional layer of optimization and vast tooling for visualization, design of experiments, meta-modeling, parallel execution and post-processing, among other. The level of automation provided by GEMSEO is particularly useful in cases where a high number of strongly interconnected models are considered.
+
+![intro sostrades](images/intro_sostrades.png)
+
+
 ### Section 1.2: SoSTrades main concepts
-explain what is a model/wrapp/process/study 
-explain what is a MDA/MDO/DOE ...
-explain what is a namespace (theorically)
+#### Model, wrapper, process and study
+- *Model*: mathematical artifact that performs computations on some input variables to produce output variables, generally with the purpose of simulating a real-world phenomenon or process. SoSTrades can handle generic models provided that they are represented by a python program.
+- *Wrapper*: method or object that acts as a high-level interface to another method of object. With minimal or no modification of the latter, it allows its usage in another environment. SoSTrades requires the wrapping of generic python models for their execution on the platform, and in particular the declaration of all their inputs and outputs, with their types. This is conducted via the interface provided by SoSWrapp (cf. [Chapter 2](#chapter-2-how-to-wrap-your-model-in-sostrades-)).  
+- *Process*: a SoSTrades process is an ensemble of model instances, whose inputs and outputs are uniquely identified by variable names, imposing input/output interactions between them. These relationships allow to distinguish between inputs, outputs and coupling variables of the process as a whole. A process constitutes a sort of “evaluation function” in SoSTrades.
+- *Study*: a SoSTrades study represents the application of a process to a set of concrete input data (including numerical options), allowing the computation of its outputs for this set of inputs. Once the study is configured with all required inputs, it can be run to produce outputs.
+
+#### Inputs, outputs and couplings
+In a process with two or more interdependent models, each of the models’ variables falls into at least one of the categories below:
+- *Input*: independent variable that needs to be provided externally to a model to be used in the computations.
+- *Output*: dependent variable that is produced by one of the models via computations that rely on inputs. A single output variable cannot be produced by two or more models (otherwise its value would be ambiguous).
+- *Coupling variables*: in a process with several models, a single variable x can simultaneously be the output of model A and the input of model B. 
+Then models A and B are coupled, and x is a coupling variable.
+*Weak coupling*: in a weakly coupled process there is an ordering of the models that allows the sensical resolution of the system with at most one execution of each model, in a cascade fashion. In the example above, it suffices to evaluate A before B. Coupling variables which are only involved in weakly coupled subprocesses are referred to as weak couplings.
+*Strong couplings*: when no permutation of the order of model execution allows to compute all outputs assuring lack of contradiction, the process is strongly coupled (cf. [Section 3.2](#section-32--notion-of-mda-to-solve-complex-interactions)). Variables whose values are constrained by the input/ouptut logic are referred to as strong couplings. 
+If in the example above we further assume that variable y is an output of B and an input of A, then both x and y become strong couplings. Executing A(x=x0) might lead to y=y1 such that B(y=y1) outputs x = x1 != x0. In which case input x=x0 represents a state of contradiction of the system. 
+
+**Quick start elements**
+Any new computation to be conducted on the SoSTrades platform requires the three elements below:
+1.	A set of wrapped models with named inputs and outputs (cf. [Chapter 2](#chapter-2-how-to-wrap-your-model-in-sostrades-)).
+2.	A process definition file, representing a set of interconnected instances of the models (cf. [Capter 3](#chapter-3--how-to-create-a-process-in-sostrades)).
+3.	A study, representing the application of a concrete set of input data to the process, which can be edited and run on the SoSTrades platform (cf. [Chapter 4](#chapter-4--how-to-create-a-study-in-sostrades)).
+
 
 
 ## Chapter 2: How to wrap your model in SoSTrades ?  
-TBD
+I want to use my Python model in SoSTrades platform.
+To achieve this, I need to:
+- Wrap a model
+- Create a postprocessing for the model results
+- Test my model to be able to contribute
+- Create a Process using my model
+- Create a Usecase to define input data for my study
+
+A SosWrap is a model wrapper for SoSTrades application
+Here is the minimal working example of a SoSWrap :
+
+'''
+from sostrades_core.execution_engine.sos_wrapp import SoSWrapp
+from sostrades_core.tools.post_processing.charts.two_axes_instanciated_chart import InstanciatedSeries, \
+    TwoAxesInstanciatedChart
+from sostrades_core.tools.post_processing.charts.chart_filter import ChartFilter
+
+class MyCustomWrap(SoSWrapp):
+    # Ontology information
+    _ontology_data = {
+        'label': 'Label of the wrapp',
+        'type': 'Research',
+        'source': 'SoSTrades Project',
+        'version': '',
+    }
+
+
+    # Description of inputs
+    DESC_IN = {
+        'x': {'type': 'float', 'default': 10, 'unit': 'year', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
+        'a': {'type': 'float', 'unit': '-', 'namespace': 'ns_one'},
+        'b': {'type': 'float', 'unit': '-',},
+    }
+
+    # Description of outputs
+    DESC_OUT = {
+        'y': {'type': 'float', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'}
+    }
+
+    # Method that runs the model
+    def run(self):
+        """
+        Method that runs the model
+        """
+        # get input of discipline
+        param_in = self.get_sosdisc_inputs()
+
+        # performs the "computation"
+        x = param_in['x']
+        a = param_in['a']
+        b = param_in['b']
+
+        y = a * x + b
+
+        output_values = {'y': y}
+
+        # store data
+        self.store_sos_outputs_values(output_values)
+'''
+
+#### Base class
+SoSWrapp is the class from which inherits our model wrapper when using ‘SoSTrades’ wrapping mode.
+It contains necessary information for the discipline configuration. It is owned by both the DisciplineWrapp and the SoSDiscipline.
+Its methods setup_sos_disciplines, run,… are overloaded by the user-provided Wrapper.
+
+**N.B.**: setup_sos_disciplines needs take as argument the proxy and call proxy.add_inputs() and/or proxy.add_outputs().
+
+**Attributes**:
+sos_name (string): name of the discipline local_data_short_name (Dict[Dict]): short name version of the local data for model input and output local_data (Dict[Any]): output of the model last run
+
+#### Ontology data
+The ontology data specify all data regarding your SoSWrapp including :
+- `label` : Name of the wrapp on the ontology panel of the SoSTrades platform
+- `type` : Type of the model ‘Research’, ‘Industrial’ or ‘Other’
+- `source` : the person or project that has implemented the wrapp AND the model behind it
+- `version` : A version of the model if necessary
+
 ### Section 2.1: Input/output variables definition
-TBD
+The DESC_IN and DESC_OUT dictionaries are the input and output variable descriptors. It gives information on variables in the wrapp used by the model.
+'''
+DESC_IN = {
+    'x': {'type': 'float', 'default': 10, 'unit': 'year', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
+    'a': {'type': 'float', 'unit': '-', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
+    'b': {'type': 'float', 'unit': '-',},
+}
+DESC_OUT = {
+    'y': {'type': 'float', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'}
+}
+'''
+
+- `type` : mandatory could be : `'float'`, `'int'`, `'dict'`, `'dataframe'`, `'bool'`
+- `subtype_descriptor` (or `dataframe_descriptor`) : if the variable is a dict/list (or dataframe), gives the types (or descriptor) of the sub-elements (or columns). See next sections
+- `default` : if the variable has a default value. The default must be the same type as the type
+- `unit` : (string) unity of the variable used for the ontology
+- `visibility` : `'Shared'` if you need to specify a namespace for the variable or `'Local'` if the variable by default needs to be stored in the same namespace as the wrapp. If not specified the visibility is considered as `'Local'`.
+- `namespace` : must be identified by a string name, and its value must be defined within the process utilizing the wrapp. This feature allows for parameterizing the variable’s location based on the specific process.
+- `user_level` : Specify the display level in the GUI: 1 for Standard view, 2 for Advanced, and 3 for Expert. If a variable is assigned an expert user level, it will only be visible in the expert view. This feature is useful for concealing complex variables that may be challenging to define. By default the display levvel is 1.
+- `range` : for float or int, range of the variable. the range will be checked by a data integrity method
+- `possible_values` : for string, possible values list of the variable. the possible values will be checked by a data integrity method
+- `optional` : A boolean flag that makes a variable optional to fill in the GUI
+- `editable` : A boolean flag that makes a variable editable or not in the GUI. By default input and coupling variables are editable, outputs are not.
+- `structuring` : A boolean flag that that defines a structuring variable, indicating its impact on the configuration of the wrapp or other variables within the wrapp. For instance, it may be used for an assumption flag, and when activated, it creates new variables.
+
+#### Dataframe descriptor
+Here is an example dataframe descriptor. For each column you define a tuple which defines:
+- first the type of the values in the column,
+- second the range (for int or float) or possible values (for string), None if nothing is specified
+- third if the column is editable in the GUI or not.
+
+'''
+TransportChoiceData = {
+    "var_name": "transport_choice",
+    "type": "dataframe",
+    "dataframe_descriptor" : {
+        Years : ('int', YearsBoundaries, True),
+        ProductName : ('string', None, True),
+        TypeName : ('string', TransportPossibleValues, True),
+        PercentageName : ('float', None, True),
+    }
+}
+'''
+
+#### Subtype descriptor for dicts
+Here is an example of dict subtype descriptors. You can define an infinite depth for dictionaries and the type at the lower level will be checked.
+
+'''
+"dict_of_dict_in" : {"type": "dict", ProxyDiscipline.SUBTYPE: {"dict": {"dict": "float"}}, "user_level": 1}
+"dict_of_dataframe_in" : {"type": "dict", ProxyDiscipline.SUBTYPE: {"dict": {"dataframe"}}, "user_level": 1}
+'''
+
 ### Section 2.2: Run method
-TBD
+
+'''
+# Method that runs the model
+def run(self):
+    """
+    Method that runs the model
+    """
+    # get input of discipline
+    param_in = self.get_sosdisc_inputs()
+
+    # performs the "computation"
+    x = param_in['x']
+    a = param_in['a']
+    b = param_in['b']
+
+    y = a * x + b
+
+    output_values = {'y': y}
+
+    # store data
+    self.store_sos_outputs_values(output_values)
+'''
+
+- The function `get_sosdisc_inputs(variable name)` returns the value of the variable in the data manager. It can be used without arguments : return a dict with all keys and values of the DESC_IN
+- The core of the model can be written here or loaded from an external model
+- Output values are stored in a dictionary {variable_name : value} with the value coming from the model
+- The dictionary is sent to the data manager with the function  `store_sos_output_values(dict_values)`
+
+#### Gradients computation method
+
+##### Context
+In some situations, you may want to implement analytic gradients of some outputs of your model, with respect to given inputs.
+
+Gradients are indeed required if, for example, you want to solve a Multidisciplinary Design Analysis (MDA) by using numerical methods like Newton-Raphson. Gradients are also involved by gradient-based optimization solvers (e.g., SLSQP, L-BFGS-B) to solve optimization problems.
+
+Gradients can be computed automatically by finite differences (or complex step) by the core execution engine, with GEMSEO behind the scene. However, this method can be costly in terms of number of calls to the discipline (cost linearly dependent to the number of inputs and outputs of the model). The model developer can also implement its own analytic gradient formula in the model.
+
+In the WITNESS framework for example, analytic gradients are involved at both optimization and MDA levels. It allows to reduce the execution time. This is why it is asked to contributors to update/implement the gradients corresponding to their contribution.
+
+##### Analytic gradient computation method
+
+You need to implement the gradient in a method named `compute_sos_jacobian`, in the model wrap.
+
+In this method, you can set the gradients of variables of type numerical like (1D) `array` as follows :
+
+'''
+def compute_sos_jacobian(self):
+    """
+    Analytic gradients computation
+    """
+
+    # retrieve the model input values
+    param_in = self.get_sosdisc_inputs()
+
+    # set the gradient values
+    self.set_partial_derivative('y', 'x', atleast_2d(array(param_in['a'])))
+    self.set_partial_derivative('y', 'a', atleast_2d(array(param_in['x'])))
+    self.set_partial_derivative('y', 'b', atleast_2d(array([1])))
+'''
+
+For gradients involving `dataframe`, `dict`, `float` types, you have to call the method `set_partial_derivative_for_other_types`.
+
+For example, if you want to compute the gradient of a variable `y_2` (a dataframe with a column value) with respect to an array `z` :
+
+'''
+self.set_partial_derivative_for_other_types(('y_2', 'value'), ('z',), my_gradient_value)
+'''
+
+Example of gradients can be found in the implementation of [these examples](https://github.com/os-climate/sostrades-core/blob/main/sostrades_core/sos_wrapping/test_discs/sellar_new_types.py).
+
+##### Check analytic gradients
+
+Once your analytic gradient implementation is done, you will need to validate it. You can implement a test in a subclass of `AbstractJacobianUnittest` (itself a subclass of `unittest.TestCase`, part of the python builtin `unittest` package). The analytic jacobian accuracy is checked during a call to `check_jacobian`, as follows :
+
+'''
+from sostrades_core.execution_engine.execution_engine import ExecutionEngine
+from sostrades_core.tests.core.abstract_jacobian_unit_test import AbstractJacobianUnittest
+
+class GradientSellar(AbstractJacobianUnittest):
+    """
+    Sellar gradients test class
+    """
+    def test_01_analytic_gradient_default_dataframe_fill(self):
+        """Test gradient for Sellar1 """
+
+        # create exec engine and build a process with one discipline called Sellar1
+        self.ee = ExecutionEngine(self.study_name)
+        factory = self.ee.factory
+        SellarDisc1Path = 'sostrades_core.sos_wrapping.test_discs.sellar_for_design_var.Sellar1'
+        sellar1_disc = factory.get_builder_from_module('Sellar1', SellarDisc1Path)
+        self.ee.ns_manager.add_ns_def({'ns_OptimSellar': self.ns})
+        self.ee.factory.set_builders_to_coupling_builder(sellar1_disc)
+        self.ee.configure()
+
+        # update input dictionary with values
+        values_dict = {f'{self.ns}.x': pd.DataFrame(data={'index': [0, 1, 2, 3], 'value': [1., 1., 1., 1.]}),
+                       f'{self.ns}.z': np.array([5., 2.]), f'{self.ns}.y_2': 12.058488150611574}
+
+        self.ee.load_study_from_input_dict(values_dict)
+        self.ee.configure()
+
+        self.ee.update_from_dm()
+        self.ee.prepare_execution()
+
+        # get the discipline where you want to check the gradients
+        disc = self.ee.root_process.proxy_disciplines[0].discipline_wrapp.mdo_discipline
+
+        # Check the jacobian using as reference the pre-computed jacobian. Note that, to force the re-computation
+        # and storage of the reference jacobian (upon model change), the environment variable DUMP_JACOBIAN_UNIT_TEST
+        # needs to be set to "true".
+        self.check_jacobian(location=dirname(__file__),
+                            filename=f'jacobian_sellar_1.pkl',
+                            discipline=disc,
+                            step=1e-16,
+                            derr_approx='complex_step',
+                            threshold=1e-5,
+                            local_data=values_dict,
+                            inputs=[f'{self.ns}.x', f'{self.ns}.z', f'{self.ns}.y_2'],
+                            outputs=[f'{self.ns}.y_1']
+                            )
+'''
+
+The choice of `derr_appox` numerical method is among `complex_step` and `finite_differences`. The step has to be chosen carefully : not too small to avoid round-off error and not too large to avoid truncation error.
+
+During the call to `check_jacobian`, the analytic jacobian (exact) will be compared to a reference jacobian (derivative approximation) by GEMSEO.
+
+This reference jacobian computation can be costly according to the number of design variables and outputs provided to the `check_jacobian` method. During the gradient validation, you may want to avoid the full computation of the reference jacobian when the `run` method content is unchanged (no change in the functions evaluations). To this purpose, it is necessary to set the environment variable `DUMP_JACOBIAN_UNIT_TEST` to true so that the result is persisted in a pickle file described by location and filename arguments.
+
+Once the reference is generated, you can delete the environment variable or set it to false so that the reference jacobian will not be computed twice : it will be loaded from the provided pickle file.
+
+
+
 ### Section 2.3: Post-processing definition
-TBD
+In SoSTrades charts can be displayed. They need to be implemented in the SOSWrap discipline.
+Two methods need to be implemented for post-processings.
+
+#### get_chart_filter_list
+
+This method is used to make the list of available filters.
+'''
+SoSWrapp.get_chart_filter_list()
+'''
+Return a list of `ChartFilter` instance base on the inherited class post processing filtering capabilities
+
+Returns:
+`ChartFilter[]`
+
+Here is how `ChartFilter` is defined :
+
+'''
+classsostrades_core.tools.post_processing.charts.chart_filter.ChartFilter(name='', filter_values: list = [], selected_values: list = [], filter_key=None, multiple_selection=True)
+'''
+Class that define a chart filter
+
+- name : string that contains filter name
+- filter_values : list of filter items that can be used to filter post processing element
+- selected_values : list of filter items currently selected for the given filter
+- filter_key : unique key used to identify the current filter
+
+#### get_post_processing_list
+
+'''
+SoSWrapp.get_post_processing_list(filters=None)
+'''
+Return a list of post processing instance using the `ChartFilter` list given as parameter, to be overload in subclasses
+
+Parameters:
+filters (ChartFilter[]) – filter to apply during post processing making
+
+:return post processing instance list
+
+`get_post_processing_list` conditionally generates the instances of the post processing objects depending on the filters’ selected values
+
+Remember that this method should not make any heavy computation so graph data should be processed by the model in the discipline run and stored in output variables if need be
+
+We can create a plotly figure (in the example a table). We then call the method InstantiatedPlotlyChart(plotly_figure). This returned chart is then used as in the previous example.
+
+#### TwoAxesInstanciatedChart
+
+Here is an example to make a simple chart
+
+'''
+def get_post_processing_list(self, chart_filters=None):
+    """
+    Gets the charts selected
+    """
+    instanciated_charts = []
+    chart_list = []
+
+    # Overload default value with chart filter
+    if chart_filters is not None:
+        for chart_filter in chart_filters:
+            if chart_filter.filter_key == 'charts':
+                chart_list = chart_filter.selected_values
+
+    if 'sample chart' in chart_list:
+        # Get the values
+        x = self.get_sosdisc_inputs('x')
+        y = self.get_sosdisc_inputs('y')
+
+        # Instanciate chart
+        new_chart = TwoAxesInstanciatedChart('x (-)', 'y (-)', chart_name="x vs y")
+
+        # Add data points
+        serie = InstanciatedSeries([x], [y], series_name="x vs y", display_type='scatter')
+
+        new_chart.series.append(serie)
+
+        instanciated_charts.append(new_chart)
+
+    return instanciated_charts
+'''
+
+#### InstantiatedPlotlyChart
+ You can use `InstantiatedPlotlyChart` to use a plotly figure already created.
+
 ### Section 2.4: Dynamic inputs/outputs
-TBD
+Sometimes the inputs or outputs variables are dependant of another input variable.
+They need to be declared during the configuration phase.
+
+'''
+def setup_sos_disciplines(self):
+        dynamic_inputs = {}
+        if 'Model_Type' in self.get_data_in():
+            Model_Type = self.get_sosdisc_inputs('Model_Type')
+            if Model_Type == 'Affine':
+                dynamic_inputs.update({'b': {'type': 'float',
+                                             'visibility': SoSWrapp.SHARED_VISIBILITY,
+                                             'namespace': 'ns_b'}})
+            elif Model_Type == 'Polynomial':
+                dynamic_inputs.update(
+                    {'b': {'type': 'float', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_b'}})
+                dynamic_inputs.update({'power': {'type': 'float', 'default': 2.,
+                                                 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_ac'}})
+        self.add_inputs(dynamic_inputs)
+'''
+
+In this example, the variable `Model_Type` is a structuring input that define how the dynamic input `b` and `power` are declared.
+The dictionnary of the dynamic variables is then added to the inputs with the function `add_inputs`.
+
+The same thing can be done for outputs declaration and added to the outputs variables with the function `add_outputs`.
+
+
+### Section 2.5 Test a SOSWrap
+
+#### Test file
+Tests files should be created in the `tests/` directory.
+
+The test naming convention is `l0_test_xx_test.py`
+
+#### Test file content
+Test file content is the same as regular tests.
+
+#### Test method
+Test method naming convention is test_xx_*
+Usually tested features are :
+- Build/configure
+- Dynamic configuration
+- Repeated configuration
+- Execution success
+- Execution correctness
+- Post-processing beauty
+…
+
+**Example test**
+'''
+import logging
+import unittest
+
+from sostrades_core.execution_engine.execution_engine import ExecutionEngine
+
+
+class MyCustomWrapTest(unittest.TestCase):
+    def setUp(self):
+        self.name = 'MyCustomWrapTest'
+        self.ee = ExecutionEngine(self.name)
+        self.wrap_name = "MyCustomWrap"
+        self.wrap_path = f"sostrades_core.sos_wrapping.tuto_wrap.my_custom_wrap.{self.wrap_name}"
+
+    def test_01_wrap_execution(self):
+        # Get the wrap builder
+        wrap_builder = self.ee.factory.get_builder_from_module(self.wrap_name, self.wrap_path )
+
+        # Set it to be built directly under the root coupling node
+        self.ee.factory.set_builders_to_coupling_builder(wrap_builder)
+
+        # associate namespaces
+        self.ee.ns_manager.add_ns('ns_one', self.name)
+
+        # Configure the discipline
+        self.ee.configure()
+
+        # Display the treeview
+        logging.info(self.ee.display_treeview_nodes(display_variables=True))
+
+        a, b, x = 1.0, 2.0, 1.0
+        values_dict = {
+            self.name + ".x": a,
+            self.name + ".MyCustomWrap.a": b,
+            self.name + ".MyCustomWrap.b": x,
+        }
+
+        # Load input values for the study
+        self.ee.load_study_from_input_dict(values_dict)
+
+        # Execute
+        self.ee.execute()
+
+        # Check status
+        for disc_id in self.ee.dm.disciplines_dict.keys():
+            self.assertEqual(self.ee.dm.get_discipline(disc_id).status, 'DONE')
+
+        # Check output
+        y = self.ee.dm.get_value(self.name + ".y")
+        self.assertEqual(y, a * x + b)
+'''
 
 ## Chapter 3 : How to create a process in SoSTrades
 A process represents an ensemble of interconnected models.
