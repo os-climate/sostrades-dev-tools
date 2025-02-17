@@ -59,8 +59,7 @@ To achieve this, I need to:
 A SosWrap is a model wrapper for SoSTrades application
 Here is the minimal working example of a SoSWrap :
 
-'''
-
+```
 from sostrades_core.execution_engine.sos_wrapp import SoSWrapp
 from sostrades_core.tools.post_processing.charts.two_axes_instanciated_chart import InstanciatedSeries, \
     TwoAxesInstanciatedChart
@@ -106,7 +105,7 @@ class MyCustomWrap(SoSWrapp):
 
         # store data
         self.store_sos_outputs_values(output_values)
-'''
+```
 
 ### Base class
 SoSWrapp is the class from which inherits our model wrapper when using ‘SoSTrades’ wrapping mode.
@@ -127,7 +126,8 @@ The ontology data specify all data regarding your SoSWrapp including :
 
 ### Section 2.1: Input/output variables definition
 The DESC_IN and DESC_OUT dictionaries are the input and output variable descriptors. It gives information on variables in the wrapp used by the model.
-'''
+
+```
 DESC_IN = {
     'x': {'type': 'float', 'default': 10, 'unit': 'year', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
     'a': {'type': 'float', 'unit': '-', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
@@ -136,7 +136,7 @@ DESC_IN = {
 DESC_OUT = {
     'y': {'type': 'float', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'}
 }
-'''
+```
 
 - `type` : mandatory could be : `'float'`, `'int'`, `'dict'`, `'dataframe'`, `'bool'`
 - `subtype_descriptor` (or `dataframe_descriptor`) : if the variable is a dict/list (or dataframe), gives the types (or descriptor) of the sub-elements (or columns). See next sections
@@ -157,7 +157,7 @@ Here is an example dataframe descriptor. For each column you define a tuple whic
 - second the range (for int or float) or possible values (for string), None if nothing is specified
 - third if the column is editable in the GUI or not.
 
-'''
+```
 TransportChoiceData = {
     "var_name": "transport_choice",
     "type": "dataframe",
@@ -168,19 +168,19 @@ TransportChoiceData = {
         PercentageName : ('float', None, True),
     }
 }
-'''
+```
 
 #### Subtype descriptor for dicts
 Here is an example of dict subtype descriptors. You can define an infinite depth for dictionaries and the type at the lower level will be checked.
 
-'''
+```
 "dict_of_dict_in" : {"type": "dict", ProxyDiscipline.SUBTYPE: {"dict": {"dict": "float"}}, "user_level": 1}
 "dict_of_dataframe_in" : {"type": "dict", ProxyDiscipline.SUBTYPE: {"dict": {"dataframe"}}, "user_level": 1}
-'''
+```
 
 ### Section 2.2: Run method
 
-'''
+```
     # Method that runs the model
     def run(self):
         """
@@ -200,7 +200,7 @@ Here is an example of dict subtype descriptors. You can define an infinite depth
 
         # store data
         self.store_sos_outputs_values(output_values)
-'''
+```
 
 - The function `get_sosdisc_inputs(variable name)` returns the value of the variable in the data manager. It can be used without arguments : return a dict with all keys and values of the DESC_IN
 - The core of the model can be written here or loaded from an external model
@@ -224,7 +224,7 @@ You need to implement the gradient in a method named `compute_sos_jacobian`, in 
 
 In this method, you can set the gradients of variables of type numerical like (1D) `array` as follows :
 
-'''
+```
 def compute_sos_jacobian(self):
     """
     Analytic gradients computation
@@ -237,15 +237,15 @@ def compute_sos_jacobian(self):
     self.set_partial_derivative('y', 'x', atleast_2d(array(param_in['a'])))
     self.set_partial_derivative('y', 'a', atleast_2d(array(param_in['x'])))
     self.set_partial_derivative('y', 'b', atleast_2d(array([1])))
-'''
+```
 
 For gradients involving `dataframe`, `dict`, `float` types, you have to call the method `set_partial_derivative_for_other_types`.
 
 For example, if you want to compute the gradient of a variable `y_2` (a dataframe with a column value) with respect to an array `z` :
 
-'''
+```
 self.set_partial_derivative_for_other_types(('y_2', 'value'), ('z',), my_gradient_value)
-'''
+```
 
 Example of gradients can be found in the implementation of [these examples](https://github.com/os-climate/sostrades-core/blob/main/sostrades_core/sos_wrapping/test_discs/sellar_new_types.py).
 
@@ -253,7 +253,7 @@ Example of gradients can be found in the implementation of [these examples](http
 
 Once your analytic gradient implementation is done, you will need to validate it. You can implement a test in a subclass of `AbstractJacobianUnittest` (itself a subclass of `unittest.TestCase`, part of the python builtin `unittest` package). The analytic jacobian accuracy is checked during a call to `check_jacobian`, as follows :
 
-'''
+```
 from sostrades_core.execution_engine.execution_engine import ExecutionEngine
 from sostrades_core.tests.core.abstract_jacobian_unit_test import AbstractJacobianUnittest
 
@@ -299,7 +299,7 @@ class GradientSellar(AbstractJacobianUnittest):
                             inputs=[f'{self.ns}.x', f'{self.ns}.z', f'{self.ns}.y_2'],
                             outputs=[f'{self.ns}.y_1']
                             )
-'''
+```
 
 The choice of `derr_appox` numerical method is among `complex_step` and `finite_differences`. The step has to be chosen carefully : not too small to avoid round-off error and not too large to avoid truncation error.
 
@@ -316,9 +316,9 @@ Two methods need to be implemented for post-processings.
 #### get_chart_filter_list
 
 This method is used to make the list of available filters.
-'''
+```
 SoSWrapp.get_chart_filter_list()
-'''
+```
 Return a list of `ChartFilter` instance base on the inherited class post processing filtering capabilities
 
 Returns:
@@ -326,9 +326,9 @@ Returns:
 
 Here is how `ChartFilter` is defined :
 
-'''
+```
 classsostrades_core.tools.post_processing.charts.chart_filter.ChartFilter(name='', filter_values: list = [], selected_values: list = [], filter_key=None, multiple_selection=True)
-'''
+```
 Class that define a chart filter
 
 - name : string that contains filter name
@@ -338,9 +338,9 @@ Class that define a chart filter
 
 #### get_post_processing_list
 
-'''
+```
 SoSWrapp.get_post_processing_list(filters=None)
-'''
+```
 Return a list of post processing instance using the `ChartFilter` list given as parameter, to be overload in subclasses
 
 Parameters:
@@ -358,7 +358,7 @@ We can create a plotly figure (in the example a table). We then call the method 
 
 Here is an example to make a simple chart
 
-'''
+```
 def get_post_processing_list(self, chart_filters=None):
     """
     Gets the charts selected
@@ -388,7 +388,7 @@ def get_post_processing_list(self, chart_filters=None):
         instanciated_charts.append(new_chart)
 
     return instanciated_charts
-'''
+```
 
 #### InstantiatedPlotlyChart
  You can use `InstantiatedPlotlyChart` to use a plotly figure already created.
@@ -397,7 +397,7 @@ def get_post_processing_list(self, chart_filters=None):
 Sometimes the inputs or outputs variables are dependant of another input variable.
 They need to be declared during the configuration phase.
 
-'''
+```
 def setup_sos_disciplines(self):
         dynamic_inputs = {}
         if 'Model_Type' in self.get_data_in():
@@ -412,7 +412,7 @@ def setup_sos_disciplines(self):
                 dynamic_inputs.update({'power': {'type': 'float', 'default': 2.,
                                                  'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_ac'}})
         self.add_inputs(dynamic_inputs)
-'''
+```
 
 In this example, the variable `Model_Type` is a structuring input that define how the dynamic input `b` and `power` are declared.
 The dictionnary of the dynamic variables is then added to the inputs with the function `add_inputs`.
@@ -442,7 +442,7 @@ Usually tested features are :
 …
 
 **Example test**
-'''
+```
 import logging
 import unittest
 
@@ -492,7 +492,7 @@ class MyCustomWrapTest(unittest.TestCase):
         # Check output
         y = self.ee.dm.get_value(self.name + ".y")
         self.assertEqual(y, a * x + b)
-'''
+```
 
 ## Chapter 3 : How to create a process in SoSTrades
 A process represents an ensemble of interconnected models.
