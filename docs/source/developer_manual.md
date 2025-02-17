@@ -108,7 +108,7 @@ class MyCustomWrap(SoSWrapp):
         self.store_sos_outputs_values(output_values)
 '''
 
-#### Base class
+### Base class
 SoSWrapp is the class from which inherits our model wrapper when using ‘SoSTrades’ wrapping mode.
 It contains necessary information for the discipline configuration. It is owned by both the DisciplineWrapp and the SoSDiscipline.
 Its methods setup_sos_disciplines, run,… are overloaded by the user-provided Wrapper.
@@ -118,7 +118,7 @@ Its methods setup_sos_disciplines, run,… are overloaded by the user-provided W
 **Attributes**:
 sos_name (string): name of the discipline local_data_short_name (Dict[Dict]): short name version of the local data for model input and output local_data (Dict[Any]): output of the model last run
 
-#### Ontology data
+### Ontology data
 The ontology data specify all data regarding your SoSWrapp including :
 - `label` : Name of the wrapp on the ontology panel of the SoSTrades platform
 - `type` : Type of the model ‘Research’, ‘Industrial’ or ‘Other’
@@ -181,25 +181,25 @@ Here is an example of dict subtype descriptors. You can define an infinite depth
 ### Section 2.2: Run method
 
 '''
-# Method that runs the model
-def run(self):
-    """
-    Method that runs the model
-    """
-    # get input of discipline
-    param_in = self.get_sosdisc_inputs()
+    # Method that runs the model
+    def run(self):
+        """
+        Method that runs the model
+        """
+        # get input of discipline
+        param_in = self.get_sosdisc_inputs()
 
-    # performs the "computation"
-    x = param_in['x']
-    a = param_in['a']
-    b = param_in['b']
+        # performs the "computation"
+        x = param_in['x']
+        a = param_in['a']
+        b = param_in['b']
 
-    y = a * x + b
+        y = a * x + b
 
-    output_values = {'y': y}
+        output_values = {'y': y}
 
-    # store data
-    self.store_sos_outputs_values(output_values)
+        # store data
+        self.store_sos_outputs_values(output_values)
 '''
 
 - The function `get_sosdisc_inputs(variable name)` returns the value of the variable in the data manager. It can be used without arguments : return a dict with all keys and values of the DESC_IN
@@ -308,8 +308,6 @@ During the call to `check_jacobian`, the analytic jacobian (exact) will be compa
 This reference jacobian computation can be costly according to the number of design variables and outputs provided to the `check_jacobian` method. During the gradient validation, you may want to avoid the full computation of the reference jacobian when the `run` method content is unchanged (no change in the functions evaluations). To this purpose, it is necessary to set the environment variable `DUMP_JACOBIAN_UNIT_TEST` to true so that the result is persisted in a pickle file described by location and filename arguments.
 
 Once the reference is generated, you can delete the environment variable or set it to false so that the reference jacobian will not be computed twice : it will be loaded from the provided pickle file.
-
-
 
 ### Section 2.3: Post-processing definition
 In SoSTrades charts can be displayed. They need to be implemented in the SOSWrap discipline.
