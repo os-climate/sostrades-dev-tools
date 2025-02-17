@@ -60,6 +60,7 @@ A SosWrap is a model wrapper for SoSTrades application
 Here is the minimal working example of a SoSWrap :
 
 '''
+
 from sostrades_core.execution_engine.sos_wrapp import SoSWrapp
 from sostrades_core.tools.post_processing.charts.two_axes_instanciated_chart import InstanciatedSeries, \
     TwoAxesInstanciatedChart
@@ -73,7 +74,6 @@ class MyCustomWrap(SoSWrapp):
         'source': 'SoSTrades Project',
         'version': '',
     }
-
 
     # Description of inputs
     DESC_IN = {
