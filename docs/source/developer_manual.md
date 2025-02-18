@@ -152,7 +152,7 @@ DESC_OUT = {
 - `possible_values` : for string, possible values list of the variable. the possible values will be checked by a data integrity method
 - `optional` : A boolean flag that makes a variable optional to fill in the GUI
 - `editable` : A boolean flag that makes a variable editable or not in the GUI. By default input and coupling variables are editable, outputs are not.
-- `structuring` : A boolean flag that that defines a structuring variable, indicating its impact on the configuration of the wrapper or other variables within the wrapp. For instance, it may be used for an assumption flag, and when activated, it creates new variables.
+- `structuring` : A boolean flag that that defines a structuring variable, indicating its impact on the configuration of the wrapper or other variables of the process. For instance, it may be used for an assumption flag, and when activated, it creates new variables (cf. Section 2.4).
 
 #### Dataframe descriptor
 Here is an example dataframe descriptor. For each column you declare a tuple which defines:
