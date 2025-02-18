@@ -752,10 +752,6 @@ The `show` method will open a window in your preferred web browser for each post
 
 By following these methods, you can efficiently create and execute studies based on your usecases.
 
-### **Key Points to Remember:**
-
-![create usecase keypoints](images/create_usecase_keypoints.png)
-
 
 ## Chapter 5 : How to plug your own repository to the platform
 
