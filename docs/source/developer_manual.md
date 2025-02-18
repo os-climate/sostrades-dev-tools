@@ -205,7 +205,7 @@ Here is an example of dict subtype descriptors. You can define an infinite depth
         self.store_sos_outputs_values(output_values)
 ```
 
-- The function `get_sosdisc_inputs(variable name)` returns the value of the variable in the data manager. It can be used without arguments : return a dict with all keys and values of the DESC_IN
+- The function `get_sosdisc_inputs(variable name)` returns the value of the variable in the data manager. It can be used without arguments, in this case it returns a dict with all keys and values of the DESC_IN.
 - The core computations of the model can be implemented here or loaded from an external model
 - Output values are stored in a dictionary {variable_name : value} with the value coming from the model
 - The dictionary is sent to the data manager with the function  `store_sos_output_values(dict_values)`
@@ -216,22 +216,20 @@ Two methods need to be implemented for post-processings.
 
 #### get_chart_filter_list
 
-This method is used to make the list of available filters.
 ```
 SoSWrapp.get_chart_filter_list()
 ```
-Return a list of `ChartFilter` instance base on the inherited class post processing filtering capabilities
 
-Returns:
-`ChartFilter[]`
+This method is used to make the list of available filters. It returns a list of `ChartFilter` instance base on the inherited class post processing filtering capabilities.
+
 
 Here is how `ChartFilter` is defined :
 
 ```
 classsostrades_core.tools.post_processing.charts.chart_filter.ChartFilter(name='', filter_values: list = [], selected_values: list = [], filter_key=None, multiple_selection=True)
 ```
-Class that define a chart filter
 
+Parameters:
 - name : string that contains filter name
 - filter_values : list of filter items that can be used to filter post processing element
 - selected_values : list of filter items currently selected for the given filter
@@ -242,12 +240,11 @@ Class that define a chart filter
 ```
 SoSWrapp.get_post_processing_list(filters=None)
 ```
-Return a list of post processing instance using the `ChartFilter` list given as parameter, to be overload in subclasses
+
+This method builds the post processings charts and returns a list of post processing instance using the `ChartFilter` list given as parameter, to be overload in subclasses.
 
 Parameters:
 filters (ChartFilter[]) – filter to apply during post processing making
-
-:return post processing instance list
 
 `get_post_processing_list` conditionally generates the instances of the post processing objects depending on the filters’ selected values
 
@@ -488,6 +485,32 @@ Multi-disciplinary analysis provides different formulations to convert such proc
 **Example:** execution sequence of strongly coupled process with MDA loop highlighted
 
 ![execution sequence](images/execution_sequence2.png)
+
+#### Example 1: static aeroelasticity 
+
+This famous, strongly coupled process represents the interaction between the aerodynamics model and the structure model, in the modeling of an aircraft wing subject to aerodynamic forces that produce in turn a change in the wing shape.
+
+![strong coupling](images/strong_coupling.png)
+
+![aeroelasticity model](images/aeroelasticity_model.png)
+
+Implementation as a SoSTrades process requires the wrapped Aerodynamics model and Structure model, and the specification of namespaces that store their relevant shared variables. In this case, a single shared namespace is necessary (NS_Aeroelasticity).
+
+![aeroelasticity model](images/aeroelasticity_model_namespaces.png)
+
+#### Example 2: fleet aeroelasticity
+
+This example illustrates how namespaces names and values allow fine-grained control of the process couplings, in a case where static aeroelasticity is to be modeled for several aircraft in a fleet.
+
+![fleet aeroelasticity model](images/fleet_model.png)
+
+This case requires distinguishing between NS_Public (same value for all models) and NS_Aeroelasticity (whose value changes from one aircraft to another).
+
+![fleet aeroelasticity model](images/fleet_model_namespaces.png)
+
+### **Key Points to Remember**
+
+![namespaces](images/namespaces.png)
 
 ### Section 3.3 : Create a process 
 
