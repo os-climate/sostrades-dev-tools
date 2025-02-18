@@ -11,12 +11,13 @@ Learn how to create a wrapper for one of your Python model, define your I/O vari
 
 ### Section 1.1: What is SoSTrades ? 
 
-SoSTrades is a generic simulation platform which main purpose is to load, connect and execute different kinds of Python models, thus allowing to conduct studies based on these models (by adding concrete input data).
+SoSTrades is a generic simulation platform whose main purpose is to load, connect and execute different kinds of Python models, thus allowing to conduct studies based on these models (by adding concrete input data).
 
 As a collaborative web and cloud-based platform, it particularly facilitates the inter-disciplinary simulation process by permitting cooperative scenario creation, with high security, scalability and data traceability standards. In other words, once the models are loaded and interconnected, several experts in a team can simultaneously edit the data in a study and/or analyze its results without having to worry about backups, logs or secure data sharing. Hence SoSTrades can also be seen as a concurrent design framework.
 
 From an engineering perspective, SoSTrades is a multi-disciplinary optimization platform. As such, it is based on the open-source library GEMSEO. 
 This scientific library provides advanced mathematical machinery to solve the numerical problems that arise when computing complex interactions between interdependent models. SoSTrades provides a user-friendly interface to most GEMSEO capabilities. 
+
 A key feature of GEMSEO is its semantic layer, which automatically detects how the models are connected from their input/output declarations, on a variable name basis. When these interdependencies are not straightforward, a sequential execution of the ensemble of models is not possible. An arbitrary set of model inputs could be non-sensical system-wise, representing contradictions between the different models. In these cases, an iterative resolution is necessary to find an “equilibrium point” of the system, even for a simple simulation. GEMSEO provides multi-disciplinary analysis algorithms that allow to conduct such simulations, an additional layer of optimization and vast tooling for visualization, design of experiments, meta-modeling, parallel execution and post-processing, among other. The level of automation provided by GEMSEO is particularly useful in cases where a high number of strongly interconnected models are considered.
 
 ![intro sostrades](images/intro_sostrades.png)
@@ -35,8 +36,8 @@ In a process with two or more interdependent models, each of the models’ varia
 - *Output*: dependent variable that is produced by one of the models via computations that rely on inputs. A single output variable cannot be produced by two or more models (otherwise its value would be ambiguous).
 - *Coupling variables*: in a process with several models, a single variable x can simultaneously be the output of model A and the input of model B. 
 Then models A and B are coupled, and x is a coupling variable.
-*Weak coupling*: in a weakly coupled process there is an ordering of the models that allows the sensical resolution of the system with at most one execution of each model, in a cascade fashion. In the example above, it suffices to evaluate A before B. Coupling variables which are only involved in weakly coupled subprocesses are referred to as weak couplings.
-*Strong couplings*: when no permutation of the order of model execution allows to compute all outputs assuring lack of contradiction, the process is strongly coupled (cf. [Section 3.2](#section-32--notion-of-mda-to-solve-complex-interactions)). Variables whose values are constrained by the input/ouptut logic are referred to as strong couplings. 
+  - *Weak couplings*: in a weakly coupled process there is an ordering of the models that allows the sensical resolution of the system with at most one execution of each model, in a cascade fashion. In the example above, it suffices to evaluate A before B. Coupling variables which are only involved in weakly coupled subprocesses are referred to as weak couplings.
+  - *Strong couplings*: when no permutation of the order of model execution allows to compute all outputs assuring lack of contradiction, the process is strongly coupled (cf. [Section 3.2](#section-32--notion-of-mda-to-solve-complex-interactions)). Variables whose values are constrained by the input/ouptut logic are referred to as strong couplings. 
 If in the example above we further assume that variable y is an output of B and an input of A, then both x and y become strong couplings. Executing A(x=x0) might lead to y=y1 such that B(y=y1) outputs x = x1 != x0. In which case input x=x0 represents a state of contradiction of the system. 
 
 **Quick start elements**
@@ -56,8 +57,8 @@ To achieve this, I need to:
 - Create a Process using my model
 - Create a Usecase to define input data for my study
 
-A SosWrap is a model wrapper for SoSTrades application
-Here is the minimal working example of a SoSWrap :
+A SosWrapp is a model wrapper for a SoSTrades application, i.e. your custom model wrappers need to inherit from this class.
+Here is the minimal working example of a SoSWrapp :
 
 ```
 from sostrades_core.execution_engine.sos_wrapp import SoSWrapp
@@ -108,24 +109,26 @@ class MyCustomWrap(SoSWrapp):
 ```
 
 ### Base class
-SoSWrapp is the class from which inherits our model wrapper when using ‘SoSTrades’ wrapping mode.
+SoSWrapp is the template class which all model wrappers inherit from (when using ‘SoSTrades’ wrapping mode).
 It contains necessary information for the discipline configuration. It is owned by both the DisciplineWrapp and the SoSDiscipline.
-Its methods setup_sos_disciplines, run,… are overloaded by the user-provided Wrapper.
+Its methods `setup_sos_disciplines`, `run`, etc. are overloaded by the user-provided wrapper.
 
-**N.B.**: setup_sos_disciplines needs take as argument the proxy and call proxy.add_inputs() and/or proxy.add_outputs().
+**N.B.**: `setup_sos_disciplines` needs take as argument the proxy and call `proxy.add_inputs()` and/or `proxy.add_outputs()`, for the definition of dynamic i/o (cf. Section 2.4).
 
 **Attributes**:
-sos_name (string): name of the discipline local_data_short_name (Dict[Dict]): short name version of the local data for model input and output local_data (Dict[Any]): output of the model last run
+- sos_name (string): name of the discipline as defined upon its inclusion in the process. 
+- local_data (Dict[Any]): inputs and outputs of the model last run.
+- local_data_short_name (Dict[Dict]): short name version of the local_data, for internal model usage (cf. Section 3.1).
 
 ### Ontology data
 The ontology data specify all data regarding your SoSWrapp including :
-- `label` : Name of the wrapp on the ontology panel of the SoSTrades platform
+- `label` : Name of the wrapper on the ontology panel of the SoSTrades platform
 - `type` : Type of the model ‘Research’, ‘Industrial’ or ‘Other’
-- `source` : the person or project that has implemented the wrapp AND the model behind it
+- `source` : the person or project that has implemented the wrapper AND the model behind it
 - `version` : A version of the model if necessary
 
 ### Section 2.1: Input/output variables definition
-The DESC_IN and DESC_OUT dictionaries are the input and output variable descriptors. It gives information on variables in the wrapp used by the model.
+The DESC_IN and DESC_OUT dictionaries are the input and output variable descriptors. It gives information on variables in the wrapper used by the model.
 
 ```
 DESC_IN = {
@@ -149,13 +152,13 @@ DESC_OUT = {
 - `possible_values` : for string, possible values list of the variable. the possible values will be checked by a data integrity method
 - `optional` : A boolean flag that makes a variable optional to fill in the GUI
 - `editable` : A boolean flag that makes a variable editable or not in the GUI. By default input and coupling variables are editable, outputs are not.
-- `structuring` : A boolean flag that that defines a structuring variable, indicating its impact on the configuration of the wrapp or other variables within the wrapp. For instance, it may be used for an assumption flag, and when activated, it creates new variables.
+- `structuring` : A boolean flag that that defines a structuring variable, indicating its impact on the configuration of the wrapper or other variables within the wrapp. For instance, it may be used for an assumption flag, and when activated, it creates new variables.
 
 #### Dataframe descriptor
-Here is an example dataframe descriptor. For each column you define a tuple which defines:
-- first the type of the values in the column,
-- second the range (for int or float) or possible values (for string), None if nothing is specified
-- third if the column is editable in the GUI or not.
+Here is an example dataframe descriptor. For each column you declare a tuple which defines:
+1. the type of the values in the column,
+2. the range (for int or float) or possible values (for string), None if nothing is specified
+3. whether the column is editable in the GUI or not.
 
 ```
 TransportChoiceData = {
@@ -203,7 +206,7 @@ Here is an example of dict subtype descriptors. You can define an infinite depth
 ```
 
 - The function `get_sosdisc_inputs(variable name)` returns the value of the variable in the data manager. It can be used without arguments : return a dict with all keys and values of the DESC_IN
-- The core of the model can be written here or loaded from an external model
+- The core computations of the model can be implemented here or loaded from an external model
 - Output values are stored in a dictionary {variable_name : value} with the value coming from the model
 - The dictionary is sent to the data manager with the function  `store_sos_output_values(dict_values)`
 
@@ -310,7 +313,7 @@ This reference jacobian computation can be costly according to the number of des
 Once the reference is generated, you can delete the environment variable or set it to false so that the reference jacobian will not be computed twice : it will be loaded from the provided pickle file.
 
 ### Section 2.3: Post-processing definition
-In SoSTrades charts can be displayed. They need to be implemented in the SOSWrap discipline.
+In SoSTrades charts can be displayed. They need to be implemented in the SOSWrapp.
 Two methods need to be implemented for post-processings.
 
 #### get_chart_filter_list
@@ -394,8 +397,9 @@ def get_post_processing_list(self, chart_filters=None):
  You can use `InstantiatedPlotlyChart` to use a plotly figure already created.
 
 ### Section 2.4: Dynamic inputs/outputs
-Sometimes the inputs or outputs variables are dependant of another input variable.
-They need to be declared during the configuration phase.
+Sometimes the input or output variable declarations depend on the value of another input variable.
+This kind of *dynamic* i/o need to be declared during the configuration phase. 
+The input variables on which they depend need to be declared as *structuring*.
 
 ```
 def setup_sos_disciplines(self):
@@ -419,8 +423,7 @@ The dictionnary of the dynamic variables is then added to the inputs with the fu
 
 The same thing can be done for outputs declaration and added to the outputs variables with the function `add_outputs`.
 
-
-### Section 2.5 Test a SOSWrap
+### Section 2.5 Test a SOSWrapp
 
 #### Test file
 Tests files should be created in the `tests/` directory.
@@ -699,7 +702,7 @@ This method is recommended to be used first to test your usecase.
 1.	Declare an instance of the Study class in your script.
 2.	Call the `load_data()` method on the instance. This method will invoke the `setup_usecase()` method written in the `usecase*.py` file to populate the necessary data. To find all the data and their namespaces you can use the `display_treeview_nodes()` method with the  `display_variables` argument at True (see the example below).
 3.	If you want the usecase to be filled with all the necessary data to be executed you can test that you have all the needed data by executing the study by calling the `run()` method. If necessary data are missing it will return an error describing the missing data.
-4.	You can also test your usecase with the method `test()`, it will check the configuration and the data integrity, its runs twice to see that it reproduces the same results and all post-processing linked to the use case (the one in all the wrapp of the associated process) are validated . 
+4.	You can also test your usecase with the method `test()`, it will check the configuration and the data integrity, its runs twice to see that it reproduces the same results and all post-processing linked to the use case (the one in all the wrapper of the associated process) are validated . 
 
 ![study test](images/study_script.png)
 
@@ -707,7 +710,7 @@ Or just to test:
 
 ![study test](images/study_script_test.png)
 
-5.	You can visualize the post processings of your usecase. A dedicated factory (PostprocessingFactory) manages post-processing functionalities within the SoSTrades platform. Users have the option to preview all post-processings created for their usecase (in all the wrapp of the associated process but also at a given node, see how to create-postprocessing for mroe details) with these commands :
+5.	You can visualize the post processings of your usecase. A dedicated factory (PostprocessingFactory) manages post-processing functionalities within the SoSTrades platform. Users have the option to preview all post-processings created for their usecase (in all the wrapper of the associated process but also at a given node, see how to create-postprocessing for mroe details) with these commands :
 
 ![study test](images/study_script_post_proc.png)
 
