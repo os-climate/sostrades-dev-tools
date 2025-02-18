@@ -43,7 +43,7 @@ If in the example above we further assume that variable y is an output of B and 
 **Quick start elements**
 Any new computation to be conducted on the SoSTrades platform requires the three elements below:
 1.	A set of wrapped models with named inputs and outputs (cf. [Chapter 2](#chapter-2-how-to-wrap-your-model-in-sostrades-)).
-2.	A process definition file, representing a set of interconnected instances of the models (cf. [Capter 3](#chapter-3--how-to-create-a-process-in-sostrades)).
+2.	A process definition file, representing a set of interconnected instances of the models (cf. [Chapter 3](#chapter-3--how-to-create-a-process-in-sostrades)).
 3.	A study, representing the application of a concrete set of input data to the process, which can be edited and run on the SoSTrades platform (cf. [Chapter 4](#chapter-4--how-to-create-a-study-in-sostrades)).
 
 
@@ -488,32 +488,6 @@ Multi-disciplinary analysis provides different formulations to convert such proc
 **Example:** execution sequence of strongly coupled process with MDA loop highlighted
 
 ![execution sequence](images/execution_sequence2.png)
-
-#### Example 1: static aeroelasticity 
-
-This famous, strongly coupled process represents the interaction between the aerodynamics model and the structure model, in the modeling of an aircraft wing subject to aerodynamic forces that produce in turn a change in the wing shape.
-
-![strong coupling](images/strong_coupling.png)
-
-![aeroelasticity model](images/aeroelasticity_model.png)
-
-Implementation as a SoSTrades process requires the wrapped Aerodynamics model and Structure model, and the specification of namespaces that store their relevant shared variables. In this case, a single shared namespace is necessary (NS_Aeroelasticity).
-
-![aeroelasticity model](images/aeroelasticity_model_namespaces.png)
-
-#### Example 2: fleet aeroelasticity
-
-This example illustrates how namespaces names and values allow fine-grained control of the process couplings, in a case where static aeroelasticity is to be modeled for several aircraft in a fleet.
-
-![fleet aeroelasticity model](images/fleet_model.png)
-
-This case requires distinguishing between NS_Public (same value for all models) and NS_Aeroelasticity (whose value changes from one aircraft to another).
-
-![fleet aeroelasticity model](images/fleet_model_namespaces.png)
-
-### **Key Points to Remember**
-
-![namespaces](images/namespaces.png)
 
 ### Section 3.3 : Create a process 
 
