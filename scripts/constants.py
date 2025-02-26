@@ -27,7 +27,7 @@ model_path = f"{sostrades_dev_tools_path}/{model_dir_name}"
 data_path = f"{sostrades_dev_tools_path}/{data_dir_name}".replace("\\", "/")
 
 # Python version to install
-python_version_to_install = "3.9.21"
+python_version_to_install = "3.12.9"
 
 # Variable with the path of .venv
 venv_path = f"{sostrades_dev_tools_path}/.venv"
