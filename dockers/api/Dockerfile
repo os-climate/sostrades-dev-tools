@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM python:3.9
+FROM python:3.12
 
 RUN chmod 1777 /tmp
 
@@ -26,7 +26,7 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.4"
+ARG NUMPY_VERSION="1.26.4"
 
 # Upgrade pip and install uv
 RUN python -m pip install --no-cache-dir --upgrade pip && \
