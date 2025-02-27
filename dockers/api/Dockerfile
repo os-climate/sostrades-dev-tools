@@ -23,7 +23,7 @@ RUN apt-get update && \
     libxmlsec1-dev pkg-config default-libmysqlclient-dev \
     build-essential libsasl2-dev python3-dev libldap2-dev \
     libssl-dev procps mpi mpich unixodbc-dev unixodbc \
-    coinor-libcbc-dev cron && apt clean
+    coinor-libcbc-dev cron python3-distutils && apt clean
 
 # Numpy version
 ARG NUMPY_VERSION="1.26.4"
