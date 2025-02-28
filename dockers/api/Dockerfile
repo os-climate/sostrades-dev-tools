@@ -37,7 +37,7 @@ RUN python -m pip install --no-cache-dir --upgrade pip && \
 ARG PETSC_VERSION="3.21.6"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
-ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
+ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.12/site-packages"
 
 # Download and install PETSc
 RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
