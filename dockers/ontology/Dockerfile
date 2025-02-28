@@ -31,7 +31,7 @@ ARG NUMPY_VERSION="1.26.4"
 # Upgrade pip and install uv
 RUN python -m pip install --no-cache-dir --upgrade pip && \
     python -m pip install --no-cache-dir uv && \
-    python -m uv pip install --no-cache-dir numpy==${NUMPY_VERSION}
+    python -m uv pip install --no-cache-dir setuptools numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.6"
