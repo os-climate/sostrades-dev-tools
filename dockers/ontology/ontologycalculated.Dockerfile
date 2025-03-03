@@ -17,8 +17,7 @@ FROM registrysostrades.azurecr.io/ontology-builder:${SOSTRADES_VERSION} AS build
 COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' dev.requirements.txt && \
-    python -m uv pip install --no-cache-dir -r dev.requirements.txt debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
-    python -m uv pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
+    python -m uv pip install --no-cache-dir -r dev.requirements.txt  && \
 
 COPY ./models ./models
 

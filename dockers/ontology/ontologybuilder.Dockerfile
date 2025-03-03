@@ -13,6 +13,11 @@
 # limitations under the License.
 FROM registrysostrades.azurecr.io/python-petsc-${DEV_TOOLS_BRANCH}:3.9
 
+# Numpy version
+ARG NUMPY_VERSION="1.24.4"
+
+ARG KUBERNETES_VERSION="29.0.0"
+
 # Install ontology requirements
 COPY ./platform_requirements/ontology.requirements.txt ontology.requirements.txt
 
