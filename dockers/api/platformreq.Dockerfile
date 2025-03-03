@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM registrysostrades.azurecr.io/python-petsc:3.9
+FROM registrysostrades.azurecr.io/python-petsc-${DEV_TOOLS_BRANCH}:3.9
 
 # Numpy version
 ARG NUMPY_VERSION="1.24.4"
