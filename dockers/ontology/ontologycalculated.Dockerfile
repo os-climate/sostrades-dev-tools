@@ -31,7 +31,7 @@ RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
 
 #------------------------------------------------------------------------------
 
-FROM ontology:${SOSTRADES_VERSION}
+FROM registrysostrades.azurecr.io/ontology:${SOSTRADES_VERSION}
 
 COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data/
 
