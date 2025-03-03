@@ -60,7 +60,7 @@ ENV USE_PETSC="True"
 ENV FLASK_APP=sos_trades_api/server/base_server.py
 
 # Install path for sostrades
-ARG SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
+ENV SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
 RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
 WORKDIR ${SOS_TRADES_SOURCES}
 
