@@ -24,6 +24,8 @@ COPY ./models ./models
 RUN ls -ail
 RUN echo ${pwd}
 
+RUN pwd
+
 # Update PYTHONPATH & calcul ontology
 RUN ls -d ./platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
     ls -d ./models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
@@ -31,6 +33,8 @@ RUN ls -d ./platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
     export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
     echo "PYTHONPATH=$PYTHONPATH" && \
     python -u platform/sostrades-ontology/sos_ontology/core/script/createSoSOntologyFromCode.py
+
+RUN ls -ail ./platform/sostrades-ontology/sos_ontology/data
 
 #------------------------------------------------------------------------------
 
