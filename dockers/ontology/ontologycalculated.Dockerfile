@@ -25,8 +25,8 @@ RUN ls -ail
 RUN echo ${pwd}
 
 # Update PYTHONPATH & calcul ontology
-RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
-    ls -d ${pwd}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
+RUN ls -d ./platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
+    ls -d ./models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
     sed -i '$ s/.$//' /tmp/pythonpath.txt && \
     export PYTHONPATH=$(cat /tmp/pythonpath.txt) && \
     echo "PYTHONPATH=$PYTHONPATH" && \
