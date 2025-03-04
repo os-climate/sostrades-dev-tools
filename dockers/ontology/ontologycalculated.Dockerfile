@@ -17,9 +17,7 @@ FROM registrysostrades.azurecr.io/ontology-builder:${SOSTRADES_VERSION} AS build
 COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 
 RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' dev.requirements.txt && \
-    python -m uv pip install --no-cache-dir -r dev.requirements.txt  && \
-
-RUN ls -ail
+    python -m uv pip install --no-cache-dir -r dev.requirements.txt
 
 COPY ./models ./models
 
