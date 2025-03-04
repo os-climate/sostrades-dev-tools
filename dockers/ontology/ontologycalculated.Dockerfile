@@ -21,11 +21,6 @@ RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' dev.requirements.txt && \
 
 COPY ./models ./models
 
-RUN ls -ail
-RUN echo ${pwd}
-
-RUN pwd
-
 # Update PYTHONPATH & calcul ontology
 RUN ls -d ./platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
     ls -d ./models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
@@ -34,12 +29,10 @@ RUN ls -d ./platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
     echo "PYTHONPATH=$PYTHONPATH" && \
     python -u platform/sostrades-ontology/sos_ontology/core/script/createSoSOntologyFromCode.py
 
-RUN ls -ail ./platform/sostrades-ontology/sos_ontology/data
-
 #------------------------------------------------------------------------------
 
 FROM registrysostrades.azurecr.io/ontology:${SOSTRADES_VERSION}
 
-COPY --from=builder ./platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data/
+COPY --from=builder /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data/
 
 ENTRYPOINT ["/bin/bash", "/startup/commands.sh"]
