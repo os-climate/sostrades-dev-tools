@@ -87,7 +87,7 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
             print(f"error while converting last commit date {last_commit_date} into datetime")
 
         # get repo url
-        INFO_REGEXP = ':\/\/.*@'
+        INFO_REGEXP = '://.*@'
         INFO_REPLACE = '://'
         last_commit_url = run_git_command(['git', 'remote', 'get-url', 'origin'])
         last_commit_url = re.sub(INFO_REGEXP, INFO_REPLACE, last_commit_url)

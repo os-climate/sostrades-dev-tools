@@ -26,6 +26,9 @@ platform_path = f"{sostrades_dev_tools_path}/{platform_dir_name}"
 model_path = f"{sostrades_dev_tools_path}/{model_dir_name}"
 data_path = f"{sostrades_dev_tools_path}/{data_dir_name}".replace("\\", "/")
 
+# Python version to install
+python_version_to_install = "3.9.21"
+
 # Variable with the path of .venv
 venv_path = f"{sostrades_dev_tools_path}/.venv"
 
@@ -33,12 +36,12 @@ venv_path = f"{sostrades_dev_tools_path}/.venv"
 if platform.system() == 'Windows':
     # Define the variable with a Windows-specific path
     venv_script_activate_path = f"{venv_path}/Scripts/activate"
-    venv_script_activate_command = f"{venv_path}/Scripts/activate"
+    venv_script_activate_command = f'call "{venv_path}/Scripts/activate"'
     venv_lib_site_package_path = f"{venv_path}/lib/site-packages"
 else:
     # Define the variable with a generic path for other platforms
     venv_script_activate_path = f"{venv_path}/bin/activate"
-    venv_script_activate_command = f". {venv_path}/bin/activate"
+    venv_script_activate_command = f". '{venv_path}/bin/activate'"
     venv_lib_site_package_path = f"{venv_path}/lib/python3.9/site-packages"
 
 vscode_dir = ".vscode"

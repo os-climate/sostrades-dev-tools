@@ -27,11 +27,11 @@ RUN apt-get update && \
 
 # Numpy version
 ARG NUMPY_VERSION="1.24.4"
-ARG KUBERNETES_VERSION="29.0.0"
 
-# Upgrade pip
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir uv numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION}
+# Upgrade pip and install uv
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir uv && \
+    python -m uv pip install --no-cache-dir numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.6"
@@ -63,6 +63,8 @@ ENV FLASK_APP=sos_trades_api/server/base_server.py
 ARG SOS_TRADES_SOURCES="/usr/local/sostrades/sources"
 RUN mkdir -p ${SOS_TRADES_SOURCES} /usr/local/sostrades/conf/ /startup
 WORKDIR ${SOS_TRADES_SOURCES}
+
+ARG KUBERNETES_VERSION="29.0.0"
 
 # Copy Python requirements and install them
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
