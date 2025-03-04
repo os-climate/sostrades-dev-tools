@@ -21,6 +21,9 @@ RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' dev.requirements.txt && \
 
 COPY ./models ./models
 
+RUN ls -ail
+RUN echo ${pwd}
+
 # Update PYTHONPATH & calcul ontology
 RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
     ls -d ${pwd}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
