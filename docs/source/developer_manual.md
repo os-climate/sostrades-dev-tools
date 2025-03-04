@@ -30,6 +30,8 @@ A key feature of GEMSEO is its semantic layer, which automatically detects how t
 - *Process*: a SoSTrades process is an ensemble of model instances, whose inputs and outputs are uniquely identified by variable names, imposing input/output interactions between them. These relationships allow to distinguish between inputs, outputs and coupling variables of the process as a whole. A process constitutes a sort of “evaluation function” in SoSTrades.
 - *Study*: a SoSTrades study represents the application of a process to a set of concrete input data (including numerical options), allowing the computation of its outputs for this set of inputs. Once the study is configured with all required inputs, it can be run to produce outputs.
 
+![sostrades main concepts](images/sostrades_schema.png)
+
 #### Inputs, outputs and couplings
 In a process with two or more interdependent models, each of the models’ variables falls into at least one of the categories below:
 - *Input*: independent variable that needs to be provided externally to a model to be used in the computations.
