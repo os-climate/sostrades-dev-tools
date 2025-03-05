@@ -27,13 +27,15 @@ RUN apt-get update && \
 
 # Numpy version
 ARG NUMPY_VERSION="1.24.4"
+ARG KUBERNETES_VERSION="29.0.0"
 
 # Upgrade pip
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir numpy==${NUMPY_VERSION}
+    pip install --no-cache-dir numpy==${NUMPY_VERSION} && \
+    pip install --no-cache-dir kubernetes==${KUBERNETES_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.21.3"
+ARG PETSC_VERSION="3.21.6"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
@@ -65,11 +67,11 @@ WORKDIR ${SOS_TRADES_SOURCES}
 
 # Copy Python requirements and install them
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
-RUN sed -i '/petsc\|numpy[[:blank:]]*=/d' api.requirements.txt && \
-    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
+RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
+    pip install --no-cache-dir -r api.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION} kubernetes==${KUBERNETES_VERSION} && \
+    pip install --no-cache-dir --no-deps git+https://gitlab.com/gemseo/dev/gemseo-petsc@4f1f50baebec11c0ccf417c6ae8bf03b28a2c431
 
 # Copy models and platform repos for standalone image if needed
-COPY ./platform/gemseo ./platform/gemseo
 COPY ./platform/sostrades-webapi ./platform/sostrades-webapi
 COPY ./platform/sostrades-core ./platform/sostrades-core
 COPY ./models ./models
@@ -79,7 +81,6 @@ RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then ech
 # Update PYTHONPATH
 RUN ls -d ${SOS_TRADES_SOURCES}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \ 
     ls -d ${SOS_TRADES_SOURCES}/models/* | tr '\n' ':' >> /tmp/pythonpath.txt && \ 
-    sed -i "s|gemseo|gemseo/src|g" /tmp/pythonpath.txt && \
     sed -i '$ s/.$//' /tmp/pythonpath.txt && \
     echo "export PYTHONPATH=$(cat /tmp/pythonpath.txt)" >> /etc/environment && \
     echo '. /etc/environment' >> /etc/bash.bashrc

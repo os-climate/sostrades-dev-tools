@@ -20,16 +20,12 @@ from os import listdir
 from os.path import(join, isdir, exists)
 from datetime import datetime
 import subprocess
-
-
+import re
 
 git_commits_info_file_path = f"./platform/sostrades-webapi/sos_trades_api/git_commits_info.json"
 gitignore_file_path = f"./platform/sostrades-webapi/.gitignore"
 platform_path = "./platform"
 models_path = "./models"
-
-
-
 
 def get_git_info(repo_name:str, repo_git_path:str)-> dict:
     '''
@@ -63,7 +59,7 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
         # get current branch or version tag
         branch_or_tag = run_git_command(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
         if branch_or_tag == 'HEAD':
-            all_tags = run_git_command(['git', 'tag', '--contains', last_commit_hash])
+            all_tags = run_git_command(['git', 'tag', '--points-at', last_commit_hash])
             tags = [tag for tag in all_tags.split('\n') if tag.startswith('v')]
             if len(tags)>0:
                 def convert_version(version:str)->list[int]:
@@ -91,7 +87,21 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
             print(f"error while converting last commit date {last_commit_date} into datetime")
 
         # get repo url
+        INFO_REGEXP = ':\/\/.*@'
+        INFO_REPLACE = '://'
         last_commit_url = run_git_command(['git', 'remote', 'get-url', 'origin'])
+        last_commit_url = re.sub(INFO_REGEXP, INFO_REPLACE, last_commit_url)
+        
+        # Post-process url to remove .git
+        if last_commit_url.endswith(".git"):
+            last_commit_url = last_commit_url[:-4]
+        # Verify if we are dealing with ssh remote repository and replace by https://
+        SSH_REGEX =  r'^[a-zA-Z]+@[a-zA-Z0-9.-]+:'
+        SSH_REGEX_TO_REPLACE = r'^.*@'
+        SSH_REGEX_REPLACE = 'https://'
+        if bool(re.match(SSH_REGEX, last_commit_url)):
+            last_commit_url = last_commit_url.replace(":", "/")
+            last_commit_url = re.sub(SSH_REGEX_TO_REPLACE, SSH_REGEX_REPLACE, last_commit_url)
 
         return {
             'name':repo_name,
@@ -101,7 +111,7 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
             'branch': branch_or_tag
         }
     except Exception as e:
-        raise Exception(f"Error while getting repository {repo_git_path} git info: {e}")
+        raise Exception(f"Error while getting repository {repo_git_path} git info: {e}") from e
 
 
 def build_commits_info_dict(folder_path:str)-> list[dict]:
@@ -185,5 +195,3 @@ if check_git_commit_file_in_git_ignore():
     #write it in json file
     if len(all_repo_info) > 0:
         save_to_json(platform_app_info, git_commits_info_file_path)
-    
-

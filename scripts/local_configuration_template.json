@@ -1,21 +1,17 @@
 {
     "ENVIRONMENT": "DEVELOPMENT",
     "SQL_ALCHEMY_DATABASE": {
-        "HOST": "127.0.0.1",
-        "PORT": 3306,
-        "USER_ENV_VAR": "SQL_ACCOUNT",
-        "PASSWORD_ENV_VAR": "SQL_PASSWORD",
-        "DATABASE_NAME": "sostrades-data",
-        "SSL": false
+        "ENGINE_OPTIONS": {},
+        "CONNECT_ARGS": {},
+        "URI": "sqlite:///%%WILL_BE_REPLACED%%/sostrades-data.db",
+        "URI_ENV_VARS" : {}
     },
     "SQLALCHEMY_TRACK_MODIFICATIONS": false,
     "LOGGING_DATABASE": {
-        "HOST": "127.0.0.1",
-        "PORT": 3306,
-        "USER_ENV_VAR": "LOG_USER",
-        "PASSWORD_ENV_VAR": "LOG_PASSWORD",
-        "DATABASE_NAME": "sostrades-log",
-        "SSL": false
+        "ENGINE_OPTIONS": {},
+        "CONNECT_ARGS": {},
+        "URI": "sqlite:///%%WILL_BE_REPLACED%%/sostrades-logs.db",
+        "URI_ENV_VARS" : {}
     },
     "SECRET_KEY_ENV_VAR": "SECRET_KEY",
     "JWT_TOKEN_LOCATION": "headers",
@@ -37,9 +33,9 @@
     "INTERNAL_SSL_CERTIFICATE": "",
     "SOS_TRADES_EXECUTION_STRATEGY": "subprocess",
     "SOS_TRADES_SERVER_MODE": "mono",
-    "SOS_TRADES_DATA": "C:\\TEMP\\SOSTRADES",
-    "SOS_TRADES_REFERENCES": "C:\\TEMP\\SOSTRADES\\REFERENCES",
+    "SOS_TRADES_DATA": "%%WILL BE REPLACED%%",
+    "SOS_TRADES_REFERENCES": "%%WILL BE REPLACED%%",
     "EEB_PATH": "",
-    "SOS_TRADES_RSA": "C:\\TEMP\\SOSTRADES\\RSA",
+    "SOS_TRADES_RSA": "%%WILL BE REPLACED%%",
     "SAML_V2_METADATA_FOLDER": ""
 }
