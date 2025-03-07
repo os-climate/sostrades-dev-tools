@@ -4,7 +4,8 @@ This documentation manual is designed for people seeking to deepen their underst
 
 SoSTrades is a web-based, multi-user, interactive publication-quality graph simulation platform. It allows users to drop new modules without additional coding, and provides embedded advanced numerical capabilities for simulation and multi-disciplinary optimization. It also has built-in collaborative capabilities to allow different experts to work together.
 
-It provides comprehensive guidance on navigating the GUI for easy interaction. Learn how to create, modify, run, and open userr studies, as well as visualize existing ones.
+It provides comprehensive guidance on using the GUI for seamless interaction. Learn how to create, modify, run, and open
+user studies, as well as visualize existing ones.
 
 ## Chapter 1: SOSTrades GUI Connexion 
 
@@ -33,12 +34,15 @@ This chapter provides an overview of the GUI homepage, navigation menus, includi
 
 After connecting to SoSTrades GUI platform they are many informations displayed on the homepage. Each numbered boxes are describe bellow:
 - **1- Menu button:** From this button you can navigate to the different pages of the GUI like return to the homepage, access to study and reference management pages, ontology, group management and manager.
-- **2- Platform information:** In this box, the name and creation date of the platform are displayed. When on a hosted platform, the box is clickable to view more details about the different Git repositories the platform is based on.
+- **2- Platform information:** In this box, the name and creation date of the platform are displayed. When you are
+  connected to a cloud platform, the box is clickable to view more details about the different Git repositories the
+  platform is based on.
 - **3- User information:** The name of the current user is displayed
 - **4- Contact button:** Show the email address of the support team
 - **5- Logout button:** Here is the button to logout
 - **6- Favorite studies:** At the bottom of the homepage there are the last opened and favorite study of the current user. 
-- **7- Header color:** The color of the header is configurable during the platform's creation. For example when the platform is hosted, it has a different color than the purple one used for local platforms.
+- **7- Header color:** The color of the header is configurable during the platform's creation. For example the cloud
+  open source validation platform is green, different color than the purple one for local platforms.
 
 ### Section 2.2: Study Management Visualisation
 
@@ -52,14 +56,24 @@ Similar to the study management page, the reference management page can be acces
 ![](images/platform-GUI/reference-management/reference-list.png)
 
 ### Section 2.4: Group Management
-Each user belongs to, at least, one group with rights. 
+
+Each user connected to the platform belongs to, at least, one group with rights.
+
 - **Owner** : When a user create a group, he is the owner of the group. The owner cannot be changed and has the full rights on the group (edition, deletion, manage access rights).
-- **Manager** : an edit a group (name and description), manage access rights to the group (can add or remove user or group, but cannot change its own access right nor the owner), can create study into this group. A manager can't delete a group, only the owner can do it.
+- **Manager** : Can edit a group (name and description), manage access rights to the group (can add or remove user or
+  group, but cannot change its own access right nor the owner), can create study into this group. A manager can't delete
+  a group, only the owner can do it.
 - **Member** : A member of a group can only create studies into this group. 
 
-These groups contain studies created by user and provide user an access right on it.
+These groups contain user and each user in the group has access to what belongs to it. It can be :
 
-When a group is linked to a process, a study, or another group, the users and/or groups within the group inherit the associated access rights.  
+- another group of user
+- a process (bunch of models), it is possible to link a process to a given group
+- a study created by someone in the group or added by someone else that has given access to it
+
+When a group is linked to a process, a study, or another group, the users and/or groups within the group inherit the
+associated access rights.
+
 For example:  
 if a group is added as a manager in a process entity's rights, all users in the group (owner, manager, or member) will be managers of the process.  
 If a group is added as a restricted viewer in a study-case entity's rights, all users in the group (owner, manager, or member) will be restricted viewers of the study-case.  
