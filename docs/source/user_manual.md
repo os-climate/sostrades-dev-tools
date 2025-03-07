@@ -8,19 +8,18 @@ It provides comprehensive guidance on navigating the GUI for easy interaction. L
 
 ## Chapter 1: SOSTrades GUI Connexion 
 
-This chapter offers all the necessary explanations for easily connecting the SoSTrades Graphical User Interface. There are possibilities that you can meet to connect on it, the cloud one and the local one.
+This chapter offers all the necessary explanations for easily connecting the SoSTrades Graphical User Interface. There are possibilities that you can meet to connect on it, the cloud one and the local one. 
 
 ### Section 1.1: First connexion on cloud landing page
 
-On the cloud login page, a redirection occurs to the Keycloak homepage, allowing authentication with a local Keycloak account created by an administrator. Alternatively, a personal GitHub or Google account can be used by clicking the associated button.
+The cloud platform is a collaborative environment where all developer contributions are tested and validated before becoming available on the final link: [https://validation.osc-tsa.com](https://validation.osc-tsa.com).  
+On the cloud login page, a redirection occurs to the Keycloak homepage, allowing authentication with a local Keycloak account created by an administrator. Keycloak is an open-source identity and access management solution that we have chosen to handle authentication and user management on the platform. Alternatively, a personal GitHub or Google account can be used by clicking the associated button. Github and Google account should have the same email address to be associated to the same account.
 
 ![](images/platform-GUI/login-page/keycloak-login-page.png)
 
 
 ### Section 1.2: Connexion on local machine
-
-The connexion with a developer account is only necessary when user use sostrades in a local environment. A developer account can be created by executing the `CreateUser.py` script of the [SoSTrades local installation documentation](installation.md). The user password can be found in the following path `./sostrades-dev-tools-test-uv/platform/sostrades-webapi/sos_trades_api/secret/`
-
+SoSTrades can be installed on a local machine by following this installation [documentation](installation.md).  Once the installation is successfully completed, the user created with the `CreateUser.py` script from the documentation can be used to access the local platform at [http://localhost:4200/](http://localhost:4200/). The user password can be found in the following path: `./sostrades-dev-tools-test-uv/platform/sostrades-webapi/sos_trades_api/secret/`.  
 ![](images/platform-GUI/login-page/local-login-page.png)
 
 ## Chapter 2: GUI Homepage and Menus
@@ -31,18 +30,22 @@ This chapter provides an overview of the GUI homepage, navigation menus, includi
 
 ![](images/platform-GUI/welcome-page/numbered-welcome-page.png)
 
-After connecting to SoSTrades GUI platform they are many informations displayed on the homepage. Each numbered boxes are describe bellow:
-- **1- Menu button:** From this button you can navigate to the different pages of the GUI like return to the homepage, access to study and reference management pages, ontology, group management and manager.
+After connecting to SoSTrades GUI platform they are many informations displayed on the homepage. Each numbered box is described below:
+- **1- Menu button:** From this button you can navigate to the different pages which will be detailed in next chapters
 - **2- Platform information:** In this box, the name and creation date of the platform are displayed. When on a hosted platform, the box is clickable to view more details about the different Git repositories the platform is based on.
 - **3- User information:** The name of the current user is displayed
 - **4- Contact button:** Show the email address of the support team
 - **5- Logout button:** Here is the button to logout
-- **6- Favorite studies:** At the bottom of the homepage there are the last opened and favorite study of the current user. 
+- **6- Favorite studies:** At the bottom of the homepage there are the last opened and favorite study of the current user. Favorite studies can be marked with a star in the study management panel (see next section)
 - **7- Header color:** The color of the header is configurable during the platform's creation. For example when the platform is hosted, it has a different color than the purple one used for local platforms.
+
+By clicking on the Platform Information box, a table appears summarizing all Git repository details used to build the platform. The table includes the repository name, the branch or tag in use, the commit identifier, and the last commit date. This allows users to track the exact versions of the different components that make up the platform.  
+![](images/platform-GUI/header/platform-version.png)  
+![](images/platform-GUI/header/header-code-traceability.png)  
 
 ### Section 2.2: Study Management Visualisation
 
-From the menu button, it is possible to access the study management page and list all the studies that the current user can access, according to their rights on each study, as well as the rights of the groups they belong to. On that page, it is possible to search for a study by its name using the search bar. A study can also be created with the 'Create Study' button, which will be explained in more detail later in this documentation.  
+From the menu button, it is possible to access the study management page and list all the studies that the current user can access, according to their rights on each study, as well as the rights of the groups to which they belong. On that page, it is possible to search for a study by name using the search bar. A study can also be created with the 'Create Study' button, which will be explained in more detail later in this documentation.  
 ![](images/platform-GUI/header/menu-study.png)
 ![](images/platform-GUI/study-management/study-management-list.png)
 
@@ -54,7 +57,7 @@ Similar to the study management page, the reference management page can be acces
 ### Section 2.4: Group Management
 Each user belongs to, at least, one group with rights. 
 - **Owner** : When a user create a group, he is the owner of the group. The owner cannot be changed and has the full rights on the group (edition, deletion, manage access rights).
-- **Manager** : an edit a group (name and description), manage access rights to the group (can add or remove user or group, but cannot change its own access right nor the owner), can create study into this group. A manager can't delete a group, only the owner can do it.
+- **Manager** : edit a group (name and description), manage access rights to the group (can add or remove user or group, but cannot change its own access right nor the owner), can create study into this group. A manager can't delete a group, only the owner can do it.
 - **Member** : A member of a group can only create studies into this group. 
 
 These groups contain studies created by user and provide user an access right on it.
