@@ -2,6 +2,104 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v5.1.0
+Date: 2025-10-03
+
+### Features
+
+#### Core
+- Datasets:
+  - BigQuery connector, Arango connector and SoSPickle connector are removed from available open source connectors.
+  - New way to register a connector : connector_type is now the module path.
+  - Support of Datasets connectors registration for local installation
+    ##### Important Upgrade Information for v5.1.0
+    - To upgrade to version 5.1.0, you must update your dataset connectors configuration in the sostrades-core `sostrades-core\sostrades_core\datasets\datasets_connectors\sample_connectors.json` file. 
+    - If you wish to maintain your dataset connectors connectivity, follow these steps:
+    1. Locate your connectors module path.
+    2. Update the type according to the new format shown below.
+        ###### Old format (pre v5.1.0)
+        ```json
+        [
+          {
+            "connector_id": "json_datasets_connector",
+            "connector_type": "JSON",
+            "connector_args": {
+              "file_path": "./sostrades_core/tests/data/test_92_datasets_db.json"
+            }
+          },
+          {
+            "connector_id": "local_datasets_connector",
+            "connector_type": "Local",
+            "connector_args": {
+              "root_directory_path": "./sostrades_core/tests/data/local_datasets_db/"
+            }
+          },
+          {
+            "connector_id": "json_V1_datasets_connector_for_witness_coarse_dev",
+            "connector_type": "JSON_V1",
+            "connector_args": {
+              "file_path": "../../models/witness-core/climateeconomics/test/data/datasets/witness_coarse_dev_storytelling_test_dataset_db.json"
+            }
+          },
+          {
+            "connector_id": "local_V1_datasets_connector_for_witness_coarse_dev",
+            "connector_type": "Local_V1",
+            "connector_args": {
+              "root_directory_path": "../../models/witness-core/climateeconomics/test/data/datasets/local_datasets_db/"
+            }
+          }
+        ]
+        ```
+          
+        ###### v5.1.0 Format
+        ```json
+        [
+          {
+            "connector_id": "json_datasets_connector",
+            "connector_type": "sostrades_core.datasets.datasets_connectors.JSON_V0",
+            "connector_args": {
+              "file_path": "./sostrades_core/tests/data/test_92_datasets_db.json"
+            }
+          },
+          {
+            "connector_id": "local_datasets_connector",
+            "connector_type": "sostrades_core.datasets.datasets_connectors.Local_V0",
+            "connector_args": {
+              "root_directory_path": "./sostrades_core/tests/data/local_datasets_db/"
+            }
+          },
+          {
+            "connector_id": "json_V1_datasets_connector_for_witness_coarse_dev",
+            "connector_type": "sostrades_core.datasets.datasets_connectors.JSON_V1",
+            "connector_args": {
+              "file_path": "../../models/witness-core/climateeconomics/test/data/datasets/witness_coarse_dev_storytelling_test_dataset_db.json"
+            }
+          },
+          {
+            "connector_id": "local_V1_datasets_connector_for_witness_coarse_dev",
+            "connector_type": "sostrades_core.datasets.datasets_connectors.Local_V1",
+            "connector_args": {
+              "root_directory_path": "../../models/witness-core/climateeconomics/test/data/datasets/local_datasets_db/"
+            }
+          }
+        ]
+      ```
+- Core: New possibility to have display names in archi builders.
+
+#### API/ User interface
+- A study pod is no more needed to open a study in read-only mode. It mainly improve the study opening performances. 
+  ##### Important Upgrade Information for v5.1.0 on your local installation
+    - To upgrade to version 5.1.0, and still see visualization diagrams of your existing studies, you can update your already created studies read only mode by running the flask command `update_read_only_files_with_visualization`. 
+    ```
+    flask update_read_only_files_with_visualization
+    ```
+
+#### Bug Fixes
+- Fix Petsc error when loading gemseo addons when there is no PETSC environment variable.
+
+#### Local installation
+- updated Developer Manual on ReadTheDoc
+
 ## Release v5.0.2
 Date: 2025-02-14
 
