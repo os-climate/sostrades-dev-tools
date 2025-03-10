@@ -44,9 +44,20 @@ done
 
 # Compile the 3 requirement files
 echo "Attempting to compile all and ontology requirements"
-if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/sostrades-core/requirements.in" ] && [ -f "./platform/sostrades-webapi/requirements.in" ]; then
-    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/dev.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' './platform/sostrades-ontology/requirements.in' --upgrade"
-    
+
+core_req="./platform/sostrades-core/requirements.in"
+webapi_req="./platform/sostrades-webapi/requirements.in"
+ontology_req="./platform/sostrades-ontology/requirements.in"
+
+if [ -f "$core_req" ] && [ -f "$webapi_req" ]; then
+
+    # Construire la commande pour dev.requirements.txt
+    all_reqs="$core_req $webapi_req"
+    if [ -f "$ontology_req" ]; then
+        all_reqs="$all_reqs $ontology_req"
+    fi
+
+    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/dev.requirements.txt $requirements_files $all_reqs --upgrade"
     if [ $? -eq 0 ]; then
         echo "Compile all requirements passed"
     else
@@ -54,22 +65,29 @@ if [ -f "./platform/sostrades-ontology/requirements.in" ] && [ -f "./platform/so
         exit 1
     fi
 
-    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/ontology.requirements.txt './platform/sostrades-ontology/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
-    if [ $? -eq 0 ]; then
-        echo "Compile ontology requirements passed"
+    # Compiler ontology.requirements.txt uniquement si le fichier existe
+    if [ -f "$ontology_req" ]; then
+        eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/ontology.requirements.txt '$ontology_req' -c ./platform_requirements/dev.requirements.txt --upgrade"
+        if [ $? -eq 0 ]; then
+            echo "Compile ontology requirements passed"
+        else
+            echo "Compile ontology requirements failed"
+            exit 1
+        fi
     else
-        echo "Compile ontology requirements failed"
-        exit 1
+        echo "Ontology requirements.in not found, skipping ontology compilation"
     fi
-    
-    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files './platform/sostrades-core/requirements.in' './platform/sostrades-webapi/requirements.in' -c ./platform_requirements/dev.requirements.txt --upgrade"
+
+    # Compiler api.requirements.txt
+    eval "uv pip compile --resolver=backtracking --output-file=./platform_requirements/api.requirements.txt $requirements_files $core_req $webapi_req -c ./platform_requirements/dev.requirements.txt --upgrade"
     if [ $? -eq 0 ]; then
         echo "Compile api requirements passed"
     else
         echo "Compile api requirements failed"
         exit 1
     fi
+
 else
-    echo "One or more required files do not exist."
+    echo "Core and/or WebAPI requirements.in file(s) missing."
     exit 1
 fi
