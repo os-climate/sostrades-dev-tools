@@ -164,19 +164,32 @@ Similar to the study management page, the reference management page can be acces
 
 The SoSTrades Ontology is composed of all entities and relationships between concepts used in the Systems of Systems Trades project. The main concepts modeled are Code Repositories, Process Repositories, Processes, Models, Usecases and Parameters. For each instance, the ontology store metadata (label, description, documentation, ...) that are extracted from the Python code stored in the code repositories of the project in Gitlab. This ontology primary purpose is to complement the Web Interface of SoSTrades with these metadata to have a better lisibility and understandability. It is also a good way to explore the available concepts in the SoSTrades platform.
 
+#### Section 2.5.1: Ontology homepage
+
 As the same way of other pages of SoSTrades you can access to the Ontology homepage from the menu button at the top left of the homepage and select Ontology.  
 ![](images/platform-GUI/header/menu-to-ontology-homepage.png)  
 In the Ontology homepage, there are four tabs: Homepage, Models, Processes, and Parameters. At the bottom left of the page, a summary list displays the number of code repositories, models, parameters, processes, process repositories, and the usecases. 
-![](images/platform-GUI/ontology/ontology-main.png)
-By clicking on the Code Repositories link, a table appears displaying information about the different Git repositories used to build the platform.  
+![](images/platform-GUI/ontology/ontology-main.png)  
+
+#### Section 2.5.2: Ontology code repository traceability
+By clicking on the Code Repositories link, a table appears displaying information about the different Git repositories used to build the platform. The three other links, Models, Parameters, and Processes, display the same content as their corresponding tabs at the top of the Ontology homepage.  
+![](images/platform-GUI/ontology/ontology-code-traceability-link.png)    
 ![](images/platform-GUI/ontology/ontology-code-traceability.png)  
-The three other links, Models, Parameters, and Processes, display the same content as their corresponding tabs at the top of the Ontology homepage.
+
+
+#### Section 2.5.3: Ontology Model tab
 In the Models tab, a list of all models from each code repository is displayed, including the model name, the number of processes that use the model, and documentation.
 ![](images/platform-GUI/ontology/ontology-model-list.png)  
 With the documentation icon ![](images/platform-GUI/icon/documentation.png) more details about the model can be accessed.  
 ![](images/platform-GUI/ontology/ontology-model-agri-mix.png)  
+
+#### Section 2.5.4: Ontology Processes tab
 In the Processes tab, all processes are listed along with their associated repositories and the number of models used by each process. Additionally, for each process, there are options to create a study from the process, grant access rights to a user or group, and view the process documentation.
 ![](images/platform-GUI/ontology/ontology-process-list.png)
+
+Only processes that you have the right to see are displayed.
+
+#### Section 2.5.5: Ontology Parameters tab
 And lastly, the Parameters tab displays a list of all existing parameters used by a model. More details about each parameter can be accessed using the documentation icon.  
 ![](images/platform-GUI/ontology/ontology-parameter-list.png)
 
