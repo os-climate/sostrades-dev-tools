@@ -19,6 +19,7 @@ COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
 RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' dev.requirements.txt && \
     python -m uv pip install --no-cache-dir -r dev.requirements.txt
 
+COPY ./platform/sostrades-ontology ./platform/sostrades-ontology
 COPY ./models ./models
 
 # Update PYTHONPATH & calcul ontology
