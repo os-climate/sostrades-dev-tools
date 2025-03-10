@@ -20,7 +20,7 @@ On the cloud login page, a redirection occurs to the Keycloak homepage, allowing
 
 
 ### Section 1.2: Connexion on local machine
-SoSTrades can be installed on a local machine by following this installation [documentation](installation.md).  Once the installation is successfully completed, the user created with the `CreateUser.py` script from the documentation can be used to access the local platform at [http://localhost:4200/](http://localhost:4200/). The user password can be found in the following path: `./sostrades-dev-tools-test-uv/platform/sostrades-webapi/sos_trades_api/secret/`.  
+SoSTrades can be installed on a local machine by following this installation [documentation](installation.md). Once the installation is successfully completed, the user created with the `CreateUser.py` script from the documentation can be used to access the local platform at [http://localhost:4200/](http://localhost:4200/). The user password can be found in the following path: `./sostrades-dev-tools-test-uv/platform/sostrades-webapi/sos_trades_api/secret/`.  
 ![](images/platform-GUI/login-page/local-login-page.png)
 
 ## Chapter 2: GUI Homepage and Menus
@@ -31,15 +31,13 @@ This chapter provides an overview of the GUI homepage, navigation menus, includi
 
 ![](images/platform-GUI/welcome-page/numbered-welcome-page.png)
 
-After connecting to SoSTrades GUI platform they are many informations displayed on the homepage. Each numbered boxes are describe bellow:
-- **1- Menu button:** From this button you can navigate to the different pages of the GUI like return to the homepage, access to study and reference management pages, ontology, group management and manager.
-- **2- Platform information:** In this box, the name and creation date of the platform are displayed. When you are
-  connected to a cloud platform, the box is clickable to view more details about the different Git repositories the
-  platform is based on.
+After connecting to SoSTrades GUI platform they are many informations displayed on the homepage. Each numbered boxes are described bellow:
+- **1- Menu button:** From this button you can navigate to the different pages of the GUI which will be detailed in next chapters.
+- **2- Platform information:** In this box, the name and creation date of the platform are displayed. When you are connected to a cloud platform, the box is clickable to view more details about the different Git repositories the platform is based on.
 - **3- User information:** The name of the current user is displayed
 - **4- Contact button:** Show the email address of the support team
 - **5- Logout button:** Here is the button to logout
-- **6- Favorite studies:** At the bottom of the homepage there are the last opened and favorite study of the current user. 
+- **6- Favorite studies:** At the bottom of the homepage there are the last opened and favorite study of the current user. Users can mark their favorite studies with a star in the study management panel (see the next section).
 - **7- Header color:** The color of the header is configurable during the platform's creation. For example the cloud
   open source validation platform is green, different color than the purple one for local platforms.
 
@@ -47,18 +45,9 @@ By clicking on the Platform Information box, a table appears summarizing all Git
 ![](images/platform-GUI/header/platform-version.png)  
 ![](images/platform-GUI/header/header-code-traceability.png)  
 
-### Section 2.2: Study Management Visualisation
+### Section 2.2: Group Management
 
-From the menu button, it is possible to access the study management page and list all the studies that the current user can access, according to their rights on each study, as well as the rights of the groups to which they belong. On that page, it is possible to search for a study by name using the search bar. A study can also be created with the 'Create Study' button, which will be explained in more detail later in this documentation.  
-![](images/platform-GUI/header/menu-study.png)
-![](images/platform-GUI/study-management/study-management-list.png)
-
-### Section 2.3: Reference management Visualisation
-
-Similar to the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the search bar. A study can be created from a reference, and a reference can be generated.  
-![](images/platform-GUI/reference-management/reference-list.png)
-
-### Section 2.4: Group Management
+The Group Management feature, accessible via the menu button, allows users to organize access rights within the platform. 
 
 Each user connected to the platform belongs to, at least, one group with rights.
 
@@ -82,16 +71,18 @@ if a group is added as a manager in a process entity's rights, all users in the 
 If a group is added as a restricted viewer in a study-case entity's rights, all users in the group (owner, manager, or member) will be restricted viewers of the study-case.  
 If a user in the restricted viewer group is also added as a manager in the same study-case entity's rights, they will have manager rights for this study-case.
 
-#### Subsection 2.4.1 Create group
+By default at the first connexion on the GUI, the new users are in "All users" group. 
+
+#### Subsection 2.2.1 Create group
 ![](images/platform-GUI/group-management/create_group.png)  
 To create a new group, user must fill in the name and description.  
 :warning: Note: If user select confidential, the data will be encrypted. Even developers will not have access to it, and there will be no possibility to directly download the results.
 
-#### Subsection 2.4.2 Select a default group
+#### Subsection 2.2.2 Select a default group
 ![](images/platform-GUI/group-management/default_group.png)  
 If user select a default group, it will be preselected during a study creation.
 
-#### Subsection 2.4.3 Share a group
+#### Subsection 2.2.3 Share a group
 If user is manager of the group, he can also add in this group, an other or several users and/or groups, witch can contain several users, by clicking on the share icon ![](images/platform-GUI/icon/icon_share.png)
 
 ![](images/platform-GUI/group-management/share_group.png)
@@ -99,13 +90,79 @@ If user is manager of the group, he can also add in this group, an other or seve
 This user can also modify the access rights of a user or a group present in this group.  
 ![](images/platform-GUI/group-management/edit_rights.png)
 
-#### Subsection 2.4.4 Delete a group
+#### Subsection 2.2.4 Delete a group
 ![](images/platform-GUI/icon/icon_delete.png)  
 **<span style="color: red;">Removing a group will delete all studies that belong to this group.</span>**
 
+
+### Section 2.3: Study Management Visualisation
+
+From the menu button, it is possible to access the study management page and list all the studies that the current user can access, according to their rights on each study, as well as the rights of the groups to which they belong. On that page, it is possible to search for a study by name using the search bar. A study can also be created with the 'Create Study' button, which will be explained in more detail later in this documentation.  
+![](images/platform-GUI/header/menu-study.png)
+![](images/platform-GUI/study-management/study-management-list.png)
+
+#### Section 2.3.1: Study management column
+
+The study management list includes several columns that provide detailed information about each study:
+
+- Study Name: The name of the study.
+- Group: The group to which the study belongs.
+- Repository: The code repository associated with the study.
+- Process: The process used for the study.
+- Execution Status: The current execution state of the study.
+- Pod Size: The computing resources allocated to the study. (This column appears only when using the hosted GUI and not on a local machine, as a pod is used for computation in the hosted environment.)
+- Creation Date: The date the study was created.
+- Modification Date: The date the study was last modified.
+
+#### Section 2.3.2: Filter bar
+
+To facilitate the search for a study, a filter bar is available, allowing users to find a study using the dedicated field. 
+![](images/platform-GUI/study-management/filter-bar.png)  
+To filter by keyword in a specific column of the study management table, you can keep "All columns" selected for a broad search. For a more specific search, select "Name" from the dropdown menu to filter by study name, as shown in the example:  
+![](images/platform-GUI/study-management/dropdown-menu.png)  
+![](images/platform-GUI/study-management/filter-bar-by-name.png)
+
+#### Section 2.3.3: Favorite
+
+It is possible to mark a study as a favorite by clicking on the star icon ![](images/platform-GUI/icon/favorite.png), which will turn yellow![](images/platform-GUI/icon/favorite-yellow-star.png). Selecting a study as a favorite will make it visible on the homepage, and it will also be easier to find in the study management list by sorting the table using the corresponding column.
+
+#### Section 2.3.4: Study case opening
+
+There are two ways to open a study: in read-only mode ![](images/platform-GUI/study-management/read-only-mode-icon.png) or edition mode ![](images/platform-GUI/study-management/edition-mode-icon.png), each with its own associated icon. Alternatively, a study can be opened by clicking on its name. If the study has already been computed, it will open in read-only mode; otherwise, it will open in edition mode. The read only and edition mode will be explained in more detail in the chapter on Study Operations.
+
+#### Section 2.3.5: Study case option icons
+
+By hovering over the same row as a study, additional icons appear on the right side, providing more options for interaction:  
+![](images/platform-GUI/study-management/option-icon.png)
+
+- The firs icon ![](images/platform-GUI/study-management/rename-button-icon.png) allows you to modify the name of the study or change the group of the study:  
+![](images/platform-GUI/study-management/rename-study.png)  
+
+- The second icon ![](images/platform-GUI/study-management/pod-size-icon.png) is available only when you are in hosted GUI that allow to configure the pod size when opening a study as edition mode:  
+![](images/platform-GUI/study-management/study-pod-size.png)  
+
+- The third icon ![](images/platform-GUI/study-management/copy-study-icon.png) allows to duplicate the study with another name:  
+![](images/platform-GUI/study-management/copy-study.png)  
+
+- The next icon ![](images/platform-GUI/study-management/delete-icon.png) is for deleting a study.  
+![](images/platform-GUI/study-management/confirm-delete.png)  
+
+- This icon ![](images/platform-GUI/study-management/share-icon.png) allows to get the link of study to be shared:  
+![](images/platform-GUI/study-management/share-link.png)  
+
+- The last icon ![](images/platform-GUI/study-management/grant-right-icon.png) allows to manage group or user rights on that study:  
+![](images/platform-GUI/study-management/study-rights.png) 
+
+
+### Section 2.4: Reference management Visualisation
+
+Similar to the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the filter bar similar to the study management filter bar. A study can be created from a reference, and a reference can be generated.  
+![](images/platform-GUI/reference-management/reference-list.png)
+
+
 ### Section 2.5: Ontology Menu
 
-The SoSTrades Ontology is composed of all entities and relationships between concepts used in the Systems of Systems Trades project. The main concepts modeled are Code Repositories, Process Repositories, Processes, Models, Usecases and Parameters. There are represented as OWL Classes and their instances are OWL Individuals. For each instance, the ontology store metadata (label, description, documentation, ...) that are extracted from the Python code stored in the code repositories of the project in Gitlab. This ontology primary purpose is to complement the Web Interface of SoSTrades with these metadata to have a better lisibility and understandability. It is also a good way to explore the available concepts in the SoSTrades platform.
+The SoSTrades Ontology is composed of all entities and relationships between concepts used in the Systems of Systems Trades project. The main concepts modeled are Code Repositories, Process Repositories, Processes, Models, Usecases and Parameters. For each instance, the ontology store metadata (label, description, documentation, ...) that are extracted from the Python code stored in the code repositories of the project in Gitlab. This ontology primary purpose is to complement the Web Interface of SoSTrades with these metadata to have a better lisibility and understandability. It is also a good way to explore the available concepts in the SoSTrades platform.
 
 As the same way of other pages of SoSTrades you can access to the Ontology homepage from the menu button at the top left of the homepage and select Ontology.  
 ![](images/platform-GUI/header/menu-to-ontology-homepage.png)  
