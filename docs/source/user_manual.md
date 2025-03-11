@@ -1,4 +1,4 @@
-# User Manual
+# User manual
 
 This documentation manual is designed for people seeking to deepen their understanding of using the SoSTrades GUI platform.
 
@@ -7,7 +7,7 @@ SoSTrades is a web-based, multi-user, interactive publication-quality graph simu
 It provides comprehensive guidance on using the GUI for seamless interaction. Learn how to create, modify, run, and open
 user studies, as well as visualize existing ones.
 
-## Chapter 1: SOSTrades GUI Connexion 
+## Chapter 1: SOSTrades GUI connexion 
 
 This chapter offers all the necessary explanations for easily connecting the SoSTrades Graphical User Interface. There are possibilities that you can meet to connect on it, the cloud one and the local one. 
 
@@ -23,9 +23,9 @@ On the cloud login page, a redirection occurs to the Keycloak homepage, allowing
 SoSTrades can be installed on a local machine by following this installation [documentation](installation.md). Once the installation is successfully completed, the user created with the `CreateUser.py` script from the documentation can be used to access the local platform at [http://localhost:4200/](http://localhost:4200/). The user password can be found in the following path: `./sostrades-dev-tools-test-uv/platform/sostrades-webapi/sos_trades_api/secret/`.  
 ![](images/platform-GUI/login-page/local-login-page.png)
 
-## Chapter 2: GUI Homepage and Menus
+## Chapter 2: GUI Homepage and menus
 
-This chapter provides an overview of the GUI homepage, navigation menus, including study and reference management, as well as group management, and finally the Ontology.
+This chapter provides an overview of the GUI homepage, navigation menus, including study and reference management, as well as group management, the Ontology and the manager dashboard.
 
 ### Section 2.1: Homepage infos
 
@@ -45,7 +45,7 @@ By clicking on the Platform Information box, a table appears summarizing all Git
 ![](images/platform-GUI/header/platform-version.png)  
 ![](images/platform-GUI/header/header-code-traceability.png)  
 
-### Section 2.2: Group Management
+### Section 2.2: Group management
 
 The Group Management feature, accessible via the menu button, allows users to organize access rights within the platform. 
 
@@ -95,7 +95,7 @@ This user can also modify the access rights of a user or a group present in this
 **<span style="color: red;">Removing a group will delete all studies that belong to this group.</span>**
 
 
-### Section 2.3: Study Management Visualisation
+### Section 2.3: Study Management visualisation
 
 From the menu button, it is possible to access the study management page and list all the studies that the current user can access, according to their rights on each study, as well as the rights of the groups to which they belong. On that page, it is possible to search for a study by name using the search bar. A study can also be created with the 'Create Study' button, which will be explained in more detail later in this documentation.  
 ![](images/platform-GUI/header/menu-study.png)
@@ -154,11 +154,19 @@ By hovering over the same row as a study, additional icons appear on the right s
 ![](images/platform-GUI/study-management/study-rights.png) 
 
 
-### Section 2.4: Reference management Visualisation
+### Section 2.4: Reference management visualisation
 
-Similar to the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the filter bar similar to the study management filter bar. A study can be created from a reference, and a reference can be generated.  
+References are predefined examples of a process with selected data set by developers. Once computed, a reference can be reused to create studies. The advantage of creating a study from a reference is that it eliminates the need to start from scratch, saving time and effort.
+Similar to the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the filter bar similar to the study management filter bar.
 ![](images/platform-GUI/reference-management/reference-list.png)
 
+A reference is visible in the Reference Management page only if the user has the necessary rights on the process associated with that reference. The process rights will be explained in detail in [Section 2.6: Manager Dashboard](#section-26-manager-dashboard).
+
+Before to be used a reference has to be generate with that button ![](images/platform-GUI/reference-management/generate-reference-icon.png) When a reference is not generated the Status of the reference is ![](images/platform-GUI/reference-management/status-not-generated.png) Then once you generate a reference it turns into ![](images/platform-GUI/reference-management/status-pending.png) during the compute. And finally it turns into ![](images/platform-GUI/reference-management/status-finished.png) and the button create study ![](images/platform-GUI/reference-management/create-button.png) is available to create a study from reference.
+
+Each generated reference will have a log file available through the download button ![](images/platform-GUI/reference-management/download-button.png) which records the computation details in the file.
+
+When generating a reference in the cloud platform, it is possible to select the pod size using the Pod Size button to define the computing resources allocated to generate the reference ![](images/platform-GUI/reference-management/pod-size.png) . In contrast, on a local machine installation, there is no need to choose a pod size, as the reference will use the full capacity of the machine.
 
 ### Section 2.5: Ontology Menu
 
@@ -177,22 +185,27 @@ By clicking on the Code Repositories link, a table appears displaying informatio
 ![](images/platform-GUI/ontology/ontology-code-traceability.png)  
 
 
-#### Section 2.5.3: Ontology Model tab
+#### Section 2.5.3: Ontology model tab
 In the Models tab, a list of all models from each code repository is displayed, including the model name, the number of processes that use the model, and documentation.
 ![](images/platform-GUI/ontology/ontology-model-list.png)  
 With the documentation icon ![](images/platform-GUI/icon/documentation.png) more details about the model can be accessed.  
 ![](images/platform-GUI/ontology/ontology-model-agri-mix.png)  
 
-#### Section 2.5.4: Ontology Processes tab
+#### Section 2.5.4: Ontology porocesses tab
 In the Processes tab, all processes are listed along with their associated repositories and the number of models used by each process. Additionally, for each process, there are options to create a study from the process, grant access rights to a user or group, and view the process documentation.
 ![](images/platform-GUI/ontology/ontology-process-list.png)
 
 Only processes that you have the right to see are displayed.
 
-#### Section 2.5.5: Ontology Parameters tab
+#### Section 2.5.5: Ontology parameters tab
 And lastly, the Parameters tab displays a list of all existing parameters used by a model. More details about each parameter can be accessed using the documentation icon.  
 ![](images/platform-GUI/ontology/ontology-parameter-list.png)
 
+### Section 2.6: Manager dashboard
+TBD
+- User management
+- Process Management - by default all processes are in SoSTrades_Dev group and to add a group to that process you can overwrite by editing a default_process_rights.yaml file in root repository as https://github.com/os-climate/witness-energy/blob/main/default_process_rights.yaml
+- Execution Dashboard
 
 ## Chapter 3: Study Operations
 TBD
