@@ -201,7 +201,7 @@ Only processes that you have the right to see are displayed.
 And lastly, the Parameters tab displays a list of all existing parameters used by a model. More details about each parameter can be accessed using the documentation icon.  
 ![](images/platform-GUI/ontology/ontology-parameter-list.png)
 
-### Subsection 2.6: Manager dashboard
+### Section 2.6: Manager dashboard
 As an administrator, an additional option, Manager Dashboard, is available in the menu button. From this page, administrators can:
 - View all users created on the platform along with their current rights.
 - See all existing processes and manage user and group access rights for these processes.
