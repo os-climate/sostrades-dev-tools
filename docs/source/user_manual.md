@@ -160,7 +160,7 @@ References are predefined examples of a process with selected data set by develo
 Similar to the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the filter bar similar to the study management filter bar.
 ![](images/platform-GUI/reference-management/reference-list.png)
 
-A reference is visible in the Reference Management page only if the user has the necessary rights on the process associated with that reference. The process rights will be explained in detail in [Subsection 2.6.3: Processes management](#subsection-2-6-3-processes-management).
+A reference is visible in the Reference Management page only if the user has the necessary rights on the process associated with that reference. The process rights will be explained in detail in [Section 2.6: Manager Dashboard](#section-26-manager-dashboard).
 
 Before to be used a reference has to be generate with that button ![](images/platform-GUI/reference-management/generate-reference-icon.png) When a reference is not generated the Status of the reference is ![](images/platform-GUI/reference-management/status-not-generated.png) Then once you generate a reference it turns into ![](images/platform-GUI/reference-management/status-pending.png) during the compute. And finally it turns into ![](images/platform-GUI/reference-management/status-finished.png) and the button create study ![](images/platform-GUI/reference-management/create-button.png) is available to create a study from reference.
 
