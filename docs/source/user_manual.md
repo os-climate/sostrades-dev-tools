@@ -150,8 +150,20 @@ By hovering over the same row as a study, additional icons appear on the right s
 - This icon ![](images/platform-GUI/study-management/share-icon.png) allows to get the link of study to be shared:  
 ![](images/platform-GUI/study-management/share-link.png)  
 
-- The last icon ![](images/platform-GUI/study-management/grant-right-icon.png) allows to manage group or user rights on that study:  
+- The last icon ![](images/platform-GUI/study-management/grant-right-icon.png) allows to manage group or user rights on that study(see next subsection for more details on study roles):  
 ![](images/platform-GUI/study-management/study-rights.png) 
+
+### Subsection 2.3.6: Study roles
+
+There are 5 access rights possible when giving access to a study:
+- **Restricted viewer**: can copy, load a study, see only the post-processings of the study and documentation. He can't modify the study in any way nor see the data used in the study-case.
+- **Commenter**: has the restricted viewer right and also can see the study data, load the study-case, download the study-case data, but can't modify it. He cannot edit the name and group of the study-case nor delete it or change access rights. Even if the user has a profile with execution rights he cannot execute the study-case.
+- **Contributor**: is a commenter that can also copy, save parameters, reload the study. He cannot edit the name and group of the study-case nor delete it or change access rights. If the user has a profile with execution rights he can execute the study-case.
+- **Manager**: has the contributor rights and can also edit, delete and change access rights of the study-case (except for the owners and himself rights). 
+- **Owner**: When a user creates a study-case, he is the owner of the study-case. The owner cannot be changed and has all the rights that a manager has. But, even if he is the owner, he cannot execute the study if he has the profile study user without execution rights.  
+When a study-case is created, the group that is associated to the study-case at the creation is also owner of the study-case. All users in this group are manager of the study-case.
+
+![](images/platform-GUI/study-management/study-roles.png) 
 
 
 ### Section 2.4: Reference management visualisation
@@ -234,6 +246,10 @@ On that management page you can grant access to an user or group on a processes 
 By default, processes are assigned the SoSTrades_Dev group as their manager. This means that only administrators can see new processes, as only administrators belong to the SoSTrades_Dev group.
 
 It is possible to assign a default group to all processes within a code repository by editing the default_process_rights.yaml file located in the root of the repository.
+
+There are two different roles that can be assigned to a user or group for processes:
+- **Contributor**: can generate references and create study from the process.
+- **manager**: can manage access rights of the process, generate references and create study from this process. A group with manager access right to this process gives the manager access right to users and groups that are in this group.
 
 #### Subsection 2.6.4: Execution dashboard
 
