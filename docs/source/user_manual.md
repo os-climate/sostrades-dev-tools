@@ -153,7 +153,7 @@ By hovering over the same row as a study, additional icons appear on the right s
 - The last icon ![](images/platform-GUI/study-management/grant-right-icon.png) allows to manage group or user rights on that study(see next subsection for more details on study roles):  
 ![](images/platform-GUI/study-management/study-rights.png) 
 
-### Subsection 2.3.6: Study roles
+#### Subsection 2.3.6: Study roles
 
 There are 5 access rights possible when giving access to a study:
 - **Restricted viewer**: can copy, load a study, see only the post-processings of the study and documentation. He can't modify the study in any way nor see the data used in the study-case.
