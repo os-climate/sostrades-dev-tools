@@ -73,7 +73,7 @@ By default, at the first connexion on the GUI, the new users are in "All users" 
 #### Subsection 2.2.1 Create group
 ![](images/platform-GUI/group-management/create_group.png)  
 To create a new group, user must fill in the name and description.  
->Note: If user select confidential, the data will be encrypted. Even developers will not have access to it, and there will be no possibility to directly download the results.
+Note: If user select confidential, the data will be encrypted. Even developers will not have access to it, and there will be no possibility to directly download the results.
 
 #### Subsection 2.2.2 Select a default group
 ![](images/platform-GUI/group-management/default_group.png)  
@@ -89,7 +89,7 @@ This user can also modify the access rights of a user or a group present in this
 
 #### Subsection 2.2.4 Delete a group
 ![](images/platform-GUI/icon/icon_delete.png)  
->**<span style="color: red;">Removing a group will delete all studies that belong to this group.</span>**
+**<span style="color: red;">Removing a group will delete all studies that belong to this group.</span>**
 
 
 ### Section 2.3: Study management visualization
@@ -169,7 +169,7 @@ References are predefined examples of a process with selected data set by develo
 Similar to the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the filter bar similar to the study management filter bar.
 ![](images/platform-GUI/reference-management/reference-list.png)
 
->A reference is visible in the Reference Management page only if the user has the necessary rights on the process associated with that reference. The process rights will be explained in detail in [Subsection 2.6.3: Processes management](#section-26-manager-dashboard).
+A reference is visible in the Reference Management page only if the user has the necessary rights on the process associated with that reference. The process rights will be explained in detail in [Subsection 2.6.3: Processes management](#section-26-manager-dashboard).
 
 Before to be used a reference has to be generate with that button ![](images/platform-GUI/reference-management/generate-reference-icon.png) When a reference is not generated the Status of the reference is ![](images/platform-GUI/reference-management/status-not-generated.png) Then once you generate a reference it turns into ![](images/platform-GUI/reference-management/status-pending.png) during the compute. And finally it turns into ![](images/platform-GUI/reference-management/status-finished.png) and the button create study ![](images/platform-GUI/reference-management/create-button.png) is available to create a study from reference.
 
@@ -204,7 +204,7 @@ With the documentation icon ![](images/platform-GUI/icon/documentation.png) more
 In the Processes tab, all processes are listed along with their associated repositories and the number of models used by each process. Additionally, for each process, there are options to create a study from the process, grant access rights to a user or group, and view the process documentation.
 ![](images/platform-GUI/ontology/ontology-process-list.png)
 
->Only processes that you have the right to see are displayed.
+Only processes that you have the right to see are displayed.
 
 #### Subsection 2.5.5: Ontology parameters tab
 And lastly, the Parameters tab displays a list of all existing parameters used by a model. More details about each parameter can be accessed using the documentation icon.  
