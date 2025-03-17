@@ -86,7 +86,7 @@ switch_node_version(node_version)
 print("This script will install requirements and build the frontend")
 confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
 
-if confirmation == "yes":
+if confirmation == "yes" or confirmation == "y":
     # Change directory to sostrade-webgui
     if os.path.exists(f"{platform_path}/sostrades-webgui"):
         os.chdir(f"{platform_path}/sostrades-webgui")
