@@ -16,7 +16,8 @@ limitations under the License.
 
 # open models and platform repositories, read commits, write info in file
 import json
-from os import listdir
+from os import listdir, makedirs
+import os
 from os.path import(join, isdir, exists)
 from datetime import datetime
 import subprocess
@@ -53,6 +54,10 @@ def get_git_info(repo_name:str, repo_git_path:str)-> dict:
         return result.stdout.strip()
 
     try:
+        if not exists(models_path):
+            os.makedirs(models_path)
+            print(f"Warning: The directory '{models_path}' did not exist and has been created. Please ensure it contains the expected repositories.")
+
         # get last commit hash
         last_commit_hash = run_git_command(['git', 'rev-parse', 'HEAD'])
 
