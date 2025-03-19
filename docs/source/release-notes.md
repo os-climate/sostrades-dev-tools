@@ -2,6 +2,18 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v5.1.1
+Date: 2025-18-03
+
+### Features
+This release is a hotfix release embedding the following bugfixes.
+
+#### Bug Fixes
+- Fixed verison for xmlsec to prevent docker build errors
+- Use 0.39.1 release of eventlet to embed hotfix of queue typing
+- Bugfix for command update readonly mode diagrams
+- Bugfix for study active at pod start
+
 ## Release v5.1.0
 Date: 2025-10-03
 
