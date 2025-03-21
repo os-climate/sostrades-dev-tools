@@ -13,6 +13,7 @@ This release is a hotfix release embedding the following bugfixes.
 - Use 0.39.1 release of eventlet to embed hotfix of queue typing
 - Bugfix for command update readonly mode diagrams
 - Bugfix for study active at pod start
+- Bugfix for version.info
 
 ## Release v5.1.0
 Date: 2025-10-03
