@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM registrysostrades.azurecr.io/sostrades-api:${SOSTRADES_VERSION}
+FROM ${REGISTRY}/sostrades-api:${SOSTRADES_VERSION}
 
 
 # Copy models and platform repos for standalone image if needed

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM registrysostrades.azurecr.io/ontology:${SOSTRADES_VERSION}
+FROM ${REGISTRY}/ontology:${SOSTRADES_VERSION}
 
 COPY ./data /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data/
 

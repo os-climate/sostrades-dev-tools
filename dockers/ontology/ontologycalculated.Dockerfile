@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM registrysostrades.azurecr.io/ontology-builder:${SOSTRADES_VERSION} AS builder
+FROM ${REGISTRY}/ontology-builder:${SOSTRADES_VERSION} AS builder
 
 # Install ontology requirements
 COPY ./platform_requirements/dev.requirements.txt dev.requirements.txt
@@ -31,7 +31,7 @@ RUN ls -d ./platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
 
 #------------------------------------------------------------------------------
 
-FROM registrysostrades.azurecr.io/ontology:${SOSTRADES_VERSION}
+FROM ${REGISTRY}/ontology:${SOSTRADES_VERSION}
 
 COPY --from=builder /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data /usr/local/sostrades/sources/platform/sostrades-ontology/sos_ontology/data/
 
