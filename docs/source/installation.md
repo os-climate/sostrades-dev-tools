@@ -241,7 +241,7 @@ For further assistance, please raise a [GitHub issue](https://github.com/os-clim
 
 ## 6. Script Descriptions
 - `PrepareDevEnv.py`: script to download all model repositories from `model_repositories.json` and platform repositories from `platform_repositories.json` with the `git clone` command. Repositories are cloned in `sostrades-dev-tool/models` and `sostrades-dev-tool/platform`. The script also creates a `sostrades-dev-tools/.vscode/setting.json` file with extraPaths according to the repository cloned.
-- `PrepareVenv.py`: script to install a venv in the folder `sostrades-dev-tools/.venv` with Python 3.9 and install all requirements of SoSTrades.
+- `PrepareVenv.py`: script to install a venv in the folder `sostrades-dev-tools/.venv` with Python 3.12 and install all requirements of SoSTrades.
 - `Configuration.py`: script to create files and folders needed by SoSTrades:
   - `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json`
   - `sostrades-dev-tools/platform/sostrades-webapi/.flaskenv`

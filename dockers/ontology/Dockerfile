@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM python:3.9 AS builder
+FROM python:3.12 AS builder
 
 RUN chmod 1777 /tmp
 
@@ -26,18 +26,18 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.4"
+ARG NUMPY_VERSION="1.26.4"
 
 # Upgrade pip and install uv
 RUN python -m pip install --no-cache-dir --upgrade pip && \
     python -m pip install --no-cache-dir uv && \
-    python -m uv pip install --no-cache-dir numpy==${NUMPY_VERSION}
+    python -m uv pip install --no-cache-dir setuptools numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
 ARG PETSC_VERSION="3.21.6"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
-ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.9/site-packages"
+ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.12/site-packages"
 
 # Download and install PETSc
 RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
@@ -80,10 +80,10 @@ RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
 
 #------------------------------------------------------------------------------
 
-FROM python:3.9
+FROM python:3.12
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.4"
+ARG NUMPY_VERSION="1.26.4"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 

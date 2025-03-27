@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.9
+FROM python:3.12
 
 # Numpy version
-ARG NUMPY_VERSION="1.24.4"
+ARG NUMPY_VERSION="1.26.4"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
@@ -29,7 +29,7 @@ RUN mkdir /startup
 COPY ./platform_requirements/ontology.requirements.txt ontology.requirements.txt
 RUN python -m pip install --no-cache-dir --upgrade pip && \
     python -m pip install --no-cache-dir uv && \
-    python -m uv pip install --no-cache-dir -r ontology.requirements.txt pylint gunicorn debugpy numpy==${NUMPY_VERSION}
+    python -m uv pip install --no-cache-dir -r ontology.requirements.txt pylint setuptools gunicorn debugpy numpy==${NUMPY_VERSION}
 COPY ./platform/sostrades-ontology /usr/local/sostrades/sources/platform/sostrades-ontology
 
 # Add repositories needed to pass test on ontology image

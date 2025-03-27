@@ -3,6 +3,18 @@
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
 ## Release v5.1.1
+Date: TOBECOMPLETED
+
+
+### PYTHON 3.12 UPDATE
+Migrate from python 3.9 to python 3.12
+
+### Library version upgrades
+
+* numpy from 1.23.3 to 1.24.4
+
+
+## Release v5.1.1
 Date: 2025-18-03
 
 ### Features

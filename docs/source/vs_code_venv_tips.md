@@ -19,7 +19,7 @@ code .
 
 ![Select Interpreter](images/select_interpreter.png)
 
-3. Choose "Python 3.9.x ('.venv')".
+3. Choose "Python 3.12.x ('.venv')".
 
 ![Select Python](images/select_python.png)
 
