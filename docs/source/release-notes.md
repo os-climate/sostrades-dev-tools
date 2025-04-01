@@ -11,7 +11,7 @@ Migrate from python 3.9 to python 3.12
 
 ### Library version upgrades
 
-* numpy from 1.23.3 to 1.24.4
+* numpy from 1.24.4 to 1.26.4
 
 
 ## Release v5.1.1
