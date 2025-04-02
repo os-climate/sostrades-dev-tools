@@ -254,34 +254,262 @@ On the Execution Dashboard page, all study executions on the platform are access
 ![](images/platform-GUI/manager/execution-management.png)
 
 ## Chapter 3: Study Operations
-TBD
+
+This chapter explains how to create a study and how to use all the available parameters of a study, for instance to go through it with the input/output data and how they link altogether, the charts, the documentation, etc.
+
 ### Section 3.1: Create a study
 
-- ReadOnly mode
-- from scratch
-- from a reference
-- explain all inputs 
-- copy a study 
+There are three different ways to create a study:
+- **from scratch** in the study management tab via the "Create study" button
+- **from a reference** in the reference management tab via the icon in the "Create study" column
+- **by copying an existing study** in the study management tab via the copy icon when going over a study
 
-### Section 3.2 Study panels and visualisation
-TBD
-#### Subsection 3.2.1 Study Panels
-Explain treeview, node status, validation state, study link and user collaboration
-Explain all study panels (data management, post processing,documentation)
-Explain that Dashboard is not implemented yet 
-#### Subsection 3.2.2 Study Visualisation
-Explain interface diagram, execution sequence & study coupling graph
+When **creating a study from scratch**, all fields need to be filled out: <br>
+![](images/platform_study/create_study/create_new_study.png)
+- **study name**: the name chosen for the study
+- **process name**: the process on which the study will be based
+- **on which study it will be based**, it can be either a study that already exists for the selected process, or an empty study. There are "data shared" studies which are usecases that already have data provided and "user" studies that do not.
+- **group name**, meaning that only users in that group will be able to view/run/edit the study
+- **pod size**: small, medium, or large
 
-#### Subsection 3.2.3 Study Logs and notifications
-Explain logs & notifications
+When **creating a study from a reference**, the process and the study on which it is based cannot be modified since the study will be based on an already existing study. Hence, only the study name, the group name and the pod size have to be filled out. <br>
+
+**Creating a study by copying an existing one** works exactly as creating a study from a reference, the only difference is the where the creation is launched (in the study management tab for copy and in the reference management tab for the creation from a reference), but the fields to fill out are the same.
+
+Here is an example of study creation from scratch: <br>
+![](images/platform_study/create_study/create_new_study_example.png)
+
+When the creation of a study is over, here is what the study looks like: <br>
+![](images/platform_study/create_study/study_created.png)
 
 
-### Section 3.3 Data management and study configuration
-explaon how to save data, how to import data from csv,dataset, ...
-### Section 3.4 Study execution
+### Section 3.2 Study panel
 
-### Section 3.5 Study post-processing
-explain post-procs and filters 
+Here is what the study panel looks like for the study "test_study": <br>
+![](images/platform_study/study_panel/study_panel.png) <br>
+The name of the study is on top of the study bar, followed from top to bottom by:
+- the **search** bar
+- the **action** bar
+- the **treeview** of the study
 
-### Section 3.6 Open an existing study
-explain how to open, edition mode, search variables, filters, fullscreen, user visu (standard, expert)
+In case the study is in read only mode, there is a **switch to edition mode** button just below the name of the study in the study panel: <br>
+![](images/platform_study/study_panel/read_only_mode.png)
+
+#### Subsection 3.2.1 Treeview
+This is an example of treeview for a study: <br>
+![](images/platform_study/study_panel/treeview.png) <br>
+The treeview displays the tree structure for the different nodes of a study. 
+
+The selected node has a grey background. In this example, it is the root node of the study, which always has the same name as the study itself. Clicking on a node selects it.
+#### Subsection 3.2.2 Action bar
+This is the action bar of a study in edition mode: <br>
+![](images/platform_study/study_panel/action_bar/action_bar.png) 
+
+There are various possible actions, from left to right in the action bar:
+- **start execution**: to run the study so that the outputs are computed.
+- **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported and new input data is available. 
+- **export in dataset** : similarly as for the import, the datasets are exported with a mapping file (in JSON format). Hence, the outputs are put in datasets.
+- **download study data into csv**
+- **execution pod settings**: to change the size of the pod on which the study is executed. <br>
+![](images/platform_study/study_panel/action_bar/execution_pod_settings.png)
+- **show/hide status**: the calculation status of a node can be either configure (C), pending (P), running (R), done (D), failed (F) or input data (I), as it can be seen below in information about calculation status. In the treeview in the previous subsection, the status of the nodes are hidden while it is shown here: <br>
+![](images/platform_study/study_panel/action_bar/show_calculation_status.png)
+- **show validation state**: the validation state indicates whether data at a given node of the treeview has been validated manually. This validation happens in the data or charts tab of the study workspace, which are presented in the next section. In the treeview in the previous subsection, the validation status of the nodes are hidden while it is shown here: <br>
+![](images/platform_study/study_panel/action_bar/show_validation_state.png) <br>
+In this example, the data has been validated at root node but not at other nodes. <br>
+Moreover, both calculation status and validation state can be shown in the treeview: <br>
+![](images/platform_study/study_panel/action_bar/show_calculation_and_validation.png)
+- **study case access link**: link that enables to directly access the study without opening it from within the platform. <br>
+![](images/platform_study/study_panel/action_bar/study_access_link.png)
+- **reload the study**
+- **users working in same study case**: to see the users currently working on the study, and if they have execution rights (i.e. edition mode) or not (i.e. read only mode). <br>
+![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
+- **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
+![](images/platform_study/study_panel/action_bar/information_calculation_validation.png)
+
+In read only mode, the action bar is more restricted: <br>
+![](images/platform_study/study_panel/action_bar/action_bar_read_only.png) <br>
+Only show/hide status, show validation state, study case access link, users working in same study and information about calculation status and validation state are possible actions.
+
+
+#### Subsection 3.2.3 Search bar
+This is the search bar of a study: <br>
+![](images/platform_study/study_panel/search_bar/search_bar.png) 
+
+A variable can be searched either in the study or in the treeview: <br>
+![](images/platform_study/study_panel/search_bar/search_bar_option.png) 
+
+Here is an example of searching a variable containing "temperature" in the study: <br>
+![](images/platform_study/study_panel/search_bar/search_bar_variable.png) 
+
+Here is an example of searching a variable containing "temperature" in the treeview: <br>
+![](images/platform_study/study_panel/search_bar/search_bar_treeview.png) 
+
+
+
+
+### Section 3.3 Study workspace
+
+The study workspace consists of several tabs:
+- **Data**
+- **Charts**
+- **Visualisation**
+- **Documentation**
+
+A dashboard tab is currently being implemented.
+
+#### Subsection 3.3.1 Data
+The data tab contains for each node its variables, both inputs and outputs, as seen in this example at the Population node: <br>
+![](images/platform_study/study_workspace/data/input_output_data.png) 
+
+Here is an example of a variable, the Assumption dict input at the Population node: <br>
+![](images/platform_study/study_workspace/data/variable.png) <br>
+When clicking on a variable name, some information about it is available: <br>
+![](images/platform_study/study_workspace/data/variable_info.png) <br>
+When clicking on the show button, the values of the variable can be seen: <br>
+![](images/platform_study/study_workspace/data/variable_values.png) <br>
+When clicking on the download button, the values of the variable are downloaded into a CSV file.
+
+Some variables are **coupling variables**, meaning that they are an input at a given node of the study and an output at another node. They are indicated by a double arrow, as seen for the Temperature data input at the Population node: <br>
+![](images/platform_study/study_workspace/data/input_temperature.png) <br>
+The Temperature data input at the Population node comes from the Temperature data output at the Temperature change node, it is actually the same variable: <br>
+![](images/platform_study/study_workspace/data/coupling_data.png) 
+
+In edition mode, the input data can be uploaded or edited at the node where they first appear.
+Hence, at the Population node, the Temperature data input seen above cannot be modified at any node since it is an output from the Temperature change node. <br>
+However, the Initial population input can be uploaded or edited since it first appears at this node: <br>
+![](images/platform_study/study_workspace/data/variable_edit.png) <br>
+Moreover, at the Population node, the Assumption dict input seen above cannot be modified there, but it can be uploaded or edited at the parent node where it is first introduced: <br>
+![](images/platform_study/study_workspace/data/data_at_root_node.png)
+
+Finally, two other options are available on top of the study workspace, below tabs and next to the selected node name:
+- manually validate data at a given node by clicking on the validate data button: <br>
+![](images/platform_study/study_workspace/data/not_validated_data.png) <br>
+or unvalidate data by clicking on the unvalidate data button: <br>
+![](images/platform_study/study_workspace/data/validated_data.png)
+- display configure information about variables by clicking on the "i" button next to the validate/unvalidate data button: <br>
+![](images/platform_study/study_workspace/data/configure_information.png)
+
+
+#### Subsection 3.3.2 Charts
+The charts tab contains the charts for each node, as seen in this example at the mda_scenarios node: <br>
+![](images/platform_study/study_workspace/charts/charts.png)
+
+When moving the mouse over a chart, an action bar appears at the top right: <br>
+![](images/platform_study/study_workspace/charts/chart_bar.png)
+There are various possible actions, from left to right in the action bar:
+- download data as CSV file
+- show/hide legend. In the chart above, the legend is shown and in the chart below, it is hidden: <br>
+![](images/platform_study/study_workspace/charts/show_hide_legend.png)
+- enlarge plot: 
+![](images/platform_study/study_workspace/charts/enlarge_plot.png)
+- download plot as a PNG 
+- zoom: <br>
+![](images/platform_study/study_workspace/charts/zoom.png)
+- pan
+- box select
+- zoom in
+- zoom out
+- autoscale: <br>
+![](images/platform_study/study_workspace/charts/autoscale.png) <br>
+The autoscale removes the axes.
+- reset axis
+- show closest data on hover: <br>
+![](images/platform_study/study_workspace/charts/show_closest_data_on_hover.png)
+- compare data on hover: <br>
+![](images/platform_study/study_workspace/charts/compare_data_on_hover.png)
+
+It possible to click on specific entries of the legend to show/hide them on the plot: <br>
+![](images/platform_study/study_workspace/charts/show_hide_specific_legend.png) 
+
+There is a show filters activation button on top of charts that permits to display only some data in the charts : <br>
+![](images/platform_study/study_workspace/charts/show_filters.png) <br>
+By clicking on the update charts button, the effects of the selected filters are applied to charts: <br> 
+![](images/platform_study/study_workspace/charts/filtered_charts.png) <br>
+In this example, the ending year filter has been changed so fewer years are displayed and only three scenarios are selected in the scenarios filter so all scenarios are no longer displayed.
+
+The charts can be regrouped by tabs at a given node: <br>
+![](images/platform_study/study_workspace/charts/charts_in_tab.png) <br>
+In this example, some charts are gathered into the "Key performance indicators" tab.
+
+As seen in the previous subsection with the data tab, the data can also be manually validated or unvalidated at a given node in the charts tab, exactly as in the data tab.
+
+#### Subsection 3.3.3 Visualisation
+The visualisation exists only at the root node of the study, representing on overall view of the study, in different forms:
+- **Interface Diagram**
+- **Execution Sequence**
+- **Study Coupling Graph**
+
+The **interface diagram** represents the inputs and outputs of each node and how they link the nodes altogether: <br>
+![](images/platform_study/study_workspace/visualisation/interface_diagram.png) <br>
+In this part of the interface diagram, we notice the temperature data output of Temperature change node, which is also an input of the Population node. <br>
+It is possible to download the interface diagram as an SVG.
+
+The **execution sequence** has different levels and shows the parallel executions at each level: <br>
+![](images/platform_study/study_workspace/visualisation/execution_sequence.png) <br>
+In this example, there are four parallel executions happening at this level, on per scenario.
+
+The **study coupling graph** also has different levels and shows the relationship between nodes of the study: <br>
+![](images/platform_study/study_workspace/visualisation/study_coupling_graph.png) <br>
+In this part of the coupling graph, we notice that there is a link going from the Temperature change node to the Population node since an output of Temperature change is an input of Population, and we get information about this link by going over it: <br>
+![](images/platform_study/study_workspace/visualisation/study_coupling_graph_link.png) 
+
+It is also possible to display information about a node by going over it: <br>
+![](images/platform_study/study_workspace/visualisation/study_coupling_graph_info.png)
+
+#### Subsection 3.3.4 Documentation
+The documentation tab displays the documentation, if available, for a given node: <br>
+![](images/platform_study/study_workspace/documentation.png) <br>
+In this example, the documentation of the Damage node is displayed. 
+
+The documentation can be downloaded as a PDF by clicking on the download button at the top right of the tab.
+
+### Section 3.4 Display bar 
+This is the display bar of a study: <br>
+![](images/platform_study/display_bar/display_bar.png) <br>
+
+It consists of:
+- **Filters**
+- **Display mode**
+- **Fullscreen option**
+
+#### Subsection 3.4.1 Filters
+The filters enable to show, at a given node, for instance at the Population node, either all inputs: <br>
+![](images/platform_study/display_bar/all_inputs.png) <br>
+or only editable outputs: <br>
+![](images/platform_study/display_bar/editable_inputs.png) 
+
+#### Subsection 3.4.2 Display mode
+There are three display modes:
+- Standard
+- Advanced
+- Expert
+
+The expert mode enables to display, at a given node, for instance at the Population node, much more inputs than the standard mode: <br>
+![](images/platform_study/display_bar/expert_mode.png) 
+
+#### Subsection 3.4.3 Fullscreen option
+The fullscreen option enables to display the study workspace, at a given node, for instance at the Population node, in fullscreen: <br>
+![](images/platform_study/display_bar/fullscreen.png) 
+
+### Section 3.5 Logs and notifications space
+The logs and notification space at the bottom of a study consists of:
+- **Study logs**
+- **Execution logs**
+- **Notifications**
+
+#### Subsection 3.5.1 Study logs
+The study logs tab displays the configuration and the loading of a study: <br>
+![](images/platform_study/logs_space/study_logs.png)
+
+#### Subsection 3.5.2 Execution logs
+The execution logs tab displays the computation logs of a study: <br>
+![](images/platform_study/logs_space/execution_logs.png) <br>
+It is possible to download raw study logs by clicking on the download button. 
+The last metrics recorded from file system for CPU and memory are also displayed on top of the execution tab.
+
+#### Subsection 3.5.3 Notifications
+The notifications tab displays the user actions in a study: <br>
+![](images/platform_study/logs_space/notifications.png)
+
+
