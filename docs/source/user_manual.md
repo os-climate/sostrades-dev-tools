@@ -274,7 +274,7 @@ When **creating a study from scratch**, all fields need to be filled out: <br>
 
 When **creating a study from a reference**, the process and the study on which it is based cannot be modified since the study will be based on an already existing study. Hence, only the study name, the group name and the pod size have to be filled out. <br>
 
-**Creating a study by copying an existing one** works exactly as creating a study from a reference, the only difference is the where the creation is launched (in the study management tab for copy and in the reference management tab for the creation from a reference), but the fields to fill out are the same.
+**Creating a study by copying an existing one** works exactly as creating a study from a reference, the only difference is where the creation is launched (in the study management tab for copy and in the reference management tab for the creation from a reference), as the fields to fill out are the same.
 
 Here is an example of study creation from scratch: <br>
 ![](images/platform_study/create_study/create_new_study_example.png)
@@ -308,13 +308,13 @@ This is the action bar of a study in edition mode: <br>
 There are various possible actions, from left to right in the action bar:
 - **start execution**: to run the study so that the outputs are computed.
 - **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported and new input data is available. 
-- **export in dataset** : similarly as for the import, the datasets are exported with a mapping file (in JSON format). Hence, the outputs are put in datasets.
+- **export in dataset** : similarly as for the import, the outputs are exported with a mapping file (in JSON format). Hence, the outputs are put in datasets.
 - **download study data into csv**
 - **execution pod settings**: to change the size of the pod on which the study is executed. <br>
 ![](images/platform_study/study_panel/action_bar/execution_pod_settings.png)
-- **show/hide status**: the calculation status of a node can be either configure (C), pending (P), running (R), done (D), failed (F) or input data (I), as it can be seen below in information about calculation status. In the treeview in the previous subsection, the status of the nodes are hidden while it is shown here: <br>
+- **show/hide status**: the calculation status of a node can be either configure (C), pending (P), running (R), done (D), failed (F) or input data (I), as it can be seen below in information about calculation status. In the treeview in the previous subsection, the calculation status of the nodes are hidden while they are shown here: <br>
 ![](images/platform_study/study_panel/action_bar/show_calculation_status.png)
-- **show validation state**: the validation state indicates whether data at a given node of the treeview has been validated manually. This validation happens in the data or charts tab of the study workspace, which are presented in the next section. In the treeview in the previous subsection, the validation status of the nodes are hidden while it is shown here: <br>
+- **show validation state**: the validation state indicates whether data at a given node of the treeview has been validated manually. This validation happens in the data or charts tab of the study workspace, which are presented in the next section. In the treeview in the previous subsection, the validation state of the nodes are hidden while they are shown here: <br>
 ![](images/platform_study/study_panel/action_bar/show_validation_state.png) <br>
 In this example, the data has been validated at root node but not at other nodes. <br>
 Moreover, both calculation status and validation state can be shown in the treeview: <br>
@@ -422,27 +422,27 @@ The autoscale removes the axes.
 It possible to click on specific entries of the legend to show/hide them on the plot: <br>
 ![](images/platform_study/study_workspace/charts/show_hide_specific_legend.png) 
 
-There is a show filters activation button on top of charts that permits to display only some data in the charts : <br>
+There is a show filters activation button on top of charts that permits to display only some data in the charts: <br>
 ![](images/platform_study/study_workspace/charts/show_filters.png) <br>
 By clicking on the update charts button, the effects of the selected filters are applied to charts: <br> 
 ![](images/platform_study/study_workspace/charts/filtered_charts.png) <br>
 In this example, the ending year filter has been changed so fewer years are displayed and only three scenarios are selected in the scenarios filter so all scenarios are no longer displayed.
 
-The charts can be regrouped by tabs at a given node: <br>
+The charts can be regrouped in tabs at a given node: <br>
 ![](images/platform_study/study_workspace/charts/charts_in_tab.png) <br>
 In this example, some charts are gathered into the "Key performance indicators" tab.
 
 As seen in the previous subsection with the data tab, the data can also be manually validated or unvalidated at a given node in the charts tab, exactly as in the data tab.
 
 #### Subsection 3.3.3 Visualisation
-The visualisation exists only at the root node of the study, representing on overall view of the study, in different forms:
+The visualisation exists only at the root node of the study, representing on overview of the study, in different forms:
 - **Interface Diagram**
 - **Execution Sequence**
 - **Study Coupling Graph**
 
 The **interface diagram** represents the inputs and outputs of each node and how they link the nodes altogether: <br>
 ![](images/platform_study/study_workspace/visualisation/interface_diagram.png) <br>
-In this part of the interface diagram, we notice the temperature data output of Temperature change node, which is also an input of the Population node. <br>
+In this part of the interface diagram, we notice the Temperature data output of Temperature change node, which is also an input of the Population node. <br>
 It is possible to download the interface diagram as an SVG.
 
 The **execution sequence** has different levels and shows the parallel executions at each level: <br>
@@ -485,7 +485,7 @@ There are three display modes:
 - Advanced
 - Expert
 
-The expert mode enables to display, at a given node, for instance at the Population node, much more inputs than the standard mode: <br>
+The expert mode enables to display, at a given node, for instance at the Population node, many more inputs than the standard mode seen in the previous subsection: <br>
 ![](images/platform_study/display_bar/expert_mode.png) 
 
 #### Subsection 3.4.3 Fullscreen option
@@ -506,7 +506,7 @@ The study logs tab displays the configuration and the loading of a study: <br>
 The execution logs tab displays the computation logs of a study: <br>
 ![](images/platform_study/logs_space/execution_logs.png) <br>
 It is possible to download raw study logs by clicking on the download button. 
-The last metrics recorded from file system for CPU and memory are also displayed on top of the execution tab.
+The last metrics recorded from file system for CPU and memory are also displayed on top of the execution logs tab.
 
 #### Subsection 3.5.3 Notifications
 The notifications tab displays the user actions in a study: <br>
