@@ -335,7 +335,7 @@ Moreover, both calculation status and validation state can be shown in the treev
 ![](images/platform_study/study_panel/action_bar/study_access_link.png)
 - **reload the study**
 - **users working in same study case**: to see the users currently working on the study, and if they have execution
-  rights (see [Subsection 2.3.6: Study Roles](#section-236-study-roles)). <br>
+  rights (see [Subsection 2.3.6: Study Roles](#subsection-236-study-roles)). <br>
 ![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
 - **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
 ![](images/platform_study/study_panel/action_bar/information_calculation_validation.png)
@@ -381,40 +381,72 @@ The data section displays all the data present in the selected node
 
 ##### 3.3.1.1 Data tabs
 
-The data section contains for each node its variable in 3 different tabs :
+The data section contains for each node its variables in 3 different tabs :
 
 - Numerical parameters : If the node contains a model a section numerical parameters hosts all numerical values needed
   to set the model. For complex study with MDA or MDO, numerical parameters are stores in this tab.
-- Input parameters and out put parameters: in this example at the Population node: <br>
+- Input and output parameters/variables: in this example at the Population node: <br>
 ![](images/platform_study/study_workspace/data/input_output_data.png)
 
-##### 3.3.1.2 Variable edition
+On each node, several variables can be found :
+
+- variables that are used by models that are stored under this node
+- variables that are stored directly at this node, a variable used by a model is not necessarily stored where the model
+  is also stored (via the notion of namespaces, see the developer manual for more details)
+
+Consequently a single variable can be visible at different nodes in the treeview if the variable is used by different
+models or used in one model and stored elsewhere in the treeview.
+
+##### 3.3.1.2 Variable details
 
 Here is an example of a variable, the Assumption dict input at the Population node: <br>
 ![](images/platform_study/study_workspace/data/variable.png) <br>
-When clicking on a variable name, some information about it is available: <br>
+When clicking on a variable name, some information about it is available :
+
+- its ID (name in the code)
+- its type of data (here dict)
+- its definition, label, unit,URI defined in the ontology
+- other parameters like structuring or visibility for the developer (see developer manual)
+  <br>
 ![](images/platform_study/study_workspace/data/variable_info.png) <br>
 When clicking on the show button, the values of the variable can be seen: <br>
 ![](images/platform_study/study_workspace/data/variable_values.png) <br>
 When clicking on the download button, the values of the variable are downloaded into a CSV file.
 
-##### 3.3.1.3 Coupling variables
+##### 3.3.1.3 Variable edition
+
+When clicking on the switch to edition mode button (see [Section 3.2 Study Panel](#section-32-study-panel)), you are
+able to modify the data on your study.
+
+A variable is editable only where the variable is stored. It is possible to know where a variable is stored if you are
+not able to modify it (because the variable is used by several models) with the button Edition widget found.
+
+For example, at the Population node, the Temperature data input seen above cannot be modified at any node since it is an
+output from the Temperature change node. <br>
+However, the Initial population input can be uploaded or edited since it first appears at this node: <br>
+![](images/platform_study/study_workspace/data/variable_edit.png) <br>
+Moreover, at the Population node, the Assumption dict input seen above cannot be modified there, but it can be uploaded
+or edited at the parent node where it is first introduced: <br>
+![](images/platform_study/study_workspace/data/data_at_root_node.png)
+
+As seen in the previous screenshots, a variable can be uploaded from csv files (in the case of dataframes or
+dictionaries) or directly editable for simple types as integer,float,list,dataframe,dictionaries ...
+Depending on the types specified for the variable some integrity rules are implemented to be sure the user save a value
+that is coherent with the type of the variable.
+It is also possible that the developer has created specific integrity rules for the data edition and the integrity error
+message will be shown to the user in red below the value like this :
+![](images/wrong_integrity.png)
+
+##### 3.3.1.4 Coupling variables
 
 Some variables are **coupling variables**, meaning that they are an input at a given node of the study and an output at another node. They are indicated by a double arrow, as seen for the Temperature data input at the Population node: <br>
 ![](images/platform_study/study_workspace/data/input_temperature.png) <br>
 The Temperature data input at the Population node comes from the Temperature data output at the Temperature change node, it is actually the same variable: <br>
 ![](images/platform_study/study_workspace/data/coupling_data.png) 
 
-In edition mode, the input data can be uploaded or edited at the node where they first appear.
-Hence, at the Population node, the Temperature data input seen above cannot be modified at any node since it is an output from the Temperature change node. <br>
-However, the Initial population input can be uploaded or edited since it first appears at this node: <br>
-![](images/platform_study/study_workspace/data/variable_edit.png) <br>
-Moreover, at the Population node, the Assumption dict input seen above cannot be modified there, but it can be uploaded or edited at the parent node where it is first introduced: <br>
-![](images/platform_study/study_workspace/data/data_at_root_node.png)
+##### 3.3.1.5 Data validation
 
-##### 3.3.1.4 Data validation
-
-Finally, two other options are available on top of the study workspace, below tabs and next to the selected node name:
+Two other options are available on top of the study workspace, below tabs and next to the selected node name:
 - manually validate data at a given node by clicking on the validate data button: <br>
 ![](images/platform_study/study_workspace/data/not_validated_data.png) <br>
 or unvalidate data by clicking on the unvalidate data button: <br>
@@ -424,8 +456,29 @@ or unvalidate data by clicking on the unvalidate data button: <br>
 
 
 #### Subsection 3.3.2 Charts
-The charts tab contains the charts for each node, as seen in this example at the mda_scenarios node: <br>
+
+The charts section contains all the charts implemented by the developer on each node, as seen in this example at the
+mda_scenarios node: <br>
 ![](images/platform_study/study_workspace/charts/charts.png)
+They are often related to the model/documentation and data of the node but can also be added anywhere in the treeview.
+
+The charts can be gathered in different tabs at a given node: <br>
+![](images/platform_study/study_workspace/charts/charts_in_tab.png) <br>
+In this example, some charts are gathered into the "Key performance indicators" tab.
+
+##### 3.3.2.1 Chart Filters
+
+There is a show filters activation button on top of charts that permits to display only some data in the charts or
+modify some assumptions for the charts below : <br>
+![](images/platform_study/study_workspace/charts/show_filters.png) <br>
+By clicking on the update charts button, the effects of the selected filters are applied to charts: <br>
+![](images/platform_study/study_workspace/charts/filtered_charts.png) <br>
+In this example, the ending year filter has been changed so fewer years are displayed and only three scenarios are
+selected in the scenarios filter so all scenarios are no longer displayed.
+
+Note that filters can be updated only in edition mode.
+
+##### 3.3.2.2 Chart options
 
 When moving the mouse over a chart, an action bar appears at the top right: <br>
 ![](images/platform_study/study_workspace/charts/chart_bar.png)
@@ -435,14 +488,10 @@ There are various possible actions, from left to right in the action bar:
 ![](images/platform_study/study_workspace/charts/show_hide_legend.png)
 - enlarge plot: 
 ![](images/platform_study/study_workspace/charts/enlarge_plot.png)
-- download plot as a PNG 
+- download plot as a PNG : Possibility to extract charts from the GUI as csv file
 - zoom: <br>
 ![](images/platform_study/study_workspace/charts/zoom.png)
-- pan
-- box select
-- zoom in
-- zoom out
-- autoscale: <br>
+- Other zoom options : pan, box select, zoom in, zoom out, autoscale: <br>
 ![](images/platform_study/study_workspace/charts/autoscale.png) <br>
 The autoscale removes the axes.
 - reset axis
@@ -454,17 +503,8 @@ The autoscale removes the axes.
 It possible to click on specific entries of the legend to show/hide them on the plot: <br>
 ![](images/platform_study/study_workspace/charts/show_hide_specific_legend.png) 
 
-There is a show filters activation button on top of charts that permits to display only some data in the charts: <br>
-![](images/platform_study/study_workspace/charts/show_filters.png) <br>
-By clicking on the update charts button, the effects of the selected filters are applied to charts: <br> 
-![](images/platform_study/study_workspace/charts/filtered_charts.png) <br>
-In this example, the ending year filter has been changed so fewer years are displayed and only three scenarios are selected in the scenarios filter so all scenarios are no longer displayed.
-
-The charts can be regrouped in tabs at a given node: <br>
-![](images/platform_study/study_workspace/charts/charts_in_tab.png) <br>
-In this example, some charts are gathered into the "Key performance indicators" tab.
-
-As seen in the previous subsection with the data tab, the data can also be manually validated or unvalidated at a given node in the charts tab, exactly as in the data tab.
+As seen in the previous subsection with the data tab, the charts (and output data associated) can also be manually
+validated or unvalidated at a given node in the charts tab, exactly as in the data tab.
 
 #### Subsection 3.3.3 Visualisation
 The visualisation exists only at the root node of the study, representing on overview of the study, in different forms:
