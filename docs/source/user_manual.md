@@ -255,7 +255,8 @@ On the Execution Dashboard page, all study executions on the platform are access
 
 ## Chapter 3: Study Operations
 
-This chapter explains how to create a study and how to use all the available parameters of a study, for instance to go through it with the input/output data and how they link altogether, the charts, the documentation, etc.
+This chapter explains how to create a study and how to use all the available parameters of a study, for instance to go
+through it with the input/output data and how the charts, the documentation and data are organized.
 
 ### Section 3.1: Create a study
 
@@ -268,9 +269,12 @@ When **creating a study from scratch**, all fields need to be filled out: <br>
 ![](images/platform_study/create_study/create_new_study.png)
 - **study name**: the name chosen for the study
 - **process name**: the process on which the study will be based
-- **on which study it will be based**, it can be either a study that already exists for the selected process, or an empty study. There are "data shared" studies which are usecases that already have data provided and "user" studies that do not.
+- **on which study it will be based**, it can be either a study that already exists for the selected process, or an
+  empty study. "Data shared" studies are usecases computed in the reference management page and "user" studies are the
+  one created by users (similar to a study copy).
 - **group name**, meaning that only users in that group will be able to view/run/edit the study
-- **pod size**: small, medium, or large
+- **pod size**: the memory size needed to open and process the study, can be small, medium, or large (by default open it
+  in small size, and if a memory error occurs, increase the pod size)
 
 When **creating a study from a reference**, the process and the study on which it is based cannot be modified since the study will be based on an already existing study. Hence, only the study name, the group name and the pod size have to be filled out. <br>
 
@@ -279,7 +283,8 @@ When **creating a study from a reference**, the process and the study on which i
 Here is an example of study creation from scratch: <br>
 ![](images/platform_study/create_study/create_new_study_example.png)
 
-When the creation of a study is over, here is what the study looks like: <br>
+When the creation of a study is over, here is what the study looks like (here data has already been filled out with the
+reference study): <br>
 ![](images/platform_study/create_study/study_created.png)
 
 
