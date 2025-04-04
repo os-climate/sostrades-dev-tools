@@ -257,7 +257,7 @@ On the Execution Dashboard page, all study executions on the platform are access
 ## Chapter 3: Study Operations
 
 This chapter explains the possible study operations. 
-A study is the instanciation of a process. It has input data and once all imputs are configured, the study can be run. Once the study is run without failure, the outputs and charts are available.
+A study is the instanciation of a process. It has input data and once all inputs are configured, the study can be run. Once the study is run without failure, the outputs and charts are available.
 
 ### Section 3.1: Create a study
 
