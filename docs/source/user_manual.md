@@ -301,6 +301,7 @@ The name of the study is on top of the study bar, followed from top to bottom by
 - the **treeview** of the study
 
 A study can be in 2 different mode: read only and edition. The read only mode is available once the study is computed and its status is DONE. In read only, the data are not editable and the study is as it was at the end of the last computation. If the study is edited (a user changes a parameter value), the read only mode is no more available as the study status is at CONFIGURE again.
+(see [Section 4.2 Read Only and Edition mode](#section-42-read-only-and-edition-mode))
 
 In case the study is in read only mode, there is a **switch to edition mode** button just below the name of the study in the study panel: <br>
 ![](images/platform_study/study_panel/read_only_mode.png)
@@ -340,7 +341,9 @@ Moreover, both calculation status and validation state can be shown in the treev
 - **reload the study**: it is available when a study has been run. On click on this button reloads the study with its state and data before the last run. The reloaded study status will be at configuration, the outputs and charts will not be available anymore. <br>
 - **users working in same study case**: to see the users currently working on the study, and if they have execution
   rights (see Subsection 2.3.6: Study Roles ). <br>
-![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
+![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)<br>
+In Sostrades you can work in co-edition with multiple users on a same study. Each time a user save parameter changes or launch a study run, the study is reloaded for each users. If a study is deleted or edited (name, group, flavor...) by a user it is closed for each other users that have opened a study.
+
 - **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
 ![](images/platform_study/study_panel/action_bar/information_calculation_validation.png)
 
@@ -576,3 +579,8 @@ GUI will raise a pod error, and suggest you to increase the pod size.
 ![](images/platform_study/study_panel/action_bar/execution_pod_settings.png)
 
 ### Section 4.2 Read Only and Edition mode
+
+A study follows a flow from configuration to finished. On the configuration phase, the study needs to be modified to fill the good inputs data. The study is in edition mode, it is loaded on a study pod. Once all the input data are filled, the study can be run. Once the study ran without failure, its status is DONE. <br>
+When a study is DONE, it passes in read only mode so that the modification of the study cannot be done except in edition mode with a deliberate user action. The application will not start a study pod to open a study in read only mode.<br>
+Moreover, the read only mode saves the charts and data independantly of the models modifications so even if the study is old and doesn't match the code of the model it can still be opened.<br>
+But if a user changes an input of the study, the study is again in configuration mode and is opened in edition mode.<br>
