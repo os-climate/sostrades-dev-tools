@@ -339,7 +339,7 @@ Moreover, both calculation status and validation state can be shown in the treev
 ![](images/platform_study/study_panel/action_bar/study_access_link.png)
 - **reload the study**: it is available when a study has been run. On click on this button reloads the study with its state and data before the last run. The reloaded study status will be at configuration, the outputs and charts will not be available anymore. <br>
 - **users working in same study case**: to see the users currently working on the study, and if they have execution
-  rights (see [Subsection 2.3.6: Study Roles](#subsection-236-study-roles) ). <br>
+  rights (see Subsection 2.3.6: Study Roles ). <br>
 ![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
 - **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
 ![](images/platform_study/study_panel/action_bar/information_calculation_validation.png)
