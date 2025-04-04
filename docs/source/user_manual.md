@@ -256,15 +256,17 @@ On the Execution Dashboard page, all study executions on the platform are access
 
 ## Chapter 3: Study Operations
 
-This chapter explains how to create a study and how to use all the available parameters of a study, for instance to go
-through it with the input/output data and how the charts, the documentation and data are organized.
+This chapter explains the possible study operations.
+A study is the instanciation of a process. It has input data and once all inputs are configured, the study can be run.
+Once the study is run without failure, the outputs and charts are available.
 
 ### Section 3.1: Create a study
 
-There are three different ways to create a study:
+There are four different ways to create a study:
 - **from scratch** in the study management tab via the "Create study" button
 - **from a reference** in the reference management tab via the icon in the "Create study" column
 - **by copying an existing study** in the study management tab via the copy icon when going over a study
+- **from a process on the ontology page** see the [subsection 2.5.4](#section-25-ontology-menu)
 
 When **creating a study from scratch**, all fields need to be filled out: <br>
 ![](images/platform_study/create_study/create_new_study.png)
@@ -299,6 +301,12 @@ The name of the study is on top of the study bar, followed from top to bottom by
 - the **action** bar
 - the **treeview** of the study
 
+A study can be in 2 different mode: read only and edition. The read only mode is available once the study is computed
+and its status is DONE. In read only, the data are not editable and the study is as it was at the end of the last
+computation. If the study is edited (a user changes a parameter value), the read only mode is no more available as the
+study status is at CONFIGURE again.
+(see [Section 4.2 Read Only and Edition mode](#section-42-read-only-and-edition-mode))
+
 In case the study is in read only mode, there is a **switch to edition mode** button just below the name of the study in the study panel: <br>
 ![](images/platform_study/study_panel/read_only_mode.png)
 
@@ -308,6 +316,7 @@ This is an example of treeview for a study: <br>
 The treeview displays the tree structure for the different nodes of a study. 
 
 The selected node has a grey background. In this example, it is the root node of the study, which always has the same name as the study itself. Clicking on a node selects it.
+
 #### Subsection 3.2.2 Action bar
 This is the action bar of a study in edition mode: <br>
 ![](images/platform_study/study_panel/action_bar/action_bar.png) 
@@ -318,8 +327,12 @@ There are various possible actions, from left to right in the action bar:
   For each modified variable, the server value and the new value are displayed. It is possible to select only some
   parameters change to save.
 - **start execution**: to run the study so that the outputs are computed.
-- **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported and new input data is available. 
-- **export in dataset** : similarly as for the import, the outputs are exported with a mapping file (in JSON format). Hence, the outputs are put in datasets.
+- **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within
+  the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported and new input data
+  is available. When a dataset is imported, the changes impacted on the study are visible in the "Notification" section.
+- **export in dataset** : similarly as for the import, the outputs are exported with a mapping file (in JSON format).
+  Hence, the outputs are put in datasets. When a dataset is exported, the data exported in datasets are visible in the "
+  Notification" section.
 - **download study data into csv**
 - **execution pod size settings**: It is possible to change the pod size allocated before running your study (see
   section 4.1 for more details). <br>
@@ -333,10 +346,17 @@ Moreover, both calculation status and validation state can be shown in the treev
 ![](images/platform_study/study_panel/action_bar/show_calculation_and_validation.png)
 - **study case access link**: link that enables to directly access the study without opening it from within the platform. <br>
 ![](images/platform_study/study_panel/action_bar/study_access_link.png)
-- **reload the study**
+- **reload the study**: it is available when a study has been run. On click on this button reloads the study with its
+  state and data before the last run. The reloaded study status will be at configuration, the outputs and charts will
+  not be available anymore. <br>
 - **users working in same study case**: to see the users currently working on the study, and if they have execution
   rights (see [Subsection 2.3.6: Study Roles](#subsection-236-study-roles)). <br>
 ![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
+
+In Sostrades you can work in co-edition with multiple users on a same study. Each time a user save parameter changes or
+launch a study run, the study is reloaded for each users. If a study is deleted or edited (name, group, flavor...) by a
+user it is closed for each other users that have opened a study.
+
 - **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
 ![](images/platform_study/study_panel/action_bar/information_calculation_validation.png)
 
@@ -535,6 +555,10 @@ The documentation tab displays the documentation, if available, for a given node
 In this example, the documentation of the Damage node is displayed. 
 
 The documentation can be downloaded as a PDF by clicking on the download button at the top right of the tab.
+![](images/platform_study/study_workspace/download-documentation.png)
+The documentation comes from the ontology server. It can be reload directly from code by clicking on the "Refresh
+button".
+![](images/platform_study/study_workspace/reload-documentation.png)
 
 ### Section 3.4 Display bar 
 This is the display bar of a study: <br>
@@ -546,18 +570,28 @@ It consists of:
 - **Fullscreen option**
 
 #### Subsection 3.4.1 Filters
-The filters enable to show, at a given node, for instance at the Population node, either all inputs: <br>
+
+- **Show not editable inputs data**:
+  This filter enable to show, at a given node, for instance at the Population node, either all inputs: <br>
 ![](images/platform_study/display_bar/all_inputs.png) <br>
-or only editable outputs: <br>
-![](images/platform_study/display_bar/editable_inputs.png) 
+  This will show also the coupling variables. <br>
+  Or only editable outputs: <br>
+  ![](images/platform_study/display_bar/editable_inputs.png) <br>
+- **Show simple display for data View**:
+  If selected, the data of a study node are grouped in one section "data".
+  If not selected, the data of a study node are grouped by sections with one section per disciplines at this node.
 
 #### Subsection 3.4.2 Display mode
-There are three display modes:
+
+There are three levels of data display:
 - Standard
 - Advanced
 - Expert
 
-The expert mode enables to display, at a given node, for instance at the Population node, many more inputs than the standard mode seen in the previous subsection: <br>
+The data are given a level of display by the developer in the code. By default, a data has a standard display. The
+developer can choose to set it at advanced or expert to inform the user that this data may need expertise to be
+hunderstood or modified. So those data with higher level of display are not visible by default.
+For instance at the Population node, many more inputs than the standard mode seen in the previous subsection: <br>
 ![](images/platform_study/display_bar/expert_mode.png) 
 
 #### Subsection 3.4.3 Fullscreen option
@@ -602,3 +636,12 @@ GUI will raise a pod error, and suggest you to increase the pod size.
 ![](images/platform_study/study_panel/action_bar/execution_pod_settings.png)
 
 ### Section 4.2 Read Only and Edition mode
+
+A study follows a flow from configuration to finished. On the configuration phase, the study needs to be modified to
+fill the good inputs data. The study is in edition mode, it is loaded on a study pod. Once all the input data are
+filled, the study can be run. Once the study ran without failure, its status is DONE. <br>
+When a study is DONE, it passes in read only mode so that the modification of the study cannot be done except in edition
+mode with a deliberate user action. The application will not start a study pod to open a study in read only mode.<br>
+Moreover, the read only mode saves the charts and data independantly of the models modifications so even if the study is
+old and doesn't match the code of the model it can still be opened.<br>
+But if a user changes an input of the study, the study is again in configuration mode and is opened in edition mode.<br>
