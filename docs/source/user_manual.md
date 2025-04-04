@@ -313,7 +313,8 @@ This is the action bar of a study in edition mode: <br>
 There are various possible actions, from left to right in the action bar:
 - **save changes**: to save uploaded or edited data (see subsection 3.3.1 Data). <br>
 ![](images/platform_study/study_panel/action_bar/save_changes.png) <br>
-For each modified variable, the server value and the new value are displayed. It is possible to select only some parameters change to save.
+For each modified variable, the server value and the new value are displayed. It is possible to select only some parameters change to save. <br>
+This button is activated only in case there are modified data in the study.
 - **start execution**: to run the study so that the outputs are computed.
 - **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported and new input data is available. 
 - **export in dataset** : similarly as for the import, the outputs are exported with a mapping file (in JSON format). Hence, the outputs are put in datasets.
