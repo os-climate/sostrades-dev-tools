@@ -107,7 +107,8 @@ The study management list includes several columns that provide detailed informa
 - Repository: The code repository associated with the study.
 - Process: The process used for the study.
 - Execution Status: The current execution state of the study.
-- Pod Size: The computing resources allocated to the study. (This column appears only when using the hosted GUI and not on a local machine, as a pod is used for computation in the hosted environment.)
+- Pod Size: The computing resources allocated to the study (see section 4.1 for more details). (This column appears only
+  when using the hosted GUI and not on a local machine, as a pod is used for computation in the hosted environment.)
 - Creation Date: The date the study was created.
 - Modification Date: The date the study was last modified.
 
@@ -273,7 +274,8 @@ When **creating a study from scratch**, all fields need to be filled out: <br>
   empty study. "Data shared" studies are usecases computed in the reference management page and "user" studies are the
   one created by users (similar to a study copy).
 - **group name**, meaning that only users in that group will be able to view/run/edit the study
-- **pod size**: the memory size needed to open and process the study, can be small, medium, or large (by default open it
+- **pod size**: the memory size needed to open and process the study (see section 4.1 for more details), can be small,
+  medium, or large (by default open it
   in small size, and if a memory error occurs, increase the pod size)
 
 When **creating a study from a reference**, the process and the study on which it is based cannot be modified since the study will be based on an already existing study. Hence, only the study name, the group name and the pod size have to be filled out. <br>
@@ -313,14 +315,15 @@ This is the action bar of a study in edition mode: <br>
 There are various possible actions, from left to right in the action bar:
 - **save changes**: to save uploaded or edited data (see subsection 3.3.1 Data). <br>
 ![](images/platform_study/study_panel/action_bar/save_changes.png) <br>
-For each modified variable, the server value and the new value are displayed. It is possible to select only some parameters change to save. <br>
-This button is activated only in case there are modified data in the study.
+  For each modified variable, the server value and the new value are displayed. It is possible to select only some
+  parameters change to save.
 - **start execution**: to run the study so that the outputs are computed.
 - **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported and new input data is available. 
 - **export in dataset** : similarly as for the import, the outputs are exported with a mapping file (in JSON format). Hence, the outputs are put in datasets.
 - **download study data into csv**
-- **execution pod settings**: to change the size of the pod on which the study is executed. <br>
-![](images/platform_study/study_panel/action_bar/execution_pod_settings.png)
+- **execution pod size settings**: It is possible to change the pod size allocated before running your study (see
+  section 4.1 for more details). <br>
+
 - **show/hide status**: the calculation status of a node can be either configure (C), pending (P), running (R), done (D), failed (F) or input data (I), as it can be seen below in information about calculation status. In the treeview in the previous subsection, the calculation status of the nodes are hidden while they are shown here: <br>
 ![](images/platform_study/study_panel/action_bar/show_calculation_status.png)
 - **show validation state**: the validation state indicates whether data at a given node of the treeview has been validated manually. This validation happens in the data or charts tab of the study workspace, which are presented in the next section. In the treeview in the previous subsection, the validation state of the nodes are hidden while they are shown here: <br>
@@ -331,7 +334,8 @@ Moreover, both calculation status and validation state can be shown in the treev
 - **study case access link**: link that enables to directly access the study without opening it from within the platform. <br>
 ![](images/platform_study/study_panel/action_bar/study_access_link.png)
 - **reload the study**
-- **users working in same study case**: to see the users currently working on the study, and if they have execution rights (i.e. edition mode) or not (i.e. read only mode). <br>
+- **users working in same study case**: to see the users currently working on the study, and if they have execution
+  rights (see [Subsection 2.3.6: Study Roles](#section-236-study-roles)). <br>
 ![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
 - **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
 ![](images/platform_study/study_panel/action_bar/information_calculation_validation.png)
@@ -342,6 +346,10 @@ Only show/hide status, show validation state, study case access link, users work
 
 
 #### Subsection 3.2.3 Search bar
+
+The search bar above the treeview is really helpful to find a model or a data in a complex study with a lot of nodes in
+the treeview. Data can be found either with their name in the code or their name in the ontology (display name in the
+GUI).
 This is the search bar of a study: <br>
 ![](images/platform_study/study_panel/search_bar/search_bar.png) 
 
@@ -368,8 +376,19 @@ The study workspace consists of several tabs:
 A dashboard tab is currently being implemented.
 
 #### Subsection 3.3.1 Data
-The data tab contains for each node its variables, both inputs and outputs, as seen in this example at the Population node: <br>
-![](images/platform_study/study_workspace/data/input_output_data.png) 
+
+The data section displays all the data present in the selected node
+
+##### 3.3.1.1 Data tabs
+
+The data section contains for each node its variable in 3 different tabs :
+
+- Numerical parameters : If the node contains a model a section numerical parameters hosts all numerical values needed
+  to set the model. For complex study with MDA or MDO, numerical parameters are stores in this tab.
+- Input parameters and out put parameters: in this example at the Population node: <br>
+![](images/platform_study/study_workspace/data/input_output_data.png)
+
+##### 3.3.1.2 Variable edition
 
 Here is an example of a variable, the Assumption dict input at the Population node: <br>
 ![](images/platform_study/study_workspace/data/variable.png) <br>
@@ -378,6 +397,8 @@ When clicking on a variable name, some information about it is available: <br>
 When clicking on the show button, the values of the variable can be seen: <br>
 ![](images/platform_study/study_workspace/data/variable_values.png) <br>
 When clicking on the download button, the values of the variable are downloaded into a CSV file.
+
+##### 3.3.1.3 Coupling variables
 
 Some variables are **coupling variables**, meaning that they are an input at a given node of the study and an output at another node. They are indicated by a double arrow, as seen for the Temperature data input at the Population node: <br>
 ![](images/platform_study/study_workspace/data/input_temperature.png) <br>
@@ -390,6 +411,8 @@ However, the Initial population input can be uploaded or edited since it first a
 ![](images/platform_study/study_workspace/data/variable_edit.png) <br>
 Moreover, at the Population node, the Assumption dict input seen above cannot be modified there, but it can be uploaded or edited at the parent node where it is first introduced: <br>
 ![](images/platform_study/study_workspace/data/data_at_root_node.png)
+
+##### 3.3.1.4 Data validation
 
 Finally, two other options are available on top of the study workspace, below tabs and next to the selected node name:
 - manually validate data at a given node by clicking on the validate data button: <br>
@@ -456,7 +479,7 @@ It is possible to download the interface diagram as an SVG.
 
 The **execution sequence** has different levels and shows the parallel executions at each level: <br>
 ![](images/platform_study/study_workspace/visualisation/execution_sequence.png) <br>
-In this example, there are four parallel executions happening at this level, on per scenario.
+In this example, there are four parallel executions happening at this level, one per scenario.
 
 The **study coupling graph** also has different levels and shows the relationship between nodes of the study: <br>
 ![](images/platform_study/study_workspace/visualisation/study_coupling_graph.png) <br>
@@ -521,4 +544,21 @@ The last metrics recorded from file system for CPU and memory are also displayed
 The notifications tab displays the user actions in a study: <br>
 ![](images/platform_study/logs_space/notifications.png)
 
+## Chapter 4 Basics definition for beginners
 
+### Section 4.1 Understanding pod size
+
+When you run applications in a cloud, they runs inside something called a pod. You can think of it like a tiny computer
+running just one part of your app.
+
+The pod size tells the cloud how much CPU power and memory your pod should have. CPU means how fast your pod can think
+and do work. For example, 1 CPU means one full core, 200m means 0.2 core. RAM is the memory your pod uses to store
+things it’s working on. It is measured in megabytes (Mi) or gigabytes (Gi). For example, 512Mi is half a gigabyte (1Gi).
+
+Choosing the pod size for study opening or study run is like choosing how strong and fast your pod's "computer" should
+be. It needs some expertise on how much CPU and RAM a study needs. If the chosen pod size is too small, the SoSTrades
+GUI will raise a pod error, and suggest you to increase the pod size.
+
+![](images/platform_study/study_panel/action_bar/execution_pod_settings.png)
+
+### Section 4.2 Read Only and Edition mode
