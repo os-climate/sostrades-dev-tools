@@ -9,11 +9,11 @@ user studies, as well as visualise existing ones.
 
 ## Chapter 1: SOSTrades GUI connection 
 
-This chapter offers all the necessary explanations for easily connecting the SoSTrades Graphical User Interface. There are possibilities that you can meet to connect on it, the cloud one and the local one. 
+This chapter offers all the necessary explanations to connect easily the SoSTrades Graphical User Interface. The platform may be deployed Locally or on the Cloud.
 
 ### Section 1.1: First connection on cloud landing page
 
-The cloud platform is a collaborative environment where all developer contributions are tested and validated before becoming available on the final link: [https://validation.osc-tsa.com](https://validation.osc-tsa.com).  
+The cloud platform is a collaborative environment where all developers' contributions are tested and validated before becoming available on the final link: [https://validation.osc-tsa.com](https://validation.osc-tsa.com).  
 On the cloud login page, a redirection occurs to the Keycloak homepage, allowing authentication with a local Keycloak account created by an administrator. Keycloak is an open-source identity and access management solution that we have chosen to handle authentication and user management on the platform. Alternatively, a personal GitHub or Google account can be used by clicking the associated button. Github and Google account should have the same email address to be associated to the same account.
 
 ![](images/platform-GUI/login-page/keycloak-login-page.png)
@@ -25,7 +25,7 @@ SoSTrades can be installed on a local machine by following this installation [do
 
 ## Chapter 2: GUI Homepage and menus
 
-This chapter provides an overview of the GUI homepage, navigation menus, including study and reference management, as well as group management, the Ontology and the manager dashboard.
+This chapter provides an overview of the GUI homepage, navigation menus, including study and reference management, as well as group management, the ontology and the manager dashboard.
 
 ### Section 2.1: Homepage information
 
@@ -36,39 +36,40 @@ After connecting to SoSTrades GUI platform there is a lot of information display
 - **2- Platform information:** In this box, the name and creation date of the platform are displayed. When you are connected to a cloud platform, the box is clickable to view more details about the different Git repositories the platform is based on.
 - **3- User information:** The name of the current user is displayed
 - **4- Contact button:** Show the email address of the support team
-- **5- Logout button:** Here is the button to logout
+- **5- Logout button:** Logs out the user
 - **6- Favorite studies:** At the bottom of the homepage there are the last opened and favorite study of the current user. Users can mark their favorite studies with a star in the study management panel (see the next section).
-- **7- Header color:** The color of the header is configurable during the platform's creation. For example, the cloud open-source validation platform is green, different color than the purple one for local platforms.
+- **7- Header color:** The color of the header depends of the environment : validation platforms are green, latest are blue, integration orange and purple for local platforms.
 
 By clicking on the Platform Information box, a table appears summarizing all Git repository details used to build the platform. The table includes the repository name, the branch or tag in use, the commit identifier, and the last commit date. This allows users to track the exact versions of the different components that make up the platform.  
 ![](images/platform-GUI/header/platform-version.png)  
 ![](images/platform-GUI/header/header-code-traceability.png)  
 
-### Section 2.2: Group management
+### Section 2.2: Group Management
 
-The Group Management feature, accessible via the menu button, allows users to organise access rights within the platform. 
+The Group Management feature, accessible via the menu button, allows users to manage access rights within the platform.
 
-Each user connected to the platform belongs to, at least, one group with rights.
+Each user connected to the platform is assigned to at least one group with specific access rights.
 
-- **Owner** : When a user creates a group, he is the owner of the group. The owner cannot be changed and has the full rights on the group (edition, deletion, manage access rights).
-- **Manager** : Can edit a group (name and description), manage access rights to the group (can add or remove user or group but cannot change its own access right nor the owner), can create study into this group. A manager can't delete a group, only the owner can do it.
-- **Member** : A member of a group can only create studies into this group. 
+Here is the description of level of membership in a group:
 
-These groups contain user and each user in the group has access to what belongs to it. It can be:
+- **Owner**: When a user creates a group, they become the owner of that group. The owner cannot be changed and has full rights over the group (editing, deletion, and managing access rights).
+- **Manager**: A manager can edit the group (name and description), manage access rights (add or remove users or groups), and create studies within the group. A manager can't change their own access rights or those of the owner, nor can they delete the group—only the owner can do that.
+- **Member**: A member can only create studies within the group.
 
-- another group of users
-- a process (bunch of models), it is possible to link a process to a given group
-- a study created by someone in the group or added by someone else that has given access to it
+These groups contain users, each of whom has access to the resources associated with the group. These resources can include:
 
-When a group is linked to a process, a study, or another group, the users and/or groups within the group inherit the
-associated access rights.
+- Other user groups
+- A process (a collection of models), which can be linked to a specific group
+- A study created by a group member or shared by another user who has granted access
+
+When a group is linked to a process, study, or another group, the users and/or groups within the linked group inherit the associated access rights.
 
 For example:  
-if a group is added as a manager in a process entity's rights, all users in the group (owner, manager, or member) will be managers of the process.  
-If a group is added as a restricted viewer in a study-case entity's rights, all users in the group (owner, manager, or member) will be restricted viewers of the study-case.  
-If a user in the restricted viewer group is also added as a manager in the same study-case entity's rights, they will have manager rights for this study-case.
+- If a group is added as a manager to the rights of a process entity, all users in the group (owner, manager, or member) will have manager rights for that process.  
+- If a group is added as a restricted viewer to a study-case entity's rights, all users in the group (owner, manager, or member) will be restricted viewers of the study-case.  
+- If a user in the restricted viewer group is also added as a manager in the same study-case entity's rights, they will have manager rights for that study-case.
 
-By default, at the first connection on the GUI, the new users are in "All users" group. 
+By default, when a new user first logs in to the GUI, they are placed in the "All Users" group. 
 
 #### Subsection 2.2.1 Create group
 ![](images/platform-GUI/group-management/create_group.png)  
@@ -172,7 +173,7 @@ Like the study management page, the reference management page can be accessed fr
 
 A reference is visible in the Reference Management page only if the user has the necessary rights on the process associated with that reference. The process rights will be explained in detail in [Subsection 2.6.3: Processes management](#section-26-manager-dashboard).
 
-Before to be used a reference must be generated with that button ![](images/platform-GUI/reference-management/generate-reference-icon.png) When a reference is not generated the Status of the reference is ![](images/platform-GUI/reference-management/status-not-generated.png) Then once you generate a reference it turns into ![](images/platform-GUI/reference-management/status-pending.png) during the compute. And finally, it turns into ![](images/platform-GUI/reference-management/status-finished.png) and the button create study ![](images/platform-GUI/reference-management/create-button.png) is available to create a study from reference.
+Before to be used a reference must be generated with that button ![](images/platform-GUI/reference-management/generate-reference-icon.png) When a reference is not generated the Status of the reference is ![](images/platform-GUI/reference-management/status-not-generated.png) Then once you generate a reference it turns into ![](images/platform-GUI/reference-management/status-pending.png) during the computation. And finally, it turns into ![](images/platform-GUI/reference-management/status-finished.png) and the button create study ![](images/platform-GUI/reference-management/create-button.png) is available to create a study from reference.
 
 Each generated reference will have a log file available through the download button ![](images/platform-GUI/reference-management/download-button.png) which records the computation details in the file.
 
@@ -247,7 +248,7 @@ It is possible to assign a default group to all processes within a code reposito
 
 There are two different roles that can be assigned to a user or group for processes:
 - **Contributor**: can generate references and create study from the process.
-- **manager**: can manage access rights of the process, generate references and create study from this process. A group with manager access right to this process gives the manager access right to users and groups that are in this group.
+- **Manager**: can manage access rights of the process, generate references and create study from this process. A group with manager access right to this process gives the manager access right to users and groups that are in this group.
 
 #### Subsection 2.6.4: Execution dashboard
 
