@@ -5,13 +5,13 @@ This documentation manual is designed for people seeking to deepen their underst
 SoSTrades is a web-based, multi-user, interactive publication-quality graph simulation platform. It allows users to drop new modules without additional coding and provides embedded advanced numerical capabilities for simulation and multi-disciplinary optimization. It also has built-in collaborative capabilities to allow different experts to work together.
 
 It provides comprehensive guidance on using the GUI for seamless interaction. Learn how to create, modify, run, and open
-user studies, as well as visualize existing ones.
+user studies, as well as visualise existing ones.
 
-## Chapter 1: SOSTrades GUI connexion 
+## Chapter 1: SOSTrades GUI connection 
 
 This chapter offers all the necessary explanations for easily connecting the SoSTrades Graphical User Interface. There are possibilities that you can meet to connect on it, the cloud one and the local one. 
 
-### Section 1.1: First connexion on cloud landing page
+### Section 1.1: First connection on cloud landing page
 
 The cloud platform is a collaborative environment where all developer contributions are tested and validated before becoming available on the final link: [https://validation.osc-tsa.com](https://validation.osc-tsa.com).  
 On the cloud login page, a redirection occurs to the Keycloak homepage, allowing authentication with a local Keycloak account created by an administrator. Keycloak is an open-source identity and access management solution that we have chosen to handle authentication and user management on the platform. Alternatively, a personal GitHub or Google account can be used by clicking the associated button. Github and Google account should have the same email address to be associated to the same account.
@@ -19,7 +19,7 @@ On the cloud login page, a redirection occurs to the Keycloak homepage, allowing
 ![](images/platform-GUI/login-page/keycloak-login-page.png)
 
 
-### Section 1.2: Connexion on local machine
+### Section 1.2: Connection on local machine
 SoSTrades can be installed on a local machine by following this installation [documentation](installation.md). Once the installation is successfully completed, the user created with the `CreateUser.py` script from the documentation can be used to access the local platform at [http://localhost:4200/](http://localhost:4200/). The user password can be found in the following path: `./sostrades-dev-tools-test-uv/platform/sostrades-webapi/sos_trades_api/secret/`.  
 ![](images/platform-GUI/login-page/local-login-page.png)
 
@@ -27,18 +27,18 @@ SoSTrades can be installed on a local machine by following this installation [do
 
 This chapter provides an overview of the GUI homepage, navigation menus, including study and reference management, as well as group management, the Ontology and the manager dashboard.
 
-### Section 2.1: Homepage infos
+### Section 2.1: Homepage information
 
 ![](images/platform-GUI/welcome-page/numbered-welcome-page.png)
 
-After connecting to SoSTrades GUI platform they are many information displayed on the homepage. Each numbered boxes are described bellow:
+After connecting to SoSTrades GUI platform there is a lot of information displayed on the homepage. Each numbered box is described below:
 - **1- Menu button:** From this button you can navigate to the different pages of the GUI which will be detailed in next chapters.
 - **2- Platform information:** In this box, the name and creation date of the platform are displayed. When you are connected to a cloud platform, the box is clickable to view more details about the different Git repositories the platform is based on.
 - **3- User information:** The name of the current user is displayed
 - **4- Contact button:** Show the email address of the support team
 - **5- Logout button:** Here is the button to logout
 - **6- Favorite studies:** At the bottom of the homepage there are the last opened and favorite study of the current user. Users can mark their favorite studies with a star in the study management panel (see the next section).
-- **7- Header color:** The color of the header is configurable during the platform's creation. For example, the cloud open source validation platform is green, different color than the purple one for local platforms.
+- **7- Header color:** The color of the header is configurable during the platform's creation. For example, the cloud open-source validation platform is green, different color than the purple one for local platforms.
 
 By clicking on the Platform Information box, a table appears summarizing all Git repository details used to build the platform. The table includes the repository name, the branch or tag in use, the commit identifier, and the last commit date. This allows users to track the exact versions of the different components that make up the platform.  
 ![](images/platform-GUI/header/platform-version.png)  
@@ -46,11 +46,11 @@ By clicking on the Platform Information box, a table appears summarizing all Git
 
 ### Section 2.2: Group management
 
-The Group Management feature, accessible via the menu button, allows users to organize access rights within the platform. 
+The Group Management feature, accessible via the menu button, allows users to organise access rights within the platform. 
 
 Each user connected to the platform belongs to, at least, one group with rights.
 
-- **Owner** : When a user create a group, he is the owner of the group. The owner cannot be changed and has the full rights on the group (edition, deletion, manage access rights).
+- **Owner** : When a user creates a group, he is the owner of the group. The owner cannot be changed and has the full rights on the group (edition, deletion, manage access rights).
 - **Manager** : Can edit a group (name and description), manage access rights to the group (can add or remove user or group but cannot change its own access right nor the owner), can create study into this group. A manager can't delete a group, only the owner can do it.
 - **Member** : A member of a group can only create studies into this group. 
 
@@ -68,7 +68,7 @@ if a group is added as a manager in a process entity's rights, all users in the 
 If a group is added as a restricted viewer in a study-case entity's rights, all users in the group (owner, manager, or member) will be restricted viewers of the study-case.  
 If a user in the restricted viewer group is also added as a manager in the same study-case entity's rights, they will have manager rights for this study-case.
 
-By default, at the first connexion on the GUI, the new users are in "All users" group. 
+By default, at the first connection on the GUI, the new users are in "All users" group. 
 
 #### Subsection 2.2.1 Create group
 ![](images/platform-GUI/group-management/create_group.png)  
@@ -92,7 +92,7 @@ This user can also modify the access rights of a user or a group present in this
 **<span style="color: red;">Removing a group will delete all studies that belong to this group.</span>**
 
 
-### Section 2.3: Study management visualization
+### Section 2.3: Study management visualisation
 
 From the menu button, it is possible to access the study management page and list all the studies that the current user can access, according to their rights on each study, as well as the rights of the groups to which they belong. On that page, it is possible to search for a study by name using the search bar. A study can also be created with the 'Create Study' button, which will be explained in more detail later in this documentation.  
 ![](images/platform-GUI/header/menu-study.png)
@@ -148,14 +148,14 @@ By hovering over the same row as a study, additional icons appear on the right s
 - This icon ![](images/platform-GUI/study-management/share-icon.png) allows to get the link of study to be shared:  
 ![](images/platform-GUI/study-management/share-link.png)  
 
-- The last icon ![](images/platform-GUI/study-management/grant-right-icon.png) allows to manage group or user rights on that study(see next subsection for more details on study roles):  
+- The last icon ![](images/platform-GUI/study-management/grant-right-icon.png) allows to manage group or user rights on that study (see next subsection for more details on study roles):  
 ![](images/platform-GUI/study-management/study-rights.png) 
 
 #### Subsection 2.3.6: Study roles
 
 There are 5 access rights possible when giving access to a study:
 - **Restricted viewer**: can copy, load a study, see only the post-processings of the study and documentation. He can't modify the study in any way nor see the data used in the study-case.
-- **Commenter**: has the restricted viewer right and also can see the study data, load the study-case, download the study-case data, but can't modify it. He cannot edit the name and group of the study-case nor delete it or change access rights. Even if the user has a profile with execution rights, he cannot execute the study-case.
+- **Commenter**: has the restricted viewer right and can see the study data, load the study-case, download the study-case data, but can't modify it. He cannot edit the name and group of the study-case nor delete it or change access rights. Even if the user has a profile with execution rights, he cannot execute the study-case.
 - **Contributor**: is a commenter that can also copy, save parameters, reload the study. He cannot edit the name and group of the study-case nor delete it or change access rights. If the user has a profile with execution rights, he can execute the study-case.
 - **Manager**: has the contributor rights and can also edit, delete and change access rights of the study-case (except for the owners and himself rights). 
 - **Owner**: When a user creates a study-case, he is the owner of the study-case. The owner cannot be changed and has all the rights that a manager has. But, even if he is the owner, he cannot execute the study if he has the profile study user without execution rights.  
@@ -164,15 +164,15 @@ When a study-case is created, the group that is associated to the study-case at 
 ![](images/platform-GUI/study-management/study-roles.png) 
 
 
-### Section 2.4: Reference management visualization
+### Section 2.4: Reference management visualisation
 
 References are predefined examples of a process with selected data set by developers. Once computed, a reference can be reused to create studies. The advantage of creating a study from a reference is that it eliminates the need to start from scratch, saving time and effort.
-Similar to the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the filter bar similar to the study management filter bar.
+Like the study management page, the reference management page can be accessed from the menu button to list references and can also be found using the filter bar like the study management filter bar.
 ![](images/platform-GUI/reference-management/reference-list.png)
 
 A reference is visible in the Reference Management page only if the user has the necessary rights on the process associated with that reference. The process rights will be explained in detail in [Subsection 2.6.3: Processes management](#section-26-manager-dashboard).
 
-Before to be used a reference has to be generate with that button ![](images/platform-GUI/reference-management/generate-reference-icon.png) When a reference is not generated the Status of the reference is ![](images/platform-GUI/reference-management/status-not-generated.png) Then once you generate a reference it turns into ![](images/platform-GUI/reference-management/status-pending.png) during the compute. And finally it turns into ![](images/platform-GUI/reference-management/status-finished.png) and the button create study ![](images/platform-GUI/reference-management/create-button.png) is available to create a study from reference.
+Before to be used a reference must be generated with that button ![](images/platform-GUI/reference-management/generate-reference-icon.png) When a reference is not generated the Status of the reference is ![](images/platform-GUI/reference-management/status-not-generated.png) Then once you generate a reference it turns into ![](images/platform-GUI/reference-management/status-pending.png) during the compute. And finally, it turns into ![](images/platform-GUI/reference-management/status-finished.png) and the button create study ![](images/platform-GUI/reference-management/create-button.png) is available to create a study from reference.
 
 Each generated reference will have a log file available through the download button ![](images/platform-GUI/reference-management/download-button.png) which records the computation details in the file.
 
@@ -180,7 +180,7 @@ When generating a reference in the cloud platform, it is possible to select the 
 
 ### Section 2.5: Ontology menu
 
-The SoSTrades Ontology is composed of all entities and relationships between concepts used in the Systems of Systems Trades project. The main concepts modeled are Code Repositories, Process Repositories, Processes, Models, Usecases and Parameters. For each instance, the ontology store metadata (label, description, documentation, ...) that are extracted from the Python code stored in the code repositories of the project in Gitlab. This ontology primary purpose is to complement the Web Interface of SoSTrades with these metadata to have a better lisibility and understandability. It is also a good way to explore the available concepts in the SoSTrades platform.
+The SoSTrades Ontology is composed of all entities and relationships between concepts used in the Systems of Systems Trades project. The main concepts modelled are Code Repositories, Process Repositories, Processes, Models, Usecases and Parameters. For each instance, the ontology store metadata (label, description, documentation, ...) that are extracted from the Python code stored in the code repositories of the project in Gitlab. This ontology primary purpose is to complement the Web Interface of SoSTrades with these metadata to have a better readability and understandability. It is also a good way to explore the available concepts in the SoSTrades platform.
 
 #### Subsection 2.5.1: Ontology homepage
 
@@ -224,22 +224,22 @@ In the user management page, you can have a list of all existing user and more i
 
 #### Subsection 2.6.2: User profile 
 
-There are three profiles that can be assigned to an user or a group in SoSTrades: "Study User," "Study User Without Execution," and "Study Manager." A profile defines the user's role and permissions within the platform.
+There are three profiles that can be assigned to a user or a group in SoSTrades: "Study User," "Study User Without Execution," and "Study Manager." A profile defines the user's role and permissions within the platform.
 
 - **Study user without Execution** : can only open studies.
 - **Study user** : can modify a study, execute a study, generate references.
 - **Study manager** : can do all of the previous profiles and grant right to a user or a group.
 
-By default when you are in local machine you have the study manager profile and when you are in hosted platform you are with "Study user without Execution" profile.
+By default, when you are in local machine you have the study manager profile and when you are in hosted platform you are with "Study user without Execution" profile.
 
-If your profile need to be granted on the hosted platform, you need to contact and administrator to change it on Keycloak.
+If your profile needs to be granted on the hosted platform, you need to contact and administrator to change it on Keycloak.
 
 #### Subsection 2.6.3: Processes management 
 
-Processes can be manage from that page:
+Processes can be managed from that page:
 ![](images/platform-GUI/manager/processes-management.png)
 
-On that management page you can grant access to an user or group on a processes with the button ![](images/platform-GUI/manager/add-user-icon.png)  
+On that management page you can grant access to a user or group on a process with the button ![](images/platform-GUI/manager/add-user-icon.png)  
 
 By default, processes are assigned the SoSTrades_Dev group as their manager. This means that only administrators can see new processes, as only administrators belong to the SoSTrades_Dev group.
 
@@ -257,7 +257,7 @@ On the Execution Dashboard page, all study executions on the platform are access
 ## Chapter 3: Study Operations
 
 This chapter explains the possible study operations.
-A study is the instanciation of a process. It has input data and once all inputs are configured, the study can be run.
+A study is the instantiation of a process. It has input data and once all inputs are configured, the study can be run.
 Once the study is run without failure, the outputs and charts are available.
 
 ### Section 3.1: Create a study
@@ -274,13 +274,13 @@ When **creating a study from scratch**, all fields need to be filled out: <br>
 - **process name**: the process on which the study will be based
 - **on which study it will be based**, it can be either a study that already exists for the selected process, or an
   empty study. "Data shared" studies are usecases computed in the reference management page and "user" studies are the
-  one created by users (similar to a study copy).
+  one created by users (like a study copy).
 - **group name**, meaning that only users in that group will be able to view/run/edit the study
 - **pod size**: the memory size needed to open and process the study (see section 4.1 for more details), can be small,
   medium, or large (by default open it
   in small size, and if a memory error occurs, increase the pod size)
 
-When **creating a study from a reference**, the process and the study on which it is based cannot be modified since the study will be based on an already existing study. Hence, only the study name, the group name and the pod size have to be filled out. <br>
+When **creating a study from a reference**, the process and the study on which it is based cannot be modified since the study will be based on an already existing study. Hence, only the study name, the group name and the pod size must be filled out. <br>
 
 **Creating a study by copying an existing one** works exactly as creating a study from a reference, the only difference is where the creation is launched (in the study management tab for copy and in the reference management tab for the creation from a reference), as the fields to fill out are the same.
 
@@ -301,8 +301,8 @@ The name of the study is on top of the study bar, followed from top to bottom by
 - the **action** bar
 - the **treeview** of the study
 
-A study can be in 2 different mode: read only and edition. The read only mode is available once the study is computed
-and its status is DONE. In read only, the data are not editable and the study is as it was at the end of the last
+A study can be in 2 different modes: read only and edition. The read only mode is available once the study is computed
+and its status is DONE. In read only, the data are not editable, and the study is as it was at the end of the last
 computation. If the study is edited (a user changes a parameter value), the read only mode is no more available as the
 study status is at CONFIGURE again.
 (see [Section 4.2 Read Only and Edition mode](#section-42-read-only-and-edition-mode))
@@ -328,18 +328,17 @@ There are various possible actions, from left to right in the action bar:
   parameters change to save.
 - **start execution**: to run the study so that the outputs are computed.
 - **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within
-  the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported and new input data
+  the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported, and new input data
   is available. When a dataset is imported, the changes impacted on the study are visible in the "Notification" section.
-- **export in dataset** : similarly as for the import, the outputs are exported with a mapping file (in JSON format).
-  Hence, the outputs are put in datasets. When a dataset is exported, the data exported in datasets are visible in the "
-  Notification" section.
+- **export in dataset** : like for the import, the outputs are exported with a mapping file (in JSON format).
+  Hence, the outputs are put in datasets. When a dataset is exported, the data exported in datasets are visible in the "Notification" section.
 - **download study data into csv**
 - **execution pod size settings**: It is possible to change the pod size allocated before running your study (see
   section 4.1 for more details). <br>
 
-- **show/hide status**: the calculation status of a node can be either configure (C), pending (P), running (R), done (D), failed (F) or input data (I), as it can be seen below in information about calculation status. In the treeview in the previous subsection, the calculation status of the nodes are hidden while they are shown here: <br>
+- **show/hide status**: the calculation status of a node can be either configure (C), pending (P), running (R), done (D), failed (F) or input data (I), as it can be seen below in information about calculation status. In the treeview in the previous subsection, the calculation statuses of the nodes are hidden while they are shown here: <br>
 ![](images/platform_study/study_panel/action_bar/show_calculation_status.png)
-- **show validation state**: the validation state indicates whether data at a given node of the treeview has been validated manually. This validation happens in the data or charts tab of the study workspace, which are presented in the next section. In the treeview in the previous subsection, the validation state of the nodes are hidden while they are shown here: <br>
+- **show validation state**: the validation state indicates whether data at a given node of the treeview has been validated manually. This validation happens in the data or charts tab of the study workspace, which are presented in the next section. In the treeview in the previous subsection, the validation states of the nodes are hidden while they are shown here: <br>
 ![](images/platform_study/study_panel/action_bar/show_validation_state.png) <br>
 In this example, the data has been validated at root node but not at other nodes. <br>
 Moreover, both calculation status and validation state can be shown in the treeview: <br>
@@ -353,8 +352,8 @@ Moreover, both calculation status and validation state can be shown in the treev
   rights (see Subsection 2.3.6: Study Roles). <br>
 ![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
 
-In Sostrades you can work in co-edition with multiple users on a same study. Each time a user save parameter changes or
-launch a study run, the study is reloaded for each users. If a study is deleted or edited (name, group, flavor...) by a
+In Sostrades you can work in co-edition with multiple users on a same study. Each time a user saves parameter changes or
+launch a study run, the study is reloaded for each user. If a study is deleted or edited (name, group, flavor...) by a
 user it is closed for each other users that have opened a study.
 
 - **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
@@ -367,7 +366,7 @@ Only show/hide status, show validation state, study case access link, users work
 
 #### Subsection 3.2.3 Search bar
 
-The search bar above the treeview is really helpful to find a model or a data in a complex study with a lot of nodes in
+The search bar above the treeview is helpful to find a model or a data in a complex study with a lot of nodes in
 the treeview. Data can be found either with their name in the code or their name in the ontology (display name in the
 GUI).
 This is the search bar of a study: <br>
@@ -403,8 +402,8 @@ The data section displays all the data present in the selected node
 
 The data section contains for each node its variables in 3 different tabs :
 
-- Numerical parameters : If the node contains a model a section numerical parameters hosts all numerical values needed
-  to set the model. For complex study with MDA or MDO, numerical parameters are stores in this tab.
+- Numerical parameters : If the node contains a model, a section "numerical parameters" hosts all numerical values needed
+  to set the model. For complex study with MDA or MDO, numerical parameters are stored in this tab.
 - Input and output parameters/variables: in this example at the Population node: <br>
 ![](images/platform_study/study_workspace/data/input_output_data.png)
 
@@ -414,7 +413,7 @@ On each node, several variables can be found :
 - variables that are stored directly at this node, a variable used by a model is not necessarily stored where the model
   is also stored (via the notion of namespaces, see the developer manual for more details)
 
-Consequently a single variable can be visible at different nodes in the treeview if the variable is used by different
+Consequently, a single variable can be visible at different nodes in the treeview if the variable is used by different
 models or used in one model and stored elsewhere in the treeview.
 
 ##### 3.3.1.2 Variable details
@@ -425,7 +424,7 @@ When clicking on a variable name, some information about it is available :
 
 - its ID (name in the code)
 - its type of data (here dict)
-- its definition, label, unit,URI defined in the ontology
+- its definition, label, unit, URI defined in the ontology
 - other parameters like structuring or visibility for the developer (see developer manual)
   <br>
 ![](images/platform_study/study_workspace/data/variable_info.png) <br>
@@ -450,7 +449,7 @@ or edited at the parent node where it is first introduced: <br>
 ![](images/platform_study/study_workspace/data/data_at_root_node.png)
 
 As seen in the previous screenshots, a variable can be uploaded from csv files (in the case of dataframes or
-dictionaries) or directly editable for simple types as integer,float,list,dataframe,dictionaries ...
+dictionaries) or directly editable for simple types as integer, float, list, dataframe, dictionaries ...
 Depending on the types specified for the variable some integrity rules are implemented to be sure the user save a value
 that is coherent with the type of the variable.
 It is also possible that the developer has created specific integrity rules for the data edition and the integrity error
@@ -469,9 +468,9 @@ The Temperature data input at the Population node comes from the Temperature dat
 Two other options are available on top of the study workspace, below tabs and next to the selected node name:
 - manually validate data at a given node by clicking on the validate data button: <br>
 ![](images/platform_study/study_workspace/data/not_validated_data.png) <br>
-or unvalidate data by clicking on the unvalidate data button: <br>
+or invalidate data by clicking on the invalidate data button: <br>
 ![](images/platform_study/study_workspace/data/validated_data.png)
-- display configure information about variables by clicking on the "i" button next to the validate/unvalidate data button: <br>
+- display configure information about variables by clicking on the "i" button next to the validate/invalidate data button: <br>
 ![](images/platform_study/study_workspace/data/configure_information.png)
 
 
@@ -504,7 +503,7 @@ When moving the mouse over a chart, an action bar appears at the top right: <br>
 ![](images/platform_study/study_workspace/charts/chart_bar.png)
 There are various possible actions, from left to right in the action bar:
 - download data as CSV file
-- show/hide legend. In the chart above, the legend is shown and in the chart below, it is hidden: <br>
+- show/hide legend. In the chart above, the legend is shown and, in the chart below, it is hidden: <br>
 ![](images/platform_study/study_workspace/charts/show_hide_legend.png)
 - enlarge plot: 
 ![](images/platform_study/study_workspace/charts/enlarge_plot.png)
@@ -524,7 +523,7 @@ It possible to click on specific entries of the legend to show/hide them on the 
 ![](images/platform_study/study_workspace/charts/show_hide_specific_legend.png) 
 
 As seen in the previous subsection with the data tab, the charts (and output data associated) can also be manually
-validated or unvalidated at a given node in the charts tab, exactly as in the data tab.
+validated or invalidated at a given node in the charts tab, exactly as in the data tab.
 
 #### Subsection 3.3.3 Visualisation
 The visualisation exists only at the root node of the study, representing on overview of the study, in different forms:
@@ -556,7 +555,7 @@ In this example, the documentation of the Damage node is displayed.
 
 The documentation can be downloaded as a PDF by clicking on the download button at the top right of the tab.
 ![](images/platform_study/study_workspace/download-documentation.png)
-The documentation comes from the ontology server. It can be reload directly from code by clicking on the "Refresh
+The documentation comes from the ontology server. It can be reloaded directly from code by clicking on the "Refresh
 button".
 ![](images/platform_study/study_workspace/reload-documentation.png)
 
@@ -572,7 +571,7 @@ It consists of:
 #### Subsection 3.4.1 Filters
 
 - **Show not editable inputs data**:
-  This filter enable to show, at a given node, for instance at the Population node, either all inputs: <br>
+  This filter enables to show, at a given node, for instance at the Population node, either all inputs: <br>
 ![](images/platform_study/display_bar/all_inputs.png) <br>
   This will show also the coupling variables. <br>
   Or only editable outputs: <br>
@@ -590,8 +589,8 @@ There are three levels of data display:
 
 The data are given a level of display by the developer in the code. By default, a data has a standard display. The
 developer can choose to set it at advanced or expert to inform the user that this data may need expertise to be
-hunderstood or modified. So those data with higher level of display are not visible by default.
-For instance at the Population node, many more inputs than the standard mode seen in the previous subsection: <br>
+understood or modified. So those data with higher level of display are not visible by default.
+For instance, at the Population node, many more inputs than the standard mode seen in the previous subsection: <br>
 ![](images/platform_study/display_bar/expert_mode.png) 
 
 #### Subsection 3.4.3 Fullscreen option
@@ -622,7 +621,7 @@ The notifications tab displays the user actions in a study: <br>
 
 ### Section 4.1 Understanding pod size
 
-When you run applications in a cloud, they runs inside something called a pod. You can think of it like a tiny computer
+When you run applications in a cloud, it runs inside something called a pod. You can think of it like a tiny computer
 running just one part of your app.
 
 The pod size tells the cloud how much CPU power and memory your pod should have. CPU means how fast your pod can think
@@ -642,6 +641,6 @@ fill the good inputs data. The study is in edition mode, it is loaded on a study
 filled, the study can be run. Once the study ran without failure, its status is DONE. <br>
 When a study is DONE, it passes in read only mode so that the modification of the study cannot be done except in edition
 mode with a deliberate user action. The application will not start a study pod to open a study in read only mode.<br>
-Moreover, the read only mode saves the charts and data independantly of the models modifications so even if the study is
+Moreover, the read only mode saves the charts and data independently of the models modifications so even if the study is
 old and doesn't match the code of the model it can still be opened.<br>
 But if a user changes an input of the study, the study is again in configuration mode and is opened in edition mode.<br>
