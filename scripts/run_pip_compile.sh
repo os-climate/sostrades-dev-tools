@@ -22,9 +22,9 @@ for dir in models/*; do
     fi
 done
 
-core_req="./platform/sostrades-core/requirements.in"
-webapi_req="./platform/sostrades-webapi/requirements.in"
-ontology_req="./platform/sostrades-ontology/requirements.in"
+core_req="./platform/sostrades-core/requirements.txt"
+webapi_req="./platform/sostrades-webapi/requirements.txt"
+ontology_req="./platform/sostrades-ontology/requirements.txt"
 
 if [ -f "$core_req" ] && [ -f "$webapi_req" ]; then
 
