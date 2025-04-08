@@ -311,6 +311,10 @@ study status is at CONFIGURE again.
 In case the study is in read only mode, there is a **switch to edition mode** button just below the name of the study in the study panel: <br>
 ![](images/platform_study/study_panel/read_only_mode.png)
 
+
+In case the study is in edition mode, there is a **switch to read only mode** button just below the name of the study in the study panel: <br>
+![](images/platform_study/study_panel/edition.png)
+
 #### Subsection 3.2.1 Treeview
 This is an example of treeview for a study: <br>
 ![](images/platform_study/study_panel/treeview.png) <br>
