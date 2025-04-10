@@ -7,7 +7,7 @@ cd "$SCRIPT_DIR/.."
 
 mkdir -p ./platform_requirements
 
-# # Initialize an empty string to collect all requirements.in paths
+# # Initialize an empty string to collect all requirements.txt paths
 # requirements_files=""
 
 echo "Collecting requirements.txt files..."

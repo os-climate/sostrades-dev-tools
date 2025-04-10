@@ -70,18 +70,18 @@ if not os.path.exists(venv_script_activate_path):
 
 requirements_models = []
 for model_folder in os.listdir(model_path):
-    requirements_path = f"{model_path}/{model_folder}/requirements.in"
+    requirements_path = f"{model_path}/{model_folder}/requirements.txt"
     if os.path.exists(requirements_path):
-        requirements_models.append(f'-r "{model_path}/{model_folder}/requirements.in"')
+        requirements_models.append(f'-r "{model_path}/{model_folder}/requirements.txt"')
 requirements_model_command = " ".join(requirements_models)
 
 run_command(
     f'{venv_script_activate_command} && uv pip list && \
     uv pip install wheel setuptools && \
     uv pip install \
-    -r "{platform_path}/sostrades-core/requirements.in" \
-    -r "{platform_path}/sostrades-ontology/requirements.in" \
-    -r "{platform_path}/sostrades-webapi/requirements.in" \
+    -r "{platform_path}/sostrades-core/requirements.txt" \
+    -r "{platform_path}/sostrades-ontology/requirements.txt" \
+    -r "{platform_path}/sostrades-webapi/requirements.txt" \
     {requirements_model_command} && \
     uv pip list'
 )
