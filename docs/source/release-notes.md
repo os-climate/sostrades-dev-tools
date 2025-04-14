@@ -20,6 +20,7 @@ To upgrade your local installation to python 3.12 :
 
 * New fullscreen mode
 * Donuts chart
+* Button to switch to Read-Only Mode from Editon Mode
 
 ### Library version upgrades
 
