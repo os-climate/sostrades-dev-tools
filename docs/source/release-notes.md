@@ -13,11 +13,11 @@ Migrate from python 3.9 to python 3.12
 #### PYTHON 3.12 UPDATE
 Migrate from python 3.9 to python 3.12
 
-    ### Important Upgrade Information for python 3.12
-      To upgrade your local installation to python 3.12 :
-      - Clone or pull new version of platforms repository
-      - Remove .env folder
-      - Run PrepareVenv.py script (it will recreate venv with python 3.12)
+##### Important Upgrade Information for python 3.12
+To upgrade your local installation to python 3.12 :
+- Clone or pull new version of platforms repository
+- Remove .env folder
+- Run PrepareVenv.py script (it will recreate venv with python 3.12)
 
 #### Graphical User Interface (GUI)
 
