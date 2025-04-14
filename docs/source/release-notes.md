@@ -2,17 +2,36 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
-## Release v5.1.1
-Date: TOBECOMPLETED
+## Release v5.2.0
+Date: 2025-15-04
 
-
-### PYTHON 3.12 UPDATE
+#### PYTHON 3.12 UPDATE
 Migrate from python 3.9 to python 3.12
+
+### Features
+
+#### PYTHON 3.12 UPDATE
+Migrate from python 3.9 to python 3.12
+
+    ### Important Upgrade Information for python 3.12
+    To upgrade your local installation to python 3.12 :
+    - Clone or pull new version of platforms repository
+    - Remove .env folder
+    - Run PrepareVenv.py script (it will recreate venv with python 3.12)
+
+#### Graphical User Interface (GUI)
+
+* New fullscreen mode
+* Donuts chart
 
 ### Library version upgrades
 
 * numpy from 1.24.4 to 1.26.4
 
+#### Bug Fixes
+- Buxfixes ReadOnly Mode loading
+- xmlsec version
+- Ontology discipline import issues
 
 ## Release v5.1.1
 Date: 2025-18-03
