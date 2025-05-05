@@ -19,8 +19,6 @@ COPY ./models ./models
 
 COPY ./platform/sostrades-webapi/sos_trades_api/git_commits_info.json ./platform/sostrades-webapi/sos_trades_api/git_commits_info.json
 
-RUN if [ -e ./platform/sostrades-webapi/sos_trades_api/version.info ] ; then echo Version.info file provided ; else TZ="UTC" date > ./platform/sostrades-webapi/sos_trades_api/version.info ; fi
-
 COPY ./platform_requirements/api.requirements.txt api.requirements.txt
 RUN sed -i '/petsc\|kubernetes\|numpy[[:blank:]]*=/d' api.requirements.txt && \
     python -m uv pip install --no-cache-dir -r api.requirements.txt
