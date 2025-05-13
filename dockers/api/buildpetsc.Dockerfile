@@ -39,6 +39,9 @@ ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.12/site-packages"
 
+# Fix petsc4py incompatibility with cython 3.1.0
+RUN pip install --no-cache-dir cython==3.0.12
+
 # Download and install PETSc
 RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
     cd ${PETSC_BUILD_DIR} &&\
