@@ -88,19 +88,19 @@ confirmation = input("Do you want to continue? (Yes/No): ").strip().lower()
 
 if confirmation == "yes" or confirmation == "y":
     # Change directory to sostrade-webgui
-    if os.path.exists(f"{platform_path}/sostrades-webgui"):
-        os.chdir(f"{platform_path}/sostrades-webgui")
-        if platform.system() == "Windows":
-            nvs_home = get_nvs_home()
-            nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
-            run_command(f'"{nvs_cmd_path}" use {node_version} && npm install -y')
-        else:  # For Linux
-            nvs_home = get_nvs_home()
-            nvs_script_path = os.path.join(nvs_home, "nvs.sh")
-            run_command(f". '{nvs_script_path}' && nvs use {node_version} && npm install")
-        
-        os.chdir(sostrades_dev_tools_path)
-    else:
-        print(f"{platform_path}/sostrades-webgui repository not found")
+    if not os.path.exists(f"{platform_path}/sostrades-webgui"):
+        raise Exception(f"{platform_path}/sostrades-webgui repository not found")
+    
+    os.chdir(f"{platform_path}/sostrades-webgui")
+    if platform.system() == "Windows":
+        nvs_home = get_nvs_home()
+        nvs_cmd_path = os.path.join(nvs_home, "nvs.cmd")
+        run_command(f'"{nvs_cmd_path}" use {node_version} && npm install -y')
+    else:  # For Linux
+        nvs_home = get_nvs_home()
+        nvs_script_path = os.path.join(nvs_home, "nvs.sh")
+        run_command(f". '{nvs_script_path}' && nvs use {node_version} && npm install")
+    
+    os.chdir(sostrades_dev_tools_path)
 else:
     print("Do not forget to build the frontend later")
