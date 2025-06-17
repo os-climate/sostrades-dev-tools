@@ -440,7 +440,7 @@ When clicking on a variable name, some information about it is available :
 - its ID (name in the code)
 - its type of data (here dict)
 - its definition, label, unit, URI defined in the ontology
-- other parameters like structuring or visibility for the developer (see developer manual)
+- other parameters like structuring for the developer (see developer manual)
   <br>
 ![](images/platform_study/study_workspace/data/variable_info.png) <br>
 When clicking on the show button, the values of the variable can be seen: <br>

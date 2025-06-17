@@ -15,6 +15,11 @@ See the user manual for more information.
 
 The study read-only files are saved in a new folder location and a migration script is run with the "init_process" flask command.
 
+#### core fixes
+- fix gather monoscenario outputs when outputs are nested types
+- in dataset import/export, fix variables that have a point in short name
+- variable parameter visibility removed to specified if a variable is 'shared', now there is only need to set a namespace to tell if a variable is shared.
+
 
 ### Library version upgrades
 - pytest-cov from 5.0.0 to 6.2.0
@@ -44,10 +49,6 @@ The study read-only files are saved in a new folder location and a migration scr
 - requests from 2.32.3 to 2.32.4
 - simplejson from 3.19.2 to 3.20.1
 
-
-### Bug Fixes
-- fix gather monoscenario outputs when outputs are nested types
-- in dataset loading, fix variables that have a point in short name
 
 ## Release v5.2.0
 Date: 2025-04-15
