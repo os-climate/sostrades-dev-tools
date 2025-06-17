@@ -10,7 +10,7 @@ Date: 2025-06-18
 A new Dashboard feature is now available. A dashboard can be created with study charts, texts and charts section. See the user manual for more information.
 
 #### Import/ Export study
-There is now the possibility to export a study in zip format and to import this study zip to create a study in stand-alone mode. A study in stand-alone mode is not editable and independant from any model source code change. This way, a study can imported be cross platform.
+There is now the possibility to export a study in zip format and to import this study zip to create a study in stand-alone mode. A study in stand-alone mode is not editable and independant from any model source code change. This way, a study can be imported cross platform.
 See the user manual for more information.
 
 The study read-only files are saved in a new folder location and a migration script is run with the "init_process" flask command.
@@ -47,7 +47,7 @@ The study read-only files are saved in a new folder location and a migration scr
 
 ### Bug Fixes
 - fix gather monoscenario outputs when outputs are nested types
-- in dataset loading, fix variables that have point in short name
+- in dataset loading, fix variables that have a point in short name
 
 ## Release v5.2.0
 Date: 2025-04-15
