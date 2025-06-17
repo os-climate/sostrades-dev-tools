@@ -573,7 +573,7 @@ Users can create personalized views by adding, arranging and configuring various
 The Dashboard consists of a grid-based layout where users can add and organise different types of content: <br>
 The dashboard provides a way to create custom visualizations that combine data and graphs from the current study.
 
-[//]: # (The Dashboard is available at any node of the study ?? still in question)
+*The Dashboard is available at any node of the study ?? still in question*
 
 #### Subsection 3.3.5.1 Dashboard Elements
 The Dashboard supports three types of elements:
@@ -644,9 +644,9 @@ Changes to the dashboard are automatically saved when:
 - Resizing elements
 - Expanding or collapsing sections
 
-[//]: # (#### Subsection 3.3.5.7 Dashboard Export)
+#### Subsection 3.3.5.7 Dashboard Export
 
-[//]: # (#### Subsection 3.3.5.8 Dashboard Use Cases)
+#### Subsection 3.3.5.8 Dashboard Use Cases
 
 ### Section 3.4 Display bar 
 This is the display bar of a study: <br>
