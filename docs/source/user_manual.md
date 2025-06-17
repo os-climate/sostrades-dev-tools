@@ -143,7 +143,7 @@ By hovering over the same row as a study, additional icons appear on the right s
 - The third icon ![](images/platform-GUI/study-management/copy-study-icon.png) allows to duplicate the study with another name:  
 ![](images/platform-GUI/study-management/copy-study.png)  
 
-- The next icon ![](images/platform-GUI/study-management/export-zip-icon.png) is for downloading a study in zip format. It contains the read only mode, the study data, all post processing charts and visualization diagrams. It is possible only if the study has a read only mode. This study zip can be imported again in this platform in stand alone format or in another platform version.  
+- The next icon ![](images/platform-GUI/study-management/export-zip-icon.png) is for downloading a study in zip format. It contains the read only mode, the study data, all post processing charts and visualization diagrams. It is possible only if the study has a read only mode. This study zip can be imported again in this platform in stand-alone format or in another platform version.  
 
 - The next icon ![](images/platform-GUI/study-management/delete-icon.png) is for deleting a study.  
 ![](images/platform-GUI/study-management/confirm-delete.png)  
@@ -273,7 +273,7 @@ There are four different ways to create a study:
 
 When **creating a study from scratch**, all fields need to be filled out: <br>
 ![](images/platform_study/create_study/create_new_study.png)
-- **import study stand alone**: If toggled, it is possible to import a study zip in stand alone.
+- **import study stand-alone**: If toggled, it is possible to import a study zip in stand-alone.
 - **study name**: the name chosen for the study
 - **process name**: the process on which the study will be based
 - **on which study it will be based**, it can be either a study that already exists for the selected process, or an
@@ -295,9 +295,9 @@ When the creation of a study is over, here is what the study looks like (here da
 reference study): <br>
 ![](images/platform_study/create_study/study_created.png)
 
-**Creating a study stand alone from importing a study zip** is possible when "import study stand alone" toggle button is activated. 
+**Creating a study stand-alone from importing a study zip** is possible when "import study stand alone" toggle button is activated. The button "Select zip file" allows to select a study zip previously exported. The file size limit is 10Mo.
 ![](images/platform_study/create_study/create_new_study_stand_alone.png)
-The button "Select zip file" allows to select a study zip previously exported. The file size limit is 10Mo.
+
 
 
 ### Section 3.2 Study panel
@@ -322,8 +322,8 @@ In case the study is in read only mode, there is a **switch to edition mode** bu
 In case the study is in edition mode, there is a **switch to read only mode** button just below the name of the study in the study panel: <br>
 ![](images/platform_study/study_panel/edition.png)
 
-The stand alone mode is a study that have been imported. It is a freezed study that cannot be edited, it is independant, it doesn't need any pod to be loaded nor the source code to be available in the platform. 
-The stand alone study cannot be changed, even its name is not editable, there can be several study stand alone with the same name, there is no restriction of it.
+The stand-alone mode is a study that have been imported. It is a freezed study that cannot be edited, it is independant, it doesn't need any pod to be loaded nor the source code to be available in the platform. 
+The stand-alone study cannot be changed, even its name is not editable, there can be several study stand-alone with the same name, there is no restriction of it.
 
 #### Subsection 3.2.1 Treeview
 This is an example of treeview for a study: <br>
@@ -659,4 +659,4 @@ mode with a deliberate user action. The application will not start a study pod t
 Moreover, the read only mode saves the charts and data independently of the models modifications so even if the study is
 old and doesn't match the code of the model it can still be opened.<br>
 But if a user changes an input of the study, the study is again in configuration mode and is opened in edition mode.<br>
-In stand-alone mode, the study is a read only mode state that cannot be edited. Once a study is in read-only mode, it can be exported and imported again in a stand-alone study, that is completly independant of model evolutions or deletion.<br>
+In stand-alone mode, the study is a read only mode state that cannot be edited. Once a study is in read-only mode, it can be exported and imported again in a stand-alone study that is completly independant of model evolutions or deletion.<br>
