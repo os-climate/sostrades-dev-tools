@@ -1,9 +1,56 @@
 # Release notes
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
+## Release v5.3.0
+Date: 2025-06-18
+
+### Features
+
+#### New Dashboard feature
+A new Dashboard feature is now available. A dashboard can be created with study charts, texts and charts section. See the user manual for more information.
+
+#### Import/ Export study
+There is now the possibility to export a study in zip format and to import this study zip to create a study in stand-alone mode. A study in stand-alone mode is not editable and independant from any model source code change. This way, a study can imported be cross platform.
+See the user manual for more information.
+
+The study read-only files are saved in a new folder location and a migration script is run with the "init_process" flask command.
+
+
+### Library version upgrades
+- pytest-cov from 5.0.0 to 6.2.0
+- pytest-xdist from 3.6.1 to 3.7.0
+- pytest-durations from 1.2.0 to 1.5.2
+- ruff from 0.6.8 to 0.11.13
+- pyarrow from 16.1.0 to 20.0.0
+- PyYAML from 6.0.1 to 6.0.2
+- openturns from 1.23 to 1.24
+- black from 24.4.2 to 25.1.0
+- chaospy from 4.3.15 to 4.3.18
+- cma from 2.7.0 to 4.2.0
+- cvxpy from 1.5.2 to 1.6.6
+- gitpython from 3.1.43 to 3.1.44
+- pycryptodome from 3.20.0 to 3.23.0
+- six from 1.16.0 to 1.17.0
+- psutil from 6.0.0 to 7.0.0
+- PyJWT from 2.8.0 to 2.10.1
+- python-dotenv from 1.0.1 to 1.1.0
+- python3-saml from 1.9.0 to 1.16.0
+- urllib3 from 2.2.2 to 2.3.0
+- click from 8.1.7 to 8.2.1
+- eventlet from 0.39.1 to 0.40.0
+- furl from 2.1.3 to 2.1.4
+- python-keycloak from 5.1.1 to 5.5.1
+- pytz from 2024.1 to 2025.2
+- requests from 2.32.3 to 2.32.4
+- simplejson from 3.19.2 to 3.20.1
+
+
+### Bug Fixes
+- fix gather monoscenario outputs when outputs are nested types
+- in dataset loading, fix variables that have point in short name
 
 ## Release v5.2.0
-Date: 2025-15-04
+Date: 2025-04-15
 
 ### Features
 
@@ -45,7 +92,7 @@ This release is a hotfix release embedding the following bugfixes.
 - Bugfix for version.info
 
 ## Release v5.1.0
-Date: 2025-10-03
+Date: 2025-03-10
 
 ### Features
 
