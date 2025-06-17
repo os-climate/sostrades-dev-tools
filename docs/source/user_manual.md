@@ -564,6 +564,90 @@ The documentation comes from the ontology server. It can be reloaded directly fr
 button".
 ![](images/platform_study/study_workspace/reload-documentation.png)
 
+
+### Section 3.3.5 Dashboard
+The Dashboard tab provides a customizable interface for visualizing and organising graphs in a flexible layout. 
+Users can create personalized views by adding, arranging and configuring various elements to monitor key information at a glance.
+
+#### Subsection 3.3.5.1 Dashboard overview
+The Dashboard consists of a grid-based layout where users can add and organise different types of content: <br>
+The dashboard provides a way to create custom visualizations that combine data and graphs from the current study.
+
+[//]: # (The Dashboard is available at any node of the study ?? still in question)
+
+#### Subsection 3.3.5.1 Dashboard Elements
+The Dashboard supports three types of elements:
+- **Text Boxes**: For adding formatted text, notes, explanations or instructions.
+- **Charts**: For displaying visualizations from Charts tab of the study workspace.
+- **Sections**: Containers elements that can group related items together
+
+**Text Boxes**<br>
+Text sections allow users to add formatted text content using a rich text editor:
+
+Text can include formatting options such as headers, bold, italic, bullet points, and more to create structured documentation or notes.
+
+**Charts**<br>
+Graph elements display visualizations from the Charts tab:
+
+Users can add any graph available in the Charts tab to the Dashboard, with the same interactive features such as zooming, panning, and data exploration.
+
+**Sections**<br>
+Sections are container elements that can hold multiple items and be expanded or collapsed:
+
+When collapsed, sections show only their title, helping to organize complex dashboards with many elements.
+
+#### Subsection 3.3.5.3 Dashboard Controls
+The Dashboard includes several controls for managing the layout and content:
+
+**Add Element Button**
+
+Located at the top right of the Dashboard:
+
+Clicking this button opens a menu to select the type of element to add:
+
+**Element Actions**
+
+Each element has its own action buttons that appear when hovering over the element:
+
+**From left to right:**
+
+- **Delete**: Remove the element from the dashboard
+- **Move**: Drag the element to a new position
+- **Edit**: Modify the element's content or settings
+
+For section elements, there's an additional button to expand or collapse the section.
+
+#### Subsection 3.3.5.4 Editing the Dashboard
+The Dashboard can be edited in two ways:
+
+**Layout Editing**
+
+Elements can be resized by dragging their borders:
+
+Elements can be moved by dragging them to a new position using the move handle:
+
+**Content Editing**
+
+To edit the content of an element, click the edit button:
+- For **text** elements, this opens the rich text editor
+- For **graph** elements, this opens a selection dialog to choose a different graph
+- For **section** elements, this allows editing the section title
+
+#### Subsection 3.3.5.5 Dashboard Persistence
+Dashboards are automatically saved when changes are made and persist between sessions. Each node in the study can have its own dashboard configuration.
+
+**Saving the Dashboard**
+
+Changes to the dashboard are automatically saved when:
+- Adding, removing, or moving elements
+- Editing element content
+- Resizing elements
+- Expanding or collapsing sections
+
+[//]: # (#### Subsection 3.3.5.7 Dashboard Export)
+
+[//]: # (#### Subsection 3.3.5.8 Dashboard Use Cases)
+
 ### Section 3.4 Display bar 
 This is the display bar of a study: <br>
 ![](images/platform_study/display_bar/display_bar.png) <br>
