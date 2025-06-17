@@ -15,7 +15,7 @@ See the user manual for more information.
 
 The study read-only files are saved in a new folder location and a migration script is run with the "init_process" flask command.
 
-#### core fixes
+#### Core
 - fix gather monoscenario outputs when outputs are nested types
 - in dataset import/export, fix variables that have a point in short name
 - variable parameter visibility removed to specified if a variable is 'shared', now there is only need to set a namespace to tell if a variable is shared.
