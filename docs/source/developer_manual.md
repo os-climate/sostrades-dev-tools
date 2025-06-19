@@ -79,14 +79,14 @@ class MyCustomWrap(SoSWrapp):
 
     # Description of inputs
     DESC_IN = {
-        'x': {'type': 'float', 'default': 10, 'unit': 'year', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
+        'x': {'type': 'float', 'default': 10, 'unit': 'year', 'namespace': 'ns_one'},
         'a': {'type': 'float', 'unit': '-', 'namespace': 'ns_one'},
         'b': {'type': 'float', 'unit': '-',},
     }
 
     # Description of outputs
     DESC_OUT = {
-        'y': {'type': 'float', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'}
+        'y': {'type': 'float', 'namespace': 'ns_one'}
     }
 
     # Method that runs the model
@@ -134,12 +134,12 @@ The DESC_IN and DESC_OUT dictionaries are the input and output variable descript
 
 ```
 DESC_IN = {
-    'x': {'type': 'float', 'default': 10, 'unit': 'year', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
-    'a': {'type': 'float', 'unit': '-', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'},
+    'x': {'type': 'float', 'default': 10, 'unit': 'year', 'namespace': 'ns_one'},
+    'a': {'type': 'float', 'unit': '-', 'namespace': 'ns_one'},
     'b': {'type': 'float', 'unit': '-',},
 }
 DESC_OUT = {
-    'y': {'type': 'float', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_one'}
+    'y': {'type': 'float', 'namespace': 'ns_one'}
 }
 ```
 
@@ -147,7 +147,6 @@ DESC_OUT = {
 - `subtype_descriptor` (or `dataframe_descriptor`) : if the variable is a dict/list (or dataframe), gives the types (or descriptor) of the sub-elements (or columns). See next sections
 - `default` : if the variable has a default value. The default must be the same type as the type
 - `unit` : (string) unity of the variable used for the ontology
-- `visibility` : `'Shared'` if you need to specify a namespace for the variable or `'Local'` if the variable by default needs to be stored in the same namespace as the wrapp. If not specified the visibility is considered as `'Local'`.
 - `namespace` : must be identified by a string name, and its value must be defined within the process utilizing the wrapp. This feature allows for parameterizing the variable’s location based on the specific process.
 - `user_level` : Specify the display level in the GUI: 1 for Standard view, 2 for Advanced, and 3 for Expert. If a variable is assigned an expert user level, it will only be visible in the expert view. This feature is useful for concealing complex variables that may be challenging to define. By default the display levvel is 1.
 - `range` : for float or int, range of the variable. the range will be checked by a data integrity method
@@ -305,13 +304,11 @@ def setup_sos_disciplines(self):
             Model_Type = self.get_sosdisc_inputs('Model_Type')
             if Model_Type == 'Affine':
                 dynamic_inputs.update({'b': {'type': 'float',
-                                             'visibility': SoSWrapp.SHARED_VISIBILITY,
                                              'namespace': 'ns_b'}})
             elif Model_Type == 'Polynomial':
                 dynamic_inputs.update(
-                    {'b': {'type': 'float', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_b'}})
-                dynamic_inputs.update({'power': {'type': 'float', 'default': 2.,
-                                                 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_ac'}})
+                    {'b': {'type': 'float', 'namespace': 'ns_b'}})
+                dynamic_inputs.update({'power': {'type': 'float', 'default': 2., 'namespace': 'ns_ac'}})
         self.add_inputs(dynamic_inputs)
 ```
 
@@ -319,6 +316,10 @@ In this example, the variable `Model_Type` is a structuring input that define ho
 The dictionnary of the dynamic variables is then added to the inputs with the function `add_inputs`.
 
 The same thing can be done for outputs declaration and added to the outputs variables with the function `add_outputs`.
+
+NB: To make a default value for a variable effective, it must be updated using a specific function within
+setup_sos_disciplines. You need to use the update_default_variable function for this. Setting it directly via the
+add_inputs method will not work by design.
 
 ### Section 2.5 Test a SOSWrapp
 
@@ -412,16 +413,17 @@ Inputs and outputs as declared in the model wrapper define variables’ short na
 Two variables from different models with the same full name are considered as being the same, hence required to have the same value. In this manner, namespaces allow fine-grained control of the process couplings. 
 Namespaces are also used to organize the data location on the SoSTrades GUI (treeview).
 
-#### Local vs. Shared visibility
-By default, a variable declared in a model wrapper is considered to have Local visibility. When an instance of this model is used in a process, the variable will be stored in its own local namespace.
+By default, a variable declared in a model wrapper is stored in the local namespace of the model instance.
 
 **Example:**
 local variable “initial_population” is an input of “population” model. When used in a process by the model instance “MyStudy.France.population”, it will be assigned the full name “MyStudy.France.population.initial_population”.
 
-If a variable is defined as having Shared visibility so that different models can use it, then it is necessary to assign a namespace field to its declaration in the model wrapper. This is the name of its namespace. 
+If a namespace parameter is specified when declaring a variable so that different models can use it, then th evariable
+will be stored in this namespace (this the name of its namespace).
 
-**Example:** 
-variable “GDP” (gross domestic product) is an input of both the “population” and “economics” models. In both wrappers it is declared with Shared visibility in namespace “ns_country”.
+**Example:**
+variable “GDP” (gross domestic product) is an input of both the “population” and “economics” models. In both wrappers it
+is declared with the namespace “ns_country”.
 
 When the model is instantiated in a process, a value is assigned (implicitly or explicitly) to every namespace involved, defining variable full names.  
 
@@ -447,12 +449,13 @@ An analogous strategy is used to share inputs between models.
 In practice, every namespace has a name and a value. During the creation of a process (instantiation of the models), the value assigned to a certain name can change.
 This duality allows the user to control which variables are coupled and which are not, especially in a process containing several instances of the same generic model.
 
--	Namespace name: defined in the I/O descriptor of the model wrapper for variables with Shared visibility (e.g. “ns_country”). 
+- Namespace name: defined in the I/O descriptor of the model wrapper for variables (e.g. “ns_country”).
 -	Namespace value: generally defined at process creation (e.g. “MyStudy.France”).
 
 Note that namespace names only provide a layer of abstraction for process creation. For a given SoSTrades study, namespace values alone will define the coupling structure and data organization (names are irrelevant). In this manner it is possible to:
 
--	Set two namespaces with different names to have the same value. Any variables with the same full name will be matched (even if Local visibility was declared).
+- Set two namespaces with different names to have the same value. Any variables with the same full name will be
+  matched (even if one is declared without namespace).
 -	Set a namespace name to take different values for different model instances, thus avoiding unwanted variable matches.
 
 **Example:** model instances “MyStudy.France.population” and “MyStudy.France.economics” use input “MyStudy.France.GDP”. During process creation, the value of “ns_country” is updated from “MyStudy.France” to “MyStudy.Germany”, so that “MyStudy.Germany.population” and “MyStudy.Germany.economics” use input “MyStudy.Germany.GDP”. The data treeview of the study is organized as:
