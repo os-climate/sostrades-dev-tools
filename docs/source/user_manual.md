@@ -396,8 +396,7 @@ The study workspace consists of several tabs:
 - **Charts**
 - **Visualisation**
 - **Documentation**
-
-A dashboard tab is currently being implemented.
+- **Dashboard**
 
 #### Subsection 3.3.1 Data
 
