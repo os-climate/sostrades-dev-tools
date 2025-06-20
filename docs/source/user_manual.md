@@ -406,8 +406,7 @@ The study workspace consists of several tabs:
 - **Charts**
 - **Visualisation**
 - **Documentation**
-
-A dashboard tab is currently being implemented.
+- **Dashboard**
 
 #### Subsection 3.3.1 Data
 
@@ -573,6 +572,100 @@ The documentation can be downloaded as a PDF by clicking on the download button 
 The documentation comes from the ontology server. It can be reloaded directly from code by clicking on the "Refresh
 button".
 ![](images/platform_study/study_workspace/reload-documentation.png)
+
+
+#### SubSection 3.3.5 Dashboard
+The Dashboard tab provides a customizable interface for visualizing and organising graphs in a flexible layout. 
+Users can create personalized views by adding, arranging and configuring various elements to monitor key information at a glance.
+
+##### Dashboard overview
+The Dashboard consists of a grid-based layout where users can add and organise different types of content. <br>
+The dashboard provides a way to create custom visualizations with graphs from the current study.
+
+![](images/platform_study/study_workspace/dashboard/empty_dashboard.png) <br>
+
+##### Dashboard Elements
+The Dashboard supports three types of elements:
+- **Charts**: graphs from the Charts tab of the study workspace.
+- **Text Boxes**: For adding formatted text, notes, explanations or instructions.
+- **Sections**: Containers elements that can group related items together charts or text boxes.
+
+**Charts**<br>
+Graph elements display visualizations from the Charts tab:
+
+Users can add any graph available in the Charts tab to the Dashboard, with the same interactive features such as zooming, panning, and data exploration.
+
+![](images/platform_study/study_workspace/dashboard/graph.png)
+
+**Text Boxes**<br>
+Text sections allow users to add formatted text content using a rich text editor:
+
+![](images/platform_study/study_workspace/dashboard/text/empty_text.png) <br>
+Text can include formatting options such as headers, bold, italic, bullet points, and more to create structured documentation or notes.
+
+**Sections**<br>
+Sections are container elements that can hold multiple items and be expanded or collapsed:
+![](images/platform_study/study_workspace/dashboard/section/section.png)
+
+When collapsed, sections show only their title, helping to organize complex dashboards with many elements.
+
+##### Dashboard Controls
+The Dashboard includes several controls for managing the layout and content:
+![](images/platform_study/study_workspace/dashboard/toolbar.png) <br>
+
+**Edit mode button**<br>
+After switching to edit mode, users can add, remove, and rearrange elements on the Dashboard. The edit mode button is located at the top right of the Dashboard.<br>
+It unleashes the full editing capabilities of the Dashboard.
+
+**Adding graphs**<br>
+While being in edit mode, users can add graphs from the Charts tab to the Dashboard by clicking the star icon in the top left corner of a chart: <br>
+![](images/platform_study/study_workspace/dashboard/adding_charts.png) <br>
+
+**Adding text boxes**<br>
+They can be added by clicking the "Add Text" button in the toolbar at the top right of the Dashboard.
+
+**Adding sections**<br>
+They can be added by clicking the "Add Section" button in the toolbar at the top right of the Dashboard.
+
+**Auto-fit button**<br>
+This button automatically adjusts the potions of all elements to fit the available space in the Dashboard.
+
+**Save button**<br>
+Disabled by default, this button becomes active when changes are made to the Dashboard. Clicking it saves the current layout and content.
+Giving persistence to the Dashboard even after the user leaves the study.
+
+**Editing items**<br>
+![](images/platform_study/study_workspace/dashboard/section/actions_button.png)
+* Text boxes
+  * delete button to remove the text box
+  * move handle to drag and drop the text box to a new position
+  * click on the text to open the text editor dialog
+![](images/platform_study/study_workspace/dashboard/text/editing_text.png) <br>
+* Sections
+  * delete button to remove the section
+  * move handle to drag and drop the section to a new position
+  * edit button to change the section content, such as graphs or text boxes within the section
+![](images/platform_study/study_workspace/dashboard/section/items_editing.png) <br>
+  * click on the section title to open the text editor dialog for the section title
+  * there's an additional button to expand or collapse the section.<br>
+
+**Moving / Resizing Elements**<br>
+All elements can be moved and resized within the Dashboard grid:
+![](images/platform_study/study_workspace/dashboard/moving_gif.gif) <br>
+
+The grid is expanding only vertically and the elements can be swapped if you drag and drop them on top of each other and if they have the same size.
+
+![](images/platform_study/study_workspace/dashboard/resize_gif.gif) <br>
+
+For the resizing, the elements can be resized horizontally and vertically by dragging the borders of the element.
+Each element has a restriction on the size you can resize it to, so that the content is still visible.
+* Charts -> 3 x 2
+* Text Boxes -> 1 x 1
+* collapsed Sections -> not available for resizing
+* expanded Sections -> 10 x 4
+
+In case of a bad resize of an element, the Dashboard will automatically resize it to the minimum size of the element and will display a notification to the user.
+![](images/platform_study/study_workspace/dashboard/resizing_error.png)
 
 ### Section 3.4 Display bar 
 This is the display bar of a study: <br>
