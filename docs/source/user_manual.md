@@ -565,88 +565,98 @@ button".
 ![](images/platform_study/study_workspace/reload-documentation.png)
 
 
-### Section 3.3.5 Dashboard
+#### SubSection 3.3.5 Dashboard
 The Dashboard tab provides a customizable interface for visualizing and organising graphs in a flexible layout. 
 Users can create personalized views by adding, arranging and configuring various elements to monitor key information at a glance.
 
-#### Subsection 3.3.5.1 Dashboard overview
-The Dashboard consists of a grid-based layout where users can add and organise different types of content: <br>
-The dashboard provides a way to create custom visualizations that combine data and graphs from the current study.
+##### Dashboard overview
+The Dashboard consists of a grid-based layout where users can add and organise different types of content. <br>
+The dashboard provides a way to create custom visualizations with graphs from the current study.
 
-*The Dashboard is available at any node of the study ?? still in question*
+![](images/platform_study/study_workspace/dashboard/empty_dashboard.png) <br>
 
-#### Subsection 3.3.5.1 Dashboard Elements
+##### Dashboard Elements
 The Dashboard supports three types of elements:
+- **Charts**: graphs from the Charts tab of the study workspace.
 - **Text Boxes**: For adding formatted text, notes, explanations or instructions.
-- **Charts**: For displaying visualizations from Charts tab of the study workspace.
-- **Sections**: Containers elements that can group related items together
-
-**Text Boxes**<br>
-Text sections allow users to add formatted text content using a rich text editor:
-
-Text can include formatting options such as headers, bold, italic, bullet points, and more to create structured documentation or notes.
+- **Sections**: Containers elements that can group related items together charts or text boxes.
 
 **Charts**<br>
 Graph elements display visualizations from the Charts tab:
 
 Users can add any graph available in the Charts tab to the Dashboard, with the same interactive features such as zooming, panning, and data exploration.
 
+![](images/platform_study/study_workspace/dashboard/graph.png)
+
+**Text Boxes**<br>
+Text sections allow users to add formatted text content using a rich text editor:
+
+![](images/platform_study/study_workspace/dashboard/text/empty_text.png) <br>
+Text can include formatting options such as headers, bold, italic, bullet points, and more to create structured documentation or notes.
+
 **Sections**<br>
 Sections are container elements that can hold multiple items and be expanded or collapsed:
+![](images/platform_study/study_workspace/dashboard/section/section.png)
 
 When collapsed, sections show only their title, helping to organize complex dashboards with many elements.
 
-#### Subsection 3.3.5.3 Dashboard Controls
+##### Dashboard Controls
 The Dashboard includes several controls for managing the layout and content:
+![](images/platform_study/study_workspace/dashboard/toolbar.png) <br>
 
-**Add Element Button**
+**Edit mode button**<br>
+After switching to edit mode, users can add, remove, and rearrange elements on the Dashboard. The edit mode button is located at the top right of the Dashboard.<br>
+It unleashes the full editing capabilities of the Dashboard.
 
-Located at the top right of the Dashboard:
+**Adding graphs**<br>
+While being in edit mode, users can add graphs from the Charts tab to the Dashboard by clicking the star icon in the top left corner of a chart: <br>
+![](images/platform_study/study_workspace/dashboard/adding_charts.png) <br>
 
-Clicking this button opens a menu to select the type of element to add:
+**Adding text boxes**<br>
+They can be added by clicking the "Add Text" button in the toolbar at the top right of the Dashboard.
 
-**Element Actions**
+**Adding sections**<br>
+They can be added by clicking the "Add Section" button in the toolbar at the top right of the Dashboard.
 
-Each element has its own action buttons that appear when hovering over the element:
+**Auto-fit button**<br>
+This button automatically adjusts the potions of all elements to fit the available space in the Dashboard.
 
-**From left to right:**
+**Save button**<br>
+Disabled by default, this button becomes active when changes are made to the Dashboard. Clicking it saves the current layout and content.
+Giving persistence to the Dashboard even after the user leaves the study.
 
-- **Delete**: Remove the element from the dashboard
-- **Move**: Drag the element to a new position
-- **Edit**: Modify the element's content or settings
+**Editing items**<br>
+![](images/platform_study/study_workspace/dashboard/section/actions_button.png)
+* Text boxes
+  * delete button to remove the text box
+  * move handle to drag and drop the text box to a new position
+  * click on the text to open the text editor dialog
+![](images/platform_study/study_workspace/dashboard/text/editing_text.png) <br>
+* Sections
+  * delete button to remove the section
+  * move handle to drag and drop the section to a new position
+  * edit button to change the section content, such as graphs or text boxes within the section
+![](images/platform_study/study_workspace/dashboard/section/items_editing.png) <br>
+  * click on the section title to open the text editor dialog for the section title
+  * there's an additional button to expand or collapse the section.<br>
 
-For section elements, there's an additional button to expand or collapse the section.
+**Moving / Resizing Elements**<br>
+All elements can be moved and resized within the Dashboard grid:
+![](images/platform_study/study_workspace/dashboard/moving_gif.gif) <br>
 
-#### Subsection 3.3.5.4 Editing the Dashboard
-The Dashboard can be edited in two ways:
+The grid is expanding only vertically and the elements can be swapped if you drag and drop them on top of each other and if they have the same size.
 
-**Layout Editing**
+![](images/platform_study/study_workspace/dashboard/resize_gif.gif) <br>
 
-Elements can be resized by dragging their borders:
+For the resizing, the elements can be resized horizontally and vertically by dragging the borders of the element.
+Each element has a restriction on the size you can resize it to, so that the content is still visible.
+* Charts -> 3 x 2
+* Text Boxes -> 1 x 1
+* collapsed Sections -> not available for resizing
+* expanded Sections -> 10 x 4
 
-Elements can be moved by dragging them to a new position using the move handle:
-
-**Content Editing**
-
-To edit the content of an element, click the edit button:
-- For **text** elements, this opens the rich text editor
-- For **graph** elements, this opens a selection dialog to choose a different graph
-- For **section** elements, this allows editing the section title
-
-#### Subsection 3.3.5.5 Dashboard Persistence
-Dashboards are automatically saved when changes are made and persist between sessions. Each node in the study can have its own dashboard configuration.
-
-**Saving the Dashboard**
-
-Changes to the dashboard are automatically saved when:
-- Adding, removing, or moving elements
-- Editing element content
-- Resizing elements
-- Expanding or collapsing sections
-
-#### Subsection 3.3.5.7 Dashboard Export
-
-#### Subsection 3.3.5.8 Dashboard Use Cases
+In case of a bad resize of an element, the Dashboard will automatically resize it to the minimum size of the element and will display a notification to the user.
+![](images/platform_study/study_workspace/dashboard/resizing_error.png)
 
 ### Section 3.4 Display bar 
 This is the display bar of a study: <br>
