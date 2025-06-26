@@ -44,7 +44,7 @@ def write_array_to_file(array, file_path):
     print(f"Array written to {file_path} successfully.")
 
 # Check pip module is installed
-check_pip_command = f"{sys.executable} -m pip --version"    
+check_pip_command = f"\"{sys.executable}\" -m pip --version"    
 if os.system(check_pip_command) != 0:
     raise Exception(
         f"Pip module is required to run this script. Please install it before running this script."
@@ -53,9 +53,10 @@ if os.system(check_pip_command) != 0:
 # Install uv module
 install_uv_command = f"{sys.executable} -m pip install uv"
 run_command(install_uv_command)
+uv_command = f"{sys.executable} -m uv "
 
 # Create a venv with the good python version inside sostrades-dev-tools/.venv if it doesn't exist
-create_venv_command = f'uv venv "{venv_path}" --python={python_version_to_install}'
+create_venv_command = f'{uv_command} venv "{venv_path}" --python={python_version_to_install}'
 if not os.path.exists(venv_script_activate_path):
     run_command(create_venv_command)
     print(f'Venv created in the folling path : "{venv_path}"')
@@ -76,14 +77,14 @@ for model_folder in os.listdir(model_path):
 requirements_model_command = " ".join(requirements_models)
 
 run_command(
-    f'{venv_script_activate_command} && uv pip list && \
-    uv pip install wheel setuptools && \
-    uv pip install \
+    f'{venv_script_activate_command} && {uv_command} pip list && \
+    {uv_command} pip install wheel setuptools && \
+    {uv_command} pip install \
     -r "{platform_path}/sostrades-core/requirements.txt" \
     -r "{platform_path}/sostrades-ontology/requirements.txt" \
     -r "{platform_path}/sostrades-webapi/requirements.txt" \
     {requirements_model_command} && \
-    uv pip list'
+    {uv_command} pip list'
 )
 
 #  Create sostrades.pth inside the .venv
