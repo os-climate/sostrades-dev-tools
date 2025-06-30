@@ -44,10 +44,6 @@ If needed, you may install a docker running platform by following the [Common Se
 This section outlines how to organize your environment and folders for installation.
 
 ### 2.1 Setup Prerequisites
-If a prior SoSTrades installation relying on `PYTHONPATH` exists, it must be disabled to avoid conflicts. To do this:
-
-- Open the Windows Control Panel and delete the `PYTHONPATH` environment variable.
-
 #### 2.1.1 Common Prerequisites
 
 > - 10 GB of disk space.
@@ -59,7 +55,6 @@ If a prior SoSTrades installation relying on `PYTHONPATH` exists, it must be dis
 Verify prerequisites:
 
 ```bash
-python --version
 python -m pip --version
 git --version
 ```
