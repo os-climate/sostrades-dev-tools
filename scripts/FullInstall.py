@@ -14,15 +14,16 @@ limitations under the License.
 '''
 
 from tooling import run_command
-from os.path import dirname, join
-import sys
+from constants import (
+    run_prefix_system,
+)
 
 scripts_list = ['PrepareDevEnv', 'PrepareVenv', 'Configuration', 'NodeInstallation', 'CreateUser', 'UpdateOntology']
 for script in scripts_list:
     print(f'---------------------------------------------')
     print(f'Starting {script} script')
     print(f'---------------------------------------------')
-    run_command(f'{sys.executable} {join(dirname(__file__), script+".py")}')
+    run_command(f'{run_prefix_system}"{sys.executable}" {join(dirname(__file__), script+".py")}')
     print(f'---------------------------------------------')
     print(f'End of {script} script')
     print(f'---------------------------------------------')
