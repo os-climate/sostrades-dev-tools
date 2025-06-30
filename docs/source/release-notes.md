@@ -1,6 +1,30 @@
 # Release notes
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
+
+## Release v5.3.1
+Date: 2025-07-01
+
+### Features
+
+#### Core
+Variable parameter visibility removed to specifiy if a variable is 'shared', now there is only need to set a namespace to tell if a variable is shared.
+
+#### Import/ Export study
+Increase max study zip import size to 100Mo.
+
+#### Dashboard feature
+Have a smaller grid scale.
+
+#### API
+Grouped some common routes between API V0 and API data with blueprints.
+
+#### Fix Library version upgrades for local install
+- scipy from 1.13.1 to 1.13.0
+
+#### fix local install
+Fixed uv command for install scripts in some environments
+
 ## Release v5.3.0
 Date: 2025-06-18
 
@@ -18,8 +42,6 @@ The study read-only files are saved in a new folder location and a migration scr
 #### Core
 - fix gather monoscenario outputs when outputs are nested types
 - in dataset import/export, fix variables that have a point in short name
-- variable parameter visibility removed to specified if a variable is 'shared', now there is only need to set a namespace to tell if a variable is shared.
-
 
 ### Library version upgrades
 - pytest-cov from 5.0.0 to 6.2.0
