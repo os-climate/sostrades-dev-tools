@@ -77,14 +77,14 @@ for model_folder in os.listdir(model_path):
 requirements_model_command = " ".join(requirements_models)
 
 run_command(
-    f'{venv_script_activate_command} && {uv_command} pip list && \
-    {uv_command} pip install wheel setuptools && \
+    f'{venv_script_activate_command} && {uv_command} pip list --python="{venv_path}" && \
+    {uv_command} pip install wheel setuptools --python="{venv_path}" && \
     {uv_command} pip install \
     -r "{platform_path}/sostrades-core/requirements.txt" \
     -r "{platform_path}/sostrades-ontology/requirements.txt" \
     -r "{platform_path}/sostrades-webapi/requirements.txt" \
-    {requirements_model_command} && \
-    {uv_command} pip list'
+    {requirements_model_command} --python="{venv_path}" && \
+    {uv_command} pip list --python="{venv_path}"'
 )
 
 #  Create sostrades.pth inside the .venv
