@@ -150,7 +150,6 @@ python scripts/PrepareVenv.py
 ```
 
 Some usage tips for Visual Studio Code and venv are available in [Visual Studio Code and Venv Tips](vs_code_venv_tips.md) and are recommended if you plan to develop models.
-If you encounter an issue with the "uv" command, make sure your PATH variable includes the "Scripts" folder of your python installation. Typically, you should add `C:\Users\<username>\AppData\Local\Programs\Python\Python<your_python_version>\Scripts` to your PATH environment variable.
 
 ## 4. Local Platform
 
