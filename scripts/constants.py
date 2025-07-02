@@ -38,7 +38,7 @@ if platform.system() == 'Windows':
     venv_script_activate_path = f"{venv_path}/Scripts/activate"
     venv_script_activate_command = f'call "{venv_path}/Scripts/activate"'
     venv_lib_site_package_path = f"{venv_path}/lib/site-packages"
-    run_prefix_system = "start \b "
+    run_prefix_system = 'start "" /W /B '
 else:
     # Define the variable with a generic path for other platforms
     venv_script_activate_path = f"{venv_path}/bin/activate"
