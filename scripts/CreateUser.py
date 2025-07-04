@@ -51,8 +51,8 @@ print(f"Creating user {username} ...")
 run_command(f"{venv_script_activate_command} && flask db upgrade")
 run_command(f"{venv_script_activate_command} && flask init_process")
 run_command(
-    f"{venv_script_activate_command} && flask create_standard_user {username} {email} {firstname} {lastname} \
-    && flask set_user_access_group {username} SoSTrades_Dev && flask change_user_profile {username} -p \"Study manager\""
+    f"{venv_script_activate_command} && flask create_standard_user \"{username}\" \"{email}\" \"{firstname}\" \"{lastname}\" \
+    && flask set_user_access_group \"{username}\" SoSTrades_Dev && flask change_user_profile \"{username}\" -p \"Study manager\""
 )
 print(f"User created successfully")
 
