@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
+from os.path import dirname, join
+import sys
 from tooling import run_command
 from constants import (
     run_prefix_system,
