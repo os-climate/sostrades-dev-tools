@@ -109,7 +109,7 @@ The study management list includes several columns that provide detailed informa
 - Process: The process used for the study.
 - Execution Status: The current execution state of the study.
 - Pod Size: The computing resources allocated to the study (see section 4.1 for more details). The icon ![](images/platform-GUI/study-management/pod-size-icon.png) is to configure the pod size when opening a study as edition mode:  
-![](images/platform-GUI/study-management/study-pod-size.png)
+![](images/platform-GUI/study-management/study-pod-size.png) </br>
 (This column appears only
   when using the hosted GUI and not on a local machine, as a pod is used for computation in the hosted environment.)
 - Creation Date: The date the study was created.
