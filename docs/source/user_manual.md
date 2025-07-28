@@ -108,7 +108,9 @@ The study management list includes several columns that provide detailed informa
 - Repository: The code repository associated with the study.
 - Process: The process used for the study.
 - Execution Status: The current execution state of the study.
-- Pod Size: The computing resources allocated to the study (see section 4.1 for more details). (This column appears only
+- Pod Size: The computing resources allocated to the study (see section 4.1 for more details). The icon ![](images/platform-GUI/study-management/pod-size-icon.png) is to configure the pod size when opening a study as edition mode:  
+![](images/platform-GUI/study-management/study-pod-size.png)
+(This column appears only
   when using the hosted GUI and not on a local machine, as a pod is used for computation in the hosted environment.)
 - Creation Date: The date the study was created.
 - Modification Date: The date the study was last modified.
@@ -135,10 +137,7 @@ By hovering over the same row as a study, additional icons appear on the right s
 ![](images/platform-GUI/study-management/option-icon.png)
 
 - The firs icon ![](images/platform-GUI/study-management/rename-button-icon.png) allows you to modify the name of the study or change the group of the study:  
-![](images/platform-GUI/study-management/rename-study.png)  
-
-- The second icon ![](images/platform-GUI/study-management/pod-size-icon.png) is available only when you are in hosted GUI that allow to configure the pod size when opening a study as edition mode:  
-![](images/platform-GUI/study-management/study-pod-size.png)  
+![](images/platform-GUI/study-management/rename-study.png)    
 
 - The third icon ![](images/platform-GUI/study-management/copy-study-icon.png) allows to duplicate the study with another name:  
 ![](images/platform-GUI/study-management/copy-study.png)  
@@ -305,6 +304,7 @@ reference study): <br>
 Here is what the study panel looks like for the study "test_study": <br>
 ![](images/platform_study/study_panel/study_panel.png) <br>
 The name of the study is on top of the study bar, followed from top to bottom by:
+- the **switch mode** button
 - the **search** bar
 - the **action** bar
 - the **treeview** of the study
@@ -334,23 +334,44 @@ The selected node has a grey background. In this example, it is the root node of
 
 #### Subsection 3.2.2 Action bar
 This is the action bar of a study in edition mode: <br>
+![](images/platform_study/study_panel/action_bar/action_bar_reduced.png) 
+
+On click on the button ![](images/platform_study/study_panel/action_bar/button_reduce.png) show or hide more action buttons.
+
+Here is the action bar in edition mode with all the action buttons visible:
+<br>
 ![](images/platform_study/study_panel/action_bar/action_bar.png) 
 
-There are various possible actions, from left to right in the action bar:
-- **save changes**: to save uploaded or edited data (see subsection 3.3.1 Data). <br>
-![](images/platform_study/study_panel/action_bar/save_changes.png) <br>
-  For each modified variable, the server value and the new value are displayed. It is possible to select only some
-  parameters change to save.
+The first 2 buttons are:
+- **rebuild read-only**: to regenerate the read only mode files. If a chart, a documentation changed, we may want to reload the read only mode files without runing the study again. This button is only available when a read only mode has already been generating and the study is DONE.
 - **start execution**: to run the study so that the outputs are computed.
+- **save changes**: to save the modification of the study data. When a user changes a data, the button "save changes" is visible in place of the "rebuild read-only" button.
+(see subsection 3.3.1 Data)
+ <br> ![](images/platform_study/study_panel/action_bar/action_bar_changes.png)
+
+
+There are other various possible actions, from left to right in the action bar:
+- **users working in same study case**: to see the users currently working on the study, and if they have execution
+  rights (see Subsection 2.3.6: Study Roles). <br>
+![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png) </br>
+
+In Sostrades you can work in co-edition with multiple users on a same study. Each time a user saves parameter changes or
+launch a study run, the study is reloaded for each user. If a study is deleted or edited (name, group, flavor...) by a
+user it is closed for each other users that have opened a study.
+
+- **study case access link**: link that enables to directly access the study without opening it from within the platform. <br>
+![](images/platform_study/study_panel/action_bar/study_access_link.png)
+- **execution pod size settings**: It is possible to change the pod size allocated before running your study (see
+  section 4.1 for more details). 
+- **reload the study**: it is available when a study has been run. On click on this button reloads the study with its
+  state and data before the last run. The reloaded study status will be at configuration, the outputs and charts will
+  not be available anymore.
 - **import dataset**: a dataset is a group of data, and a dataset mapping describes how datasets are organised within
   the study. Hence, by opening the dataset mapping file (in JSON format), the datasets are imported, and new input data
   is available. When a dataset is imported, the changes impacted on the study are visible in the "Notification" section.
 - **export in dataset** : like for the import, the outputs are exported with a mapping file (in JSON format).
   Hence, the outputs are put in datasets. When a dataset is exported, the data exported in datasets are visible in the "Notification" section.
-- **download study data into csv**
-- **execution pod size settings**: It is possible to change the pod size allocated before running your study (see
-  section 4.1 for more details). <br>
-
+- **download study data into csv**: to download study dataframes in csv format in a zip folder.
 - **show/hide status**: the calculation status of a node can be either configure (C), pending (P), running (R), done (D), failed (F) or input data (I), as it can be seen below in information about calculation status. In the treeview in the previous subsection, the calculation statuses of the nodes are hidden while they are shown here: <br>
 ![](images/platform_study/study_panel/action_bar/show_calculation_status.png)
 - **show validation state**: the validation state indicates whether data at a given node of the treeview has been validated manually. This validation happens in the data or charts tab of the study workspace, which are presented in the next section. In the treeview in the previous subsection, the validation states of the nodes are hidden while they are shown here: <br>
@@ -358,19 +379,6 @@ There are various possible actions, from left to right in the action bar:
 In this example, the data has been validated at root node but not at other nodes. <br>
 Moreover, both calculation status and validation state can be shown in the treeview: <br>
 ![](images/platform_study/study_panel/action_bar/show_calculation_and_validation.png)
-- **study case access link**: link that enables to directly access the study without opening it from within the platform. <br>
-![](images/platform_study/study_panel/action_bar/study_access_link.png)
-- **reload the study**: it is available when a study has been run. On click on this button reloads the study with its
-  state and data before the last run. The reloaded study status will be at configuration, the outputs and charts will
-  not be available anymore. <br>
-- **users working in same study case**: to see the users currently working on the study, and if they have execution
-  rights (see Subsection 2.3.6: Study Roles). <br>
-![](images/platform_study/study_panel/action_bar/users_working_on_same_study.png)
-
-In Sostrades you can work in co-edition with multiple users on a same study. Each time a user saves parameter changes or
-launch a study run, the study is reloaded for each user. If a study is deleted or edited (name, group, flavor...) by a
-user it is closed for each other users that have opened a study.
-
 - **information about calculation status and validation state**: information about different possible calculation status and validation state. <br>
 ![](images/platform_study/study_panel/action_bar/information_calculation_validation.png)
 
@@ -491,13 +499,13 @@ or invalidate data by clicking on the invalidate data button: <br>
 #### Subsection 3.3.2 Charts
 
 The charts section contains all the charts implemented by the developer on each node, as seen in this example at the
-mda_scenarios node: <br>
+GHGCycle node: <br>
 ![](images/platform_study/study_workspace/charts/charts.png)
 They are often related to the model/documentation and data of the node but can also be added anywhere in the treeview.
 
-The charts can be gathered in different tabs at a given node: <br>
+The charts can be gathered in different sections at a given node: <br>
 ![](images/platform_study/study_workspace/charts/charts_in_tab.png) <br>
-In this example, some charts are gathered into the "Key performance indicators" tab.
+In this example, some charts are gathered into the "Capital" section and others in the "Energy" section.
 
 ##### 3.3.2.1 Chart Filters
 
@@ -752,4 +760,5 @@ mode with a deliberate user action. The application will not start a study pod t
 Moreover, the read only mode saves the charts and data independently of the models modifications so even if the study is
 old and doesn't match the code of the model it can still be opened.<br>
 But if a user changes an input of the study, the study is again in configuration mode and is opened in edition mode.<br>
+In edition mode, there is a possibility to regenerate the read-only files if the study is still in status DONE.<br>
 In stand-alone mode, the study is a read only mode state that cannot be edited. Once a study is in read-only mode, it can be exported and imported again in a stand-alone study that is completly independant of model evolutions or deletion.<br>
