@@ -2,46 +2,65 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v5.3.2
+Date: 2025-08-04
+
+### Features
+#### Build
+- Improved bundle size by adding dynamic library loading
+
+#### Read-only mode
+- Added possibility to reload read-only mode in GUI
+
+### Library version upgrades
+- gemseo to 6.1.0
+
+### Bug Fixes
+- Hotfixed bug with d3-dispatch version upgraded
+- Fixed default size of tables in post-processing
+- Fixed interface diagram display area update on resize
+
 ## Release v5.3.1
 Date: 2025-07-01
 
 ### Features
 
 #### Core
-Variable parameter visibility removed to specifiy if a variable is 'shared', now there is only need to set a namespace to tell if a variable is shared.
+- Variable parameter visibility removed to specify if a variable is 'shared', now there is only need to set a namespace to tell if a variable is shared.
 
-#### Import/ Export study
-Increase max study zip import size to 100Mo.
+#### Import/Export study
+- Increased max study zip import size to 100MB.
 
 #### Dashboard feature
-Have a smaller grid scale.
+- Added smaller grid scale.
 
 #### API
-Grouped some common routes between API V0 and API data with blueprints.
+- Grouped some common routes between API V0 and API data with blueprints.
 
-#### Fix Library version upgrades for local install
+### Library version upgrades
+#### Local install
 - scipy from 1.13.1 to 1.13.0
 
-#### fix local install
-Fixed uv command for install scripts in some environments
+### Bug Fixes
+#### Local install
+- Fixed uv command for install scripts in some environments
 
 ## Release v5.3.0
 Date: 2025-06-18
 
 ### Features
 
-#### New Dashboard feature
-A new Dashboard feature is now available. A dashboard can be created with study charts, texts and charts section. See the user manual for more information.
+#### Dashboard feature
+- A new Dashboard feature is now available. A dashboard can be created with study charts, texts and charts section. See the user manual for more information.
 
-#### Import/ Export study
-There is now the possibility to export a study in zip format and to import this study zip to create a study in stand-alone mode. A study in stand-alone mode is not editable and independant from any model source code change. This way, a study can be imported cross platform.
-See the user manual for more information.
-
-The study read-only files are saved in a new folder location and a migration script is run with the "init_process" flask command.
+#### Import/Export study
+- There is now the possibility to export a study in zip format and to import this study zip to create a study in stand-alone mode. A study in stand-alone mode is not editable and independent from any model source code change. This way, a study can be imported cross platform.
+- See the user manual for more information.
+- The study read-only files are saved in a new folder location and a migration script is run with the "init_process" flask command.
 
 #### Core
-- fix gather monoscenario outputs when outputs are nested types
-- in dataset import/export, fix variables that have a point in short name
+- Fixed gather monoscenario outputs when outputs are nested types
+- In dataset import/export, fixed variables that have a point in short name
 
 ### Library version upgrades
 - pytest-cov from 5.0.0 to 6.2.0
@@ -77,42 +96,37 @@ Date: 2025-04-15
 
 ### Features
 
-#### PYTHON 3.12 UPDATE
-Migrate from python 3.9 to python 3.12
+#### Python 3.12 Update
+- Migrate from python 3.9 to python 3.12
 
-#### Important Upgrade Information for python 3.12
-To upgrade your local installation to python 3.12 :
+##### Important Upgrade Information for Python 3.12
+To upgrade your local installation to python 3.12:
 - Clone or pull new version of platforms repository
 - Remove .env folder
 - Run PrepareVenv.py script (it will recreate venv with python 3.12)
 
 #### Graphical User Interface (GUI)
-
-* New fullscreen mode
-* Donuts chart
-* Button to switch to Read-Only Mode from Editon Mode
+- New fullscreen mode
+- Donuts chart
+- Added button to switch to read-only mode from Edition Mode
 
 ### Library version upgrades
+- numpy from 1.24.4 to 1.26.4
 
-* numpy from 1.24.4 to 1.26.4
-
-#### Bug Fixes
-- Buxfixes ReadOnly Mode loading
-- xmlsec version
-- Ontology discipline import issues
+### Bug Fixes
+- Fixed read-only mode loading
+- Fixed xmlsec version
+- Fixed ontology discipline import issues
 
 ## Release v5.1.1
-Date: 2025-18-03
+Date: 2025-03-18
 
-### Features
-This release is a hotfix release embedding the following bugfixes.
-
-#### Bug Fixes
-- Fixed verison for xmlsec to prevent docker build errors
+### Bug Fixes
+- Fixed version for xmlsec to prevent docker build errors
 - Use 0.39.1 release of eventlet to embed hotfix of queue typing
-- Bugfix for command update readonly mode diagrams
-- Bugfix for study active at pod start
-- Bugfix for version.info
+- Fixed command update read-only mode diagrams
+- Fixed study active at pod start
+- Fixed version.info
 
 ## Release v5.1.0
 Date: 2025-03-10
@@ -198,19 +212,20 @@ Date: 2025-03-10
       ```
 - Core: New possibility to have display names in archi builders.
 
-#### API/ User interface
-- A study pod is no more needed to open a study in read-only mode. It mainly improve the study opening performances. 
-  ##### Important Upgrade Information for v5.1.0 on your local installation
-    - To upgrade to version 5.1.0, and still see visualization diagrams of your existing studies, you can update your already created studies read only mode by running the flask command `update_read_only_files_with_visualization`. 
-    ```
-    flask update_read_only_files_with_visualization
-    ```
+#### API/User interface
+- A study pod is no longer needed to open a study in read-only mode. This mainly improves study opening performance.
 
-#### Bug Fixes
-- Fix Petsc error when loading gemseo addons when there is no PETSC environment variable.
+##### Important Upgrade Information for v5.1.0 on your local installation
+- To upgrade to version 5.1.0, and still see visualization diagrams of your existing studies, you can update your already created studies' read-only mode by running the flask command `update_read_only_files_with_visualization`:
+  ```
+  flask update_read_only_files_with_visualization
+  ```
 
-#### Local installation
-- updated Developer Manual on ReadTheDoc
+### Bug Fixes
+- Fixed Petsc error when loading gemseo addons when there is no PETSC environment variable.
+
+### Local installation
+- Updated Developer Manual on ReadTheDoc
 
 ## Release v5.0.2
 Date: 2025-02-14
@@ -218,27 +233,27 @@ Date: 2025-02-14
 ### Features
 
 #### API
-* Keycloak authorization:
+- Keycloak authorization:
   - Platform authorization access is conditioned to the permissions to access the 'Default resource'
-* Add study loading at pod start
+- Added study loading at pod start
 
 #### Graphical User Interface (GUI)
-* Update Angular version from 15 to 16
-* Fix error/warning lint
-* Charts:
-  - Have a new chart section 'Key charts'
-  - Charts are no more ordered by alphabetical order.
-* Treeview: show the path to the discipline in error
+- Updated Angular version from 15 to 16
+- Fixed error/warning lint
+- Charts:
+  - Added a new chart section 'Key charts'
+  - Charts are no longer ordered alphabetically
+- Treeview: show the path to the discipline in error
 
 #### Core
-* Datasets:
-  - Have local repository connector available in V1
-* Fixed the double execution of MDA + driver + MDA
+- Datasets:
+  - Added local repository connector availability in V1
+- Fixed the double execution of MDA + driver + MDA
 
 #### Local installation
-* Local installation improvements
-    - use uv instead of pip
-* Fix minor bugs on windows/linux installation
+- Local installation improvements
+    - Use uv instead of pip
+- Fixed minor bugs on windows/linux installation
 
 ## Release v5.0.1
 Date: 2025-01-21
@@ -254,21 +269,21 @@ Date: 2025-01-21
     - Improved documentation of new repository addition
 
 #### Core
-- Run gemseo script (MDO & MDA) into SoStrades
+- Added gemseo script execution (MDO & MDA) into SoStrades
 
 #### Graphical User Interface (GUI)
-- Fix Download study data button and move it into the opened study treeview
+- Fixed Download study data button and moved it into the opened study treeview
 
 #### Other
-- Add pre-commit hook
+- Added pre-commit hook
 
-### Bug fixes
-- Local Installation script issues fixes
+### Bug Fixes
+- Fixed Local Installation script issues
 - SQLite driver foreign key handling activated
 - Minor fixes on GEMSEO compatibility
 
 ### Library version upgrades
-* python-keycloak from 4.2.0 to 5.1.1
+- python-keycloak from 4.2.0 to 5.1.1
 
 ## Release v5.0.0
 Date: 2024-12-19
@@ -276,19 +291,19 @@ Date: 2024-12-19
 ### Features
 
 #### Major Upgrade to GEMSEO v6.0.0
-  - Update installation of GEMSEO as a library.
-  - Native GEMSEO handling of former SoSTrades capabilities (Automatic MDA pre-run).
-  - Rename variables on SoSTrades in coherence with GEMSEO.
-  - Extensive bug-fixing.
-  - More robust handling of data (types, exceptions) and algorithm options (pydantic models).
-  - Refer to https://gemseo.readthedocs.io/en/stable/software/upgrading.html
-  - Small memory increase due to GEMSEO known issue.
+- Updated installation of GEMSEO as a library
+- Native GEMSEO handling of former SoSTrades capabilities (Automatic MDA pre-run)
+- Renamed variables on SoSTrades in coherence with GEMSEO
+- Extensive bug-fixing
+- More robust handling of data (types, exceptions) and algorithm options (pydantic models)
+- Refer to https://gemseo.readthedocs.io/en/stable/software/upgrading.html
+- Small memory increase due to GEMSEO known issue
 
-#### Bug Fixes
+### Bug Fixes
 - Fixed error display in markdown documentation on GUI
 
-#### Local Installation
-- Improvement of Linux local installation
+### Local Installation
+- Improved Linux local installation
 
 
 ## Release v4.2.0
@@ -305,74 +320,75 @@ Date: 2024-11-21
 #### API
 - Integrated Keycloak provider to handle user authentication
 - Support of SQLite for local installation
-    ### Important Upgrade Information for v4.2.0
-    - To upgrade to version 4.2.0, you must update your database configuration in the sostrades-webapi `configuration.json` file. 
-    - If you wish to maintain connectivity with your existing MySQL database, follow these steps:
-    1. Locate the `SQL_ALCHEMY_DATABASE` and `LOGGING_DATABASE` sections in your configuration file.
-    2. Update these sections according to the new format shown below.
-        #### Old format (pre v4.2.0)
-        ```json
-          "SQL_ALCHEMY_DATABASE": {
-            "HOST" : "127.0.0.1",
-            "PORT" : 3306,
-            "USER_ENV_VAR": "SQL_ACCOUNT",
-            "PASSWORD_ENV_VAR": "SQL_PASSWORD",
-            "DATABASE_NAME": "sostrades-data",
-              "SSL": false
-          },
-          "SQLALCHEMY_TRACK_MODIFICATIONS": false,
-          "LOGGING_DATABASE": {
-            "HOST" : "127.0.0.1",
-            "PORT" : 3306,
-            "USER_ENV_VAR": "LOG_USER",
-            "PASSWORD_ENV_VAR": "LOG_PASSWORD",
-            "DATABASE_NAME": "sostrades-log",
-            "SSL": false
-          },
-        ```
-          
-        ### v4.2.0 Format
-        ```json
-            "SQL_ALCHEMY_DATABASE": {
-                "ENGINE_OPTIONS": {
-                    "pool_size":10,
-                    "pool_recycle":7200
-                },
-                "CONNECT_ARGS": {
-                    "ssl": false,
-                    "charset": "utf8mb4"
-                },
-                "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-data",
-                "URI_ENV_VARS": {
-                    "USER": "SQL_ACCOUNT",
-                    "PASSWORD": "SQL_PASSWORD"
-                }
-            },
-            "SQLALCHEMY_TRACK_MODIFICATIONS": false,
-            "LOGGING_DATABASE": {
-                "ENGINE_OPTIONS": {
-                    "pool_size":10,
-                    "pool_recycle":7200
-                },
-                "CONNECT_ARGS": {
-                    "ssl": false,
-                    "charset": "utf8mb4"
-                },
-                "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-log",
-                "URI_ENV_VARS": {
-                    "USER": "LOG_USER",
-                    "PASSWORD": "LOG_PASSWORD"
-                }
-            },
-        ```
 
-#### Bug Fixes
+### Important Upgrade Information for v4.2.0
+- To upgrade to version 4.2.0, you must update your database configuration in the sostrades-webapi `configuration.json` file. 
+- If you wish to maintain connectivity with your existing MySQL database, follow these steps:
+1. Locate the `SQL_ALCHEMY_DATABASE` and `LOGGING_DATABASE` sections in your configuration file.
+2. Update these sections according to the new format shown below.
+
+#### Old format (pre v4.2.0)
+```json
+"SQL_ALCHEMY_DATABASE": {
+  "HOST" : "127.0.0.1",
+  "PORT" : 3306,
+  "USER_ENV_VAR": "SQL_ACCOUNT",
+  "PASSWORD_ENV_VAR": "SQL_PASSWORD",
+  "DATABASE_NAME": "sostrades-data",
+    "SSL": false
+},
+"SQLALCHEMY_TRACK_MODIFICATIONS": false,
+"LOGGING_DATABASE": {
+  "HOST" : "127.0.0.1",
+  "PORT" : 3306,
+  "USER_ENV_VAR": "LOG_USER",
+  "PASSWORD_ENV_VAR": "LOG_PASSWORD",
+  "DATABASE_NAME": "sostrades-log",
+  "SSL": false
+},
+```
+    
+#### v4.2.0 Format
+```json
+  "SQL_ALCHEMY_DATABASE": {
+      "ENGINE_OPTIONS": {
+          "pool_size":10,
+          "pool_recycle":7200
+      },
+      "CONNECT_ARGS": {
+          "ssl": false,
+          "charset": "utf8mb4"
+      },
+      "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-data",
+      "URI_ENV_VARS": {
+          "USER": "SQL_ACCOUNT",
+          "PASSWORD": "SQL_PASSWORD"
+      }
+  },
+  "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+  "LOGGING_DATABASE": {
+      "ENGINE_OPTIONS": {
+          "pool_size":10,
+          "pool_recycle":7200
+      },
+      "CONNECT_ARGS": {
+          "ssl": false,
+          "charset": "utf8mb4"
+      },
+      "URI":"mysql+mysqldb://{USER}:{PASSWORD}@127.0.0.1:3306/sostrades-log",
+      "URI_ENV_VARS": {
+          "USER": "LOG_USER",
+          "PASSWORD": "LOG_PASSWORD"
+      }
+  },
+```
+
+### Bug Fixes
 - Resolved an error that occurred during ontology installation on local Windows setups
 
-#### Testing
-
-- End-to-end tests (E2E)
-  - Added new test cases for authentication with Keycloak
+### Testing
+#### End-to-end tests (E2E)
+- Added new test cases for authentication with Keycloak
 
 ## Release v4.1.3
 Date: 2024-10-24
@@ -399,7 +415,7 @@ Date: 2024-10-24
 - Updated watcher for pod allocation
 - Implemented study activity status verification
 
-#### Bug Fixes
+### Bug Fixes
 - Fixed error display during visualization-coupling-graph loading
 - Implemented Git info reload after each click
 - Resolved duplicate post-processing issue
@@ -408,167 +424,188 @@ Date: 2024-10-24
 - Implemented waiting for "Ready" status from Kubernetes to ensure pod creation before opening a study
 - Fixed "show legend" option on plots for charts
 
-#### Testing
-- Unit tests (L0 core)
-  - Implemented tests for datasets with groups
+### Testing
+#### Unit tests (L0 core)
+- Implemented tests for datasets with groups
 
-- End-to-end tests (E2E)
-  - Added tests for study creation from references
-  - Implemented tests for flavor editing
+#### End-to-end tests (E2E)
+- Added tests for study creation from references
+- Implemented tests for flavor editing
 
 ## Release v4.1.2
 Date: 2024-09-05
 
 ### Features
-* GUI: Add a button on dataset import/export notification changes to export a CSV with data changes information (including path to dataset data)
-This comes with the following changes:
-- Database: new database migration (need to do a "flask db upgrade" command) to add 2 new columns to the StudyParameterChange table
-- Datasets: Add function build_path_to_data that return the path/link/uri to retrieve the data in the dataset
-* GUI: Hide dashboard page
-* Sostrades-core: improve test gradient strategy
-* Flavors configuration: sort flavors list by memory request and limit.
-* Remove all coedition users at pod start (after the clean of all study pod allocation)
+#### Graphical User Interface (GUI)
+- Added a button on dataset import/export notification changes to export a CSV with data changes information (including path to dataset data)
+  This comes with the following changes:
+  - Database: new database migration (need to do a "flask db upgrade" command) to add 2 new columns to the StudyParameterChange table
+  - Datasets: Added function build_path_to_data that returns the path/link/uri to retrieve the data in the dataset
+- Hidden dashboard page
+
+#### Core
+- Improved test gradient strategy in sostrades-core
+
+#### Configuration
+- Flavors configuration: sort flavors list by memory request and limit.
+- Remove all coedition users at pod start (after the clean of all study pod allocation)
 
 ## Release v4.1.1 
 Date: 2024-08-27
 
 ### Features
-* Post-processings: add search bar in filters
-* Post-processings section: save user section opened
-* Datasets in Bigquery: add index sorting to keep dataframes order
-* GUI header: display github repositories info with commits and tags
-* GUI data management: limit the display of data size over 2Mo and limit data upload to 50Mo.
-* API: Study API has the same image than the main Data API.
-* Ontology: Added profiling and upgraded performances of ontology computation
+#### Post-processing
+- Added search bar in filters
+- Post-processing section: save user section opened
 
-### Bug fixes
-* Fix Post-processings update when several disciplines at one node.
-* Fix display icon for metrics in execution Logs
+#### Datasets
+- Datasets in BigQuery: added index sorting to maintain dataframe order
+
+#### Graphical User Interface (GUI)
+- GUI header: display github repositories info with commits and tags
+- GUI data management: limit the display of data size over 2MB and limit data upload to 50MB
+
+#### API
+- Study API has the same image as the main Data API
+
+#### Ontology
+- Added profiling and upgraded performance of ontology computation
+
+### Bug Fixes
+- Fixed post-processing update when several disciplines at one node
+- Fixed display icon for metrics in execution logs
 
 ### Other
-* Files reformatted with ruff checks
+- Files reformatted with ruff checks
 
 ### Library version upgrades
-* matplotlib from 3.9.0 to 3.9.2
-* openturns from 1.18 to 1.23
-* plotly from 5.3.0 to 5.22.0
-* sympy from 1.9 to 1.13.0
-* pytest from 7.4.3 to 8.1.2
-* pytest-cov from 4.1.0 to 5.0.0
-* pytest-xdist from 3.4.0 to 3.6.1
-* flask from 1.1.1 to 2.3.3
-* flask-jwt-extended from 3.24.1 to 4.6.0
-* flask-migrate from 2.5.2 to 4.0.7
-* flask-SQLAlchemy from 2.4.1 to 2.5.1
-* SQLAlchemy from 1.3.13 to 1.4.52
-* graphviz from 0.16 to 0.20.3
-* jinja2 from 3.0.1 to 3.1.4
-* PyJWT from 1.7.1 to 2.8.0
-* werkzeug from 2.0.3 to 2.3.8
+- matplotlib from 3.9.0 to 3.9.2
+- openturns from 1.18 to 1.23
+- plotly from 5.3.0 to 5.22.0
+- sympy from 1.9 to 1.13.0
+- pytest from 7.4.3 to 8.1.2
+- pytest-cov from 4.1.0 to 5.0.0
+- pytest-xdist from 3.4.0 to 3.6.1
+- flask from 1.1.1 to 2.3.3
+- flask-jwt-extended from 3.24.1 to 4.6.0
+- flask-migrate from 2.5.2 to 4.0.7
+- flask-SQLAlchemy from 2.4.1 to 2.5.1
+- SQLAlchemy from 1.3.13 to 1.4.52
+- graphviz from 0.16 to 0.20.3
+- jinja2 from 3.0.1 to 3.1.4
+- PyJWT from 1.7.1 to 2.8.0
+- werkzeug from 2.0.3 to 2.3.8
 
-### GUI Library version upgrades
-* Plotly to 2.23
-* Changed markdown library from markdown-it to ngx-markdown
-* Katex from 0.13 to 0.16
-* Removed karma library
+#### GUI Library version upgrades
+- Plotly to 2.23
+- Changed markdown library from markdown-it to ngx-markdown
+- Katex from 0.13 to 0.16
+- Removed karma library
 
-### Requirements added
-* ngx-markdown (15.1.2) (GUI)
-* google-cloud-bigquery-storage (2.25.0)
-* eventlet: 0.36.1
+#### Requirements added
+- ngx-markdown (15.1.2) (GUI)
+- google-cloud-bigquery-storage (2.25.0)
+- eventlet: 0.36.1
 
 ## Release v4.1.0 
 Date: 2024-07-15
 
 ### Compatibility notice
-* Separation of sostrades-optimization-plugins module from platform core: add repository [https://github.com/os-climate/sostrades-optimization-plugins](https://github.com/os-climate/sostrades-optimization-plugins) for WITNESS optimization processes to continue functioning
+- Separation of sostrades-optimization-plugins module from platform core: add repository [https://github.com/os-climate/sostrades-optimization-plugins](https://github.com/os-climate/sostrades-optimization-plugins) for WITNESS optimization processes to continue functioning
 
 ### Features
-* Datasets: wildcards generalized, parameter-level mapping, metadata
-* Datasets in Bigquery: import, export, column name compatibility
-* Post-processing sections
-* Test speed-up: partial testing of use cases to avoid duplicates
+#### Datasets
+- Wildcards generalized, parameter-level mapping, metadata
+- Datasets in BigQuery: import, export, column name compatibility
 
-### Bug fixes
-* Pod execution metrics display on GUI (GB/GiB unit)
-* Output retrieval mechanism for nested multi-scenarios
-* Spurious double configuration of multi-instance disciplines
+#### Post-processing
+- Added post-processing sections
+
+#### Testing
+- Test speed-up: partial testing of use cases to avoid duplicates
+
+### Bug Fixes
+- Fixed pod execution metrics display on GUI (GB/GiB unit)
+- Fixed output retrieval mechanism for nested multi-scenarios
+- Fixed spurious double configuration of multi-instance disciplines
 
 ### Other
-* Pre-commit and improved ruff checks (in DevOps)
+- Pre-commit and improved ruff checks (in DevOps)
 
 ### Library version upgrades
-* tqdm from 4.61.0 to 4.66.4
-* matplotlib from 3.4.3 to 3.9.0
-* black from 22.12.0 to 24.4.2
-* python-arango from 7.5.8 to 8.0.0
-* cvxpy from 1.1.18 to 1.5.2 
-* pycryptodome from 3.19.1 to 3.20.0
-* sympy from 1.4 to 1.9
-* requests from 2.31.0 to 2.32.3
-* urllib3 from 2.1.0 to 2.2.2
-* psutil from 5.9.5 to 6.0.0
-* python-dotenv from 0.12.0 to 1.0.1
-* python-keycloak from 4.0.0 to 4.2.0
-* pytz from 2023.3.post1 to 2024.1 
-* build-angular and angular cli from 15.2.10 to 15.2.11
+- tqdm from 4.61.0 to 4.66.4
+- matplotlib from 3.4.3 to 3.9.0
+- black from 22.12.0 to 24.4.2
+- python-arango from 7.5.8 to 8.0.0
+- cvxpy from 1.1.18 to 1.5.2 
+- pycryptodome from 3.19.1 to 3.20.0
+- sympy from 1.4 to 1.9
+- requests from 2.31.0 to 2.32.3
+- urllib3 from 2.1.0 to 2.2.2
+- psutil from 5.9.5 to 6.0.0
+- python-dotenv from 0.12.0 to 1.0.1
+- python-keycloak from 4.0.0 to 4.2.0
+- pytz from 2023.3.post1 to 2024.1 
+- build-angular and angular cli from 15.2.10 to 15.2.11
 
-### Requirements added
-* ruff (0.5.0)
-* google-cloud-bigquery (3.25.0)
-* pyarrow (16.1.0)
-* db-types (1.2.0)
-* pycel (1.0b30)
+#### Requirements added
+- ruff (0.5.0)
+- google-cloud-bigquery (3.25.0)
+- pyarrow (16.1.0)
+- db-types (1.2.0)
+- pycel (1.0b30)
 
 ## Release v4.0.2
 Date: 2024-06-17
 
 ### Features
+#### Kubernetes
+- Added Kubernetes watcher
 
-* Kubernetes watcher
-* Datasets extended types in file system (import only)
-* Ruff linting
+#### Datasets
+- Added dataset extended types in file system (import only)
 
-### Bug fixes
+#### Code Quality
+- Added Ruff linting
 
-* Documentation and visualisation tabs display
-* Scrollbar on spreadsheet view
-* Treeview display with multi-instance driver
-* Avoid dump of empty cache
-* Directory removal and creation
+### Bug Fixes
+- Fixed documentation and visualisation tabs display
+- Fixed scrollbar on spreadsheet view
+- Fixed treeview display with multi-instance driver
+- Avoid dump of empty cache
+- Fixed directory removal and creation
 
 ### Library version upgrades
-
-* kubernetes (python library) from 11.0.0 to 29.0.0
+- kubernetes (python library) from 11.0.0 to 29.0.0
 
 ## Release v4.0.1
 Date: 2024-06-05
 
 ### Features
+#### Performance
+- Added Petsc garbage clean-up after Petsc execution
+- Added option to deactivate post-processing in MDODiscipline
+- Added jacobian clearing after each end of MDO scenarios to improve memory performance
 
-* Add Petsc garbage clean-up after Petsc execution
-* Add option to deactivate postprocessing in MDODiscipline
-* Clear jacobians after each end of MDO scenarios to improve memory performances
-* New method get_datasets_database_mappings_folder_path to find the mapping folder path for a given repository name
+#### Datasets
+- Added new method get_datasets_database_mappings_folder_path to find the mapping folder path for a given repository name
 
-### Bug fixes
-
-* Add sparse matrices (lil_matrix) to initiate analytic gradients
+### Bug Fixes
+- Added sparse matrices (lil_matrix) to initiate analytic gradients
 
 ### Library version upgrades
-
-* chaospy from 4.3.7 to 4.3.15
-* numpy from 1.23.3 to 1.24.4
-* pandas from 2.2.1 to 2.2.2
-* gitpython from 3.1.31 to 3.1.43
-* jsonpickle from 3.0.2 to 3.0.4
+- chaospy from 4.3.7 to 4.3.15
+- numpy from 1.23.3 to 1.24.4
+- pandas from 2.2.1 to 2.2.2
+- gitpython from 3.1.31 to 3.1.43
+- jsonpickle from 3.0.2 to 3.0.4
 
 ## Release v4.0.0
 Initial release
 
 ## Tagged Repositories
 
-* [https://github.com/os-climate/sostrades-core](https://github.com/os-climate/sostrades-core)
-* [https://github.com/os-climate/sostrades-webapi](https://github.com/os-climate/sostrades-webapi)
-* [https://github.com/os-climate/sostrades-webgui](https://github.com/os-climate/sostrades-webgui)
-* [https://github.com/os-climate/sostrades-ontology](https://github.com/os-climate/sostrades-ontology)
+- [https://github.com/os-climate/sostrades-core](https://github.com/os-climate/sostrades-core)
+- [https://github.com/os-climate/sostrades-webapi](https://github.com/os-climate/sostrades-webapi)
+- [https://github.com/os-climate/sostrades-webgui](https://github.com/os-climate/sostrades-webgui)
+- [https://github.com/os-climate/sostrades-ontology](https://github.com/os-climate/sostrades-ontology)
