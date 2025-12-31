@@ -1,48 +1,42 @@
-# VS Code and Venv Tips
+# VS Code and Venv tips
+This page covers some information about VS code and python venv usage tips.
 
-This page provides concise information about using Visual Studio Code (VS Code) and Python virtual environments (venv).
+## Visual Studio Code (VSCode) 
+VSCode settings have been written in dedicated files during installation (script `PrepareDevEnv`).
 
-## Visual Studio Code (VS Code)
-
-VS Code settings have been configured during the installation process using the `PrepareDevEnv` script.
-
-To benefit from these settings, open the `sostrades-dev-tools` directory in VS Code by running the following command in the terminal:
-
+In order to benefit from VSCode settings, type the following command in the `sostrades-dev-tools` directory, at the same level than the `./vscode` (hidden) folder (or `models/` and `platform/` visible directories) :
 ```bash
 code .
 ```
 
-### Using venv in VS Code
+### Use venv in VS code
 
-1. Open the command palette by pressing `Ctrl + Shift + P`.
-2. Search for "Python: Select Interpreter" and select it.
+In VS Code, use keys ctrl + shift + p to open command panel, search for "Python: Select Interpreter"
 
-![Select Interpreter](images/select_interpreter.png)
+![](images/select_interpreter.png) 
 
-3. Choose "Python 3.12.x ('.venv')".
+Select "Python 3.12.x (".venv") (or higher version)
 
-![Select Python](images/select_python.png)
+![](images/select_python.png) 
 
-Now you can run any SoSTrades code from VS Code.
+Now you can launch any SoSTrades code from VSCode.
 
-## Using venv
 
-To activate the virtual environment with all the required packages installed, run the following command from the `sostrades-dev-tools` folder:
+## Venv
 
-### Windows
+To run .venv with all requirements installed, run the following command from your `sostrade-dev-tools` folder:
 
+(Windows)
 ```bash
 .venv/Scripts/activate
 ```
-
-### Linux
-
+(Linux)
 ```bash
 . .venv/bin/activate
 ```
 
-To deactivate the virtual environment, use the following command:
+To exit the venv just use this command
 
-```bash
+```
 deactivate
 ```

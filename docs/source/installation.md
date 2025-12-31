@@ -1,14 +1,14 @@
 # SoSTrades Platform Installation
 
-This section is dedicated to installing the SoSTrades platform locally.
+This section is dedicated to install SoSTrades platform locally.
 
-> You can contribute to this documentation, give feedback, and raise a [GitHub issue](https://github.com/os-climate/sostrades-dev-tools/issues).
+> You can contribute to this documentation, give feedbacks and raise a [github issue](https://github.com/os-climate/sostrades-dev-tools/issues).
 
 Please note that supported operating systems are standard Linux-based systems, macOS systems, and Windows.
 
-It contains script facilities to clone repositories and create a virtual environment for the SoSTrades project.
+It contains script facilities to clone repositories, and create virtual environment for SoSTrades project.
 
-The expected folder organization is the following:
+The expected folder organisation is the following :
 
 ```
 ├── sostrades-dev-tools
@@ -27,56 +27,73 @@ The expected folder organization is the following:
 └── other files...
 ```
 
-You are then free to change branches, pull changes, clone new model repositories, and use scripts at your convenience.
-Please follow the [add a new repository](add-repository.md) page to add new repositories.
 
-## 1. Choose Your Installation
+You are then free to change branches, pull changes, clone new model repositories and use scripts at your convenience.
+Please follow [add a new repository](add-repository.md) page to add new repositories.
 
-Two installations are available. This page documents the "standard" way of installation.
-* [Common Setup](#2-common-setup) covers prerequisites for installation.
-* [Local Model Development Environment Installation](#3-local-model-development-environment-installation) covers the installation of SoSTrades as a library enabling model development.
-* [Local Platform Installation](#4-local-platform) covers local platform installation to have a working local platform for GUI interaction and visualization.
+## 1. Choose your installation
 
-If needed, you may install a docker running platform by following the [Common Setup section](#2-common-setup) and then [Docker installation](docker_installation.md).
+Two installation are available. This page documents the "standard" way of installation.
+* [common setup](#2-common-setup) Covers prerequisites for installation
+* [Local Model Development Environment Installation](#3-local-model-development-environment-installation) covers installation of SoSTrades as a library enabling model development
+* [Local Platform Installation](#4-local-platform) covers local platform installation to have a working local platform for GUI interaction and visualization
+
+If needed, you may install a docker running platform, by following [common setup section](#2-common-setup) and then [Docker installation](docker_installation.md).
 
 ## 2. Common Setup
 
 This section outlines how to organize your environment and folders for installation.
 
 ### 2.1 Setup Prerequisites
+If a prior SoSTrades installation relying on `PYTHONPATH` exists, it must be disabled to avoid conflicts. To do this:
+
+- Open the Windows Control Panel and delete the `PYTHONPATH` environment variable.
+
 #### 2.1.1 Common Prerequisites
 
 > - 10 GB of disk space.
-> - Any version of Python installed
-> - pip module
+> - Python version 3.12 or higher (latest available [here](https://www.python.org/downloads/)).
 > - Git.
 > - NVS on Linux
 
-Verify prerequisites:
+*Note:* If a different Python version is installed, the `python` command is probably bound to it, resulting in a version conflict. Use the full path to the Python 3.12+ executable in your filesystem to call the various scripts.
+On Windows installation, python is typically installed in `C:/Users/<User>/AppData/Local/Programs/Python/Python312/python.exe` (adjust version number as needed)
+
+
+Verify versions:
 
 ```bash
-python -m pip --version
+<path_to_python_3.12+_executable> --version
 git --version
 ```
 
 #### 2.1.2 Linux Packages Installation
 
-Install Git and additional prerequisites:
+Install Python and Git with:
 
 1. Update the package list:
     ```bash
     apt update
     ```
 
-2. Install Git:
+2. Install Python 3.12+ and essential tools:
+    ```bash
+    apt install -y software-properties-common
+    add-apt-repository -y ppa:deadsnakes/ppa
+    apt update
+    apt install -y python3.12 python3.12-venv python3.12-distutils python3-pip python3.12-dev
+    python3.12 --version
+    ```
+
+3. Install Git:
     ```bash
     apt install -y git
     ```
 
-3. Install additional prerequisites. Use your package manager to install them (example with apt):
-    ```bash
-    sudo apt install -y pkg-config libmysqlclient-dev libsqlite3-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
-    ```
+Install additional prerequisites. Use your package manager to install them (example with apt):
+```bash
+sudo apt install -y pkg-config libmysqlclient-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
+```
 
 Install Node Version Switcher (NVS):
 ```bash
@@ -92,9 +109,9 @@ While untested on personal macOS laptops, the installation process should follow
 
 ### 2.2 Clone Code and Tools
 
-All development environments are built from a dedicated directory initiated with this repository. This directory will be used as root and will contain all the other necessary repositories from OS-Climate. This root directory contains VSCode tasks and launch docker-compose files. This allows launching SoSTrades in docker containers and debugging webapi servers directly from the container in VS Code. From the repository, a script is available to clone all the repositories to prepare the development environment.
+All development environments are built from a dedicated directory initiated with this repository. This directory will be used as root and will contains all the others necessary repositories from OS-Climate. This root directory contains VSCode tasks and launch docker-compose files. This allows to launch SoSTrades in docker containers and to debug webapi servers directly from thus container in VS Code. From the repository a script is available to clone all the repositories to prepare the development environment.
 
-1. Clone this repository in the root directory
+1. Clone this repository in root directory
 ```bash
 git clone https://github.com/os-climate/sostrades-dev-tools
 (For SSH: git clone git@github.com:os-climate/sostrades-dev-tools.git)
@@ -109,7 +126,7 @@ Ensure the root directory:
 
 If conditions are unmet, the `PrepareVenv` script may fail.
 
-2. If needed, configure model repositories:
+2. If needed configure model repositories:
 Edit `model_repositories.json` and `platform_repositories.json` to specify repositories. Example:
 
 ```json
@@ -130,10 +147,10 @@ Edit `model_repositories.json` and `platform_repositories.json` to specify repos
 ```
 
 3. Launch `PrepareDevEnv`:
-This script clones the repositories and creates configuration files for VS Code.
+This scripts clones the repositories and creates configuration files for VS Code.
 
 ```bash
-python scripts/PrepareDevEnv.py
+<path_to_python_3.12+_executable> scripts/PrepareDevEnv.py
 ```
 
 ## 3. Local Model Development Environment Installation
@@ -146,10 +163,10 @@ Follow the [Common Setup section](#2-common-setup).
 
 ### 3.2 Prepare Virtual Environment
 ```bash
-python scripts/PrepareVenv.py
+<path_to_python_3.12+_executable> scripts/PrepareVenv.py
 ```
 
-Some usage tips for Visual Studio Code and venv are available in [Visual Studio Code and Venv Tips](vs_code_venv_tips.md) and are recommended if you plan to develop models.
+Some usage tips for Visual Studio code and venv are available in [visual studio code and venv tips](vs_code_venv_tips.md) and are recommended if you plan to develop models.
 
 ## 4. Local Platform
 
@@ -165,30 +182,30 @@ Follow:
 
 1. Run `Configuration.py`:
     ```bash
-    python scripts/Configuration.py
+    <path_to_python_3.12+_executable> scripts/Configuration.py
     ```
 
-2. Run `NodeInstallation.py` to install NVS and Node. At the end of the script, it will ask you if you want to build the webgui:
+2. Run `NodeInstallation.py` to install NVS and Node. At the end of the script it will ask you if you want to build the webgui:
     ```bash
-    python scripts/NodeInstallation.py
+    <path_to_python_3.12+_executable> scripts/NodeInstallation.py
     ```
 
 3. Create a user with `CreateUser.py`:
     ```bash
-    python scripts/CreateUser.py
+    <path_to_python_3.12+_executable> scripts/CreateUser.py
     ```
-Important: the `CreateUser.py` script will ask you to input some information (user, name, last name, and e-mail). Leaving any of these fields empty will result in the script crashing; at least a character is required. 
+Important: the `CreateUser.py` script will ask you to input some information (user, name, last name and e-mail). Leaving any of these fields empty will result in the script crashing, at least a character is required. 
 
-4. (optional) Update Ontology. This script could take more than 15 minutes; it depends on the number of repositories you have:
+4. (optional) Update Ontology. This script could take more than 15mn it depends on the number of repository you have:
     ```bash
-    python scripts/UpdateOntology.py
+    <path_to_python_3.12+_executable> scripts/UpdateOntology.py
     ```
 
 ### 4.3 Start SoSTrades Platform
 
 #### Windows
 ```bash
-python scripts/StartSOSTrades.py
+<path_to_python_3.12+_executable> scripts/StartSOSTrades.py
 ```
 
 #### Linux
@@ -196,55 +213,38 @@ python scripts/StartSOSTrades.py
 bash scripts/Linux-StartSOSTrades.sh
 ```
 
-Instructions for the user:
+Instructions for user:
 - Navigate between panes using `Ctrl-b` and arrow keys (Up, Down, Left, Right).
 - Close a single pane by typing `exit` in it.
 - Detach from the session without closing it: `Ctrl-b d`.
 - Close the entire session: `Ctrl-b :` and type `kill-session`.
 
 #### Connecting
-When the last script is running, you can go to [http://localhost:4200](http://localhost:4200) with your web browser and connect with your credentials just created before. Make sure opened terminals show no obvious errors.
+When the last script is running you can go to [http://localhost:4200](http://localhost:4200) with your web browser and connect with your credentials just created before. Make sure opened terminals show no obvious errors.
 
-The user is the one entered previously, and the password is temporarily saved in `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/secret/*`.
+The user is the one entered previously and the password is temporarily saved in `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/secret/*`.
 
-### 4.4 Pull Repositories
 
-If you need to pull all your repositories (both platform and models), you can execute the script `PullRepositories.py`: 
+### 4.4 Pull repositories
+
+If you need to pull all your repositories (both platform and models) you can execute the script `PullRepositories.py` : 
 
 ```bash
-python scripts/PullRepositories.py
+<path_to_python_3.12+_executable> scripts/PullRepositories.py
 ```
 
-## 5. Troubleshooting
-
-### Common Issues
-
-#### Issue: `PYTHONPATH` Conflicts
-If a prior SoSTrades installation relying on `PYTHONPATH` exists, it must be disabled to avoid conflicts. To do this:
-- Open the Windows Control Panel and delete the `PYTHONPATH` environment variable.
-
-#### Issue: Virtual Environment Setup Fails
-Ensure the root directory:
-- Has no spaces in its name.
-- Is writable by the scripts.
-
-If conditions are unmet, the `PrepareVenv` script may fail.
-
-### Additional Help
-For further assistance, please raise a [GitHub issue](https://github.com/os-climate/sostrades-dev-tools/issues).
-
-## 6. Script Descriptions
-- `PrepareDevEnv.py`: script to download all model repositories from `model_repositories.json` and platform repositories from `platform_repositories.json` with the `git clone` command. Repositories are cloned in `sostrades-dev-tool/models` and `sostrades-dev-tool/platform`. The script also creates a `sostrades-dev-tools/.vscode/setting.json` file with extraPaths according to the repository cloned.
-- `PrepareVenv.py`: script to install a venv in the folder `sostrades-dev-tools/.venv` with Python 3.12 and install all requirements of SoSTrades.
-- `Configuration.py`: script to create files and folders needed by SoSTrades:
-  - `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json`
-  - `sostrades-dev-tools/platform/sostrades-webapi/.flaskenv`
-  - `sostrades-dev-tools/data/REFERENCES/`
-  - `sostrades-dev-tools/data/RSA/private_key.pem`
-  - `sostrades-dev-tools/data/RSA/public_key.pem`
-- `NodeInstallation.py`: script to install NVS (Node Version Switcher) and also install a version of Node with NVS. In addition, it is possible to build `sostrades-webgui`.
-- `CreateUser.py`: script that creates a user in SoSTrades with the command `flask create_standard_user`. When the user is created, a password is temporarily saved in `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/secret/*`. Once stored, the password has to be deleted. Some SoSTrades app rights are granted in the database with the `flask` command.
-- `UpdateOntology.py`: script will execute with your `.venv` the command `python sos_ontology/core/script/createSoSOntologyFromCode.py` in the `sostrades-ontology` folder to update ontology with all your repositories.
-- `StartSOSTrades.py`: script that runs the API server, ontology server, and webgui server with venv and node.
-- `Linux-StartSOSTrades.py`: same as before - use tmux to split the screen.
-- `FullInstall.py`: script for a direct full install. Execute like `python scripts/FullInstall.py`.
+## 5. Script Descriptions
+- PrepareDevEnv.py : script to download all model repositories from model_repositories.json and platform repositories from platform_repositories.json with git clone command. Repositories are cloned in sostrades-dev-tool/models and sostrades-dev-tool/platform. The script also creates a `sostrades-dev-tools/.vscode/setting.json` file with extraPaths according to the repository cloned,
+- PrepareVenv.py: script to install a venv in the folder `sostrades-dev-tools/.venv` with Python 3.12+ and install all requirements of SoSTrades,
+- Configuration.py: script to create files and folders needed by SoSTrades
+> - `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json`
+> - `sostrades-dev-tools/platform/sostrades-webapi/.flaskenv`
+> - `sostrades-dev-tools/data/REFERENCES/`
+> - `sostrades-dev-tools/data/RSA/private_key.pem`
+> - `sostrades-dev-tools/data/RSA/public_key.pem`
+- `NodeInstallation.py`: script to install a NVS (Node Version Switcher) and also install a version of Node with NVS. In addition it is possible to build sostrades-webgui
+- `CreateUser.py` : script that creates an user in SoSTrades with the command `flask create_standard_user`. When the user is created, a password is temporarily saved in `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/secret/*`. Once stored, the password has to be deleted. Some SoSTrades app rights are granted in the database with flask command.
+- `UpdateOntology.py` script will execute with your `.venv` the command `python sos_ontology/core/script/createSoSOntologyFromCode.py`in `sostrades-ontology` folder to update ontology with all your repositories
+- `StartSOSTrades.py` : script that run api server, ontology server, and webgui server with venv and node
+- `Linux-StartSOSTrades.py` : same as before - use tmux to split screen
+- `FullInstall.py` : script for a direct full install. Execute like `python scripts/FullInstall.py`
