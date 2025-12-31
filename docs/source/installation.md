@@ -47,15 +47,17 @@ This section outlines how to organize your environment and folders for installat
 #### 2.1.1 Common Prerequisites
 
 > - 10 GB of disk space.
-> - Any version of Python installed
-> - pip module
+> - Python version 3.12 or higher (latest available [here](https://www.python.org/downloads/)).
 > - Git.
 > - NVS on Linux
+
+*Note:* If a different Python version is installed, the `python` command is probably bound to it, resulting in a version conflict. Use the full path to the Python 3.12+ executable in your filesystem to call the various scripts.
+On Windows installation, python is typically installed in `C:/Users/<User>/AppData/Local/Programs/Python/Python312/python.exe` (adjust version number as needed).
 
 Verify prerequisites:
 
 ```bash
-python -m pip --version
+<path_to_python_3.12+_executable> --version
 git --version
 ```
 
@@ -68,12 +70,21 @@ Install Git and additional prerequisites:
     apt update
     ```
 
-2. Install Git:
+2. Install Python 3.12+ and essential tools:
+    ```bash
+    apt install -y software-properties-common
+    add-apt-repository -y ppa:deadsnakes/ppa
+    apt update
+    apt install -y python3.12 python3.12-venv python3-pip python3.12-dev
+    python3.12 --version
+    ```
+
+3. Install Git:
     ```bash
     apt install -y git
     ```
 
-3. Install additional prerequisites. Use your package manager to install them (example with apt):
+4. Install additional prerequisites. Use your package manager to install them (example with apt):
     ```bash
     sudo apt install -y pkg-config libmysqlclient-dev libsqlite3-dev build-essential libldap2-dev libsasl2-dev python-dev-is-python3 libssl-dev curl tmux
     ```
@@ -133,7 +144,7 @@ Edit `model_repositories.json` and `platform_repositories.json` to specify repos
 This script clones the repositories and creates configuration files for VS Code.
 
 ```bash
-python scripts/PrepareDevEnv.py
+<path_to_python_3.12+_executable> scripts/PrepareDevEnv.py
 ```
 
 ## 3. Local Model Development Environment Installation
@@ -146,7 +157,7 @@ Follow the [Common Setup section](#2-common-setup).
 
 ### 3.2 Prepare Virtual Environment
 ```bash
-python scripts/PrepareVenv.py
+<path_to_python_3.12+_executable> scripts/PrepareVenv.py
 ```
 
 Some usage tips for Visual Studio Code and venv are available in [Visual Studio Code and Venv Tips](vs_code_venv_tips.md) and are recommended if you plan to develop models.
@@ -165,30 +176,30 @@ Follow:
 
 1. Run `Configuration.py`:
     ```bash
-    python scripts/Configuration.py
+    <path_to_python_3.12+_executable> scripts/Configuration.py
     ```
 
 2. Run `NodeInstallation.py` to install NVS and Node. At the end of the script, it will ask you if you want to build the webgui:
     ```bash
-    python scripts/NodeInstallation.py
+    <path_to_python_3.12+_executable> scripts/NodeInstallation.py
     ```
 
 3. Create a user with `CreateUser.py`:
     ```bash
-    python scripts/CreateUser.py
+    <path_to_python_3.12+_executable> scripts/CreateUser.py
     ```
 Important: the `CreateUser.py` script will ask you to input some information (user, name, last name, and e-mail). Leaving any of these fields empty will result in the script crashing; at least a character is required. 
 
 4. (optional) Update Ontology. This script could take more than 15 minutes; it depends on the number of repositories you have:
     ```bash
-    python scripts/UpdateOntology.py
+    <path_to_python_3.12+_executable> scripts/UpdateOntology.py
     ```
 
 ### 4.3 Start SoSTrades Platform
 
 #### Windows
 ```bash
-python scripts/StartSOSTrades.py
+<path_to_python_3.12+_executable> scripts/StartSOSTrades.py
 ```
 
 #### Linux
@@ -212,7 +223,7 @@ The user is the one entered previously, and the password is temporarily saved in
 If you need to pull all your repositories (both platform and models), you can execute the script `PullRepositories.py`: 
 
 ```bash
-python scripts/PullRepositories.py
+<path_to_python_3.12+_executable> scripts/PullRepositories.py
 ```
 
 ## 5. Troubleshooting
@@ -235,7 +246,7 @@ For further assistance, please raise a [GitHub issue](https://github.com/os-clim
 
 ## 6. Script Descriptions
 - `PrepareDevEnv.py`: script to download all model repositories from `model_repositories.json` and platform repositories from `platform_repositories.json` with the `git clone` command. Repositories are cloned in `sostrades-dev-tool/models` and `sostrades-dev-tool/platform`. The script also creates a `sostrades-dev-tools/.vscode/setting.json` file with extraPaths according to the repository cloned.
-- `PrepareVenv.py`: script to install a venv in the folder `sostrades-dev-tools/.venv` with Python 3.12 and install all requirements of SoSTrades.
+- `PrepareVenv.py`: script to install a venv in the folder `sostrades-dev-tools/.venv` with Python 3.12+ and install all requirements of SoSTrades.
 - `Configuration.py`: script to create files and folders needed by SoSTrades:
   - `sostrades-dev-tools/platform/sostrades-webapi/sos_trades_api/configuration_template/configuration.json`
   - `sostrades-dev-tools/platform/sostrades-webapi/.flaskenv`
@@ -247,4 +258,4 @@ For further assistance, please raise a [GitHub issue](https://github.com/os-clim
 - `UpdateOntology.py`: script will execute with your `.venv` the command `python sos_ontology/core/script/createSoSOntologyFromCode.py` in the `sostrades-ontology` folder to update ontology with all your repositories.
 - `StartSOSTrades.py`: script that runs the API server, ontology server, and webgui server with venv and node.
 - `Linux-StartSOSTrades.py`: same as before - use tmux to split the screen.
-- `FullInstall.py`: script for a direct full install. Execute like `python scripts/FullInstall.py`.
+- `FullInstall.py`: script for a direct full install. Execute like `<path_to_python_3.12+_executable> scripts/FullInstall.py`.

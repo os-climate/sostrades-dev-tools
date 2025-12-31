@@ -14,6 +14,7 @@ limitations under the License.
 '''
 import os
 import platform
+import sys
 
 # Paths
 platform_dir_name="platform"
@@ -32,6 +33,9 @@ python_version_to_install = "3.12.9"
 # Variable with the path of .venv
 venv_path = f"{sostrades_dev_tools_path}/.venv"
 
+# Get Python version for site-packages path
+python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+
 # Check if the platform is Windows
 if platform.system() == 'Windows':
     # Define the variable with a Windows-specific path
@@ -43,7 +47,7 @@ else:
     # Define the variable with a generic path for other platforms
     venv_script_activate_path = f"{venv_path}/bin/activate"
     venv_script_activate_command = f". '{venv_path}/bin/activate'"
-    venv_lib_site_package_path = f"{venv_path}/lib/python3.12/site-packages"
+    venv_lib_site_package_path = f"{venv_path}/lib/python{python_version}/site-packages"
     run_prefix_system = ""
 
 vscode_dir = ".vscode"
