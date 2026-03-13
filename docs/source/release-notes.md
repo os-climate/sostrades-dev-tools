@@ -2,6 +2,20 @@
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
 
+## Release v5.3.5
+Date: 2026-03-13
+
+### Features
+
+#### Core
+- Removed value analysis feature
+
+### BUG fixes
+
+#### Core
+- Fixed treeview post processing node not showing
+
+
 ## Release v5.3.4
 Date: 2025-12-16
 
