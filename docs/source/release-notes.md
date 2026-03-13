@@ -1,6 +1,14 @@
 # Release notes
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
+## release v5.3.6
+Date 2026-03-13
+
+### Feature
+
+#### Build
+- Updated Petsc (3.23.6 to 3.24.5)
+
 
 ## Release v5.3.5
 Date: 2026-03-13
