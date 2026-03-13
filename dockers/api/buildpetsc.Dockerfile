@@ -34,22 +34,26 @@ RUN python -m pip install --no-cache-dir --upgrade pip && \
     python -m uv pip install --no-cache-dir setuptools numpy==${NUMPY_VERSION}
 
 # PETSC version and directory
-ARG PETSC_VERSION="3.24.0"
+ARG PETSC_VERSION="3.24.5"
 ARG PETSC_BUILD_DIR="/petsc-build"
 ARG PETSC_INSTALL_DIR="/petsc-install"
 ENV PYTHON_SITE_PACKAGE_DIR="/usr/local/lib/python3.12/site-packages"
 
-# Download and install PETSc
+# Download and install PETSc (without petsc4py)
 RUN git clone --branch v${PETSC_VERSION} --depth 1 https://gitlab.com/petsc/petsc.git ${PETSC_BUILD_DIR} && \
     cd ${PETSC_BUILD_DIR} &&\
     export PETSC_ARCH=arch-linux-c-debug && \
     export PETSC_DIR=${PETSC_BUILD_DIR} && \
     mkdir ${PETSC_INSTALL_DIR} && \
-    ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-petsc4py=yes --download-petsc4py=yes --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${PETSC_INSTALL_DIR}&& \
+    ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --with-shared-libraries --download-mpich --download-fblaslapack --prefix=${PETSC_INSTALL_DIR}&& \
     make all install check && \
     cd ../ && \
-    rm -rf ${PETSC_BUILD_DIR} && \
-    echo "${PETSC_INSTALL_DIR}/lib" > "${PYTHON_SITE_PACKAGE_DIR}/petsc4py.pth"
+    rm -rf ${PETSC_BUILD_DIR}
+
+# Install petsc4py separately using pip
+RUN export PETSC_DIR=${PETSC_INSTALL_DIR} && \
+    export PETSC_ARCH="" && \
+    python -m uv pip install --no-cache-dir petsc4py
 
 # Update env with PETSC install
 ENV PATH=${PETSC_INSTALL_DIR}/bin:${PATH}
