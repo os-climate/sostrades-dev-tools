@@ -1,0 +1,12 @@
+# Pre-commit configuration file
+# This is a minimal configuration to satisfy pre-commit.ci
+# Actual linters and hooks can be added later
+
+repos:
+  # Placeholder repository with no-op hook
+  - repo: meta
+    hooks:
+      - id: identity
+        name: No-op placeholder hook
+        description: Placeholder hook that does nothing
+        always_run: true

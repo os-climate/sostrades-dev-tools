@@ -13,10 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 '''
-PrepareVenv.py is a script that install venv in the path sostrades-dev-tools/.venv only if you have a python with any version and pip module installed.
-After the environement is created it will install all requirements of platform, model, and in addition python_ldap. 
-At the end of the script, a file sostrades-dev-tools/.venv/lib/site-packages/sostrades.pth with is created with all path of the different repositories.
-Then is is possible to run the .venv with the commande sostrades-dev-tools/.venv/Scripts/activate
+PrepareVenv.py is a script that installs venv in the path sostrades-dev-tools/.venv only if you have a python version 3.12 or higher.
+After the environment is created it will install all requirements of platform, model, and in addition python_ldap.
+At the end of the script, a file sostrades-dev-tools/.venv/lib/site-packages/sostrades.pth is created with all paths of the different repositories.
+Then it is possible to run the .venv with the command sostrades-dev-tools/.venv/Scripts/activate
 '''
 import os
 import sys
@@ -24,12 +24,11 @@ import sys
 from constants import (
     platform_path,
     model_path,
+    sostrades_dev_tools_path,
     venv_script_activate_path,
     venv_script_activate_command,
     venv_path,
     venv_lib_site_package_path,
-    run_prefix_system,
-    python_version_to_install,
 )
 from tooling import run_command, list_directory_paths
 
@@ -43,55 +42,98 @@ def write_array_to_file(array, file_path):
             f.write(f"{item}\n")
     print(f"Array written to {file_path} successfully.")
 
-# Check pip module is installed
-check_pip_command = f"\"{sys.executable}\" -m pip --version"    
-if os.system(check_pip_command) != 0:
+
+# Display Python version
+python_version = sys.version.split()[0]
+print(f"Python version : {python_version}")
+
+# Check Python version
+required_python_major_version = 3
+required_python_minor_version = 12
+
+if sys.version_info.major < required_python_major_version or (
+    sys.version_info.major == required_python_major_version
+    and sys.version_info.minor < required_python_minor_version
+):
     raise Exception(
-        f"Pip module is required to run this script. Please install it before running this script."
+        f"Python version {python_version} detected, but Python v{required_python_major_version}.{required_python_minor_version}+ is required"
     )
 
-# Install uv module
-install_uv_command = f"\"{sys.executable}\" -m pip install uv"
-run_command(install_uv_command)
-uv_command = f"\"{sys.executable}\" -m uv"
-
-# Create a venv with the good python version inside sostrades-dev-tools/.venv if it doesn't exist
-create_venv_command = f'{run_prefix_system}{uv_command} venv "{venv_path}" --python={python_version_to_install}'
-if not os.path.exists(venv_script_activate_path):
-    run_command(create_venv_command)
-    print(f'Venv created in the folling path : "{venv_path}"')
+# Create a venv with the good python version inside sostrades-dev-tools/.venv
+if os.path.exists(venv_script_activate_path):
+    print(f"Virtual environment already exists at {venv_path}. Recreating it with --clear flag.")
+    create_venv_command = f"{sys.executable} -m venv --clear {venv_path}"
 else:
-    print(f'Venv already exists in the following path : "{venv_path}"')
+    print(f"Creating new virtual environment at {venv_path}")
+    create_venv_command = f"{sys.executable} -m venv {venv_path}"
 
-# Install platform and model requirements
+run_command(create_venv_command)
+
+# Verify the venv was created successfully
 if not os.path.exists(venv_script_activate_path):
     raise Exception(
-        "Virtual environment (venv) is not well installed so the requierements cannot be installed"
+        f"Virtual environment creation failed. Activation script not found at: {venv_script_activate_path}"
     )
 
-requirements_models = []
-for model_folder in os.listdir(model_path):
-    requirements_path = f"{model_path}/{model_folder}/requirements.txt"
-    if os.path.exists(requirements_path):
-        requirements_models.append(f'-r "{model_path}/{model_folder}/requirements.txt"')
-requirements_model_command = " ".join(requirements_models)
+print(f"Venv created successfully in: {venv_path}")
 
-run_command(
-    f'{venv_script_activate_command} && {uv_command} pip list --python="{venv_path}" && \
-    {uv_command} pip install wheel setuptools --python="{venv_path}" && \
-    {uv_command} pip install \
-    -r "{platform_path}/sostrades-core/requirements.txt" \
-    -r "{platform_path}/sostrades-ontology/requirements.txt" \
-    -r "{platform_path}/sostrades-webapi/requirements.txt" \
-    {requirements_model_command} --python="{venv_path}" && \
-    {uv_command} pip list --python="{venv_path}"'
-)
+# Helper function to find requirements file (prefers .in, falls back to .txt, then pyproject.toml)
+def find_requirements_file(repo_path):
+    # Check if the repository directory exists
+    if not os.path.isdir(repo_path):
+        return None
+
+    if os.path.exists(f"{repo_path}/requirements.in"):
+        return f"-r {repo_path}/requirements.in"
+    elif os.path.exists(f"{repo_path}/requirements.txt"):
+        return f"-r {repo_path}/requirements.txt"
+    elif os.path.exists(f"{repo_path}/pyproject.toml"):
+        return f"-e {repo_path}"
+    return None
+
+# Collect platform requirements
+platform_requirements = []
+for repo_name in ["sostrades-core", "sostrades-ontology", "sostrades-webapi"]:
+    repo_path = f"{platform_path}/{repo_name}"
+    req_file = find_requirements_file(repo_path)
+    if req_file:
+        platform_requirements.append(req_file)
+    else:
+        print(f"Warning: No requirements file found for {repo_name}")
+
+# Collect model requirements
+requirements_models = []
+if os.path.exists(model_path):
+    for model_folder in os.listdir(model_path):
+        model_repo_path = f"{model_path}/{model_folder}"
+        if os.path.isdir(model_repo_path):
+            req_file = find_requirements_file(model_repo_path)
+            if req_file:
+                requirements_models.append(req_file)
+
+# Combine all requirements
+all_requirements = " ".join(platform_requirements + requirements_models)
+
+# Validate that we have requirements to install
+if not all_requirements.strip():
+    raise Exception(
+        "No requirements files found in platform or model repositories. "
+        "Please ensure repositories contain requirements.in, requirements.txt, or pyproject.toml files."
+    )
+
+# Install all requirements
+install_command = f"{venv_script_activate_command} && pip list && \
+    python -m pip install --no-cache-dir wheel && \
+    python -m pip install --no-cache-dir {all_requirements} && \
+    pip list"
+
+run_command(install_command)
 
 #  Create sostrades.pth inside the .venv
 sostrades_pth_path = f"{venv_lib_site_package_path}/sostrades.pth"
 if not os.path.exists(venv_lib_site_package_path):
     raise Exception(
-        "Virtual environment (venv) is not well installed so the requierements cannot be installed"
+        "Virtual environment (venv) is not well installed so the requirements cannot be installed"
     )
 
 # Call the function to get directory paths
