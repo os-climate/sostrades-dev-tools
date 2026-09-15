@@ -1,6 +1,73 @@
 # Release notes
 
 The proper versioning and release of SoSTrades has started with the version 4.0.0.
+## release v5.3.6
+Date 2026-03-13
+
+### Feature
+
+#### Build
+- Updated Petsc (3.23.6 to 3.24.5)
+
+
+## Release v5.3.5
+Date: 2026-03-13
+
+### Features
+
+#### Core
+- Removed value analysis feature
+
+### BUG fixes
+
+#### Core
+- Fixed treeview post processing node not showing
+
+
+## Release v5.3.4
+Date: 2025-12-16
+
+### Features
+#### Core
+- Add parallel mono instance driver (DOE) feature: 
+  set the input parameter of the Eval node at Number of Processes (n_processes) > 1
+
+### Bug fixes
+
+#### Core
+- Fixed treeview build when coupling of coupling at root level.
+- fix sum value block discipline
+
+## Release v5.3.3
+Date: 2025-11-03
+
+### Features
+#### Build
+- Updated petsc (3.21.6 to 3.23.6)
+- Updated pyproject.tml for easier installation
+
+#### Code Quality
+- Added some python annotations and type hints
+
+#### Dashboard improvements
+- Display a data in dashboard
+- Load default process dashboard
+
+#### Core
+- Added plotly map chart in post-processing tools
+- Added a value decision module
+
+#### API V0
+- Added a user API key (in addition to group API key)
+
+### Bug fixes
+
+#### Core
+- fixed display of the treeview with post-processing nodes
+
+#### API/GUI 
+  - fixed stand-alone import/export
+  - Fixed ontology model documentation
 
 ## Release v5.3.2
 Date: 2025-08-04

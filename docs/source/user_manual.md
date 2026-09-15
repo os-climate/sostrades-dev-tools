@@ -594,16 +594,26 @@ The dashboard provides a way to create custom visualizations with graphs from th
 
 ##### Dashboard Elements
 The Dashboard supports three types of elements:
-- **Charts**: graphs from the Charts tab of the study workspace.
+- **Charts**: charts from the Charts tab of the study workspace.
+- **Data**: data from the Data tab of the study workspace.
 - **Text Boxes**: For adding formatted text, notes, explanations or instructions.
 - **Sections**: Containers elements that can group related items together charts or text boxes.
 
 **Charts**<br>
-Graph elements display visualizations from the Charts tab:
+Chart elements display visualizations from the Charts tab:
 
-Users can add any graph available in the Charts tab to the Dashboard, with the same interactive features such as zooming, panning, and data exploration.
+Users can add any chart available in the Charts tab to the Dashboard, with the same interactive features such as zooming, panning, and data exploration.
 
 ![](images/platform_study/study_workspace/dashboard/graph.png)
+
+
+**Data**</br>
+Data elements from the Data tab.
+
+User can had any data available in the Data tab to the dashboard, with the same interactive feature such as open ontology information, show etc...
+
+![data dashboard](images/platform_study/study_workspace/dashboard/dashboard_value_data.png)
+
 
 **Text Boxes**<br>
 Text sections allow users to add formatted text content using a rich text editor:
@@ -625,9 +635,12 @@ The Dashboard includes several controls for managing the layout and content:
 After switching to edit mode, users can add, remove, and rearrange elements on the Dashboard. The edit mode button is located at the top right of the Dashboard.<br>
 It unleashes the full editing capabilities of the Dashboard.
 
-**Adding graphs**<br>
-While being in edit mode, users can add graphs from the Charts tab to the Dashboard by clicking the star icon in the top left corner of a chart: <br>
+**Adding charts**<br>
+While being in edit mode, users can add charts from the Charts tab to the Dashboard by clicking the star icon in the top left corner of a chart: <br>
 ![](images/platform_study/study_workspace/dashboard/adding_charts.png) <br>
+
+**Adding data**<br>
+Same as charts, each data has a star icon on its top-left corner. Use this icon to add or remove a data from the dashboard.
 
 **Adding text boxes**<br>
 They can be added by clicking the "Add Text" button in the toolbar at the top right of the Dashboard.
@@ -667,10 +680,11 @@ The grid is expanding only vertically and the elements can be swapped if you dra
 
 For the resizing, the elements can be resized horizontally and vertically by dragging the borders of the element.
 Each element has a restriction on the size you can resize it to, so that the content is still visible.
-* Charts -> 3 x 2
+* Charts -> 12 x 12
+* Data -> 1 x 2
 * Text Boxes -> 1 x 1
 * collapsed Sections -> not available for resizing
-* expanded Sections -> 10 x 4
+* expanded Sections -> 5 x 40
 
 In case of a bad resize of an element, the Dashboard will automatically resize it to the minimum size of the element and will display a notification to the user.
 ![](images/platform_study/study_workspace/dashboard/resizing_error.png)
