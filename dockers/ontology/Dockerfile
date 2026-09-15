@@ -26,7 +26,7 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.26.4"
+ARG NUMPY_VERSION="2.3.3"
 
 # Upgrade pip and install uv
 RUN python -m pip install --no-cache-dir --upgrade pip && \
@@ -83,7 +83,7 @@ RUN ls -d ${pwd}/platform/* | tr '\n' ':' > /tmp/pythonpath.txt && \
 FROM python:3.12
 
 # Numpy version
-ARG NUMPY_VERSION="1.26.4"
+ARG NUMPY_VERSION="2.3.3"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 

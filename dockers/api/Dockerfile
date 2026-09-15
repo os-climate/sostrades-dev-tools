@@ -26,7 +26,7 @@ RUN apt-get update && \
     coinor-libcbc-dev cron && apt clean
 
 # Numpy version
-ARG NUMPY_VERSION="1.26.4"
+ARG NUMPY_VERSION="2.3.3"
 
 # Upgrade pip and install uv
 RUN python -m pip install --no-cache-dir --upgrade pip && \

@@ -15,7 +15,7 @@
 FROM python:3.12
 
 # Numpy version
-ARG NUMPY_VERSION="1.26.4"
+ARG NUMPY_VERSION="2.3.3"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
