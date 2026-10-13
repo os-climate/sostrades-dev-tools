@@ -13,7 +13,7 @@
 # limitations under the License.
 #------------------------------------------------------------------------------
 # Stage 1 : Distribution building
-FROM node:18.10.0 as front_build
+FROM node:22.22.3 as front_build
 #------------------------------------------------------------------------------
 # Remove question about analytics
 RUN export NG_CLI_ANALYTICS=off
