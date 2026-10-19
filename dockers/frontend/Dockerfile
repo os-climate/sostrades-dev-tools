@@ -20,6 +20,8 @@ RUN export NG_CLI_ANALYTICS=off
 
 WORKDIR /tmp/node_build/sostrades-webgui/
 
+RUN npm install --global npm@12.2.0 && npm --version
+
 #------------------------------------------------------------------------------
 # Install project package and build distribution
 ADD ./platform/sostrades-webgui/package.json ./
